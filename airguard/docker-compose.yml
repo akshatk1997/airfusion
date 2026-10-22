@@ -1,0 +1,56 @@
+version: "3.8"
+
+services:
+  airguard-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: airguard-web
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - airguard-data:/app/data
+      - airguard-models:/app/models
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # Optional background ingestion worker running every hour
+  airguard-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: airguard-worker
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - airguard-data:/app/data
+      - airguard-models:/app/models
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          echo "[`date -u +'%Y-%m-%dT%H:%M:%SZ'`] Running scheduled atmospheric ingestion pipeline..."
+          python src/data_collection.py || true
+          echo "[`date -u +'%Y-%m-%dT%H:%M:%SZ'`] Ingestion complete. Sleeping for 3600 seconds."
+          sleep 3600
+        done
+    depends_on:
+      - airguard-web
+
+volumes:
+  airguard-data:
+    name: airguard-data
+  airguard-models:
+    name: airguard-models

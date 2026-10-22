@@ -1,0 +1,208 @@
+{
+  "champion_model": "XGBoost",
+  "metrics_comparison": {
+    "Persistence Baseline": {
+      "val": {
+        "mae": 23.655,
+        "rmse": 34.623,
+        "r2": -0.8084,
+        "mape": 61.86,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 168,
+          "total_predicted_unsafe": 169,
+          "true_positives": 54,
+          "false_positives": 115,
+          "false_negatives": 114,
+          "true_negatives": 412,
+          "precision": 0.32,
+          "recall": 0.321,
+          "f1_score": 0.32,
+          "accuracy": 0.671
+        }
+      },
+      "test": {
+        "mae": 27.903,
+        "rmse": 38.827,
+        "r2": -0.99,
+        "mape": 71.15,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 144,
+          "total_predicted_unsafe": 143,
+          "true_positives": 23,
+          "false_positives": 120,
+          "false_negatives": 121,
+          "true_negatives": 431,
+          "precision": 0.161,
+          "recall": 0.16,
+          "f1_score": 0.16,
+          "accuracy": 0.653
+        }
+      }
+    },
+    "Ridge Regression": {
+      "val": {
+        "mae": 17.923,
+        "rmse": 23.222,
+        "r2": 0.1865,
+        "mape": 50.52,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 168,
+          "total_predicted_unsafe": 245,
+          "true_positives": 95,
+          "false_positives": 150,
+          "false_negatives": 73,
+          "true_negatives": 377,
+          "precision": 0.388,
+          "recall": 0.565,
+          "f1_score": 0.46,
+          "accuracy": 0.679
+        }
+      },
+      "test": {
+        "mae": 22.659,
+        "rmse": 26.858,
+        "r2": 0.0478,
+        "mape": 60.87,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 144,
+          "total_predicted_unsafe": 261,
+          "true_positives": 64,
+          "false_positives": 197,
+          "false_negatives": 80,
+          "true_negatives": 354,
+          "precision": 0.245,
+          "recall": 0.444,
+          "f1_score": 0.316,
+          "accuracy": 0.601
+        }
+      }
+    },
+    "Random Forest": {
+      "val": {
+        "mae": 17.837,
+        "rmse": 23.628,
+        "r2": 0.1578,
+        "mape": 48.88,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 168,
+          "total_predicted_unsafe": 193,
+          "true_positives": 66,
+          "false_positives": 127,
+          "false_negatives": 102,
+          "true_negatives": 400,
+          "precision": 0.342,
+          "recall": 0.393,
+          "f1_score": 0.366,
+          "accuracy": 0.671
+        }
+      },
+      "test": {
+        "mae": 20.954,
+        "rmse": 26.316,
+        "r2": 0.0858,
+        "mape": 52.7,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 144,
+          "total_predicted_unsafe": 155,
+          "true_positives": 37,
+          "false_positives": 118,
+          "false_negatives": 107,
+          "true_negatives": 433,
+          "precision": 0.239,
+          "recall": 0.257,
+          "f1_score": 0.247,
+          "accuracy": 0.676
+        }
+      }
+    },
+    "XGBoost": {
+      "val": {
+        "mae": 17.298,
+        "rmse": 23.13,
+        "r2": 0.1929,
+        "mape": 47.72,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 168,
+          "total_predicted_unsafe": 214,
+          "true_positives": 86,
+          "false_positives": 128,
+          "false_negatives": 82,
+          "true_negatives": 399,
+          "precision": 0.402,
+          "recall": 0.512,
+          "f1_score": 0.45,
+          "accuracy": 0.698
+        }
+      },
+      "test": {
+        "mae": 20.912,
+        "rmse": 26.375,
+        "r2": 0.0817,
+        "mape": 51.91,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 144,
+          "total_predicted_unsafe": 156,
+          "true_positives": 33,
+          "false_positives": 123,
+          "false_negatives": 111,
+          "true_negatives": 428,
+          "precision": 0.212,
+          "recall": 0.229,
+          "f1_score": 0.22,
+          "accuracy": 0.663
+        }
+      }
+    },
+    "PyTorch LSTM": {
+      "val": {
+        "mae": 17.834,
+        "rmse": 23.448,
+        "r2": 0.1706,
+        "mape": 51.16,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 168,
+          "total_predicted_unsafe": 234,
+          "true_positives": 102,
+          "false_positives": 132,
+          "false_negatives": 66,
+          "true_negatives": 395,
+          "precision": 0.436,
+          "recall": 0.607,
+          "f1_score": 0.507,
+          "accuracy": 0.715
+        }
+      },
+      "test": {
+        "mae": 21.034,
+        "rmse": 26.728,
+        "r2": 0.057,
+        "mape": 54.43,
+        "high_pollution_detection": {
+          "threshold": 55.5,
+          "total_actual_unsafe": 144,
+          "total_predicted_unsafe": 137,
+          "true_positives": 32,
+          "false_positives": 105,
+          "false_negatives": 112,
+          "true_negatives": 446,
+          "precision": 0.234,
+          "recall": 0.222,
+          "f1_score": 0.228,
+          "accuracy": 0.688
+        }
+      }
+    }
+  },
+  "num_features": 47,
+  "training_samples": 3242,
+  "test_samples": 695
+}

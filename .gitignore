@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments & secrets
+.env
+.venv/
+venv/
+env/
+
+# Ephemeral SQLite WAL logs
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Streamlit temporary / user cache
+.streamlit/
+
+# OS / Editor artifacts
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Scratch & test temp outputs
+scratch/
+chrome_tmp/
+selenium_*.png
