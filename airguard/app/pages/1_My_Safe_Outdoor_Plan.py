@@ -25,6 +25,8 @@ from src.safety_rules import (
     find_safe_outdoor_windows
 )
 from app.components.navbar import render_global_navbar
+from app.components.mode_switcher import is_simple_mode, render_mode_banner
+from app.components.simple_views import render_simple_safe_plan
 from app.components.cards import render_aqi_hero_card
 from app.components.risk_engine import render_risk_score_card
 from app.components.activity_advisor import render_safe_window_card, render_hourly_timeline_strip
@@ -50,6 +52,16 @@ init_db()
 # Synchronized Navigation Bar
 active_city = render_global_navbar("My Safe Outdoor Plan")
 
+# Render Mode Notification Banner
+render_mode_banner()
+
+if is_simple_mode():
+    render_simple_safe_plan(active_city)
+    st.stop()
+
+# ==============================================================================
+# TECHNICAL MODE: DETAILED ANALYTICAL DECISION SUPPORT PIPELINE
+# ==============================================================================
 # Load persistent user health profile from SQLite
 user_prof = get_user_profile()
 

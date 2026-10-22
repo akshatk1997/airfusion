@@ -3,12 +3,30 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.30%2B-FF4B4B.svg)](https://streamlit.io/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-2.0%2B-orange.svg)](https://xgboost.readthedocs.io/)
-[![Tests](https://img.shields.io/badge/Tests-32%20Passing-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/Tests-42%20Passing-brightgreen.svg)]()
 [![Design: Nothing OS](https://img.shields.io/badge/Theme-Nothing%20OS-black.svg)]()
+[![Modes: Simple & Technical](https://img.shields.io/badge/Presentation-Simple%20%7C%20Technical-blueviolet.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **"Know your safe outdoor window before you leave home."**  
 > AirGuard is not a general AQI dashboard. It is a personalized air-safety decision-support product that transforms raw environmental and meteorological data into an actionable **Safe Outdoor Plan** tailored to your age, health sensitivities, planned activity, and continuous exposure duration.
+
+---
+
+## 🎛️ Dual-Presentation Experience: Simple Mode & Technical Mode
+
+AirGuard features a prominent, user-controlled **Global Mode Switcher** accessible from the top-left sidebar and top-right navigation toolbar across every page. It maintains the identical underlying data ingestion, SQLite storage, ML models, and risk scoring while tailoring language and presentation to the user's preference:
+
+| Dimension | 🌿 Simple Mode (Default) | ⚙️ Technical Mode |
+|---|---|---|
+| **Audience** | Everyday users, parents, seniors, runners, non-technical citizens | Data scientists, ML engineers, researchers, atmospheric analysts |
+| **Tone & Vocabulary** | Plain, friendly English: *"Air is unhealthy right now"* | Precise scientific terminology: *"PM₂.₅ 91 µg/m³ (AQI 168)"* |
+| **Primary Hero** | **Air Safety Card**: Direct "Yes/Caution/Avoid" answer to *"Is it safe to go outside right now?"* | Full AQI gauge, US EPA standards, criteria pollutants, verified telemetry timestamps |
+| **Safety Timeline** | 24-hour visual strip with intuitive color-coded blocks (Green/Yellow/Orange/Red) | Continuous Plotly time-series curve with 90% confidence ribbon ($\pm 1.645\sigma$) & threshold lines |
+| **Daily Insights** | **Today's Tip** card translating atmospheric pressure, humidity, and wind into daily advice | Multi-pollutant breakdown ($\text{PM}_{10}, \text{NO}_2, \text{O}_3, \text{CO}, \text{SO}_2$) & meteorological tiles |
+| **Model Insights** | Reassuring explanations: *"We are fairly confident about this forecast / Low wind and high humidity may be making pollution worse"* | Holdout metrics table (MAE, RMSE, $R^2$, MAPE, F1), XAI feature importance bars, leakage prevention docs |
+| **Alert Defense** | 1-click friendly preset dropdown: *"Warn me when air becomes unsafe"* | Micro-adjustable PM₂.₅ numerical sliders, automated multi-city alert log audit table |
+| **Disclaimer** | Plain, visible non-medical safety note on every screen | Comprehensive clinical cohort guidance, HEPA CADR/ACH specs, Open-Meteo REST schemas |
 
 ---
 

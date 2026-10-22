@@ -382,3 +382,192 @@ def render_simple_disclaimer() -> None:
     </div>
     """
     safe_markdown(html)
+
+
+def render_simple_weather_cards(
+    temperature: Optional[float],
+    humidity: Optional[float],
+    wind_speed: Optional[float]
+) -> None:
+    """
+    Renders 3 friendly, large readable weather cards for Simple Mode.
+    Translates raw meteorological variables into clear human comfort explanations.
+    """
+    temp_val = f"{temperature:.0f}°C" if temperature is not None else "--"
+    if temperature is not None:
+        if temperature < 15:
+            temp_note = "Cool & crisp air"
+        elif temperature <= 28:
+            temp_note = "Pleasantly comfortable"
+        else:
+            temp_note = "Warm outdoor temperatures"
+    else:
+        temp_note = "Temperature data pending"
+
+    hum_val = f"{humidity:.0f}%" if humidity is not None else "--"
+    if humidity is not None:
+        if humidity < 40:
+            hum_note = "Dry air — stay hydrated"
+        elif humidity <= 70:
+            hum_note = "Normal comfortable moisture"
+        else:
+            hum_note = "Humid — may hold particles near ground"
+    else:
+        hum_note = "Humidity data pending"
+
+    wind_val = f"{wind_speed:.1f} km/h" if wind_speed is not None else "--"
+    if wind_speed is not None:
+        if wind_speed < 5:
+            wind_note = "Still air — smoke tends to settle"
+        elif wind_speed <= 18:
+            wind_note = "Gentle breeze helps clear pollutants"
+        else:
+            wind_note = "Brisk winds — active dust dispersion"
+    else:
+        wind_note = "Wind data pending"
+
+    html = f"""
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
+        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 16px 20px;">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 6px;">
+                🌡️ Outdoor Temperature
+            </div>
+            <div style="font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800; color: #FFFFFF;">
+                {temp_val}
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #AAAAAA; margin-top: 4px;">
+                {temp_note}
+            </div>
+        </div>
+
+        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 16px 20px;">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 6px;">
+                💧 Air Moisture (Humidity)
+            </div>
+            <div style="font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800; color: #FFFFFF;">
+                {hum_val}
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #AAAAAA; margin-top: 4px;">
+                {hum_note}
+            </div>
+        </div>
+
+        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 16px 20px;">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #888888; text-transform: uppercase; margin-bottom: 6px;">
+                💨 Wind & Ventilation
+            </div>
+            <div style="font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800; color: #FFFFFF;">
+                {wind_val}
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #AAAAAA; margin-top: 4px;">
+                {wind_note}
+            </div>
+        </div>
+    </div>
+    """
+    safe_markdown(html)
+
+
+def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> None:
+    """
+    Renders 2 plain-language pollutant explanation cards for Simple Mode.
+    Translates raw numbers into plain meanings (Tiny harmful particles vs Coarse dust).
+    """
+    if pm25 <= 15:
+        pm25_status = "Very Clean"
+        pm25_color = "#10B981"
+        pm25_desc = "Tiny particles are low and air is very healthy to breathe."
+    elif pm25 <= 35:
+        pm25_status = "Moderate"
+        pm25_color = "#F59E0B"
+        pm25_desc = "Acceptable air. Fine for most healthy adults."
+    elif pm25 <= 75:
+        pm25_status = "High"
+        pm25_color = "#F97316"
+        pm25_desc = "Tiny harmful particles in the air are elevated. Sensitive lungs should limit time outside."
+    else:
+        pm25_status = "Very High"
+        pm25_color = "#EF4444"
+        pm25_desc = "Tiny harmful particles are at dangerous levels. Avoid outdoor exercise."
+
+    pm10_val = pm10 if pm10 is not None else pm25 * 1.6
+    if pm10_val <= 45:
+        pm10_status = "Low Dust"
+        pm10_color = "#10B981"
+        pm10_desc = "Coarse dust, pollen, and road grit are low."
+    elif pm10_val <= 100:
+        pm10_status = "Moderate Dust"
+        pm10_color = "#F59E0B"
+        pm10_desc = "Some road dust or pollen present, but generally fine."
+    else:
+        pm10_status = "Heavy Dust"
+        pm10_color = "#EF4444"
+        pm10_desc = "Noticeable dust, smoke, or pollen in the air."
+
+    html = f"""
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
+        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid {pm25_color}; border-radius: 12px; padding: 18px 22px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">
+                    🔬 Tiny Particles (PM₂.₅)
+                </span>
+                <span style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: {pm25_color}; background: rgba(255, 255, 255, 0.05); padding: 2px 8px; border-radius: 4px; border: 1px solid {pm25_color};">
+                    ● {pm25_status}
+                </span>
+            </div>
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #BBBBBB; margin: 0 0 8px 0; line-height: 1.5;">
+                {pm25_desc}
+            </p>
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; color: #777777;">
+                Measured: {pm25:.1f} µg/m³ (particles 30x smaller than a human hair)
+            </div>
+        </div>
+
+        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid {pm10_color}; border-radius: 12px; padding: 18px 22px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">
+                    💨 Coarse Dust & Pollen (PM₁₀)
+                </span>
+                <span style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: {pm10_color}; background: rgba(255, 255, 255, 0.05); padding: 2px 8px; border-radius: 4px; border: 1px solid {pm10_color};">
+                    ● {pm10_status}
+                </span>
+            </div>
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #BBBBBB; margin: 0 0 8px 0; line-height: 1.5;">
+                {pm10_desc}
+            </p>
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; color: #777777;">
+                Measured: {pm10_val:.1f} µg/m³ (road dust, vehicle grit, construction particles)
+            </div>
+        </div>
+    </div>
+    """
+    safe_markdown(html)
+
+
+def render_simple_indoor_mask_cards(mask_advice: str, indoor_advice: str) -> None:
+    """
+    Renders 2 side-by-side cards for Mask guidance and Indoor air protection.
+    """
+    html = f"""
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
+        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid #38BDF8; border-radius: 12px; padding: 18px 22px;">
+            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
+                😷 Mask Advice
+            </div>
+            <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #CCCCCC; margin: 0; line-height: 1.5;">
+                {mask_advice}
+            </p>
+        </div>
+
+        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid #10B981; border-radius: 12px; padding: 18px 22px;">
+            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
+                🏠 Indoor Air Defense
+            </div>
+            <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #CCCCCC; margin: 0; line-height: 1.5;">
+                {indoor_advice}
+            </p>
+        </div>
+    </div>
+    """
+    safe_markdown(html)
+

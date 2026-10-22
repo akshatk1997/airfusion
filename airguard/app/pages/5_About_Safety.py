@@ -21,6 +21,8 @@ if str(PROJECT_ROOT) not in sys.path:
 from src.config import PRESET_CITIES
 from src.predict import is_model_trained
 from app.components.navbar import render_global_navbar
+from app.components.mode_switcher import is_simple_mode, render_mode_banner
+from app.components.simple_views import render_simple_about_safety
 from app.components.design_system import (
     render_section_header,
     render_metric_tile,
@@ -39,6 +41,13 @@ st.set_page_config(
 
 # Global Navbar
 _ = render_global_navbar("About & Safety")
+
+# Render Mode Notification Banner
+render_mode_banner()
+
+if is_simple_mode():
+    render_simple_about_safety()
+    st.stop()
 
 # Page Header
 render_section_header(

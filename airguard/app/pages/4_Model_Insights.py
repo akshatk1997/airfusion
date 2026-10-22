@@ -23,6 +23,8 @@ from src.predict import is_model_trained
 from src.explainability import get_global_feature_importance
 from src.train_model import run_model_training_pipeline
 from app.components.navbar import render_global_navbar
+from app.components.mode_switcher import is_simple_mode, render_mode_banner
+from app.components.simple_views import render_simple_model_insights
 from app.components.charts import create_feature_importance_chart
 from app.components.design_system import (
     render_section_header,
@@ -42,6 +44,13 @@ st.set_page_config(
 
 # Global Navbar
 _ = render_global_navbar("Model Insights")
+
+# Render Mode Notification Banner
+render_mode_banner()
+
+if is_simple_mode():
+    render_simple_model_insights()
+    st.stop()
 
 # Section Header
 render_section_header(

@@ -32,6 +32,8 @@ from src.database import (
 from src.predict import generate_forecast, is_model_trained
 from src.alerts import evaluate_alerts_for_city
 from app.components.navbar import render_global_navbar
+from app.components.mode_switcher import is_simple_mode, render_mode_banner
+from app.components.simple_views import render_simple_live_tracking
 from app.components.cards import render_aqi_hero_card
 from app.components.health_advisory import render_health_advisory_panel
 from app.components.design_system import (
@@ -53,6 +55,13 @@ st.set_page_config(
 
 # Render Global Navbar
 target_city = render_global_navbar("Live Tracking")
+
+# Render Mode Notification Banner
+render_mode_banner()
+
+if is_simple_mode():
+    render_simple_live_tracking(target_city)
+    st.stop()
 
 @st.cache_data(ttl=CACHE_TTL_SECONDS)
 def get_live_data(city_name: str):

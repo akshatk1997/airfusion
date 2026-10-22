@@ -79,3 +79,49 @@ def test_render_simple_disclaimer():
         disclaimer_html = mock_st_md.call_args[0][0]
         assert "Safety Note:" in disclaimer_html
         assert "medical diagnosis or treatment" in disclaimer_html
+
+
+def test_render_simple_weather_cards():
+    from app.components.simple_cards import render_simple_weather_cards
+    with patch("streamlit.markdown") as mock_st_md:
+        render_simple_weather_cards(temperature=24.5, humidity=60.0, wind_speed=8.5)
+        assert mock_st_md.called
+        html = mock_st_md.call_args[0][0]
+        assert "°C" in html
+        assert "Pleasantly comfortable" in html
+        assert "60%" in html
+        assert "8.5 km/h" in html
+
+
+def test_render_simple_pollutant_cards():
+    from app.components.simple_cards import render_simple_pollutant_cards
+    with patch("streamlit.markdown") as mock_st_md:
+        render_simple_pollutant_cards(pm25=22.0, pm10=45.0)
+        assert mock_st_md.called
+        html = mock_st_md.call_args[0][0]
+        assert "Tiny Particles (PM₂.₅)" in html
+        assert "Coarse Dust & Pollen (PM₁₀)" in html
+        assert "Moderate" in html
+
+
+def test_render_simple_views_execution():
+    from app.components.simple_views import (
+        render_simple_model_insights,
+        render_simple_about_safety
+    )
+    with patch("streamlit.markdown") as mock_st_md:
+        render_simple_model_insights()
+        assert mock_st_md.called
+        html = "".join([call[0][0] for call in mock_st_md.call_args_list if call[0]])
+        assert "How AirGuard Forecasts Pollution" in html
+        assert "We are fairly confident about this forecast." in html
+        assert "Low wind traps smoke" in html
+
+    with patch("streamlit.markdown") as mock_st_md:
+        render_simple_about_safety()
+        assert mock_st_md.called
+        html = "".join([call[0][0] for call in mock_st_md.call_args_list if call[0]])
+        assert "Simple Safety & Mask Guide" in html
+        assert "N95 / KN95 / FFP2 Masks" in html
+        assert "Keeping Your Home Air Clean" in html
+

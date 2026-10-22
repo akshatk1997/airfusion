@@ -27,6 +27,8 @@ from src.data_collection import fetch_and_store_city_data
 from src.preprocessing import clean_air_quality_dataframe
 from src.predict import generate_forecast, is_model_trained
 from app.components.navbar import render_global_navbar
+from app.components.mode_switcher import is_simple_mode, render_mode_banner
+from app.components.simple_views import render_simple_trends
 from app.components.design_system import (
     render_section_header,
     render_metric_tile,
@@ -52,6 +54,13 @@ st.set_page_config(
 
 # Global Navbar
 selected_city = render_global_navbar("Trends")
+
+# Render Mode Notification Banner
+render_mode_banner()
+
+if is_simple_mode():
+    render_simple_trends(selected_city)
+    st.stop()
 
 # Data Retrieval with automatic backfill if sparse
 df_hist = fetch_historical_records(city=selected_city)

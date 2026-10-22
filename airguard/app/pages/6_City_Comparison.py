@@ -24,6 +24,8 @@ from src.data_collection import fetch_current_air_quality, geocode_city
 from src.database import fetch_historical_records, fetch_all_locations, get_or_create_location
 from src.predict import generate_forecast, is_model_trained
 from app.components.navbar import render_global_navbar
+from app.components.mode_switcher import is_simple_mode, render_mode_banner
+from app.components.simple_views import render_simple_city_comparison
 from app.components.design_system import (
     render_section_header,
     render_metric_tile,
@@ -47,6 +49,13 @@ st.set_page_config(
 
 # Global Navbar with active city synchronization
 current_active_city = render_global_navbar("City Comparison")
+
+# Render Mode Notification Banner
+render_mode_banner()
+
+if is_simple_mode():
+    render_simple_city_comparison(current_active_city)
+    st.stop()
 
 # Page Header
 render_section_header(
