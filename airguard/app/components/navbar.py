@@ -13,6 +13,13 @@ from src.config import PRESET_CITIES, DEFAULT_CITY
 from src.database import get_or_create_location, fetch_all_locations
 from src.data_collection import geocode_city, fetch_current_air_quality
 from app.components.design_system import inject_foundation_styles, format_location_label, ICONS, safe_markdown
+from app.components.mode_switcher import (
+    render_mode_switcher,
+    get_view_mode,
+    set_view_mode,
+    SIMPLE_MODE,
+    TECHNICAL_MODE
+)
 
 
 def _init_location_registry() -> None:
@@ -78,9 +85,17 @@ def render_global_navbar(page_title: str = "") -> str:
     """
     inject_foundation_styles()
     _init_location_registry()
+    render_mode_switcher("sidebar")
+    current_mode = get_view_mode()
 
     registry = st.session_state["location_registry"]
     current_city = st.session_state["selected_city"]
+
+    mode_badge = (
+        f"""<span class="ag-badge ag-badge-good" style="font-size: 0.68rem; padding: 3px 10px;">🌿 {current_mode.upper()}</span>"""
+        if current_mode == SIMPLE_MODE
+        else f"""<span class="ag-badge ag-badge-neutral" style="font-size: 0.68rem; padding: 3px 10px; border-color: #38BDF8; color: #38BDF8;">⚙️ {current_mode.upper()}</span>"""
+    )
 
     # Top brand and status bar
     navbar_html = f"""
@@ -92,7 +107,8 @@ def render_global_navbar(page_title: str = "") -> str:
                 <div class="ag-brand-tagline">Real-Time Air Quality Intelligence & Forecasting</div>
             </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            {mode_badge}
             <div class="ag-badge ag-badge-nothing">
                 <span class="ag-pulse-dot" aria-hidden="true"></span>
                 <span>TELEMETRY ACTIVE</span>
@@ -140,7 +156,7 @@ def render_global_navbar(page_title: str = "") -> str:
 
     current_idx = cities_keys.index(current_city) if current_city in cities_keys else 0
 
-    col_label, col_select, col_quick = st.columns([1.2, 2.5, 2.3])
+    col_label, col_select, col_quick, col_mode = st.columns([1.1, 2.0, 1.8, 1.3])
 
     with col_label:
         st.markdown(
@@ -192,6 +208,13 @@ def render_global_navbar(page_title: str = "") -> str:
             on_change=_handle_quick_search,
             label_visibility="collapsed"
         )
+
+    with col_mode:
+        target_mode = TECHNICAL_MODE if current_mode == SIMPLE_MODE else SIMPLE_MODE
+        btn_text = "⚙️ Technical" if current_mode == SIMPLE_MODE else "🌿 Simple"
+        if st.button(btn_text, key="nav_mode_quick_btn", help=f"Click to switch to {target_mode}", use_container_width=True):
+            set_view_mode(target_mode)
+            st.rerun()
 
     # Custom Location Addition Panel (City, State, Country)
     with st.expander("➕ Register Custom Location (City, State, Country)", expanded=False):

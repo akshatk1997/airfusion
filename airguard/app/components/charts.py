@@ -49,11 +49,12 @@ def apply_chart_theme(fig: go.Figure) -> go.Figure:
 def create_forecast_chart(
     forecast_df: pd.DataFrame,
     current_pm25: Optional[float] = None,
-    city: str = ""
+    city: str = "",
+    threshold: Optional[float] = None
 ) -> go.Figure:
     """
-    Renders 24h & 72h forecast trajectory with shaded 90% confidence ribbon
-    and EPA threshold guidelines.
+    Renders 24h & 72h forecast trajectory with shaded 90% confidence ribbon,
+    EPA threshold guidelines, and optional user alert threshold.
     """
     fig = go.Figure()
 
@@ -102,6 +103,12 @@ def create_forecast_chart(
     ))
 
     # Threshold horizontal reference lines
+    if threshold and threshold > 0:
+        fig.add_hline(
+            y=threshold, line_dash="dash", line_color="#FFFFFF", opacity=0.85,
+            annotation_text=f"Your Alert Threshold ({threshold:.0f} µg/m³)", annotation_position="bottom right",
+            annotation_font=dict(color="#FFFFFF", size=10, family="Plus Jakarta Sans")
+        )
     fig.add_hline(
         y=35.4, line_dash="dot", line_color="#F59E0B", opacity=0.75,
         annotation_text="Moderate Limit (35.4 µg/m³)", annotation_position="top left",

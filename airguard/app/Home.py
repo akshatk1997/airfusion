@@ -18,6 +18,14 @@ from src.database import init_db, fetch_historical_records
 from src.predict import is_model_trained
 from src.data_collection import geocode_city, fetch_current_air_quality
 from app.components.navbar import render_global_navbar
+from app.components.mode_switcher import (
+    get_view_mode,
+    is_simple_mode,
+    is_technical_mode,
+    render_mode_banner,
+    SIMPLE_MODE,
+    TECHNICAL_MODE
+)
 from app.components.cards import render_aqi_hero_card
 from app.components.design_system import (
     render_section_header,
@@ -41,6 +49,11 @@ init_db()
 
 # Render Global Nav & get active synchronized city
 active_city = render_global_navbar("Home")
+
+# Render Mode Notification Banner
+render_mode_banner()
+
+mode = get_view_mode()
 
 # Top Layout: Active Location Hero Card + Primary Action Center
 loc = geocode_city(active_city)
@@ -188,54 +201,55 @@ for idx, city in enumerate(regional_cities):
 
 st.markdown("<div style='height: 32px;'></div>", unsafe_allow_html=True)
 
-# System Foundation Status Indicators
-render_section_header(
-    title="Platform Infrastructure & Model Status",
-    subtitle="Continuous health checks across data streams, inference engines, and storage.",
-    badge="SYSTEM STATUS"
-)
-
-col_s1, col_s2, col_s3, col_s4 = st.columns(4)
-model_ready = is_model_trained()
-
-with col_s1:
-    status_label = "Active (XGBoost)" if model_ready else "Needs Training"
-    render_metric_tile(
-        label="Predictive Engine",
-        value=status_label,
-        unit="",
-        subtext="Champion multi-step regressor",
-        icon="shield"
+# System Foundation Status Indicators (Technical Mode Only)
+if is_technical_mode():
+    render_section_header(
+        title="Platform Infrastructure & Model Status",
+        subtitle="Continuous health checks across data streams, inference engines, and storage.",
+        badge="SYSTEM STATUS"
     )
 
-with col_s2:
-    render_metric_tile(
-        label="Data Telemetry",
-        value="Open-Meteo",
-        unit="API",
-        subtext="Zero-key open atmospheric stream",
-        icon="pulse"
-    )
+    col_s1, col_s2, col_s3, col_s4 = st.columns(4)
+    model_ready = is_model_trained()
 
-with col_s3:
-    render_metric_tile(
-        label="Forecasting Scope",
-        value="24h / 72h",
-        unit="horizons",
-        subtext="90% confidence uncertainty ribbon",
-        icon="chart"
-    )
+    with col_s1:
+        status_label = "Active (XGBoost)" if model_ready else "Needs Training"
+        render_metric_tile(
+            label="Predictive Engine",
+            value=status_label,
+            unit="",
+            subtext="Champion multi-step regressor",
+            icon="shield"
+        )
 
-with col_s4:
-    render_metric_tile(
-        label="Local Storage",
-        value="SQLite WAL",
-        unit="db",
-        subtext="Thread-safe time-series records",
-        icon="gauge"
-    )
+    with col_s2:
+        render_metric_tile(
+            label="Data Telemetry",
+            value="Open-Meteo",
+            unit="API",
+            subtext="Zero-key open atmospheric stream",
+            icon="pulse"
+        )
 
-st.markdown("<div style='height: 32px;'></div>", unsafe_allow_html=True)
+    with col_s3:
+        render_metric_tile(
+            label="Forecasting Scope",
+            value="24h / 72h",
+            unit="horizons",
+            subtext="90% confidence uncertainty ribbon",
+            icon="chart"
+        )
+
+    with col_s4:
+        render_metric_tile(
+            label="Local Storage",
+            value="SQLite WAL",
+            unit="db",
+            subtext="Thread-safe time-series records",
+            icon="gauge"
+        )
+
+    st.markdown("<div style='height: 32px;'></div>", unsafe_allow_html=True)
 
 # Platform Intelligence Modules Grid with Interactive Routing
 render_section_header(
