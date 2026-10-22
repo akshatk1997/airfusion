@@ -129,6 +129,23 @@ def init_db(db_path: Optional[Path | str] = None) -> None:
         );
     """)
 
+    # 6. User Health Profile Table (Privacy-friendly local decision support)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS user_profiles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            profile_name TEXT NOT NULL UNIQUE DEFAULT 'default',
+            age_group TEXT NOT NULL DEFAULT 'adult',
+            health_sensitivity TEXT NOT NULL DEFAULT 'none',
+            usual_activities TEXT DEFAULT 'walk',
+            typical_duration_mins INTEGER DEFAULT 30,
+            preferred_time TEXT DEFAULT 'morning',
+            pm25_threshold REAL DEFAULT 35.0,
+            aqi_threshold INTEGER DEFAULT 100,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    """)
+
     # Indexes for fast time-series queries
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_records_loc_time ON air_quality_records(location_id, timestamp);")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_forecast_loc_time ON forecast_records(location_id, target_time);")
@@ -470,3 +487,68 @@ def fetch_alert_logs(limit: int = 50, db_path: Optional[Path | str] = None) -> L
     rows = [dict(r) for r in cursor.fetchall()]
     conn.close()
     return rows
+
+
+def get_user_profile(profile_name: str = "default", db_path: Optional[Path | str] = None) -> Dict[str, Any]:
+    """
+    Retrieve user health and activity profile by name from SQLite.
+    Returns standard defaults if no profile exists yet.
+    """
+    defaults = {
+        "profile_name": profile_name,
+        "age_group": "adult",
+        "health_sensitivity": "none",
+        "usual_activities": "walk",
+        "typical_duration_mins": 30,
+        "preferred_time": "morning",
+        "pm25_threshold": 35.0,
+        "aqi_threshold": 100
+    }
+    conn = get_db_connection(db_path)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT profile_name, age_group, health_sensitivity, usual_activities,
+               typical_duration_mins, preferred_time, pm25_threshold, aqi_threshold
+        FROM user_profiles
+        WHERE profile_name = ?
+        LIMIT 1;
+    """, (profile_name,))
+    row = cursor.fetchone()
+    conn.close()
+    if row:
+        return dict(row)
+    return defaults
+
+
+def save_user_profile(profile_data: Dict[str, Any], profile_name: str = "default", db_path: Optional[Path | str] = None) -> None:
+    """
+    Upsert user health and activity profile into SQLite database.
+    """
+    conn = get_db_connection(db_path)
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO user_profiles (
+            profile_name, age_group, health_sensitivity, usual_activities,
+            typical_duration_mins, preferred_time, pm25_threshold, aqi_threshold, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        ON CONFLICT(profile_name) DO UPDATE SET
+            age_group=excluded.age_group,
+            health_sensitivity=excluded.health_sensitivity,
+            usual_activities=excluded.usual_activities,
+            typical_duration_mins=excluded.typical_duration_mins,
+            preferred_time=excluded.preferred_time,
+            pm25_threshold=excluded.pm25_threshold,
+            aqi_threshold=excluded.aqi_threshold,
+            updated_at=CURRENT_TIMESTAMP;
+    """, (
+        profile_name,
+        profile_data.get("age_group", "adult"),
+        profile_data.get("health_sensitivity", "none"),
+        profile_data.get("usual_activities", "walk"),
+        int(profile_data.get("typical_duration_mins", 30)),
+        profile_data.get("preferred_time", "morning"),
+        float(profile_data.get("pm25_threshold", 35.0)),
+        int(profile_data.get("aqi_threshold", 100))
+    ))
+    conn.commit()
+    conn.close()

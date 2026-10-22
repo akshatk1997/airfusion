@@ -11,8 +11,9 @@ import pandas as pd
 # Add airguard root to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.database import init_db, get_or_create_location, upsert_air_quality_dataframe, fetch_historical_records, fetch_all_locations
+from src.database import init_db, get_or_create_location, upsert_air_quality_dataframe, fetch_historical_records, fetch_all_locations, get_user_profile, save_user_profile
 from src.data_collection import geocode_city, calculate_pm25_aqi, fetch_current_air_quality
+from src.geocoding import geocode_city as geocode_city_module
 
 
 @pytest.fixture
@@ -111,3 +112,35 @@ def test_geocoding_custom_multi_token():
     assert res["longitude"] > 0
     assert "name" in res
     assert "state" in res
+
+    # Verify src.geocoding re-export module works identically
+    res_mod = geocode_city_module("Panchkula")
+    assert res_mod is not None
+    assert res_mod["city"] == res["city"]
+
+
+def test_user_profile_crud(temp_db):
+    # Verify default profile creation
+    prof = get_user_profile(db_path=temp_db)
+    assert prof["profile_name"] == "default"
+    assert prof["age_group"] == "adult"
+    assert prof["health_sensitivity"] == "none"
+    assert prof["pm25_threshold"] == 35.0
+
+    # Verify update profile
+    save_user_profile({
+        "age_group": "senior",
+        "health_sensitivity": "asthma",
+        "usual_activities": "run",
+        "typical_duration_mins": 45,
+        "preferred_time": "morning",
+        "pm25_threshold": 25.0,
+        "aqi_threshold": 80
+    }, db_path=temp_db)
+
+    updated = get_user_profile(db_path=temp_db)
+    assert updated["age_group"] == "senior"
+    assert updated["health_sensitivity"] == "asthma"
+    assert updated["typical_duration_mins"] == 45
+    assert updated["pm25_threshold"] == 25.0
+    assert updated["aqi_threshold"] == 80
