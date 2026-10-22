@@ -1,7 +1,7 @@
 """
-Nothing OS Design System UI Cards Component for AirGuard.
-Features authentic Ndot-57 / Space Grotesk typography, zero glow effects,
-matte high-contrast surfaces, and industrial precision telemetry.
+Modern High-Contrast UI Cards Component for AirGuard.
+Features Plus Jakarta Sans and JetBrains Mono typography, zero glow effects,
+matte dark surfaces, and industrial precision telemetry.
 """
 
 from __future__ import annotations
@@ -69,7 +69,7 @@ def render_aqi_hero_card(
     pm25_val: float
 ) -> None:
     """
-    Renders high-impact Nothing OS Hero AQI card with authentic Ndot-57 dot matrix numerals,
+    Renders high-impact Hero AQI card with clean JetBrains Mono numerals,
     matte dark slate container, clean pill badge, zero glow, and mechanical progress slider.
     """
     theme = get_aqi_badge_style(aqi)
@@ -92,12 +92,12 @@ def render_aqi_hero_card(
                         background: {theme['bg']};
                         border: 1px solid {theme['border']};
                         color: {theme['text']};
-                        font-family: var(--font-dot);
+                        font-family: var(--font-sans);
                         font-size: 0.76rem;
                         font-weight: 700;
                         padding: 3px 12px;
                         border-radius: 9999px;
-                        letter-spacing: 0.08em;
+                        letter-spacing: 0.05em;
                         text-transform: uppercase;
                         display: inline-flex;
                         align-items: center;
@@ -117,9 +117,9 @@ def render_aqi_hero_card(
             
             <div style="text-align: right; min-width: 140px;">
                 <div style="
-                    font-family: var(--font-dot);
+                    font-family: var(--font-mono);
                     font-size: 4.8rem;
-                    font-weight: 700;
+                    font-weight: 800;
                     line-height: 0.9;
                     color: {theme['text']};
                     letter-spacing: -0.02em;

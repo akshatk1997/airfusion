@@ -203,26 +203,26 @@ fig_timeline.add_hrect(
     y0=0, y1=35.4,
     fillcolor="rgba(34, 197, 94, 0.08)", line_width=0,
     annotation_text="SAFE ZONE (≤ 35.4 µg/m³)", annotation_position="top left",
-    annotation_font=dict(color="#22C55E", size=10, family="Space Mono")
+    annotation_font=dict(color="#22C55E", size=10, family="JetBrains Mono")
 )
 fig_timeline.add_hrect(
     y0=35.4, y1=55.4,
     fillcolor="rgba(234, 179, 8, 0.08)", line_width=0,
     annotation_text="CAUTION ZONE (35.4–55.4 µg/m³)", annotation_position="top left",
-    annotation_font=dict(color="#EAB308", size=10, family="Space Mono")
+    annotation_font=dict(color="#EAB308", size=10, family="JetBrains Mono")
 )
 fig_timeline.add_hrect(
     y0=55.4, y1=max(250.0, peak_pm * 1.1),
     fillcolor="rgba(215, 25, 33, 0.08)", line_width=0,
     annotation_text="UNHEALTHY / AVOID ZONE (> 55.4 µg/m³)", annotation_position="top left",
-    annotation_font=dict(color="#D71921", size=10, family="Space Mono")
+    annotation_font=dict(color="#D71921", size=10, family="JetBrains Mono")
 )
 
 # Personal Threshold line
 fig_timeline.add_hline(
     y=user_threshold, line_dash="dash", line_color="#FFFFFF", opacity=0.85,
     annotation_text=f"Your Threshold ({user_threshold:.0f} µg/m³)", annotation_position="bottom right",
-    annotation_font=dict(color="#FFFFFF", size=10, family="Space Mono")
+    annotation_font=dict(color="#FFFFFF", size=10, family="JetBrains Mono")
 )
 
 fig_timeline.update_layout(

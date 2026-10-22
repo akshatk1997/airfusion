@@ -17,8 +17,8 @@ CSS_PATH = ASSETS_DIR / "style.css"
 
 def inject_foundation_styles() -> None:
     """
-    Injects the Nothing OS typography and foundation stylesheet into the Streamlit DOM.
-    Loads embedded Ndot dot-matrix fonts and Space Grotesk theme styles.
+    Injects the typography and foundation stylesheet into the Streamlit DOM.
+    Loads Plus Jakarta Sans and JetBrains Mono styles.
     """
     styles = []
     if FONTS_PATH.exists():
@@ -190,7 +190,7 @@ def render_callout(
         padding: 16px 20px;
         box-shadow: none;
     ">
-        <div class="ag-callout-title" style="color: {border_color}; font-family: var(--font-dot); font-weight: 700; letter-spacing: 0.06em; margin-bottom: 6px; text-transform: uppercase;">
+        <div class="ag-callout-title" style="color: {border_color}; font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.04em; margin-bottom: 6px; text-transform: uppercase;">
             <span style="display: flex; align-items: center;">{icon_markup}</span>
             <span>{title}</span>
         </div>
@@ -217,7 +217,7 @@ def render_hero_banner(
     if stat_value:
         stat_html = f"""
         <div style="text-align: right; min-width: 140px;">
-            <div style="font-family: var(--font-dot); font-size: var(--font-size-3xl); font-weight: 700; color: #FFFFFF; line-height: 1;">
+            <div style="font-family: var(--font-mono); font-size: var(--font-size-3xl); font-weight: 700; color: #FFFFFF; line-height: 1;">
                 {stat_value}
             </div>
             <div style="font-family: var(--font-mono); font-size: var(--font-size-xs); font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; margin-top: 6px; letter-spacing: 0.05em;">

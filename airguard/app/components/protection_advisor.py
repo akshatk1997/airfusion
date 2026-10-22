@@ -33,13 +33,13 @@ def render_protection_protocol_card(
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     ">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-            <div style="font-family: var(--font-dot); font-size: 0.85rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.08em;">
+            <div style="font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">
                 🛡️ Protective Protocol & Indoor Defense
             </div>
             <span style="
                 border: 1px solid {badge_color};
                 color: {badge_color};
-                font-family: var(--font-dot);
+                font-family: var(--font-sans);
                 font-size: 0.68rem;
                 padding: 2px 10px;
                 border-radius: 9999px;
@@ -52,7 +52,7 @@ def render_protection_protocol_card(
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 18px;">
             <!-- Mask Guidance -->
             <div style="background: #181818; border: 1px solid #282828; border-radius: 12px; padding: 16px 18px;">
-                <div style="font-family: var(--font-dot); font-size: 0.74rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
                     😷 Respiratory Mask Protocol
                 </div>
                 <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #E5E5E5; line-height: 1.5;">
@@ -62,7 +62,7 @@ def render_protection_protocol_card(
 
             <!-- Indoor Precautions -->
             <div style="background: #181818; border: 1px solid #282828; border-radius: 12px; padding: 16px 18px;">
-                <div style="font-family: var(--font-dot); font-size: 0.74rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
                     🏠 Indoor & In-Vehicle Air Quality
                 </div>
                 <ul style="margin: 0; padding-left: 18px; font-family: var(--font-sans); font-size: 0.82rem; color: #CCCCCC; line-height: 1.5;">

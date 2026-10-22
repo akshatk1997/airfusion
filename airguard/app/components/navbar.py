@@ -144,7 +144,7 @@ def render_global_navbar(page_title: str = "") -> str:
 
     with col_label:
         st.markdown(
-            "<div style='display: flex; align-items: center; height: 40px; font-family: var(--font-dot); font-weight: 700; color: #FFFFFF; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase;'>"
+            "<div style='display: flex; align-items: center; height: 40px; font-family: var(--font-sans); font-weight: 700; color: #FFFFFF; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase;'>"
             "<span style='color: #D71921; margin-right: 6px; font-size: 0.65rem;'>●</span> ACTIVE LOCATION:</div>",
             unsafe_allow_html=True
         )

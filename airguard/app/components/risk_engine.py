@@ -1,7 +1,7 @@
 """
 Risk Engine UI Component for AirGuard — My Safe Outdoor Plan.
-Renders Nothing OS styled risk gauge cards, transparent rationale breakdowns,
-and composite risk category indicators.
+Renders risk gauge cards, transparent rationale breakdowns,
+and composite risk category indicators with Plus Jakarta Sans & JetBrains Mono typography.
 """
 
 from __future__ import annotations
@@ -52,12 +52,12 @@ def render_risk_score_card(
                         background: {cat_bg};
                         border: 1px solid {cat_color};
                         color: {cat_color};
-                        font-family: var(--font-dot);
+                        font-family: var(--font-sans);
                         font-size: 0.76rem;
                         font-weight: 700;
                         padding: 3px 12px;
                         border-radius: 9999px;
-                        letter-spacing: 0.08em;
+                        letter-spacing: 0.05em;
                         text-transform: uppercase;
                     ">
                         ● {risk_category} Risk
@@ -71,7 +71,7 @@ def render_risk_score_card(
                 </div>
             </div>
             <div style="text-align: right; min-width: 100px;">
-                <div style="font-family: var(--font-dot); font-size: 3.8rem; font-weight: 700; line-height: 0.9; color: {cat_color};">
+                <div style="font-family: var(--font-mono); font-size: 3.8rem; font-weight: 800; line-height: 0.9; color: {cat_color};">
                     {risk_score}
                 </div>
                 <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #777777; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px;">

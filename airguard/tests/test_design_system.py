@@ -69,11 +69,12 @@ def test_format_location_label():
     assert format_location_label(None) == "Unknown Location"
 
 
-def test_nothing_font_tokens():
+def test_restored_font_tokens():
     assert CSS_PATH.exists()
     content = CSS_PATH.read_text(encoding="utf-8")
-    assert "--font-dot" in content
-    assert "Ndot" in content
-    assert "Space Grotesk" in content
+    assert "--font-sans" in content
+    assert "--font-mono" in content
+    assert "Plus Jakarta Sans" in content
+    assert "JetBrains Mono" in content
 
 

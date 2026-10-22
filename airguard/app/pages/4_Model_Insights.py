@@ -224,7 +224,7 @@ with tab_xai:
                 """
                 <div class="ag-card" style="padding: var(--space-4); border: 1px solid #242424; background: #0E0E0E; height: 100%;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
-                        <span style="font-family: var(--font-dot); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF;">Key Predictive Drivers</span>
+                        <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">Key Predictive Drivers</span>
                         <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px;">ATTRIBUTIONS</span>
                     </div>
                     <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; line-height: 1.6;">

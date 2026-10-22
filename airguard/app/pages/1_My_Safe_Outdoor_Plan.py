@@ -60,7 +60,7 @@ with st.expander("👤 Configure Your Health Profile & Outdoor Activity", expand
     col_p1, col_p2, col_p3 = st.columns([1.2, 1.4, 1.4])
 
     with col_p1:
-        st.markdown("<div style='font-family: var(--font-dot); font-size: 0.76rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-bottom: 8px;'>1. Health Profile</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-bottom: 8px;'>1. Health Profile</div>", unsafe_allow_html=True)
         age_options = ["adult", "child", "senior"]
         age_idx = age_options.index(user_prof.get("age_group", "adult")) if user_prof.get("age_group") in age_options else 0
         selected_age = st.selectbox(
@@ -83,7 +83,7 @@ with st.expander("👤 Configure Your Health Profile & Outdoor Activity", expand
         )
 
     with col_p2:
-        st.markdown("<div style='font-family: var(--font-dot); font-size: 0.76rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-bottom: 8px;'>2. Planned Activity</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-bottom: 8px;'>2. Planned Activity</div>", unsafe_allow_html=True)
         act_options = ["walk", "run", "cycle", "outdoor play", "outdoor work", "commute"]
         act_idx = act_options.index(user_prof.get("usual_activities", "walk")) if user_prof.get("usual_activities") in act_options else 0
         selected_act = st.selectbox(
@@ -103,7 +103,7 @@ with st.expander("👤 Configure Your Health Profile & Outdoor Activity", expand
         )
 
     with col_p3:
-        st.markdown("<div style='font-family: var(--font-dot); font-size: 0.76rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-bottom: 8px;'>3. Time Preference & Alert</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; margin-bottom: 8px;'>3. Time Preference & Alert</div>", unsafe_allow_html=True)
         time_options = ["now", "morning", "afternoon", "evening", "tomorrow"]
         pref_idx = time_options.index(user_prof.get("preferred_time", "now")) if user_prof.get("preferred_time") in time_options else 0
         selected_pref = st.selectbox(

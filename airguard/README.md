@@ -141,7 +141,7 @@ flowchart TD
     end
 
     subgraph UI & Experience Layer
-        Theme["Nothing OS Design System<br/>Pitch-Black #0A0A0A | Ndot Typography | Zero Glow"]
+        Theme["Clean Industrial Design System<br/>Pitch-Black #0A0A0A | Plus Jakarta Sans & JetBrains Mono | Zero Glow"]
         P1["1. My Safe Outdoor Plan (Hero Dashboard)"]
         P2["2. Live Tracking & Alerts"]
         P3["3. Atmospheric Trends"]
@@ -260,17 +260,16 @@ def find_safe_outdoor_windows(forecast_df, duration_minutes=45, preferred_period
 
 ---
 
-## 🎨 Nothing OS Visual Design System
+## 🎨 Visual Design System & Typography
 
-AirGuard strictly embodies the authentic **Nothing OS** design language:
+AirGuard combines high-contrast environmental telemetry with zero-glow clarity:
 - **Pitch-Black Canvas**: Absolute `#0A0A0A` background for OLED contrast and power efficiency.
 - **Hairline Precision**: 1px crisp `#242424` borders and `#141414` surface cards.
-- **Nothing Red Beacon**: `#D71921` signal red reserved exclusively for live recording indicators and acute threshold breaches.
-- **Zero-Glow Policy**: Pure physical dot-matrix aesthetic without blur, bloom, or distracting neon drop-shadows.
-- **Typography Pairing**:
-  - `Ndot-57` / `Ndot-55`: Embedded dot-matrix typography for badges, telemetry headers, and status pills.
-  - `Space Grotesk`: High-legibility technical sans-serif for headings and recommendations.
-  - `Space Mono`: Monospace font for telemetry numbers, coordinates, and timestamp logs.
+- **Signal Red Accent**: `#D71921` signal red reserved exclusively for live recording indicators and acute threshold breaches.
+- **Zero-Glow Policy**: Pure physical contrast without blur, bloom, or distracting neon drop-shadows.
+- **Restored Typographic Palette**:
+  - `Plus Jakarta Sans`: Geometric technical sans-serif for clean headings, navigation, and recommendations.
+  - `JetBrains Mono`: Monospace font for telemetry numbers, metrics, timestamps, and coordinates.
 
 ---
 
@@ -292,13 +291,13 @@ airguard/
 │   │   ├── activity_advisor.py            # Best window card, avoid alerts, discrete 24h timeline
 │   │   ├── protection_advisor.py          # N95 mask advice & indoor defense checklist
 │   │   ├── health_advisory.py             # WHO/EPA clinical guidelines component
-│   │   ├── design_system.py               # Nothing OS styles, tokens, icons, and safe markdown
-│   │   ├── charts.py                      # Plotly visualizations styled with Nothing OS theme
+│   │   ├── design_system.py               # Design tokens, icons, and safe markdown
+│   │   ├── charts.py                      # Plotly visualizations styled with unified theme
 │   │   ├── navbar.py                      # Global brand header, location switcher & dynamic city adder
 │   │   └── cards.py                       # High-impact telemetry and hero metric cards
 │   └── assets/
-│       ├── fonts.css                      # Base64-embedded Ndot-57 and Ndot-55 dot-matrix fonts
-│       └── style.css                      # Nothing OS design tokens, CSS variables, and layout resets
+│       ├── fonts.css                      # Restored typography configuration
+│       └── style.css                      # Core design tokens, CSS variables, and layout resets
 ├── src/
 │   ├── config.py                          # Application settings, city registry, and API thresholds
 │   ├── geocoding.py                       # Modular geocoding interface wrapping Open-Meteo & SQLite

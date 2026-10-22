@@ -192,7 +192,7 @@ safe_markdown(f"""
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); flex-wrap: wrap; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 10px;">
             <span class="ag-pulse-dot" style="background-color: {thresh_badge_color};"></span>
-            <span style="font-family: var(--font-dot); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF;">
+            <span style="font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">
                 LIVE ALERT DEFENSE STATUS
             </span>
         </div>
@@ -273,7 +273,7 @@ with col_met:
     with st.container(border=True):
         safe_markdown("""
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
-            <span style="font-family: var(--font-dot); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF;">
+            <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">
                 METEOROLOGICAL TELEMETRY
             </span>
             <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px;">ATMOSPHERE</span>
@@ -371,7 +371,7 @@ if triggered_alerts:
         safe_markdown(f"""
         <div style="border: 1px solid #242424; border-left: 4px solid {b_color}; background: {bg_col}; padding: var(--space-4); margin-bottom: var(--space-3);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-family: var(--font-dot); font-size: 0.74rem; font-weight: 700; color: {b_color};">{action_tag}</span>
+                <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: {b_color};">{action_tag}</span>
                 <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #888888;">Severity: {t.get('severity', 'Moderate').upper()}</span>
             </div>
             <div style="font-family: var(--font-sans); color: #FFFFFF; font-size: 0.88rem; line-height: 1.5;">

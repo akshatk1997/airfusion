@@ -35,7 +35,7 @@ def render_safe_window_card(
         avoid_items = "".join([f"<li>{item}</li>" for item in avoid_list])
         avoid_html = f"""
         <div style="margin-top: 14px; padding: 12px 16px; background: rgba(215, 25, 33, 0.08); border: 1px solid rgba(215, 25, 33, 0.3); border-radius: 10px;">
-            <div style="font-family: var(--font-dot); font-size: 0.75rem; font-weight: 700; color: #D71921; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: #D71921; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">
                 ⚠️ Unsafe Exposure Periods to Avoid
             </div>
             <ul style="margin: 0; padding-left: 20px; font-family: var(--font-sans); font-size: 0.8rem; color: #E5E5E5; line-height: 1.5;">
@@ -48,7 +48,7 @@ def render_safe_window_card(
     if alt:
         alt_html = f"""
         <div style="margin-top: 12px; padding: 12px 16px; background: #181818; border-left: 3px solid #10B981; border-radius: 8px;">
-            <div style="font-family: var(--font-dot); font-size: 0.75rem; font-weight: 700; color: #10B981; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
+            <div style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: #10B981; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">
                 💡 Recommended Cleaner Alternative
             </div>
             <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #CCCCCC;">
@@ -73,12 +73,12 @@ def render_safe_window_card(
                         background: {win_bg};
                         border: 1px solid {win_color};
                         color: {win_color};
-                        font-family: var(--font-dot);
+                        font-family: var(--font-sans);
                         font-size: 0.72rem;
                         font-weight: 700;
                         padding: 2px 10px;
                         border-radius: 9999px;
-                        letter-spacing: 0.08em;
+                        letter-spacing: 0.05em;
                         text-transform: uppercase;
                     ">
                         ● Window Finder
@@ -133,7 +133,7 @@ def render_hourly_timeline_strip(hourly_timeline: List[Dict[str, Any]]) -> None:
             text-align: center;
         ">
             <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #888888; margin-bottom: 4px;">{time_label}</span>
-            <span style="font-family: var(--font-dot); font-size: 0.85rem; font-weight: 700; color: #FFFFFF;">{pm25:.0f}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: #FFFFFF;">{pm25:.0f}</span>
             <span style="font-family: var(--font-sans); font-size: 0.62rem; color: {color}; font-weight: 700; text-transform: uppercase; margin-top: 4px;">{status}</span>
         </div>
         """)
@@ -148,7 +148,7 @@ def render_hourly_timeline_strip(hourly_timeline: List[Dict[str, Any]]) -> None:
         margin-bottom: 20px;
     ">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="font-family: var(--font-dot); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.08em;">
+            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">
                 📅 24-Hour Outdoor Safety Trajectory Timeline
             </div>
             <div style="display: flex; gap: 12px; font-family: var(--font-mono); font-size: 0.68rem;">

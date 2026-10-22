@@ -68,7 +68,7 @@ if loc:
         with st.container(border=True):
             safe_markdown("""
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
-                <span style="font-family: var(--font-dot); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF;">
+                <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">
                     ⚡ COMMAND SHORTCUTS
                 </span>
                 <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px;">ACTIONS</span>
@@ -162,7 +162,7 @@ for idx, city in enumerate(regional_cities):
                 </div>
                 <div style="display: flex; align-items: baseline; justify-content: space-between;">
                     <div>
-                        <div style="font-family: var(--font-dot); font-size: 2.1rem; font-weight: 700; color: #FFFFFF; line-height: 1;">
+                        <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; line-height: 1;">
                             {snap['aqi']}
                         </div>
                         <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #777777; text-transform: uppercase; margin-top: 2px;">US AQI</div>

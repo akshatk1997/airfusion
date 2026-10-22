@@ -66,7 +66,7 @@ safe_markdown(
     """
     <div class="ag-card" style="border: 1px solid #D71921; background: rgba(215, 25, 33, 0.05); padding: var(--space-4); margin-bottom: var(--space-4);">
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <span style="font-family: var(--font-dot); font-size: 0.78rem; font-weight: 700; color: #D71921;">
+            <span style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #D71921;">
                 ⚠️ GENERAL ENVIRONMENTAL SAFETY DISCLAIMER
             </span>
         </div>
@@ -155,7 +155,7 @@ with tab_masks:
                 <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                     N95 / KN95 / FFP2 Respirators
                 </div>
-                <div style="font-family: var(--font-dot); font-size: 0.72rem; color: #22C55E; margin-bottom: 12px;">RECOMMENDED STANDARD (≥95% FILTRATION)</div>
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #22C55E; margin-bottom: 12px;">RECOMMENDED STANDARD (≥95% FILTRATION)</div>
                 <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #AAAAAA; line-height: 1.6;">
                     Electrostatic meltblown filter layers capture sub-micron particles down to 0.1 µm. Requires a tight facial seal without air leaks around the bridge of the nose.
                     <br><br>
@@ -167,7 +167,7 @@ with tab_masks:
                 <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                     Surgical 3-Ply Masks
                 </div>
-                <div style="font-family: var(--font-dot); font-size: 0.72rem; color: #EAB308; margin-bottom: 12px;">PARTIAL BENEFIT (30–50% LEAKAGE)</div>
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #EAB308; margin-bottom: 12px;">PARTIAL BENEFIT (30–50% LEAKAGE)</div>
                 <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #AAAAAA; line-height: 1.6;">
                     Captures large respiratory droplets and coarse dust (PM₁₀), but loose perimeter gaps permit ambient PM₂.₅ aerosols to bypass the filter media entirely.
                     <br><br>
@@ -179,7 +179,7 @@ with tab_masks:
                 <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                     Cloth Bandanas & Fabric Covers
                 </div>
-                <div style="font-family: var(--font-dot); font-size: 0.72rem; color: #D71921; margin-bottom: 12px;">INEFFECTIVE AGAINST PM₂.₅ (&lt;15% EFFICIENCY)</div>
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #D71921; margin-bottom: 12px;">INEFFECTIVE AGAINST PM₂.₅ (&lt;15% EFFICIENCY)</div>
                 <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #AAAAAA; line-height: 1.6;">
                     Woven cotton weaves have pore sizes exceeding 50–200 µm, offering zero physical resistance against combustion particles and hazardous toxic chemicals.
                     <br><br>
