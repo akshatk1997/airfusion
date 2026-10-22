@@ -132,11 +132,11 @@ def render_metric_tile(
     Renders an atomic metric tile with tabular mono typography,
     guaranteed unified card heights, and vertically centered icon alignment.
     """
-    icon_html = f"""<span style="color: #FFFFFF; opacity: 0.85; margin-right: 8px; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px;">{ICONS.get(icon, '')}</span>""" if icon else ""
+    icon_html = f"""<span style="color: var(--color-brand-cyan); margin-right: 8px; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px;">{ICONS.get(icon, '')}</span>""" if icon else ""
     val_str = f"{value:.1f}" if isinstance(value, float) else str(value if value is not None else "--")
 
-    delta_color = "#10B981" if delta_positive else "#EF4444"
-    delta_html = f"""<span style="color: {delta_color}; font-size: 0.72rem; font-weight: 700; margin-left: 8px; font-family: var(--font-mono);">{delta}</span>""" if delta else ""
+    delta_color = "#34D399" if delta_positive else "#F87171"
+    delta_html = f"""<span style="color: {delta_color}; font-size: 0.74rem; font-weight: 700; margin-left: 8px; font-family: var(--font-mono);">{delta}</span>""" if delta else ""
     footer_html = f"""<div class="ag-metric-footer">{subtext}</div>""" if subtext else """<div class="ag-metric-footer" style="visibility: hidden;">--</div>"""
 
     html = f"""
@@ -164,13 +164,13 @@ def render_callout(
     icon: Optional[str] = None
 ) -> None:
     """
-    Renders accessible Nothing-styled callout banner for notifications, alerts, or AI synthesis.
+    Renders accessible callout banner for notifications, alerts, or AI synthesis.
     Supports 'info', 'success', 'warning', and 'danger' variants.
     """
     icon_markup = ICONS.get(icon, ICONS["alert"]) if icon else ICONS["alert"]
     if variant == "info":
-        border_color = "var(--color-brand-red)"
-        bg_color = "rgba(255, 255, 255, 0.03)"
+        border_color = "var(--color-brand-cyan)"
+        bg_color = "rgba(56, 189, 248, 0.08)"
     elif variant == "success":
         border_color = "#10B981"
         bg_color = "rgba(16, 185, 129, 0.08)"
@@ -183,12 +183,14 @@ def render_callout(
 
     html = f"""
     <div class="ag-callout" style="
-        border: 1px solid var(--color-border-subtle);
-        border-left: 3px solid {border_color};
+        border-left: 4px solid {border_color};
         background: {bg_color};
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 10px 25px -5px rgba(0, 0, 0, 0.35);
         border-radius: var(--radius-md);
         padding: 16px 20px;
-        box-shadow: none;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     ">
         <div class="ag-callout-title" style="color: {border_color}; font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.04em; margin-bottom: 6px; text-transform: uppercase;">
             <span style="display: flex; align-items: center;">{icon_markup}</span>
@@ -210,14 +212,14 @@ def render_hero_banner(
     badge_text: Optional[str] = None
 ) -> None:
     """
-    Renders Nothing-style visual hero banner with dot-matrix accents and zero glow.
+    Renders visual hero banner with generous intentional whitespace and cinematic optical depth.
     """
     badge_html = f"""<span class="ag-badge ag-badge-neutral" style="margin-bottom: 12px;">{badge_text}</span>""" if badge_text else ""
     stat_html = ""
     if stat_value:
         stat_html = f"""
         <div style="text-align: right; min-width: 140px;">
-            <div style="font-family: var(--font-mono); font-size: var(--font-size-3xl); font-weight: 700; color: #FFFFFF; line-height: 1;">
+            <div style="font-family: var(--font-mono); font-size: var(--font-size-3xl); font-weight: 800; color: var(--color-brand-cyan); line-height: 1; text-shadow: 0 0 20px var(--color-brand-cyan-glow);">
                 {stat_value}
             </div>
             <div style="font-family: var(--font-mono); font-size: var(--font-size-xs); font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; margin-top: 6px; letter-spacing: 0.05em;">
@@ -228,17 +230,20 @@ def render_hero_banner(
 
     html = f"""
     <div class="ag-card ag-hero-banner" style="
-        padding: 28px 32px;
+        padding: 30px 36px;
         margin-bottom: 24px;
-        background: var(--color-bg-card);
-        border: 1px solid var(--color-border-subtle);
-        border-radius: var(--radius-lg);
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        background: radial-gradient(ellipse 85% 70% at 90% 15%, rgba(56, 189, 248, 0.12), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.94) 0%, rgba(8, 12, 20, 0.98) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 20px 45px -10px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-radius: var(--radius-xl);
     ">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div style="max-width: 700px;">
                 {badge_html}
-                <h1 style="margin: 0 0 8px 0; font-family: var(--font-heading); font-size: var(--font-size-2xl); font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em;">
+                <h1 style="margin: 0 0 8px 0; font-family: var(--font-heading); font-size: var(--font-size-2xl); font-weight: 800; color: var(--color-text-primary); letter-spacing: -0.025em; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);">
                     {title}
                 </h1>
                 <p style="margin: 0; font-family: var(--font-sans); font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">

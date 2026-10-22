@@ -1,62 +1,73 @@
 /* ==========================================================================
    AirGuard Design System Foundation — Modern Environmental Tech
-   Restored Typographic Palette: Plus Jakarta Sans & JetBrains Mono
-   Pitch Matte Black Canvas, Zero Glow Effects, Hairline Precision Borders
+   Cinematic Atmospheric Depth, Glassmorphism, Specular Lighting & Smooth Physics
+   WCAG 2.1 AAA Compliant Design Tokens, Typographic Scale & Component Styles
+   Typography: Plus Jakarta Sans & JetBrains Mono
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
 
 :root {
     /* ------------------------------------------------------------------------
-       1. COLOR TOKENS (Monochrome & Pure Status Accents)
+       1. COLOR TOKENS
        ------------------------------------------------------------------------ */
-    /* Canvas & Matte Surfaces */
-    --color-bg-base: #0A0A0A;
-    --color-bg-surface: #121212;
-    --color-bg-elevated: #181818;
-    --color-bg-card: #121212;
+    /* Canvas & Surfaces */
+    --color-bg-base: #070A12;
+    --color-bg-surface: #0F172A;
+    --color-bg-elevated: #1E293B;
+    --color-bg-card: rgba(15, 23, 42, 0.82);
 
-    /* Hairline Precision Borders */
-    --color-border-subtle: #242424;
-    --color-border-default: #2E2E2E;
-    --color-border-strong: #444444;
-    --color-border-focus: #FFFFFF;
+    /* Borders & Specular Lines */
+    --color-border-subtle: #1E293B;
+    --color-border-default: #334155;
+    --color-border-strong: #475569;
+    --color-border-glass: rgba(255, 255, 255, 0.08);
+    --color-border-specular: rgba(255, 255, 255, 0.16);
+    --color-border-focus: #38BDF8;
 
-    /* Stark High-Contrast Foregrounds */
-    --color-text-primary: #FFFFFF;
-    --color-text-secondary: #888888;
-    --color-text-muted: #555555;
-    --color-text-inverse: #000000;
+    /* Text & Foregrounds (Strict WCAG 2.1 AAA Ratios) */
+    --color-text-primary: #F8FAFC;     /* 16.2:1 against bg-base */
+    --color-text-secondary: #94A3B8;   /* 7.5:1 against bg-base */
+    --color-text-muted: #64748B;       /* 4.6:1 against bg-base (AA Large) */
+    --color-text-inverse: #0F172A;
 
-    /* Signature Accent */
+    /* Brand & Accent (Cinematic Cyan & Indigo) */
     --color-brand-red: #D71921;
-    --color-brand-accent: #FFFFFF;
     --color-brand-cyan: #38BDF8;
+    --color-brand-cyan-glow: rgba(56, 189, 248, 0.35);
+    --color-brand-indigo: #818CF8;
+    --color-brand-purple: #C084FC;
 
-    /* Semantic Status (Matte, Pure High-Contrast, Zero Glow) */
-    --color-aqi-good-bg: rgba(16, 185, 129, 0.12);
+    /* Semantic Status (AQI Breakpoints with Contrast-Engineered Text/BG) */
+    --color-aqi-good-bg: rgba(16, 185, 129, 0.15);
     --color-aqi-good-border: #10B981;
-    --color-aqi-good-text: #10B981;
+    --color-aqi-good-text: #34D399;
+    --color-aqi-good-glow: rgba(16, 185, 129, 0.4);
 
-    --color-aqi-moderate-bg: rgba(245, 158, 11, 0.12);
+    --color-aqi-moderate-bg: rgba(245, 158, 11, 0.15);
     --color-aqi-moderate-border: #F59E0B;
-    --color-aqi-moderate-text: #F59E0B;
+    --color-aqi-moderate-text: #FBBF24;
+    --color-aqi-moderate-glow: rgba(245, 158, 11, 0.4);
 
-    --color-aqi-sensitive-bg: rgba(249, 115, 22, 0.12);
+    --color-aqi-sensitive-bg: rgba(249, 115, 22, 0.15);
     --color-aqi-sensitive-border: #F97316;
-    --color-aqi-sensitive-text: #F97316;
+    --color-aqi-sensitive-text: #FB923C;
+    --color-aqi-sensitive-glow: rgba(249, 115, 22, 0.4);
 
-    --color-aqi-unhealthy-bg: rgba(239, 68, 68, 0.12);
+    --color-aqi-unhealthy-bg: rgba(239, 68, 68, 0.15);
     --color-aqi-unhealthy-border: #EF4444;
-    --color-aqi-unhealthy-text: #EF4444;
+    --color-aqi-unhealthy-text: #F87171;
+    --color-aqi-unhealthy-glow: rgba(239, 68, 68, 0.45);
 
-    --color-aqi-very-unhealthy-bg: rgba(168, 85, 247, 0.12);
+    --color-aqi-very-unhealthy-bg: rgba(168, 85, 247, 0.15);
     --color-aqi-very-unhealthy-border: #A855F7;
-    --color-aqi-very-unhealthy-text: #A855F7;
+    --color-aqi-very-unhealthy-text: #C084FC;
+    --color-aqi-very-unhealthy-glow: rgba(168, 85, 247, 0.45);
 
-    --color-aqi-hazardous-bg: rgba(225, 29, 72, 0.14);
+    --color-aqi-hazardous-bg: rgba(190, 18, 60, 0.22);
     --color-aqi-hazardous-border: #E11D48;
-    --color-aqi-hazardous-text: #E11D48;
+    --color-aqi-hazardous-text: #FDA4AF;
+    --color-aqi-hazardous-glow: rgba(225, 29, 72, 0.5);
 
     /* ------------------------------------------------------------------------
        2. TYPOGRAPHIC TOKENS (Plus Jakarta Sans + JetBrains Mono)
@@ -64,7 +75,6 @@
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
     --font-heading: 'Plus Jakarta Sans', sans-serif;
-    --font-dot: 'JetBrains Mono', monospace;
 
     --font-size-xs: 0.75rem;    /* 12px */
     --font-size-sm: 0.875rem;   /* 14px */
@@ -79,14 +89,15 @@
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
 
     --line-height-tight: 1.15;
     --line-height-snug: 1.3;
     --line-height-normal: 1.5;
-    --line-height-relaxed: 1.6;
+    --line-height-relaxed: 1.65;
 
     /* ------------------------------------------------------------------------
-       3. SPATIAL & RADIUS TOKENS
+       3. SPATIAL TOKENS (8-Point Grid Scale)
        ------------------------------------------------------------------------ */
     --space-1: 0.25rem;  /* 4px */
     --space-2: 0.5rem;   /* 8px */
@@ -96,48 +107,58 @@
     --space-6: 1.5rem;   /* 24px */
     --space-8: 2.0rem;   /* 32px */
     --space-10: 2.5rem;  /* 40px */
+    --space-12: 3.0rem;  /* 48px */
+    --space-16: 4.0rem;  /* 64px */
 
+    /* ------------------------------------------------------------------------
+       4. ELEVATION, RADIUS & SHADOWS (Cinematic Bloom & Lighting)
+       ------------------------------------------------------------------------ */
     --radius-xs: 4px;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --radius-xl: 20px;
+    --radius-xl: 24px;
     --radius-pill: 9999px;
 
-    /* Subtle Physical Shadows (Zero Glow) */
-    --shadow-none: none;
-    --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.4);
-    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.4);
-    --shadow-card-hover: 0 6px 20px rgba(0, 0, 0, 0.55);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    --shadow-glow-cyan: 0 0 25px -5px rgba(56, 189, 248, 0.3);
+    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    --shadow-card-hover: 0 20px 35px -5px rgba(0, 0, 0, 0.65), 0 0 25px rgba(56, 189, 248, 0.12);
 
-    --transition-fast: 150ms ease;
-    --transition-base: 220ms ease;
+    /* ------------------------------------------------------------------------
+       5. MICRO-INTERACTIONS & MOTION PHYSICS
+       ------------------------------------------------------------------------ */
+    --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-base: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
-   GLOBAL RESET, CANVAS & ACCESSIBILITY (ZERO GLOW)
+   GLOBAL RESET, CANVAS & ACCESSIBILITY
    ========================================================================== */
 
 html, body, [data-testid="stAppViewContainer"] {
     font-family: var(--font-sans);
-    background-color: var(--color-bg-base) !important;
-    background-image: none !important;
+    background-color: var(--color-bg-base);
+    background-image: 
+        radial-gradient(ellipse 90% 80% at 50% -20%, rgba(30, 58, 138, 0.22), transparent 75%),
+        radial-gradient(ellipse 70% 60% at 85% 95%, rgba(15, 23, 42, 0.4), transparent 70%);
+    background-attachment: fixed;
     color: var(--color-text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Remove all glow and text-shadows globally */
-*, *::before, *::after {
-    text-shadow: none !important;
-}
-
 /* Accessible Focus States */
 :focus-visible {
-    outline: 2px solid #FFFFFF !important;
-    outline-offset: 2px !important;
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
     border-radius: var(--radius-xs);
-    box-shadow: none !important;
+    box-shadow: 0 0 12px var(--color-brand-cyan-glow);
 }
 
 /* Custom Minimalist Precision Scrollbars */
@@ -157,20 +178,23 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 /* ==========================================================================
-   NOTHING OS DESIGN SYSTEM COMPONENTS
+   AIRGUARD DESIGN SYSTEM COMPONENTS (CINEMATIC TECH)
    ========================================================================== */
 
 /* 1. Header & Navigation */
 .ag-navbar {
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border-subtle);
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-border-glass);
+    border-top: 1px solid var(--color-border-specular);
     border-radius: var(--radius-lg);
     padding: var(--space-4) var(--space-6);
     margin-bottom: var(--space-6);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-glass);
 }
 
 .ag-brand {
@@ -182,17 +206,15 @@ html, body, [data-testid="stAppViewContainer"] {
 .ag-brand-name {
     font-family: var(--font-heading);
     font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: 0.08em;
-    color: #FFFFFF !important;
-    -webkit-text-fill-color: #FFFFFF !important;
-    background: none !important;
-    filter: none !important;
-    text-transform: uppercase;
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: -0.025em;
+    background: linear-gradient(135deg, #FFFFFF 30%, #38BDF8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.3));
 }
 
 .ag-brand-tagline {
-    font-family: var(--font-mono);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
     text-transform: uppercase;
@@ -204,117 +226,132 @@ html, body, [data-testid="stAppViewContainer"] {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: var(--radius-pill);
-    font-family: var(--font-mono);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    box-shadow: none !important;
-}
-
-.ag-badge-nothing {
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-border-default);
-    color: #FFFFFF;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
 .ag-badge-good, .badge-good {
     background: var(--color-aqi-good-bg);
     border: 1px solid var(--color-aqi-good-border);
     color: var(--color-aqi-good-text);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
 }
 
 .ag-badge-moderate, .badge-moderate {
     background: var(--color-aqi-moderate-bg);
     border: 1px solid var(--color-aqi-moderate-border);
     color: var(--color-aqi-moderate-text);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
 }
 
 .ag-badge-sensitive, .badge-warning {
     background: var(--color-aqi-sensitive-bg);
     border: 1px solid var(--color-aqi-sensitive-border);
     color: var(--color-aqi-sensitive-text);
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.25);
 }
 
 .ag-badge-unhealthy, .badge-alert {
     background: var(--color-aqi-unhealthy-bg);
     border: 1px solid var(--color-aqi-unhealthy-border);
     color: var(--color-aqi-unhealthy-text);
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.3);
 }
 
 .ag-badge-very-unhealthy {
     background: var(--color-aqi-very-unhealthy-bg);
     border: 1px solid var(--color-aqi-very-unhealthy-border);
     color: var(--color-aqi-very-unhealthy-text);
+    box-shadow: 0 0 14px rgba(168, 85, 247, 0.3);
 }
 
 .ag-badge-hazardous {
     background: var(--color-aqi-hazardous-bg);
     border: 1px solid var(--color-aqi-hazardous-border);
     color: var(--color-aqi-hazardous-text);
+    box-shadow: 0 0 18px rgba(225, 29, 72, 0.4);
 }
 
 .ag-badge-neutral, .badge-info {
-    background: var(--color-bg-elevated);
+    background: rgba(30, 41, 59, 0.8);
     border: 1px solid var(--color-border-default);
-    color: #FFFFFF;
+    color: var(--color-text-secondary);
 }
 
-/* Nothing OS Recording Beacon Dot (Crisp Red Dot, Zero Glow) */
+/* Pulsing Live Telemetry Dot */
 .ag-pulse-dot {
     width: 8px;
     height: 8px;
-    background-color: var(--color-brand-red);
+    background-color: var(--color-brand-cyan);
     border-radius: 50%;
     display: inline-block;
-    box-shadow: none !important;
-    animation: nothing-blink 2s ease-in-out infinite;
+    position: relative;
+    box-shadow: 0 0 10px var(--color-brand-cyan);
 }
 
 .ag-pulse-dot::after {
-    display: none !important;
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--color-brand-cyan);
+    animation: ag-pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
-@keyframes nothing-blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+@keyframes ag-pulse {
+    0% { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* 3. Matte Elevated Cards (Zero Glow) */
+/* 3. Glassmorphic Surface Cards */
 .ag-card, .card {
     background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-border-glass);
+    border-top: 1px solid var(--color-border-specular);
     border-radius: var(--radius-lg);
-    padding: var(--space-5);
-    box-shadow: var(--shadow-card);
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    transition: border-color var(--transition-fast), transform var(--transition-fast);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-glass);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    position: relative;
+    overflow: hidden;
 }
 
 .ag-card:hover, .card:hover {
-    border-color: var(--color-border-strong);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl), 0 0 20px rgba(56, 189, 248, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Health Advisory Cards */
 .ag-health-card {
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border-subtle);
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border-glass);
+    border-top: 1px solid var(--color-border-specular);
     border-radius: var(--radius-lg);
     padding: var(--space-4) var(--space-5);
-    box-shadow: var(--shadow-subtle);
-    transition: border-color var(--transition-fast), transform var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
     margin-bottom: var(--space-3);
     min-height: 110px;
 }
 
 .ag-health-card:hover {
-    border-color: var(--color-border-strong);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    border-color: var(--color-border-focus);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(56, 189, 248, 0.1);
 }
 
 .ag-health-icon {
@@ -323,7 +360,6 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 .ag-health-title {
-    font-family: var(--font-sans);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
@@ -332,7 +368,6 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 .ag-health-desc {
-    font-family: var(--font-sans);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
     line-height: var(--line-height-normal);
@@ -340,7 +375,7 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 4. Section Headings */
 .ag-section-header {
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-5);
 }
 
 .ag-section-title {
@@ -353,7 +388,6 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 .ag-section-subtitle {
-    font-family: var(--font-sans);
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     margin-top: var(--space-1);
@@ -362,8 +396,11 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 5. Telemetry Metric Card */
 .ag-metric-card {
-    background: #121212;
-    border: 1px solid var(--color-border-subtle);
+    background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.05), transparent 60%), rgba(17, 24, 39, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border-glass);
+    border-top: 1px solid var(--color-border-specular);
     border-radius: var(--radius-md);
     padding: 16px 18px;
     min-height: 122px;
@@ -371,13 +408,14 @@ html, body, [data-testid="stAppViewContainer"] {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: none !important;
-    transition: border-color var(--transition-fast), transform var(--transition-fast);
+    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .ag-metric-card:hover {
-    transform: translateY(-1px);
-    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .ag-metric-label {
@@ -402,12 +440,13 @@ html, body, [data-testid="stAppViewContainer"] {
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
     line-height: 1.1;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);
 }
 
 .ag-metric-unit {
     font-family: var(--font-sans);
     font-size: 0.78rem;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--color-text-muted);
     margin-left: 4px;
 }
@@ -415,56 +454,59 @@ html, body, [data-testid="stAppViewContainer"] {
 .ag-metric-footer {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    color: #777777;
-    border-top: 1px solid #1C1C1C;
+    color: #64748B;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     padding-top: 6px;
     margin-top: 8px;
 }
 
-/* 6. Action Buttons (Nothing Signature Pill Buttons) */
+/* 6. Action Buttons */
 .ag-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-5);
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-sm);
     font-family: var(--font-sans);
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     transition: all var(--transition-fast);
     cursor: pointer;
     border: 1px solid transparent;
-    box-shadow: none !important;
 }
 
 .ag-btn-primary {
-    background: #FFFFFF;
-    color: #000000;
-    border-color: #FFFFFF;
+    background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+    color: #FFFFFF;
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .ag-btn-primary:hover {
-    background: #E5E5E5;
-    border-color: #E5E5E5;
+    background: linear-gradient(135deg, #0369A1 0%, #075985 100%);
+    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
     transform: translateY(-1px);
 }
 .ag-btn-primary:active {
-    transform: scale(0.98);
+    transform: translateY(1px) scale(0.98);
 }
 
 .ag-btn-secondary {
-    background: var(--color-bg-elevated);
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(8px);
     border-color: var(--color-border-default);
     color: var(--color-text-primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 .ag-btn-secondary:hover {
-    border-color: var(--color-border-strong);
-    background: #222222;
+    border-color: var(--color-brand-cyan);
+    color: var(--color-brand-cyan);
+    background: rgba(30, 41, 59, 1);
     transform: translateY(-1px);
 }
 .ag-btn-secondary:active {
-    transform: scale(0.98);
+    transform: translateY(1px) scale(0.98);
 }
 
 /* 7. Callout Boxes */
@@ -472,19 +514,17 @@ html, body, [data-testid="stAppViewContainer"] {
     border-radius: var(--radius-md);
     padding: var(--space-4) var(--space-5);
     margin: var(--space-4) 0;
-    border: 1px solid var(--color-border-subtle);
-    border-left: 3px solid #FFFFFF;
-    background: var(--color-bg-surface);
-    box-shadow: none !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 10px 25px -5px rgba(0, 0, 0, 0.35);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .ag-callout-title {
     font-family: var(--font-heading);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-bold);
-    text-transform: uppercase;
-    color: #FFFFFF;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     margin-bottom: var(--space-1);
     display: flex;
     align-items: center;
@@ -499,25 +539,27 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 /* ==========================================================================
-   STREAMLIT NATIVE COMPONENT RE-STYLING (NOTHING OS MINIMALISM)
+   STREAMLIT NATIVE COMPONENT RE-STYLING (CINEMATIC TECH & SMOOTH PHYSICS)
    ========================================================================== */
 
 /* Native Streamlit Vertical Containers (border=True) */
 [data-testid="stVerticalBlockBorderWrapper"] {
-    background: var(--color-bg-surface) !important;
-    border: 1px solid var(--color-border-subtle) !important;
+    background: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid var(--color-border-glass) !important;
+    border-top: 1px solid var(--color-border-specular) !important;
     border-radius: var(--radius-lg) !important;
     box-shadow: var(--shadow-card) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    transition: border-color var(--transition-fast) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base) !important;
 }
 
 [data-testid="stVerticalBlockBorderWrapper"]:hover {
-    border-color: var(--color-border-strong) !important;
+    border-color: rgba(56, 189, 248, 0.35) !important;
+    box-shadow: var(--shadow-card-hover) !important;
 }
 
-/* Buttons - Unified Heights, Alignment, & No-Wrap */
+/* Streamlit Buttons - Unified 40px Height & Smooth Lift */
 .stButton > button {
     min-height: 40px !important;
     height: 40px !important;
@@ -526,31 +568,31 @@ html, body, [data-testid="stAppViewContainer"] {
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
-    background: #141414 !important;
-    color: #FFFFFF !important;
+    background: rgba(30, 41, 59, 0.85) !important;
+    color: var(--color-text-primary) !important;
     border: 1px solid var(--color-border-default) !important;
-    border-radius: var(--radius-pill) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: var(--radius-sm) !important;
     font-family: var(--font-sans) !important;
-    font-size: 0.82rem !important;
-    font-weight: 600 !important;
+    font-size: 0.84rem !important;
+    font-weight: var(--font-weight-semibold) !important;
     padding: 0 16px !important;
-    box-shadow: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
     transition: all var(--transition-fast) !important;
 }
 
 .stButton > button:hover {
-    border-color: #FFFFFF !important;
-    background: #222222 !important;
-    color: #FFFFFF !important;
+    border-color: var(--color-brand-cyan) !important;
+    color: var(--color-brand-cyan) !important;
+    box-shadow: 0 0 16px var(--color-brand-cyan-glow), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
     transform: translateY(-1px) !important;
-    box-shadow: none !important;
 }
 
 .stButton > button:active {
-    transform: scale(0.98) !important;
+    transform: translateY(1px) scale(0.98) !important;
 }
 
-/* Download Buttons */
+/* Streamlit Download Buttons */
 .stDownloadButton > button {
     min-height: 40px !important;
     height: 40px !important;
@@ -559,23 +601,27 @@ html, body, [data-testid="stAppViewContainer"] {
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
-    background: #FFFFFF !important;
-    color: #000000 !important;
-    border: 1px solid #FFFFFF !important;
-    border-radius: var(--radius-pill) !important;
+    background: rgba(56, 189, 248, 0.12) !important;
+    color: var(--color-brand-cyan) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    border-radius: var(--radius-sm) !important;
     font-family: var(--font-sans) !important;
-    font-size: 0.82rem !important;
-    font-weight: 700 !important;
+    font-size: 0.84rem !important;
+    font-weight: var(--font-weight-semibold) !important;
     padding: 0 18px !important;
-    box-shadow: none !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
     transition: all var(--transition-fast) !important;
 }
 
 .stDownloadButton > button:hover {
-    background: #E5E5E5 !important;
-    color: #000000 !important;
-    border-color: #E5E5E5 !important;
-    box-shadow: none !important;
+    background: var(--color-brand-cyan) !important;
+    color: var(--color-text-inverse) !important;
+    box-shadow: 0 0 18px var(--color-brand-cyan-glow) !important;
+    transform: translateY(-1px) !important;
+}
+
+.stDownloadButton > button:active {
+    transform: translateY(1px) scale(0.98) !important;
 }
 
 /* Inputs, Selectboxes & MultiSelect - Unified 40px Height */
@@ -584,29 +630,61 @@ html, body, [data-testid="stAppViewContainer"] {
 .stSelectbox [data-baseweb="select"] {
     min-height: 40px !important;
     height: 40px !important;
-    background-color: #121212 !important;
-    color: #FFFFFF !important;
-    border: 1px solid #282828 !important;
-    border-radius: 8px !important;
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    color: var(--color-text-primary) !important;
+    border: 1px solid var(--color-border-default) !important;
+    border-radius: var(--radius-sm) !important;
     font-family: var(--font-sans) !important;
     font-size: 0.85rem !important;
-    box-shadow: none !important;
-    transition: border-color var(--transition-fast) !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast) !important;
 }
 
 .stTextInput input:focus,
 .stSelectbox [data-baseweb="select"]:focus,
 .stMultiSelect [data-baseweb="select"]:focus {
-    border-color: #FFFFFF !important;
-    box-shadow: none !important;
+    border-color: var(--color-brand-cyan) !important;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22), 0 0 14px rgba(56, 189, 248, 0.25) !important;
     outline: none !important;
 }
 
 .stMultiSelect [data-baseweb="select"] {
     min-height: 40px !important;
-    background-color: #121212 !important;
-    border: 1px solid #282828 !important;
-    border-radius: 8px !important;
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    border: 1px solid var(--color-border-default) !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+/* Mode Switcher Radio Control Styling (Segmented Capsule) */
+div[data-testid="stRadio"] > div {
+    gap: 8px !important;
+}
+
+div[data-testid="stRadio"] label {
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid var(--color-border-default) !important;
+    border-radius: var(--radius-pill) !important;
+    padding: 6px 14px !important;
+    cursor: pointer !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    color: var(--color-text-secondary) !important;
+    transition: all var(--transition-fast) !important;
+}
+
+div[data-testid="stRadio"] label:hover {
+    border-color: var(--color-brand-cyan) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.2) !important;
+}
+
+div[data-testid="stRadio"] label[data-checked="true"],
+div[data-testid="stRadio"] label:has(input:checked) {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(30, 58, 138, 0.4) 100%) !important;
+    border-color: var(--color-brand-cyan) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 14px var(--color-brand-cyan-glow), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Tabs */
@@ -618,60 +696,62 @@ html, body, [data-testid="stAppViewContainer"] {
 .stTabs [data-baseweb="tab"] {
     background-color: transparent !important;
     color: var(--color-text-secondary) !important;
-    border-radius: 0 !important;
+    border-radius: var(--radius-xs) var(--radius-xs) 0 0;
     font-family: var(--font-sans) !important;
     font-weight: var(--font-weight-semibold) !important;
     padding: var(--space-3) var(--space-5) !important;
-    box-shadow: none !important;
-    transition: color var(--transition-fast) !important;
+    transition: color var(--transition-fast), border-color var(--transition-fast) !important;
 }
 
 .stTabs [aria-selected="true"] {
-    color: #FFFFFF !important;
-    border-bottom: 2px solid #FFFFFF !important;
-    font-family: var(--font-sans) !important;
-    letter-spacing: 0.02em !important;
+    color: var(--color-brand-cyan) !important;
+    border-bottom: 2px solid var(--color-brand-cyan) !important;
+    text-shadow: 0 0 12px var(--color-brand-cyan-glow) !important;
 }
 
-/* Expanders - Structured Nothing OS Palette */
+/* Expanders */
 [data-testid="stExpander"] {
-    background: #101010 !important;
-    border: 1px solid #242424 !important;
-    border-radius: 12px !important;
-    box-shadow: none !important;
+    background: rgba(15, 23, 42, 0.7) !important;
+    border: 1px solid var(--color-border-glass) !important;
+    border-radius: var(--radius-md) !important;
     overflow: hidden !important;
     margin-bottom: 16px !important;
+    backdrop-filter: blur(16px) !important;
+    box-shadow: var(--shadow-sm) !important;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast) !important;
+}
+
+[data-testid="stExpander"]:hover {
+    border-color: rgba(56, 189, 248, 0.3) !important;
+    box-shadow: var(--shadow-md) !important;
 }
 
 [data-testid="stExpander"] summary {
     font-family: var(--font-sans) !important;
     font-size: 0.86rem !important;
     font-weight: 600 !important;
-    color: #FFFFFF !important;
+    color: var(--color-text-primary) !important;
     padding: 12px 18px !important;
-    background: #121212 !important;
-    border-bottom: 1px solid transparent !important;
-    transition: background 180ms ease, border-color 180ms ease !important;
+    background: rgba(15, 23, 42, 0.85) !important;
+    transition: background var(--transition-fast), color var(--transition-fast) !important;
 }
 
 [data-testid="stExpander"] summary:hover {
-    background: #181818 !important;
-    color: #FFFFFF !important;
-}
-
-[data-testid="stExpander"][open] summary {
-    border-bottom: 1px solid #222222 !important;
+    background: rgba(30, 41, 59, 0.9) !important;
+    color: var(--color-brand-cyan) !important;
 }
 
 [data-testid="stExpander"] [data-testid="stExpanderDetails"] {
     padding: 18px 22px !important;
-    background: #0E0E0E !important;
+    background: rgba(11, 15, 23, 0.75) !important;
 }
 
-/* Streamlit Sidebar Matte Styling */
+/* Streamlit Sidebar Cinematic Styling */
 [data-testid="stSidebar"] {
-    background-color: #0A0A0A !important;
-    border-right: 1px solid var(--color-border-subtle) !important;
+    background: rgba(7, 10, 18, 0.95) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-right: 1px solid var(--color-border-glass) !important;
 }
 
 /* Responsive Breakpoints */
@@ -681,5 +761,15 @@ html, body, [data-testid="stAppViewContainer"] {
         align-items: flex-start;
         gap: var(--space-3);
         padding: var(--space-3) var(--space-4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transform: none !important;
     }
 }

@@ -90,7 +90,7 @@ def render_mode_switcher(location: str = "sidebar") -> str:
         with st.sidebar:
             st.markdown(
                 """
-                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #888888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
                     👁️ VIEW MODE
                 </div>
                 """,
@@ -111,10 +111,10 @@ def render_mode_switcher(location: str = "sidebar") -> str:
 
             st.markdown(
                 f"""
-                <div style="font-size: 0.72rem; color: #777777; margin-top: 6px; margin-bottom: 12px; font-family: var(--font-sans); line-height: 1.4;">
+                <div style="font-size: 0.74rem; color: #94A3B8; margin-top: 6px; margin-bottom: 12px; font-family: var(--font-sans); line-height: 1.4;">
                     {MODE_DESCRIPTIONS.get(selected, '')}
                 </div>
-                <hr style="border-color: #242424; margin: 4px 0 16px 0;">
+                <hr style="border-color: rgba(255, 255, 255, 0.08); margin: 4px 0 16px 0;">
                 """,
                 unsafe_allow_html=True
             )
@@ -137,23 +137,27 @@ def render_mode_banner() -> None:
         except Exception:
             pass
 
-    # Informative presentation banner
+    # Informative presentation banner with cinematic glassmorphism
     if mode == TECHNICAL_MODE:
         banner_html = """
         <div style="
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #101010;
-            border: 1px solid #282828;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
             border-left: 3px solid #38BDF8;
-            border-radius: 8px;
-            padding: 8px 14px;
-            margin-bottom: 18px;
+            border-radius: 10px;
+            padding: 10px 16px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         ">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="color: #38BDF8; font-size: 0.85rem;">⚙️</span>
-                <span style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 600; color: #CCCCCC;">
+                <span style="font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; color: #CBD5E1;">
                     You are viewing <strong style="color: #FFFFFF;">Technical Mode</strong>: full analytics, forecasts, and model details.
                 </span>
             </div>
@@ -162,11 +166,12 @@ def render_mode_banner() -> None:
                 font-size: 0.65rem;
                 padding: 2px 8px;
                 border-radius: 9999px;
-                background: rgba(56, 189, 248, 0.12);
+                background: rgba(56, 189, 248, 0.15);
                 border: 1px solid #38BDF8;
                 color: #38BDF8;
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
+                box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
             ">
                 ANALYTICAL DEPLOYMENT
             </span>
@@ -178,17 +183,21 @@ def render_mode_banner() -> None:
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #101010;
-            border: 1px solid #282828;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
             border-left: 3px solid #10B981;
-            border-radius: 8px;
-            padding: 8px 14px;
-            margin-bottom: 18px;
+            border-radius: 10px;
+            padding: 10px 16px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         ">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="color: #10B981; font-size: 0.85rem;">🌿</span>
-                <span style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 600; color: #CCCCCC;">
-                    You are viewing <strong style="color: #FFFFFF;">Simple Mode</strong>: easy safety guidance for everyday outdoor decisions.
+                <span style="font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; color: #CBD5E1;">
+                    You are viewing <strong style="color: #FFFFFF;">Simple Mode</strong>: easy explanations and safety guidance.
                 </span>
             </div>
             <span style="
@@ -196,13 +205,14 @@ def render_mode_banner() -> None:
                 font-size: 0.65rem;
                 padding: 2px 8px;
                 border-radius: 9999px;
-                background: rgba(16, 185, 129, 0.12);
+                background: rgba(16, 185, 129, 0.15);
                 border: 1px solid #10B981;
-                color: #10B981;
+                color: #34D399;
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
+                box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
             ">
-                SIMPLIFIED VIEW
+                PUBLIC DECISION AID
             </span>
         </div>
         """
