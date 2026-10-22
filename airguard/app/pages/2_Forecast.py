@@ -7,6 +7,7 @@ risk indicators, atmospheric drivers, and natural-language diagnostic explanatio
 from __future__ import annotations
 
 import sys
+import re
 from pathlib import Path
 import streamlit as st
 import pandas as pd
@@ -157,13 +158,15 @@ with kcol3:
 
 with kcol4:
     peak_val = float(peak_row["predicted_pm2_5"])
+    peak_dt = pd.to_datetime(peak_row["target_time"])
+    peak_time_str = peak_dt.strftime("%a %I:%M %p")
     render_metric_tile(
         label=f"Projected Smog Peak (+{peak_row['horizon_hours']}h)",
         value=peak_val,
         unit="µg/m³",
         delta=f"{peak_row['predicted_category']}",
         delta_positive=(peak_val < 35.4),
-        subtext=f"Occurs at {peak_row['target_time'].split(' ')[1] if ' ' in str(peak_row['target_time']) else peak_row['target_time']}",
+        subtext=f"Occurs {peak_time_str}",
         icon="alert"
     )
 
@@ -181,29 +184,47 @@ with diag_col:
         forecast_24h_pm25=f24_val,
         weather_info=curr_wx
     )
-    render_callout(
-        title="AI Environmental Diagnostic Synthesis",
-        message=insight_text,
-        variant="info",
-        icon="check"
+    formatted_insight = re.sub(r"\*\*(.*?)\*\*", r"<strong style='color: var(--color-slate-100);'>\1</strong>", insight_text)
+    safe_markdown(
+        f"""
+        <div class="card" style="padding: var(--space-4); height: 100%; border-left: 4px solid var(--color-brand-cyan); background: rgba(17, 24, 39, 0.95); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="color: var(--color-brand-cyan); display: flex;">{ICONS['check']}</span>
+                        <span style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-brand-cyan);">AI Environmental Diagnostic Synthesis</span>
+                    </div>
+                    <span class="badge badge-info">AUTOMATED HEURISTIC</span>
+                </div>
+                <div style="font-size: var(--text-sm); color: var(--color-slate-200); line-height: 1.6; margin-top: var(--space-2);">
+                    {formatted_insight}
+                </div>
+            </div>
+            <div style="margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-slate-500); font-family: var(--font-mono);">
+                Target City: {selected_city} • 72h Multi-Variate Trajectory Analysis
+            </div>
+        </div>
+        """
     )
 
 with meta_col:
     champion_name = summary.get("best_model_name", "XGBoost Regressor")
     safe_markdown(
         f"""
-        <div class="card" style="padding: var(--space-4); height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
-                <span style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-slate-400);">Model Inference Telemetry</span>
-                <span class="badge badge-good">ONLINE</span>
+        <div class="card" style="padding: var(--space-4); height: 100%; border-left: 4px solid #818CF8; background: rgba(17, 24, 39, 0.95); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
+                    <span style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #818CF8;">Model Inference Telemetry</span>
+                    <span class="badge badge-good">ONLINE</span>
+                </div>
+                <div style="font-size: var(--text-sm); color: var(--color-slate-200); line-height: 1.6; margin-top: var(--space-2);">
+                    <div><strong>Champion Architecture:</strong> {champion_name}</div>
+                    <div><strong>Confidence Bounds:</strong> 90% Empirical Residual Interval</div>
+                    <div><strong>Atmospheric Signals:</strong> 18 Autoregressive & Rolling Lags</div>
+                    <div><strong>Temporal Resolution:</strong> 1-Hour Discrete Increments</div>
+                </div>
             </div>
-            <div style="font-size: var(--text-sm); color: var(--color-slate-200); line-height: 1.6;">
-                <div><strong>Champion Architecture:</strong> {champion_name}</div>
-                <div><strong>Confidence Bounds:</strong> 90% Empirical Residual Interval</div>
-                <div><strong>Atmospheric Signals:</strong> 18 Autoregressive & Rolling Lags</div>
-                <div><strong>Temporal Resolution:</strong> 1-Hour Discrete Increments</div>
-            </div>
-            <div style="margin-top: var(--space-2); font-size: var(--text-xs); color: var(--color-slate-500); font-family: var(--font-mono);">
+            <div style="margin-top: var(--space-3); font-size: var(--text-xs); color: var(--color-slate-500); font-family: var(--font-mono);">
                 Validated against Open-Meteo Ground Reanalysis
             </div>
         </div>
@@ -221,15 +242,16 @@ st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
 adv_col1, adv_col2 = st.columns(2)
 
 with adv_col1:
-    cleanest_time = min_row['target_time']
+    cleanest_dt = pd.to_datetime(min_row['target_time'])
+    cleanest_time = cleanest_dt.strftime("%A, %b %d at %I:%M %p")
     safe_markdown(
         f"""
-        <div class="card" style="border-left: 4px solid var(--color-good); padding: var(--space-4);">
+        <div class="card" style="border-left: 4px solid var(--color-good); padding: var(--space-4); background: rgba(17, 24, 39, 0.95);">
             <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);">
                 <div style="width: 24px; height: 24px; color: var(--color-good);">{ICONS['check']}</div>
                 <div style="font-weight: 700; font-size: var(--text-base); color: var(--color-slate-100);">Optimal Low-Exposure Window</div>
             </div>
-            <div style="font-size: var(--text-sm); color: var(--color-slate-300); line-height: 1.5;">
+            <div style="font-size: var(--text-sm); color: var(--color-slate-300); line-height: 1.6;">
                 Particulate concentrations are projected to trough around <strong>{cleanest_time}</strong> at approximately <strong>{min_row['predicted_pm2_5']:.1f} µg/m³</strong> (AQI {min_row['predicted_aqi']}).
                 This represents the most favorable window for ventilation and outdoor physical exercise.
             </div>
@@ -238,19 +260,20 @@ with adv_col1:
     )
 
 with adv_col2:
-    highest_time = peak_row['target_time']
+    highest_dt = pd.to_datetime(peak_row['target_time'])
+    highest_time = highest_dt.strftime("%A, %b %d at %I:%M %p")
     peak_is_severe = peak_row['predicted_pm2_5'] >= 55.4
     border_color = "var(--color-severe)" if peak_is_severe else "var(--color-moderate)"
     icon_svg = ICONS['alert'] if peak_is_severe else ICONS['gauge']
 
     safe_markdown(
         f"""
-        <div class="card" style="border-left: 4px solid {border_color}; padding: var(--space-4);">
+        <div class="card" style="border-left: 4px solid {border_color}; padding: var(--space-4); background: rgba(17, 24, 39, 0.95);">
             <div style="display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2);">
                 <div style="width: 24px; height: 24px; color: {border_color};">{icon_svg}</div>
                 <div style="font-weight: 700; font-size: var(--text-base); color: var(--color-slate-100);">Peak Pollution Concentration</div>
             </div>
-            <div style="font-size: var(--text-sm); color: var(--color-slate-300); line-height: 1.5;">
+            <div style="font-size: var(--text-sm); color: var(--color-slate-300); line-height: 1.6;">
                 Peak particulate accumulation is anticipated around <strong>{highest_time}</strong> reaching <strong>{peak_row['predicted_pm2_5']:.1f} µg/m³</strong> ({peak_row['predicted_category']}).
                 Sensitive demographics and individuals with respiratory conditions should seal windows and minimize vigorous outdoor activity during this phase.
             </div>

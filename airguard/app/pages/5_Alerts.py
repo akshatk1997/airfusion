@@ -91,6 +91,7 @@ with tab_monitor:
     curr = fetch_current_air_quality(loc["latitude"], loc["longitude"])
     curr_pm = float(curr.get("pm2_5", 0.0))
     curr_aqi = int(curr.get("aqi", 0))
+    category = curr.get("aqi_category", "Moderate")
 
     # Evaluate 24-hour predictive forecast horizon
     fc_df = None
@@ -183,12 +184,20 @@ with tab_monitor:
                 """
             )
     else:
-        render_callout(
-            title="Atmospheric Safety Confirmed — All Clear",
-            message=f"No threshold breaches detected for {monitor_city}. Current PM₂.₅ of {curr_pm:.1f} µg/m³ (AQI {curr_aqi}) complies with all configured alert safety rules.",
-            variant="success",
-            icon="check"
-        )
+        if curr_aqi > 100:
+            render_callout(
+                title="Custom Thresholds Compliant — Ambient Air Quality Elevated",
+                message=f"No custom alert trigger breaches detected for {monitor_city}. Ambient air currently registers PM₂.₅ {curr_pm:.1f} µg/m³ (AQI {curr_aqi}, {category}). While no custom rule was tripped, ambient conditions warrant precautionary attention for sensitive cohorts.",
+                variant="warning",
+                icon="alert"
+            )
+        else:
+            render_callout(
+                title="Atmospheric Safety Confirmed — All Clear",
+                message=f"No threshold breaches detected for {monitor_city}. Current PM₂.₅ of {curr_pm:.1f} µg/m³ (AQI {curr_aqi}) complies with all configured alert safety rules and clean baseline standards.",
+                variant="success",
+                icon="check"
+            )
 
     # Health Advisory Panel
     st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)

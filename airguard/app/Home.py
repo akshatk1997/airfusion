@@ -25,6 +25,7 @@ from app.components.design_system import (
     render_callout,
     render_badge,
     safe_markdown,
+    format_location_label,
     ICONS
 )
 
@@ -58,7 +59,7 @@ if loc:
             aqi=aqi_val,
             category=category,
             color=color,
-            city=f"{loc['city']}" + (f", {loc.get('state')}" if loc.get("state") else ""),
+            city=format_location_label(loc),
             timestamp=timestamp_str,
             pm25_val=pm25_val
         )

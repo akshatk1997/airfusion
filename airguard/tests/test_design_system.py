@@ -12,6 +12,7 @@ from app.components.design_system import (
     render_badge,
     render_callout,
     render_hero_banner,
+    format_location_label,
     ICONS,
     CSS_PATH
 )
@@ -56,3 +57,11 @@ def test_render_callout():
         assert "ag-callout" in args[0]
         assert "Warning" in args[0]
         assert "High smog level" in args[0]
+
+
+def test_format_location_label():
+    assert format_location_label({"name": "Chandigarh", "admin1": "Chandigarh", "country": "India"}) == "Chandigarh, India"
+    assert format_location_label({"name": "Mohali", "admin1": "Punjab", "country": "India"}) == "Mohali, Punjab, India"
+    assert format_location_label({"name": "Delhi", "country": "India"}) == "Delhi, India"
+    assert format_location_label(None) == "Unknown Location"
+

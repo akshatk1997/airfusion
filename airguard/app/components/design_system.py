@@ -53,6 +53,24 @@ def safe_markdown(html: str) -> None:
     st.markdown(clean_html, unsafe_allow_html=True)
 
 
+def format_location_label(loc: Optional[Dict[str, Any]]) -> str:
+    """
+    Formats a geographic location dictionary into a non-redundant string.
+    Avoids duplicate city/state names (e.g. 'Chandigarh, Chandigarh').
+    """
+    if not loc:
+        return ""
+    city = loc.get("city") or loc.get("name") or ""
+    state = loc.get("state")
+    country = loc.get("country")
+    parts = [city] if city else []
+    if state and state.strip().lower() != city.strip().lower():
+        parts.append(state.strip())
+    if country and country.strip().lower() not in (city.strip().lower(), (state or "").strip().lower()):
+        parts.append(country.strip())
+    return ", ".join(parts)
+
+
 def render_section_header(
     title: str,
     subtitle: Optional[str] = None,
@@ -132,10 +150,21 @@ def render_callout(
 ) -> None:
     """
     Renders accessible callout banner for notifications, alerts, or AI synthesis.
+    Supports 'info', 'success', 'warning', and 'danger' variants.
     """
     icon_markup = ICONS.get(icon, ICONS["alert"]) if icon else ICONS["alert"]
-    border_color = "var(--color-brand-cyan)" if variant == "info" else ("#10B981" if variant == "success" else "#EF4444")
-    bg_color = "rgba(56, 189, 248, 0.08)" if variant == "info" else ("rgba(16, 185, 129, 0.08)" if variant == "success" else "rgba(239, 68, 68, 0.08)")
+    if variant == "info":
+        border_color = "var(--color-brand-cyan)"
+        bg_color = "rgba(56, 189, 248, 0.08)"
+    elif variant == "success":
+        border_color = "#10B981"
+        bg_color = "rgba(16, 185, 129, 0.08)"
+    elif variant == "warning":
+        border_color = "#F59E0B"
+        bg_color = "rgba(245, 158, 11, 0.08)"
+    else:
+        border_color = "#EF4444"
+        bg_color = "rgba(239, 68, 68, 0.08)"
 
     html = f"""
     <div class="ag-callout" style="border-left-color: {border_color}; background: {bg_color};">
@@ -192,3 +221,24 @@ def render_hero_banner(
     </div>
     """
     st.markdown(html, unsafe_allow_html=True)
+
+
+def format_location_label(loc: dict | None) -> str:
+    """
+    Formats a geocoded location dictionary into a clean, non-redundant 'City, State, Country' string.
+    Deduplicates identical city and administrative region names (e.g., 'Chandigarh, Chandigarh' -> 'Chandigarh, India').
+    """
+    if not loc or not isinstance(loc, dict):
+        return "Unknown Location"
+    name = str(loc.get("name", "")).strip()
+    admin1 = str(loc.get("admin1", "")).strip() if loc.get("admin1") else ""
+    country = str(loc.get("country", "")).strip() if loc.get("country") else ""
+
+    parts = [name] if name else []
+    if admin1 and admin1.lower() != name.lower():
+        parts.append(admin1)
+    if country:
+        parts.append(country)
+
+    return ", ".join(parts) if parts else (name or "Unknown Location")
+

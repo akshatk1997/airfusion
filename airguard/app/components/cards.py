@@ -143,14 +143,12 @@ def render_aqi_hero_card(
 
         <!-- AQI Scale Bar -->
         <div style="margin-top: 24px;">
-            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; color: #94A3B8; margin-bottom: 6px;">
-                <span>0 GOOD</span>
-                <span>50</span>
-                <span>100 MODERATE</span>
-                <span>150 SENSITIVE</span>
-                <span>200 UNHEALTHY</span>
-                <span>300 VERY UNHEALTHY</span>
-                <span>500 HAZARDOUS</span>
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: #94A3B8; margin-bottom: 6px;">
+                <span>0 Good</span>
+                <span>50 Moderate</span>
+                <span>100 Sensitive</span>
+                <span>150 Unhealthy</span>
+                <span>300+ Hazardous</span>
             </div>
             <div style="
                 height: 8px;

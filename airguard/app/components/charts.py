@@ -168,7 +168,13 @@ def create_hourly_diurnal_chart(df: pd.DataFrame) -> go.Figure:
 
     fig.update_layout(
         title="<b>Diurnal Pollution Curve (Hourly Rhythm)</b>",
-        xaxis=dict(title="Hour of Day (24h)", tickmode="linear", tick0=0, dtick=2),
+        xaxis=dict(
+            title="Hour of Day (24h)",
+            tickmode="array",
+            tickvals=[0, 4, 8, 12, 16, 20, 23],
+            ticktext=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "23:00"],
+            tickangle=0
+        ),
         yaxis_title="PM2.5 (µg/m³)",
         margin=dict(l=40, r=40, t=50, b=40)
     )
@@ -196,13 +202,19 @@ def create_weekly_pattern_chart(df: pd.DataFrame) -> go.Figure:
         weekly_avg,
         x="day_name",
         y="pm2_5",
-        color="pm2_5",
-        color_continuous_scale="Purples",
+        text_auto=".1f",
         title="<b>Weekly Pollution Trend (Average by Day)</b>",
         labels={"day_name": "Day of Week", "pm2_5": "Mean PM2.5 (µg/m³)"}
     )
+    fig.update_traces(
+        marker_color="#818CF8",
+        marker_line=dict(color="#A5B4FC", width=1.5),
+        textfont=dict(family="JetBrains Mono, monospace", size=12, color="#F8FAFC"),
+        textposition="outside"
+    )
     fig.update_layout(
-        margin=dict(l=40, r=40, t=50, b=40)
+        margin=dict(l=40, r=40, t=50, b=40),
+        yaxis=dict(range=[0, max(weekly_avg["pm2_5"].max() * 1.18, 20.0)])
     )
     return apply_chart_theme(fig)
 

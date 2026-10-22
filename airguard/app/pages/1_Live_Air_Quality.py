@@ -23,7 +23,13 @@ from src.database import get_or_create_location, upsert_air_quality_dataframe
 from app.components.navbar import render_global_navbar
 from app.components.cards import render_aqi_hero_card
 from app.components.health_advisory import render_health_advisory_panel
-from app.components.design_system import render_section_header, render_metric_tile, render_callout, ICONS
+from app.components.design_system import (
+    render_section_header,
+    render_metric_tile,
+    render_callout,
+    format_location_label,
+    ICONS
+)
 
 st.set_page_config(
     page_title="Live Air Quality — AirGuard",
@@ -115,7 +121,7 @@ render_aqi_hero_card(
     aqi=aqi_val,
     category=category,
     color=color,
-    city=f"{loc_meta['city']}" + (f", {loc_meta['state']}" if loc_meta.get('state') else "") + (f", {loc_meta.get('country')}" if loc_meta.get('country') else ""),
+    city=format_location_label(loc_meta),
     timestamp=timestamp_str,
     pm25_val=pm25_val
 )
@@ -203,13 +209,18 @@ who_benchmarks = [
 df_who = pd.DataFrame(who_benchmarks)
 df_who["ratio"] = (df_who["current"] / df_who["limit"]) * 100.0
 
+bar_colors = ["#10B981" if row["current"] <= row["limit"] else "#F59E0B" for _, row in df_who.iterrows()]
+
 fig_who = go.Figure()
 fig_who.add_trace(go.Bar(
     y=df_who["pollutant"],
     x=df_who["current"],
     name="Current Concentration",
     orientation="h",
-    marker_color="#38BDF8",
+    marker=dict(color=bar_colors, cornerradius=4),
+    text=df_who["current"].apply(lambda v: f"{v:.1f}"),
+    textposition="outside",
+    textfont=dict(family="JetBrains Mono, monospace", size=11, color="#F8FAFC"),
     hovertemplate="Measured: <b>%{x:.1f} µg/m³</b><extra></extra>"
 ))
 fig_who.add_trace(go.Bar(
@@ -217,7 +228,10 @@ fig_who.add_trace(go.Bar(
     x=df_who["limit"],
     name="WHO 24h Safe Limit",
     orientation="h",
-    marker_color="rgba(148, 163, 184, 0.35)",
+    marker=dict(color="rgba(148, 163, 184, 0.35)", cornerradius=4),
+    text=df_who["limit"].apply(lambda v: f"{v:.0f}"),
+    textposition="outside",
+    textfont=dict(family="JetBrains Mono, monospace", size=11, color="#94A3B8"),
     hovertemplate="WHO Safe Ceiling: <b>%{x:.1f} µg/m³</b><extra></extra>"
 ))
 fig_who.update_layout(
@@ -225,11 +239,15 @@ fig_who.update_layout(
     font=dict(family="Plus Jakarta Sans, sans-serif", color="#F8FAFC"),
     plot_bgcolor="rgba(17, 24, 39, 0.5)",
     paper_bgcolor="rgba(0, 0, 0, 0)",
+    height=290,
     barmode="group",
+    bargap=0.25,
+    bargroupgap=0.1,
     xaxis_title="Concentration (µg/m³)",
     yaxis_title="",
-    margin=dict(l=80, r=40, t=30, b=40),
-    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    yaxis=dict(autorange="reversed"),
+    margin=dict(l=70, r=50, t=30, b=40),
+    legend=dict(orientation="h", yanchor="bottom", y=1.06, xanchor="right", x=1)
 )
 st.plotly_chart(fig_who, use_container_width=True)
 
