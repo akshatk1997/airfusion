@@ -72,7 +72,6 @@ except Exception:
     pass
 
 default_selection = ["Chandigarh", "Mohali", "Panchkula", "Delhi"]
-# Ensure current active city is included by default if valid
 if current_active_city in available_cities and current_active_city not in default_selection:
     default_selection.insert(0, current_active_city)
 
@@ -146,8 +145,8 @@ with ctrl_col2:
             st.cache_data.clear()
             st.rerun()
     with bcol2:
-        if st.button("⚡ Live Telemetry", use_container_width=True, help=f"Inspect live sensors for {current_active_city}"):
-            st.switch_page("pages/1_Live_Air_Quality.py")
+        if st.button("⚡ Live Tracking", use_container_width=True, help=f"Inspect live sensors for {current_active_city}"):
+            st.switch_page("pages/2_Live_Tracking.py")
 
 # Validation
 if len(selected_cities) < 2:
@@ -241,19 +240,19 @@ with rank_col1:
                 </div>
                 <span class="badge {badge_cls}">{clean_cat.upper()}</span>
             </div>
-            <div style="font-size: var(--text-2xl); font-weight: 800; color: var(--color-slate-100); margin: var(--space-1) 0;">
+            <div style="font-size: var(--text-2xl); font-weight: 800; color: #FFFFFF; margin: var(--space-1) 0;">
                 {clean_label}
             </div>
-            <div style="font-size: var(--text-sm); color: var(--color-slate-300); display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
+            <div style="font-size: var(--text-sm); color: #CCCCCC; display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
                 <span>Current AQI: <strong style="color: var(--color-good); font-family: var(--font-mono); font-size: var(--text-base);">{cleanest_row['current_aqi']}</strong></span>
-                <span>PM₂.₅: <strong style="color: var(--color-slate-100); font-family: var(--font-mono); font-size: var(--text-base);">{cleanest_row['current_pm2_5']:.1f} µg/m³</strong></span>
-                <span>Wind: <strong style="color: var(--color-slate-200); font-family: var(--font-mono);">{cleanest_row['wind_speed']} km/h</strong></span>
+                <span>PM₂.₅: <strong style="color: #FFFFFF; font-family: var(--font-mono); font-size: var(--text-base);">{cleanest_row['current_pm2_5']:.1f} µg/m³</strong></span>
+                <span>Wind: <strong style="color: #CCCCCC; font-family: var(--font-mono);">{cleanest_row['wind_speed']} km/h</strong></span>
             </div>
             """
         )
         if st.button(f"🔍 Set {clean_city} as Active Monitored City", key="btn_set_clean", use_container_width=True):
             st.session_state["selected_city"] = clean_city
-            st.switch_page("pages/1_Live_Air_Quality.py")
+            st.switch_page("pages/2_Live_Tracking.py")
 
 with rank_col2:
     poll_city = polluted_row['city']
@@ -271,19 +270,19 @@ with rank_col2:
                 </div>
                 <span class="badge {poll_badge_cls}">{poll_cat.upper()}</span>
             </div>
-            <div style="font-size: var(--text-2xl); font-weight: 800; color: var(--color-slate-100); margin: var(--space-1) 0;">
+            <div style="font-size: var(--text-2xl); font-weight: 800; color: #FFFFFF; margin: var(--space-1) 0;">
                 {poll_label}
             </div>
-            <div style="font-size: var(--text-sm); color: var(--color-slate-300); display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
+            <div style="font-size: var(--text-sm); color: #CCCCCC; display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
                 <span>Current AQI: <strong style="color: {poll_border}; font-family: var(--font-mono); font-size: var(--text-base);">{polluted_row['current_aqi']}</strong></span>
-                <span>PM₂.₅: <strong style="color: var(--color-slate-100); font-family: var(--font-mono); font-size: var(--text-base);">{polluted_row['current_pm2_5']:.1f} µg/m³</strong></span>
-                <span>Wind: <strong style="color: var(--color-slate-200); font-family: var(--font-mono);">{polluted_row['wind_speed']} km/h</strong></span>
+                <span>PM₂.₅: <strong style="color: #FFFFFF; font-family: var(--font-mono); font-size: var(--text-base);">{polluted_row['current_pm2_5']:.1f} µg/m³</strong></span>
+                <span>Wind: <strong style="color: #CCCCCC; font-family: var(--font-mono);">{polluted_row['wind_speed']} km/h</strong></span>
             </div>
             """
         )
         if st.button(f"🔍 Set {poll_city} as Active Monitored City", key="btn_set_poll", use_container_width=True):
             st.session_state["selected_city"] = poll_city
-            st.switch_page("pages/1_Live_Air_Quality.py")
+            st.switch_page("pages/2_Live_Tracking.py")
 
 st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
 
@@ -299,7 +298,6 @@ with tab_bars:
     st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
     st.plotly_chart(create_city_grouped_benchmark_chart(df_comp), use_container_width=True)
 
-    # Cross-regional trend insight callout
     pm_spread = polluted_row['current_pm2_5'] - cleanest_row['current_pm2_5']
     trend_summary = (
         f"**Regional Variance:** Across the {len(df_comp)} evaluated locations, ambient PM₂.₅ concentrations vary by "
@@ -321,7 +319,6 @@ with tab_aqi:
     st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
     st.plotly_chart(create_city_comparison_bars(df_comp, metric="current_aqi", title="Comparative Air Quality Index (US AQI Scale)"), use_container_width=True)
 
-    # Criteria Pollutant Comparison Bar
     st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
     c1, c2 = st.columns(2)
     with c1:

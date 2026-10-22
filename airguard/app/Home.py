@@ -81,16 +81,16 @@ if loc:
             </p>
             """)
 
-            btn_live = st.button("📡 Open Live Telemetry Dashboard", key="cta_live", use_container_width=True)
-            btn_fc = st.button("📈 View 72h Predictive Trajectory", key="cta_fc", use_container_width=True)
-            btn_alert = st.button("🚨 Safety Alerts & Health Protocol", key="cta_alert", use_container_width=True)
+            btn_plan = st.button("🛡️ Open My Safe Outdoor Plan", key="cta_plan", use_container_width=True)
+            btn_live = st.button("📡 Live Tracking & Alert Defense", key="cta_live", use_container_width=True)
+            btn_fc = st.button("📈 Trends & Timeline Analysis", key="cta_fc", use_container_width=True)
 
-            if btn_live:
-                st.switch_page("pages/1_Live_Air_Quality.py")
+            if btn_plan:
+                st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
+            elif btn_live:
+                st.switch_page("pages/2_Live_Tracking.py")
             elif btn_fc:
-                st.switch_page("pages/2_Forecast.py")
-            elif btn_alert:
-                st.switch_page("pages/5_Alerts.py")
+                st.switch_page("pages/3_Trends.py")
 else:
     render_callout(
         title="Location Unresolved",
@@ -249,44 +249,41 @@ mcol1, mcol2, mcol3 = st.columns(3)
 with mcol1:
     with st.container(border=True):
         safe_markdown("""
-        <div style="font-size: 1.15rem; font-weight: 700; color: var(--color-slate-100); margin-bottom: 6px;">
-            📡 Live Telemetry
+        <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            🛡️ Safe Outdoor Plan
         </div>
-        <p style="color: var(--color-slate-400); font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-            Continuous multi-pollutant telemetry (PM2.5, PM10, NO2, O3, CO, SO2) alongside
-            ambient meteorology with US EPA standardized classifications.
+        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+            Personalized environmental decision support: Safe outdoor window finder, risk engine scoring, and cohort guidance.
         </p>
         """)
-        if st.button("Explore Live Telemetry →", key="mod_live", use_container_width=True):
-            st.switch_page("pages/1_Live_Air_Quality.py")
+        if st.button("Generate Outdoor Plan →", key="mod_plan", use_container_width=True):
+            st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
 
 with mcol2:
     with st.container(border=True):
         safe_markdown("""
-        <div style="font-size: 1.15rem; font-weight: 700; color: var(--color-slate-100); margin-bottom: 6px;">
-            📈 Predictive Forecasting
+        <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            📡 Live Tracking & Alerts
         </div>
-        <p style="color: var(--color-slate-400); font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-            Multi-step time-series regression with dynamic 90% confidence bands,
-            stagnation dispersion indices, and natural-language AI insights.
+        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+            Multi-pollutant ground telemetry, meteorology, personal threshold monitor, and advance peak warnings.
         </p>
         """)
-        if st.button("View Predictive Horizons →", key="mod_fc", use_container_width=True):
-            st.switch_page("pages/2_Forecast.py")
+        if st.button("Explore Live Tracking →", key="mod_live", use_container_width=True):
+            st.switch_page("pages/2_Live_Tracking.py")
 
 with mcol3:
     with st.container(border=True):
         safe_markdown("""
-        <div style="font-size: 1.15rem; font-weight: 700; color: var(--color-slate-100); margin-bottom: 6px;">
-            📊 Historical Trends
+        <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            📊 Atmospheric Trends
         </div>
-        <p style="color: var(--color-slate-400); font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-            Diurnal rush-hour curves, weekday/weekend traffic deviations,
-            seasonal variations, and atmospheric cross-correlation heatmaps.
+        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+            24h timeline safety zones, diurnal curves, 7-day patterns, and cross-correlation heatmaps.
         </p>
         """)
         if st.button("Analyze Historical Trends →", key="mod_trends", use_container_width=True):
-            st.switch_page("pages/3_Trends_Analytics.py")
+            st.switch_page("pages/3_Trends.py")
 
 st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
 mcol4, mcol5, mcol6 = st.columns(3)
@@ -294,41 +291,38 @@ mcol4, mcol5, mcol6 = st.columns(3)
 with mcol4:
     with st.container(border=True):
         safe_markdown("""
-        <div style="font-size: 1.15rem; font-weight: 700; color: var(--color-slate-100); margin-bottom: 6px;">
-            🏙️ City Comparison
+        <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            🔍 Model Insights & Governance
         </div>
-        <p style="color: var(--color-slate-400); font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-            Benchmark air quality across 2 to 5 target locations simultaneously (e.g. Kharar,
-            Mohali, Chandigarh, Delhi) with cleanest vs most polluted rankings.
+        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+            Global feature importances (XAI), candidate tournament (Persistence, Ridge, RF, XGBoost), and holdout metrics.
         </p>
         """)
-        if st.button("Compare Regional Cities →", key="mod_compare", use_container_width=True):
-            st.switch_page("pages/4_City_Comparison.py")
+        if st.button("Inspect Model Diagnostics →", key="mod_xai", use_container_width=True):
+            st.switch_page("pages/4_Model_Insights.py")
 
 with mcol5:
     with st.container(border=True):
         safe_markdown("""
-        <div style="font-size: 1.15rem; font-weight: 700; color: var(--color-slate-100); margin-bottom: 6px;">
-            🚨 Alerts & Safety Protocol
+        <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            🛡️ About & Safety Protocols
         </div>
-        <p style="color: var(--color-slate-400); font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-            Customizable particulate thresholds with proactive advance warnings before
-            forecast peaks, plus clinical mask and ventilation advisories.
+        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+            N95 mask guidance, indoor air defense, health cohort recommendations, and system documentation.
         </p>
         """)
-        if st.button("Configure Safety Alerts →", key="mod_alerts", use_container_width=True):
-            st.switch_page("pages/5_Alerts.py")
+        if st.button("View Safety Protocols →", key="mod_safety", use_container_width=True):
+            st.switch_page("pages/5_About_Safety.py")
 
 with mcol6:
     with st.container(border=True):
         safe_markdown("""
-        <div style="font-size: 1.15rem; font-weight: 700; color: var(--color-slate-100); margin-bottom: 6px;">
-            🔍 Model Insights (XAI)
+        <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            🏙️ Multi-City Comparison
         </div>
-        <p style="color: var(--color-slate-400); font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
-            Global feature importances, TreeSHAP attributions, chronological test benchmarking
-            (MAE, RMSE, R², F1), and one-click model retraining.
+        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+            Simultaneous multi-city benchmarking across custom registered cities, states, and global locations.
         </p>
         """)
-        if st.button("Inspect Model Diagnostics →", key="mod_xai", use_container_width=True):
-            st.switch_page("pages/6_Model_Insights.py")
+        if st.button("Compare Regional Cities →", key="mod_compare", use_container_width=True):
+            st.switch_page("pages/6_City_Comparison.py")

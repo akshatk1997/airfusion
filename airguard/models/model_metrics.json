@@ -22,22 +22,22 @@
         }
       },
       "test": {
-        "mae": 27.903,
-        "rmse": 38.827,
-        "r2": -0.99,
-        "mape": 71.15,
+        "mae": 27.331,
+        "rmse": 37.693,
+        "r2": -1.0335,
+        "mape": 68.35,
         "high_pollution_detection": {
           "threshold": 55.5,
-          "total_actual_unsafe": 144,
-          "total_predicted_unsafe": 143,
+          "total_actual_unsafe": 145,
+          "total_predicted_unsafe": 144,
           "true_positives": 23,
-          "false_positives": 120,
-          "false_negatives": 121,
-          "true_negatives": 431,
-          "precision": 0.161,
-          "recall": 0.16,
-          "f1_score": 0.16,
-          "accuracy": 0.653
+          "false_positives": 121,
+          "false_negatives": 122,
+          "true_negatives": 429,
+          "precision": 0.16,
+          "recall": 0.159,
+          "f1_score": 0.159,
+          "accuracy": 0.65
         }
       }
     },
@@ -62,22 +62,22 @@
         }
       },
       "test": {
-        "mae": 22.659,
-        "rmse": 26.858,
-        "r2": 0.0478,
-        "mape": 60.87,
+        "mae": 22.046,
+        "rmse": 26.013,
+        "r2": 0.0315,
+        "mape": 56.92,
         "high_pollution_detection": {
           "threshold": 55.5,
-          "total_actual_unsafe": 144,
-          "total_predicted_unsafe": 261,
-          "true_positives": 64,
-          "false_positives": 197,
+          "total_actual_unsafe": 145,
+          "total_predicted_unsafe": 271,
+          "true_positives": 65,
+          "false_positives": 206,
           "false_negatives": 80,
-          "true_negatives": 354,
-          "precision": 0.245,
-          "recall": 0.444,
-          "f1_score": 0.316,
-          "accuracy": 0.601
+          "true_negatives": 344,
+          "precision": 0.24,
+          "recall": 0.448,
+          "f1_score": 0.313,
+          "accuracy": 0.588
         }
       }
     },
@@ -102,22 +102,22 @@
         }
       },
       "test": {
-        "mae": 20.954,
-        "rmse": 26.316,
-        "r2": 0.0858,
-        "mape": 52.7,
+        "mae": 20.58,
+        "rmse": 25.532,
+        "r2": 0.0669,
+        "mape": 49.74,
         "high_pollution_detection": {
           "threshold": 55.5,
-          "total_actual_unsafe": 144,
-          "total_predicted_unsafe": 155,
-          "true_positives": 37,
-          "false_positives": 118,
-          "false_negatives": 107,
-          "true_negatives": 433,
-          "precision": 0.239,
-          "recall": 0.257,
-          "f1_score": 0.247,
-          "accuracy": 0.676
+          "total_actual_unsafe": 145,
+          "total_predicted_unsafe": 201,
+          "true_positives": 46,
+          "false_positives": 155,
+          "false_negatives": 99,
+          "true_negatives": 395,
+          "precision": 0.229,
+          "recall": 0.317,
+          "f1_score": 0.266,
+          "accuracy": 0.635
         }
       }
     },
@@ -142,62 +142,62 @@
         }
       },
       "test": {
-        "mae": 20.912,
-        "rmse": 26.375,
-        "r2": 0.0817,
-        "mape": 51.91,
+        "mae": 20.467,
+        "rmse": 25.606,
+        "r2": 0.0615,
+        "mape": 48.91,
         "high_pollution_detection": {
           "threshold": 55.5,
-          "total_actual_unsafe": 144,
-          "total_predicted_unsafe": 156,
-          "true_positives": 33,
-          "false_positives": 123,
-          "false_negatives": 111,
-          "true_negatives": 428,
-          "precision": 0.212,
-          "recall": 0.229,
-          "f1_score": 0.22,
-          "accuracy": 0.663
+          "total_actual_unsafe": 145,
+          "total_predicted_unsafe": 181,
+          "true_positives": 38,
+          "false_positives": 143,
+          "false_negatives": 107,
+          "true_negatives": 407,
+          "precision": 0.21,
+          "recall": 0.262,
+          "f1_score": 0.233,
+          "accuracy": 0.64
         }
       }
     },
     "PyTorch LSTM": {
       "val": {
-        "mae": 17.834,
-        "rmse": 23.448,
-        "r2": 0.1706,
-        "mape": 51.16,
+        "mae": 18.796,
+        "rmse": 23.962,
+        "r2": 0.1339,
+        "mape": 56.42,
         "high_pollution_detection": {
           "threshold": 55.5,
           "total_actual_unsafe": 168,
-          "total_predicted_unsafe": 234,
-          "true_positives": 102,
-          "false_positives": 132,
-          "false_negatives": 66,
-          "true_negatives": 395,
-          "precision": 0.436,
-          "recall": 0.607,
-          "f1_score": 0.507,
-          "accuracy": 0.715
+          "total_predicted_unsafe": 299,
+          "true_positives": 122,
+          "false_positives": 177,
+          "false_negatives": 46,
+          "true_negatives": 350,
+          "precision": 0.408,
+          "recall": 0.726,
+          "f1_score": 0.522,
+          "accuracy": 0.679
         }
       },
       "test": {
-        "mae": 21.034,
-        "rmse": 26.728,
-        "r2": 0.057,
-        "mape": 54.43,
+        "mae": 22.131,
+        "rmse": 26.039,
+        "r2": 0.0296,
+        "mape": 58.46,
         "high_pollution_detection": {
           "threshold": 55.5,
-          "total_actual_unsafe": 144,
-          "total_predicted_unsafe": 137,
-          "true_positives": 32,
-          "false_positives": 105,
-          "false_negatives": 112,
-          "true_negatives": 446,
-          "precision": 0.234,
-          "recall": 0.222,
-          "f1_score": 0.228,
-          "accuracy": 0.688
+          "total_actual_unsafe": 145,
+          "total_predicted_unsafe": 234,
+          "true_positives": 56,
+          "false_positives": 178,
+          "false_negatives": 89,
+          "true_negatives": 372,
+          "precision": 0.239,
+          "recall": 0.386,
+          "f1_score": 0.296,
+          "accuracy": 0.616
         }
       }
     }

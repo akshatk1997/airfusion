@@ -15,30 +15,33 @@ from typing import Dict, Any, List, Optional
 
 def apply_chart_theme(fig: go.Figure) -> go.Figure:
     """
-    Applies unified Modern Environmental Tech layout styles cleanly.
+    Applies unified Nothing OS typography, pitch-black canvas, hairline borders,
+    and zero-glow layout styling cleanly across all visualizations.
     """
     fig.update_layout(
         template="plotly_dark",
-        font=dict(family="Plus Jakarta Sans, sans-serif", color="#F8FAFC"),
-        plot_bgcolor="rgba(17, 24, 39, 0.5)",
-        paper_bgcolor="rgba(0, 0, 0, 0)",
+        font=dict(family="Space Grotesk, -apple-system, sans-serif", color="#FFFFFF"),
+        plot_bgcolor="#0A0A0A",
+        paper_bgcolor="#000000",
         hoverlabel=dict(
-            bgcolor="#1E293B",
-            bordercolor="#38BDF8",
-            font=dict(family="JetBrains Mono, monospace", size=12, color="#F8FAFC")
+            bgcolor="#141414",
+            bordercolor="#2E2E2E",
+            font=dict(family="Space Mono, monospace", size=12, color="#FFFFFF")
         )
     )
     fig.update_xaxes(
-        gridcolor="rgba(255, 255, 255, 0.06)",
-        zerolinecolor="rgba(255, 255, 255, 0.1)",
+        gridcolor="rgba(255, 255, 255, 0.07)",
+        zerolinecolor="rgba(255, 255, 255, 0.12)",
         showline=True,
-        linecolor="rgba(255, 255, 255, 0.1)"
+        linecolor="#242424",
+        tickfont=dict(family="Space Mono, monospace", color="#888888")
     )
     fig.update_yaxes(
-        gridcolor="rgba(255, 255, 255, 0.06)",
-        zerolinecolor="rgba(255, 255, 255, 0.1)",
+        gridcolor="rgba(255, 255, 255, 0.07)",
+        zerolinecolor="rgba(255, 255, 255, 0.12)",
         showline=True,
-        linecolor="rgba(255, 255, 255, 0.1)"
+        linecolor="#242424",
+        tickfont=dict(family="Space Mono, monospace", color="#888888")
     )
     return fig
 
