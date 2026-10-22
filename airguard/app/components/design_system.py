@@ -223,22 +223,35 @@ def render_hero_banner(
     st.markdown(html, unsafe_allow_html=True)
 
 
-def format_location_label(loc: dict | None) -> str:
+def format_location_label(loc: dict | None, fallback: str = "Unknown Location") -> str:
     """
     Formats a geocoded location dictionary into a clean, non-redundant 'City, State, Country' string.
+    Ensures city place name is ALWAYS shown prominently and never omitted.
     Deduplicates identical city and administrative region names (e.g., 'Chandigarh, Chandigarh' -> 'Chandigarh, India').
     """
     if not loc or not isinstance(loc, dict):
-        return "Unknown Location"
-    name = str(loc.get("name", "")).strip()
-    admin1 = str(loc.get("admin1", "")).strip() if loc.get("admin1") else ""
-    country = str(loc.get("country", "")).strip() if loc.get("country") else ""
+        return fallback
 
-    parts = [name] if name else []
-    if admin1 and admin1.lower() != name.lower():
-        parts.append(admin1)
-    if country:
-        parts.append(country)
+    # Extract city / place name from any common key variant
+    city_name = str(loc.get("city") or loc.get("name") or "").strip()
+    if not city_name:
+        city_name = fallback
 
-    return ", ".join(parts) if parts else (name or "Unknown Location")
+    # Extract state / province / administrative region
+    state_name = str(loc.get("state") or loc.get("admin1") or loc.get("region") or "").strip()
+
+    # Extract country
+    country_name = str(loc.get("country") or "").strip()
+
+    parts = [city_name]
+
+    # Only include state if distinct from city
+    if state_name and state_name.lower() != city_name.lower():
+        parts.append(state_name)
+
+    # Include country if distinct from both city and state
+    if country_name and country_name.lower() != city_name.lower() and country_name.lower() != state_name.lower():
+        parts.append(country_name)
+
+    return ", ".join(parts)
 

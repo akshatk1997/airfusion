@@ -108,17 +108,25 @@ render_section_header(
     badge="REGIONAL MONITOR"
 )
 
-regional_cities = ["Chandigarh", "Mohali", "Kharar", "Delhi"]
+regional_base = ["Chandigarh", "Mohali", "Panchkula", "Delhi"]
+if active_city in regional_base:
+    regional_cities = regional_base[:4]
+else:
+    regional_cities = [active_city] + [c for c in regional_base if c.lower() != active_city.lower()][:3]
+
 rcols = st.columns(4)
 
 @st.cache_data(ttl=600)
 def get_city_snapshot(city_name: str):
     # Check local SQLite archive first for instant render
     df = fetch_historical_records(city=city_name)
+    loc_meta = geocode_city(city_name)
+    label = format_location_label(loc_meta) if loc_meta else city_name
     if not df.empty:
         latest = df.iloc[-1]
         return {
             "city": city_name,
+            "label": label,
             "aqi": int(latest.get("aqi", 0)),
             "category": str(latest.get("aqi_category", "Unknown")),
             "pm2_5": float(latest.get("pm2_5", 0.0)),
@@ -126,11 +134,11 @@ def get_city_snapshot(city_name: str):
             "humidity": latest.get("humidity", "--")
         }
     # Fallback to live API if not yet archived
-    l = geocode_city(city_name)
-    if l:
-        c = fetch_current_air_quality(l["latitude"], l["longitude"])
+    if loc_meta:
+        c = fetch_current_air_quality(loc_meta["latitude"], loc_meta["longitude"])
         return {
             "city": city_name,
+            "label": label,
             "aqi": c.get("aqi", 0),
             "category": c.get("aqi_category", "Unknown"),
             "pm2_5": c.get("pm2_5", 0.0),
@@ -149,7 +157,7 @@ for idx, city in enumerate(regional_cities):
             with st.container(border=True):
                 safe_markdown(f"""
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-weight: 700; font-size: 1.05rem; color: #FFFFFF;">{snap['city']}</span>
+                    <span style="font-weight: 700; font-size: 0.95rem; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{snap['label']}">{snap['label']}</span>
                     {active_badge}
                 </div>
                 <div style="display: flex; align-items: baseline; justify-content: space-between;">

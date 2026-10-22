@@ -21,7 +21,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.config import PRESET_CITIES
 from src.data_collection import fetch_current_air_quality, geocode_city
-from src.database import fetch_historical_records
+from src.database import fetch_historical_records, fetch_all_locations, get_or_create_location
 from src.predict import generate_forecast, is_model_trained
 from app.components.navbar import render_global_navbar
 from app.components.design_system import (
@@ -30,6 +30,7 @@ from app.components.design_system import (
     render_callout,
     render_badge,
     safe_markdown,
+    format_location_label,
     ICONS
 )
 from app.components.charts import (
@@ -56,10 +57,75 @@ render_section_header(
 
 # Target City Selector & Action Toolbar
 available_cities = list(PRESET_CITIES.keys())
-default_selection = ["Chandigarh", "Mohali", "Kharar", "Delhi"]
+if "location_registry" in st.session_state and st.session_state["location_registry"]:
+    for k in st.session_state["location_registry"].keys():
+        if k not in available_cities:
+            available_cities.append(k)
+
+try:
+    db_locs = fetch_all_locations()
+    for d in db_locs:
+        c = d["city"]
+        if c not in available_cities:
+            available_cities.append(c)
+except Exception:
+    pass
+
+default_selection = ["Chandigarh", "Mohali", "Panchkula", "Delhi"]
 # Ensure current active city is included by default if valid
 if current_active_city in available_cities and current_active_city not in default_selection:
     default_selection.insert(0, current_active_city)
+
+def comp_location_label(c_key: str) -> str:
+    loc = geocode_city(c_key)
+    return format_location_label(loc) if loc else c_key
+
+# Custom Location Addition Form for Comparison
+with st.expander("➕ Add Custom City, State, Country to Comparison Fleet", expanded=False):
+    with st.form("add_comp_location_form", clear_on_submit=True):
+        fcol1, fcol2, fcol3, fcol4 = st.columns([1.5, 1.2, 1.2, 1.1])
+        with fcol1:
+            comp_city_in = st.text_input("City / Place Name *", placeholder="e.g. Panchkula, Kolkata, Sydney")
+        with fcol2:
+            comp_state_in = st.text_input("State / Province", placeholder="e.g. Haryana, West Bengal, NSW")
+        with fcol3:
+            comp_country_in = st.text_input("Country", placeholder="e.g. India, Australia")
+        with fcol4:
+            st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+            btn_add_comp = st.form_submit_button("🚀 Add to Fleet", use_container_width=True)
+
+        if btn_add_comp:
+            if not comp_city_in.strip():
+                st.error("Please enter a city name.")
+            else:
+                q_tokens = [comp_city_in.strip()]
+                if comp_state_in.strip():
+                    q_tokens.append(comp_state_in.strip())
+                if comp_country_in.strip():
+                    q_tokens.append(comp_country_in.strip())
+                q_str = ", ".join(q_tokens)
+                with st.spinner(f"Geocoding '{q_str}'..."):
+                    res_loc = geocode_city(q_str)
+                    if res_loc:
+                        res_city = res_loc["city"]
+                        try:
+                            get_or_create_location(
+                                city=res_city,
+                                latitude=res_loc["latitude"],
+                                longitude=res_loc["longitude"],
+                                country=res_loc.get("country", comp_country_in.strip()),
+                                state=res_loc.get("state", comp_state_in.strip())
+                            )
+                        except Exception:
+                            pass
+                        if "location_registry" in st.session_state:
+                            st.session_state["location_registry"][res_city] = res_loc
+                        if res_city not in available_cities:
+                            available_cities.append(res_city)
+                        st.success(f"✅ Added {format_location_label(res_loc)}! You can now select it below.")
+                        st.rerun()
+                    else:
+                        st.error(f"Could not resolve '{q_str}'. Please check spelling.")
 
 ctrl_col1, ctrl_col2 = st.columns([2.5, 1.5])
 
@@ -68,6 +134,7 @@ with ctrl_col1:
         "Choose 2 to 5 Benchmark Locations",
         options=available_cities,
         default=[c for c in default_selection if c in available_cities][:4],
+        format_func=comp_location_label,
         help="Select between 2 and 5 cities to generate comparative cross-regional intelligence"
     )
 
@@ -105,6 +172,7 @@ def get_multi_city_telemetry(cities_list: list[str]) -> list[dict]:
         if not loc:
             continue
         curr = fetch_current_air_quality(loc["latitude"], loc["longitude"])
+        loc_label = format_location_label(loc)
 
         # Fetch historical average from local DB
         df_hist = fetch_historical_records(city=city)
@@ -123,6 +191,7 @@ def get_multi_city_telemetry(cities_list: list[str]) -> list[dict]:
 
         records.append({
             "city": city,
+            "location_label": loc_label,
             "current_aqi": int(curr.get("aqi", 0)),
             "current_category": curr.get("aqi_category", "Moderate"),
             "current_pm2_5": float(curr.get("pm2_5", 0.0)),
@@ -159,6 +228,7 @@ rank_col1, rank_col2 = st.columns(2)
 
 with rank_col1:
     clean_city = cleanest_row['city']
+    clean_label = cleanest_row.get('location_label', clean_city)
     clean_cat = cleanest_row['current_category']
     badge_cls = "badge-good" if clean_cat == "Good" else "badge-moderate"
     with st.container(border=True):
@@ -172,7 +242,7 @@ with rank_col1:
                 <span class="badge {badge_cls}">{clean_cat.upper()}</span>
             </div>
             <div style="font-size: var(--text-2xl); font-weight: 800; color: var(--color-slate-100); margin: var(--space-1) 0;">
-                {clean_city}
+                {clean_label}
             </div>
             <div style="font-size: var(--text-sm); color: var(--color-slate-300); display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
                 <span>Current AQI: <strong style="color: var(--color-good); font-family: var(--font-mono); font-size: var(--text-base);">{cleanest_row['current_aqi']}</strong></span>
@@ -187,6 +257,7 @@ with rank_col1:
 
 with rank_col2:
     poll_city = polluted_row['city']
+    poll_label = polluted_row.get('location_label', poll_city)
     poll_cat = polluted_row['current_category']
     poll_badge_cls = "badge-alert" if "Unhealthy" in poll_cat or "Hazardous" in poll_cat else "badge-warning"
     poll_border = "var(--color-severe)" if "Unhealthy" in poll_cat or "Hazardous" in poll_cat else "var(--color-moderate)"
@@ -201,7 +272,7 @@ with rank_col2:
                 <span class="badge {poll_badge_cls}">{poll_cat.upper()}</span>
             </div>
             <div style="font-size: var(--text-2xl); font-weight: 800; color: var(--color-slate-100); margin: var(--space-1) 0;">
-                {poll_city}
+                {poll_label}
             </div>
             <div style="font-size: var(--text-sm); color: var(--color-slate-300); display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
                 <span>Current AQI: <strong style="color: {poll_border}; font-family: var(--font-mono); font-size: var(--text-base);">{polluted_row['current_aqi']}</strong></span>

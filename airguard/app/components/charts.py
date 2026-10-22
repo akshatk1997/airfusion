@@ -373,15 +373,16 @@ def create_city_comparison_bars(
     }
     metric_label = labels_map.get(metric, metric.replace("_", " ").title())
     fmt = True if metric == "current_aqi" else ".1f"
+    x_col = "location_label" if "location_label" in df_comp.columns else "city"
 
     fig = px.bar(
         df_comp,
-        x="city",
+        x=x_col,
         y=metric,
         color=metric,
         color_continuous_scale="RdYlGn_r" if metric == "current_aqi" else "Temps",
         title=f"<b>{title}</b>",
-        labels={"city": "City", metric: metric_label},
+        labels={x_col: "Location", metric: metric_label},
         text_auto=fmt
     )
 
@@ -399,22 +400,24 @@ def create_city_grouped_benchmark_chart(df_comp: pd.DataFrame) -> go.Figure:
     if df_comp.empty:
         return apply_chart_theme(fig)
 
+    x_col = "location_label" if "location_label" in df_comp.columns else "city"
+
     fig.add_trace(go.Bar(
-        x=df_comp["city"],
+        x=df_comp[x_col],
         y=df_comp["current_pm2_5"],
         name="Current PM₂.₅",
         marker_color="#38BDF8",
         hovertemplate="<b>%{x}</b><br>Current PM2.5: <b>%{y:.1f} µg/m³</b><extra></extra>"
     ))
     fig.add_trace(go.Bar(
-        x=df_comp["city"],
+        x=df_comp[x_col],
         y=df_comp["forecast_24h_pm2_5"],
         name="+24h Projected PM₂.₅",
         marker_color="#F59E0B",
         hovertemplate="<b>%{x}</b><br>+24h Projected: <b>%{y:.1f} µg/m³</b><extra></extra>"
     ))
     fig.add_trace(go.Bar(
-        x=df_comp["city"],
+        x=df_comp[x_col],
         y=df_comp["historical_mean_pm2_5"],
         name="Historical Mean PM₂.₅",
         marker_color="#A855F7",

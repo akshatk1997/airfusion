@@ -44,16 +44,40 @@ OPEN_METEO_AIR_QUALITY_URL = "https://air-quality-api.open-meteo.com/v1/air-qual
 OPEN_METEO_WEATHER_URL = "https://api.open-meteo.com/v1/forecast"
 OPENWEATHER_AIR_POLLUTION_URL = "https://api.openweathermap.org/data/2.5/air_pollution"
 
-# Default Preset Cities (including user request focus cities)
+# Default Preset Cities (Multi-State & Multi-Country Coverage)
 PRESET_CITIES: Dict[str, Dict[str, Any]] = {
+    # Northern India / Tri-City Focus
     "Chandigarh": {"lat": 30.7363, "lon": 76.7884, "country": "India", "state": "Chandigarh"},
     "Mohali": {"lat": 30.7046, "lon": 76.7179, "country": "India", "state": "Punjab"},
+    "Panchkula": {"lat": 30.6942, "lon": 76.8606, "country": "India", "state": "Haryana"},
     "Kharar": {"lat": 30.7499, "lon": 76.6411, "country": "India", "state": "Punjab"},
+    "Zirakpur": {"lat": 30.6425, "lon": 76.8173, "country": "India", "state": "Punjab"},
     "Delhi": {"lat": 28.6519, "lon": 77.2315, "country": "India", "state": "Delhi"},
+    "Gurugram": {"lat": 28.4595, "lon": 77.0266, "country": "India", "state": "Haryana"},
+    "Noida": {"lat": 28.5355, "lon": 77.3910, "country": "India", "state": "Uttar Pradesh"},
+    "Jaipur": {"lat": 26.9124, "lon": 75.7873, "country": "India", "state": "Rajasthan"},
+    "Lucknow": {"lat": 26.8467, "lon": 80.9462, "country": "India", "state": "Uttar Pradesh"},
+    "Amritsar": {"lat": 31.6340, "lon": 74.8723, "country": "India", "state": "Punjab"},
+    "Shimla": {"lat": 31.1048, "lon": 77.1734, "country": "India", "state": "Himachal Pradesh"},
+    # Central, Western, Southern & Eastern India
     "Mumbai": {"lat": 19.0760, "lon": 72.8777, "country": "India", "state": "Maharashtra"},
+    "Pune": {"lat": 18.5204, "lon": 73.8567, "country": "India", "state": "Maharashtra"},
+    "Ahmedabad": {"lat": 23.0225, "lon": 72.5714, "country": "India", "state": "Gujarat"},
     "Bengaluru": {"lat": 12.9716, "lon": 77.5946, "country": "India", "state": "Karnataka"},
+    "Hyderabad": {"lat": 17.3850, "lon": 78.4867, "country": "India", "state": "Telangana"},
+    "Chennai": {"lat": 13.0827, "lon": 80.2707, "country": "India", "state": "Tamil Nadu"},
+    "Kolkata": {"lat": 22.5726, "lon": 88.3639, "country": "India", "state": "West Bengal"},
+    "Kochi": {"lat": 9.9312, "lon": 76.2673, "country": "India", "state": "Kerala"},
+    # Global International Hubs
     "London": {"lat": 51.5074, "lon": -0.1278, "country": "United Kingdom", "state": "England"},
-    "New York": {"lat": 40.7128, "lon": -74.0060, "country": "United States", "state": "New York"}
+    "New York": {"lat": 40.7128, "lon": -74.0060, "country": "United States", "state": "New York"},
+    "San Francisco": {"lat": 37.7749, "lon": -122.4194, "country": "United States", "state": "California"},
+    "Tokyo": {"lat": 35.6762, "lon": 139.6503, "country": "Japan", "state": "Tokyo"},
+    "Paris": {"lat": 48.8566, "lon": 2.3522, "country": "France", "state": "Ile-de-France"},
+    "Dubai": {"lat": 25.2048, "lon": 55.2708, "country": "United Arab Emirates", "state": "Dubai"},
+    "Singapore": {"lat": 1.3521, "lon": 103.8198, "country": "Singapore", "state": "Singapore"},
+    "Sydney": {"lat": -33.8688, "lon": 151.2093, "country": "Australia", "state": "New South Wales"},
+    "Toronto": {"lat": 43.6532, "lon": -79.3832, "country": "Canada", "state": "Ontario"}
 }
 
 DEFAULT_CITY = os.getenv("DEFAULT_CITY", "Chandigarh")

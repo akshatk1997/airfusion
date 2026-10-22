@@ -64,7 +64,8 @@ def calculate_pm25_aqi(pm25: float) -> Tuple[int, str, str]:
 def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
     """
     Resolve city name to geographical coordinates (latitude, longitude).
-    Checks preset database first, then queries Open-Meteo Geocoding API.
+    Checks preset database first, then local SQLite locations table, and queries Open-Meteo Geocoding API.
+    Supports clean parsing for 'City', 'City, State', or 'City, State, Country' inputs.
     """
     clean_name = city_name.strip()
     if not clean_name:
@@ -73,19 +74,52 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
     # Check preset cities
     for preset, details in PRESET_CITIES.items():
         if preset.lower() == clean_name.lower():
+            state_val = details.get("state", "")
             return {
                 "city": preset,
+                "name": preset,
                 "latitude": details["lat"],
                 "longitude": details["lon"],
                 "country": details.get("country", ""),
-                "state": details.get("state", "")
+                "state": state_val,
+                "admin1": state_val
             }
+
+    # Check local SQLite locations table
+    try:
+        from src.database import get_db_connection
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        primary_city = clean_name.split(",")[0].strip() if "," in clean_name else clean_name
+        cursor.execute("""
+            SELECT city, state, country, latitude, longitude
+            FROM locations
+            WHERE LOWER(city) = LOWER(?)
+            ORDER BY id DESC
+            LIMIT 1;
+        """, (primary_city,))
+        row = cursor.fetchone()
+        conn.close()
+        if row:
+            st_val = row["state"] or ""
+            return {
+                "city": row["city"],
+                "name": row["city"],
+                "latitude": float(row["latitude"]),
+                "longitude": float(row["longitude"]),
+                "country": row["country"] or "",
+                "state": st_val,
+                "admin1": st_val
+            }
+    except Exception as e:
+        logger.debug(f"Local database location lookup note: {e}")
 
     # Query Open-Meteo Geocoding API
     try:
+        search_term = clean_name.split(",")[0].strip() if "," in clean_name else clean_name
         params = {
-            "name": clean_name,
-            "count": 5,
+            "name": search_term,
+            "count": 10,
             "language": "en",
             "format": "json"
         }
@@ -98,14 +132,27 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
             logger.warning(f"No geocoding results found for '{clean_name}'")
             return None
 
-        # Pick best match (first result)
+        # Pick best match (filtered by state/country token if supplied with commas)
         best = results[0]
+        if "," in clean_name:
+            tokens = [t.strip().lower() for t in clean_name.split(",")[1:]]
+            for cand in results:
+                cand_country = str(cand.get("country", "")).lower()
+                cand_admin = str(cand.get("admin1", "")).lower()
+                if any(tok in cand_country or tok in cand_admin for tok in tokens):
+                    best = cand
+                    break
+
+        resolved_name = best.get("name", search_term)
+        admin1_val = best.get("admin1", "")
         return {
-            "city": best.get("name", clean_name),
+            "city": resolved_name,
+            "name": resolved_name,
             "latitude": round(float(best["latitude"]), 4),
             "longitude": round(float(best["longitude"]), 4),
             "country": best.get("country", ""),
-            "state": best.get("admin1", "")
+            "state": admin1_val,
+            "admin1": admin1_val
         }
 
     except requests.RequestException as e:

@@ -61,7 +61,10 @@ def test_render_callout():
 
 def test_format_location_label():
     assert format_location_label({"name": "Chandigarh", "admin1": "Chandigarh", "country": "India"}) == "Chandigarh, India"
-    assert format_location_label({"name": "Mohali", "admin1": "Punjab", "country": "India"}) == "Mohali, Punjab, India"
+    assert format_location_label({"city": "Chandigarh", "state": "Chandigarh", "country": "India"}) == "Chandigarh, India"
+    assert format_location_label({"city": "Mohali", "state": "Punjab", "country": "India"}) == "Mohali, Punjab, India"
+    assert format_location_label({"city": "Panchkula", "state": "Haryana"}) == "Panchkula, Haryana"
     assert format_location_label({"name": "Delhi", "country": "India"}) == "Delhi, India"
+    assert format_location_label({"city": "Tokyo", "country": "Japan"}) == "Tokyo, Japan"
     assert format_location_label(None) == "Unknown Location"
 

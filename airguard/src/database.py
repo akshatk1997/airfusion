@@ -175,6 +175,42 @@ def get_or_create_location(
     return loc_id
 
 
+def fetch_all_locations(db_path: Optional[Path | str] = None) -> list[dict]:
+    """
+    Retrieve all registered locations from the SQLite database, ordered by city name.
+    """
+    conn = get_db_connection(db_path)
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, city, state, country, latitude, longitude, created_at
+        FROM locations
+        ORDER BY city ASC;
+    """)
+    rows = cursor.fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+def delete_location(city: str, db_path: Optional[Path | str] = None) -> bool:
+    """
+    Delete a custom location and its associated records by city name.
+    """
+    conn = get_db_connection(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id FROM locations WHERE LOWER(city) = LOWER(?);", (city.strip(),))
+    row = cursor.fetchone()
+    if not row:
+        conn.close()
+        return False
+    loc_id = row["id"]
+    cursor.execute("DELETE FROM air_quality_records WHERE location_id = ?;", (loc_id,))
+    cursor.execute("DELETE FROM forecast_records WHERE location_id = ?;", (loc_id,))
+    cursor.execute("DELETE FROM locations WHERE id = ?;", (loc_id,))
+    conn.commit()
+    conn.close()
+    return True
+
+
 def upsert_air_quality_dataframe(
     df: pd.DataFrame,
     location_id: int,

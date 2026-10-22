@@ -11,7 +11,7 @@ import pandas as pd
 # Add airguard root to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.database import init_db, get_or_create_location, upsert_air_quality_dataframe, fetch_historical_records
+from src.database import init_db, get_or_create_location, upsert_air_quality_dataframe, fetch_historical_records, fetch_all_locations
 from src.data_collection import geocode_city, calculate_pm25_aqi, fetch_current_air_quality
 
 
@@ -96,3 +96,18 @@ def test_database_crud(temp_db):
     fetched_df = fetch_historical_records(city="Mohali", db_path=temp_db)
     assert len(fetched_df) == 1
     assert fetched_df.iloc[0]["pm2_5"] == 28.5
+
+    # Test fetch_all_locations
+    all_locs = fetch_all_locations(db_path=temp_db)
+    assert len(all_locs) == 1
+    assert all_locs[0]["city"] == "Mohali"
+
+
+def test_geocoding_custom_multi_token():
+    res = geocode_city("Panchkula, Haryana, India")
+    assert res is not None
+    assert "Panchkula" in res["city"]
+    assert res["latitude"] > 0
+    assert res["longitude"] > 0
+    assert "name" in res
+    assert "state" in res
