@@ -11,17 +11,31 @@ from pathlib import Path
 from typing import Optional, Dict, Any, List
 
 ASSETS_DIR = Path(__file__).resolve().parent.parent / "assets"
+FONTS_PATH = ASSETS_DIR / "fonts.css"
 CSS_PATH = ASSETS_DIR / "style.css"
 
 
 def inject_foundation_styles() -> None:
     """
-    Injects the design system stylesheet into the Streamlit DOM.
+    Injects the Nothing OS typography and foundation stylesheet into the Streamlit DOM.
+    Loads embedded Ndot dot-matrix fonts and Space Grotesk theme styles.
     """
+    styles = []
+    if FONTS_PATH.exists():
+        try:
+            with open(FONTS_PATH, "r", encoding="utf-8") as f:
+                styles.append(f.read())
+        except Exception:
+            pass
     if CSS_PATH.exists():
-        with open(CSS_PATH, "r", encoding="utf-8") as f:
-            css = f.read()
-        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+        try:
+            with open(CSS_PATH, "r", encoding="utf-8") as f:
+                styles.append(f.read())
+        except Exception:
+            pass
+    if styles:
+        combined = "\n".join(styles)
+        st.markdown(f"<style>{combined}</style>", unsafe_allow_html=True)
 
 
 # ==============================================================================
@@ -149,13 +163,13 @@ def render_callout(
     icon: Optional[str] = None
 ) -> None:
     """
-    Renders accessible callout banner for notifications, alerts, or AI synthesis.
+    Renders accessible Nothing-styled callout banner for notifications, alerts, or AI synthesis.
     Supports 'info', 'success', 'warning', and 'danger' variants.
     """
     icon_markup = ICONS.get(icon, ICONS["alert"]) if icon else ICONS["alert"]
     if variant == "info":
-        border_color = "var(--color-brand-cyan)"
-        bg_color = "rgba(56, 189, 248, 0.08)"
+        border_color = "var(--color-brand-red)"
+        bg_color = "rgba(255, 255, 255, 0.03)"
     elif variant == "success":
         border_color = "#10B981"
         bg_color = "rgba(16, 185, 129, 0.08)"
@@ -168,20 +182,18 @@ def render_callout(
 
     html = f"""
     <div class="ag-callout" style="
-        border-left: 4px solid {border_color};
+        border: 1px solid var(--color-border-subtle);
+        border-left: 3px solid {border_color};
         background: {bg_color};
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 10px 25px -5px rgba(0, 0, 0, 0.35);
         border-radius: var(--radius-md);
         padding: 16px 20px;
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: none;
     ">
-        <div class="ag-callout-title" style="color: {border_color}; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 6px;">
+        <div class="ag-callout-title" style="color: {border_color}; font-family: var(--font-dot); font-weight: 700; letter-spacing: 0.06em; margin-bottom: 6px; text-transform: uppercase;">
             <span style="display: flex; align-items: center;">{icon_markup}</span>
             <span>{title}</span>
         </div>
-        <div class="ag-callout-body" style="font-size: var(--font-size-sm); color: var(--color-text-primary); line-height: 1.6;">
+        <div class="ag-callout-body" style="font-family: var(--font-sans); font-size: var(--font-size-sm); color: var(--color-text-primary); line-height: 1.6;">
             {message}
         </div>
     </div>
@@ -197,17 +209,17 @@ def render_hero_banner(
     badge_text: Optional[str] = None
 ) -> None:
     """
-    Renders visual hero banner with generous intentional whitespace.
+    Renders Nothing-style visual hero banner with dot-matrix accents and zero glow.
     """
     badge_html = f"""<span class="ag-badge ag-badge-neutral" style="margin-bottom: 12px;">{badge_text}</span>""" if badge_text else ""
     stat_html = ""
     if stat_value:
         stat_html = f"""
         <div style="text-align: right; min-width: 140px;">
-            <div style="font-family: var(--font-mono); font-size: var(--font-size-3xl); font-weight: 800; color: var(--color-brand-cyan); line-height: 1; text-shadow: 0 0 20px var(--color-brand-cyan-glow);">
+            <div style="font-family: var(--font-dot); font-size: var(--font-size-3xl); font-weight: 700; color: #FFFFFF; line-height: 1;">
                 {stat_value}
             </div>
-            <div style="font-size: var(--font-size-xs); font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; margin-top: 4px;">
+            <div style="font-family: var(--font-mono); font-size: var(--font-size-xs); font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; margin-top: 6px; letter-spacing: 0.05em;">
                 {stat_label or ""}
             </div>
         </div>
@@ -215,23 +227,20 @@ def render_hero_banner(
 
     html = f"""
     <div class="ag-card ag-hero-banner" style="
-        padding: 30px 36px;
+        padding: 28px 32px;
         margin-bottom: 24px;
-        background: radial-gradient(ellipse 85% 70% at 90% 15%, rgba(56, 189, 248, 0.12), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.94) 0%, rgba(8, 12, 20, 0.98) 100%);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 20px 45px -10px rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        border-radius: var(--radius-xl);
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-subtle);
+        border-radius: var(--radius-lg);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     ">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
             <div style="max-width: 700px;">
                 {badge_html}
-                <h1 style="margin: 0 0 8px 0; font-size: var(--font-size-2xl); font-weight: 800; color: var(--color-text-primary); letter-spacing: -0.025em; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);">
+                <h1 style="margin: 0 0 8px 0; font-family: var(--font-heading); font-size: var(--font-size-2xl); font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em;">
                     {title}
                 </h1>
-                <p style="margin: 0; font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
+                <p style="margin: 0; font-family: var(--font-sans); font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.6;">
                     {description}
                 </p>
             </div>

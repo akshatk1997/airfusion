@@ -68,15 +68,15 @@ if loc:
         with st.container(border=True):
             safe_markdown("""
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
-                <span style="font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-sky-400);">
-                    ⚡ Command Shortcuts
+                <span style="font-family: var(--font-dot); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #FFFFFF;">
+                    ⚡ COMMAND SHORTCUTS
                 </span>
-                <span class="badge badge-info">ACTIONS</span>
+                <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px;">ACTIONS</span>
             </div>
-            <div style="font-size: var(--text-lg); font-weight: 800; color: var(--color-slate-100); line-height: 1.3; margin-bottom: var(--space-1);">
+            <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: #FFFFFF; line-height: 1.3; margin-bottom: var(--space-1);">
                 Immediate Safety & Forecasting
             </div>
-            <p style="font-size: var(--text-xs); color: var(--color-slate-400); margin: 0 0 var(--space-3) 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.8rem; color: #888888; margin: 0 0 var(--space-3) 0; line-height: 1.5;">
                 Explore real-time multi-pollutant telemetry, run 72-hour machine learning projections, or configure threshold alerts.
             </p>
             """)
@@ -152,29 +152,29 @@ for idx, city in enumerate(regional_cities):
         snap = get_city_snapshot(city)
         if snap:
             is_active = (city.lower() == active_city.lower())
-            active_badge = "<span class='badge badge-good' style='font-size: 0.65rem; padding: 2px 6px;'>ACTIVE</span>" if is_active else ""
+            active_badge = "<span class='ag-badge ag-badge-good' style='font-size: 0.62rem; padding: 2px 6px;'>ACTIVE</span>" if is_active else ""
             
             with st.container(border=True):
                 safe_markdown(f"""
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-weight: 700; font-size: 0.95rem; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{snap['label']}">{snap['label']}</span>
+                    <span style="font-family: var(--font-sans); font-weight: 700; font-size: 0.95rem; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{snap['label']}">{snap['label']}</span>
                     {active_badge}
                 </div>
                 <div style="display: flex; align-items: baseline; justify-content: space-between;">
                     <div>
-                        <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: #F8FAFC;">
+                        <div style="font-family: var(--font-dot); font-size: 2.1rem; font-weight: 700; color: #FFFFFF; line-height: 1;">
                             {snap['aqi']}
                         </div>
-                        <div style="font-size: 0.7rem; color: #94A3B8; text-transform: uppercase;">US AQI</div>
+                        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #777777; text-transform: uppercase; margin-top: 2px;">US AQI</div>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 600; color: var(--color-brand-cyan);">
+                        <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 600; color: #CCCCCC;">
                             {snap['pm2_5']:.1f}
                         </div>
-                        <div style="font-size: 0.7rem; color: #64748B;">PM₂.₅ µg/m³</div>
+                        <div style="font-family: var(--font-sans); font-size: 0.68rem; color: #666666;">PM₂.₅ µg/m³</div>
                     </div>
                 </div>
-                <div style="margin-top: 10px; font-size: 0.75rem; color: #CBD5E1; border-top: 1px solid var(--color-border-subtle); padding-top: 8px;">
+                <div style="margin-top: 10px; font-family: var(--font-sans); font-size: 0.75rem; color: #888888; border-top: 1px solid var(--color-border-subtle); padding-top: 8px;">
                     ● {snap['category']} ({snap['temp']}°C, {snap['humidity']}%)
                 </div>
                 """)

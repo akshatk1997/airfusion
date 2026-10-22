@@ -68,3 +68,12 @@ def test_format_location_label():
     assert format_location_label({"city": "Tokyo", "country": "Japan"}) == "Tokyo, Japan"
     assert format_location_label(None) == "Unknown Location"
 
+
+def test_nothing_font_tokens():
+    assert CSS_PATH.exists()
+    content = CSS_PATH.read_text(encoding="utf-8")
+    assert "--font-dot" in content
+    assert "Ndot" in content
+    assert "Space Grotesk" in content
+
+

@@ -86,14 +86,14 @@ def render_global_navbar(page_title: str = "") -> str:
     navbar_html = f"""
     <header class="ag-navbar" role="banner">
         <div class="ag-brand">
-            <span style="color: var(--color-brand-cyan); display: flex; align-items: center;">{ICONS['shield']}</span>
+            <span style="color: #FFFFFF; display: flex; align-items: center;">{ICONS['shield']}</span>
             <div>
                 <div class="ag-brand-name">AIRGUARD</div>
                 <div class="ag-brand-tagline">Real-Time Air Quality Intelligence & Forecasting</div>
             </div>
         </div>
         <div style="display: flex; align-items: center; gap: 14px;">
-            <div class="ag-badge ag-badge-good">
+            <div class="ag-badge ag-badge-nothing">
                 <span class="ag-pulse-dot" aria-hidden="true"></span>
                 <span>TELEMETRY ACTIVE</span>
             </div>
@@ -144,7 +144,7 @@ def render_global_navbar(page_title: str = "") -> str:
 
     with col_label:
         st.markdown(
-            "<div style='padding-top: 8px; font-weight: 700; color: #94A3B8; font-size: 0.85rem;'>"
+            "<div style='padding-top: 8px; font-family: var(--font-dot); font-weight: 700; color: #888888; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase;'>"
             "📍 ACTIVE LOCATION:</div>",
             unsafe_allow_html=True
         )
