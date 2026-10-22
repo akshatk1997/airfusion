@@ -1,5 +1,6 @@
 /* ==========================================================================
    AirGuard Design System Foundation — Modern Environmental Tech
+   Cinematic Atmospheric Depth, Glassmorphism, Specular Lighting & Smooth Physics
    WCAG 2.1 AAA Compliant Design Tokens, Typographic Scale & Component Styles
    ========================================================================== */
 
@@ -10,15 +11,16 @@
        1. COLOR TOKENS
        ------------------------------------------------------------------------ */
     /* Canvas & Surfaces */
-    --color-bg-base: #080C14;
-    --color-bg-surface: #111827;
+    --color-bg-base: #070A12;
+    --color-bg-surface: #0F172A;
     --color-bg-elevated: #1E293B;
-    --color-bg-card: rgba(17, 24, 39, 0.85);
+    --color-bg-card: rgba(15, 23, 42, 0.82);
 
-    /* Borders */
+    /* Borders & Specular Lines */
     --color-border-subtle: #1E293B;
     --color-border-default: #334155;
     --color-border-glass: rgba(255, 255, 255, 0.08);
+    --color-border-specular: rgba(255, 255, 255, 0.16);
     --color-border-focus: #38BDF8;
 
     /* Text & Foregrounds (Strict WCAG 2.1 AAA Ratios) */
@@ -27,35 +29,42 @@
     --color-text-muted: #64748B;       /* 4.6:1 against bg-base (AA Large) */
     --color-text-inverse: #0F172A;
 
-    /* Brand & Accent */
+    /* Brand & Accent (Cinematic Cyan & Indigo) */
     --color-brand-cyan: #38BDF8;
-    --color-brand-cyan-glow: rgba(56, 189, 248, 0.25);
+    --color-brand-cyan-glow: rgba(56, 189, 248, 0.35);
     --color-brand-indigo: #818CF8;
+    --color-brand-purple: #C084FC;
 
     /* Semantic Status (AQI Breakpoints with Contrast-Engineered Text/BG) */
-    --color-aqi-good-bg: rgba(16, 185, 129, 0.14);
+    --color-aqi-good-bg: rgba(16, 185, 129, 0.15);
     --color-aqi-good-border: #10B981;
     --color-aqi-good-text: #34D399;
+    --color-aqi-good-glow: rgba(16, 185, 129, 0.4);
 
-    --color-aqi-moderate-bg: rgba(245, 158, 11, 0.14);
+    --color-aqi-moderate-bg: rgba(245, 158, 11, 0.15);
     --color-aqi-moderate-border: #F59E0B;
     --color-aqi-moderate-text: #FBBF24;
+    --color-aqi-moderate-glow: rgba(245, 158, 11, 0.4);
 
-    --color-aqi-sensitive-bg: rgba(249, 115, 22, 0.14);
+    --color-aqi-sensitive-bg: rgba(249, 115, 22, 0.15);
     --color-aqi-sensitive-border: #F97316;
     --color-aqi-sensitive-text: #FB923C;
+    --color-aqi-sensitive-glow: rgba(249, 115, 22, 0.4);
 
-    --color-aqi-unhealthy-bg: rgba(239, 68, 68, 0.14);
+    --color-aqi-unhealthy-bg: rgba(239, 68, 68, 0.15);
     --color-aqi-unhealthy-border: #EF4444;
     --color-aqi-unhealthy-text: #F87171;
+    --color-aqi-unhealthy-glow: rgba(239, 68, 68, 0.45);
 
-    --color-aqi-very-unhealthy-bg: rgba(168, 85, 247, 0.14);
+    --color-aqi-very-unhealthy-bg: rgba(168, 85, 247, 0.15);
     --color-aqi-very-unhealthy-border: #A855F7;
     --color-aqi-very-unhealthy-text: #C084FC;
+    --color-aqi-very-unhealthy-glow: rgba(168, 85, 247, 0.45);
 
     --color-aqi-hazardous-bg: rgba(190, 18, 60, 0.22);
     --color-aqi-hazardous-border: #E11D48;
     --color-aqi-hazardous-text: #FDA4AF;
+    --color-aqi-hazardous-glow: rgba(225, 29, 72, 0.5);
 
     /* ------------------------------------------------------------------------
        2. TYPOGRAPHIC TOKENS
@@ -98,7 +107,7 @@
     --space-16: 4.0rem;  /* 64px */
 
     /* ------------------------------------------------------------------------
-       4. ELEVATION, RADIUS & SHADOWS
+       4. ELEVATION, RADIUS & SHADOWS (Cinematic Bloom & Lighting)
        ------------------------------------------------------------------------ */
     --radius-xs: 4px;
     --radius-sm: 8px;
@@ -107,35 +116,45 @@
     --radius-xl: 24px;
     --radius-pill: 9999px;
 
-    --shadow-subtle: 0 4px 14px rgba(0, 0, 0, 0.2);
-    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.35);
-    --shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 20px var(--color-brand-cyan-glow);
+    --shadow-subtle: 0 4px 14px rgba(0, 0, 0, 0.25);
+    --shadow-card: 0 12px 30px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    --shadow-card-hover: 0 20px 45px -12px rgba(0, 0, 0, 0.7), 0 0 24px -6px rgba(56, 189, 248, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+    --shadow-elevated: 0 24px 50px -12px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+    --shadow-glow: 0 0 25px var(--color-brand-cyan-glow);
 
-    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    /* Cinematic Smooth Physics Easing (Spring-damped cubic-bezier) */
+    --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: 150ms var(--ease-cinematic);
+    --transition-base: 280ms var(--ease-cinematic);
+    --transition-smooth: 450ms var(--ease-cinematic);
 }
 
 /* ==========================================================================
-   GLOBAL RESET & ACCESSIBILITY
+   GLOBAL RESET, ATMOSPHERIC LIGHTING & ACCESSIBILITY
    ========================================================================== */
 
 html, body, [data-testid="stAppViewContainer"] {
     font-family: var(--font-sans);
     background-color: var(--color-bg-base) !important;
+    background-image: 
+        radial-gradient(ellipse 90% 55% at 50% -12%, rgba(56, 189, 248, 0.09), transparent 75%),
+        radial-gradient(ellipse 65% 45% at 95% 8%, rgba(99, 102, 241, 0.07), transparent 60%),
+        radial-gradient(circle 750px at 5% 95%, rgba(16, 185, 129, 0.05), transparent 70%) !important;
+    background-attachment: fixed !important;
     color: var(--color-text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Accessible Focus States */
+/* Accessible Focus States with Cinematic Halo */
 :focus-visible {
     outline: 2px solid var(--color-border-focus) !important;
     outline-offset: 3px !important;
     border-radius: var(--radius-xs);
+    box-shadow: 0 0 12px var(--color-brand-cyan-glow) !important;
 }
 
-/* Custom Minimal Scrollbars */
+/* Custom Minimalist Precision Scrollbars */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -146,21 +165,24 @@ html, body, [data-testid="stAppViewContainer"] {
 ::-webkit-scrollbar-thumb {
     background: var(--color-border-default);
     border-radius: var(--radius-pill);
+    transition: background var(--transition-fast);
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-brand-cyan);
+    box-shadow: 0 0 8px var(--color-brand-cyan-glow);
 }
 
 /* ==========================================================================
    REUSABLE ATOMIC DESIGN SYSTEM CLASSES
    ========================================================================== */
 
-/* 1. Header & Navigation */
+/* 1. Header & Navigation with Specular Glass */
 .ag-navbar {
-    background: var(--color-bg-card);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--color-border-glass);
+    border-top: 1px solid var(--color-border-specular);
     border-radius: var(--radius-lg);
     padding: var(--space-4) var(--space-6);
     margin-bottom: var(--space-6);
@@ -168,6 +190,11 @@ html, body, [data-testid="stAppViewContainer"] {
     justify-content: space-between;
     align-items: center;
     box-shadow: var(--shadow-card);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.ag-navbar:hover {
+    box-shadow: var(--shadow-card-hover);
 }
 
 .ag-brand {
@@ -179,10 +206,11 @@ html, body, [data-testid="stAppViewContainer"] {
 .ag-brand-name {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-extrabold);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     background: linear-gradient(135deg, #38BDF8 0%, #818CF8 50%, #C084FC 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.35));
 }
 
 .ag-brand-tagline {
@@ -202,51 +230,59 @@ html, body, [data-testid="stAppViewContainer"] {
     font-weight: var(--font-weight-bold);
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .ag-badge-good, .badge-good {
     background: var(--color-aqi-good-bg);
     border: 1px solid var(--color-aqi-good-border);
     color: var(--color-aqi-good-text);
+    box-shadow: 0 0 12px var(--color-aqi-good-glow);
 }
 
 .ag-badge-moderate, .badge-moderate {
     background: var(--color-aqi-moderate-bg);
     border: 1px solid var(--color-aqi-moderate-border);
     color: var(--color-aqi-moderate-text);
+    box-shadow: 0 0 12px var(--color-aqi-moderate-glow);
 }
 
 .ag-badge-sensitive, .badge-warning {
     background: var(--color-aqi-sensitive-bg);
     border: 1px solid var(--color-aqi-sensitive-border);
     color: var(--color-aqi-sensitive-text);
+    box-shadow: 0 0 12px var(--color-aqi-sensitive-glow);
 }
 
 .ag-badge-unhealthy, .badge-alert {
     background: var(--color-aqi-unhealthy-bg);
     border: 1px solid var(--color-aqi-unhealthy-border);
     color: var(--color-aqi-unhealthy-text);
+    box-shadow: 0 0 14px var(--color-aqi-unhealthy-glow);
 }
 
 .ag-badge-very-unhealthy {
     background: var(--color-aqi-very-unhealthy-bg);
     border: 1px solid var(--color-aqi-very-unhealthy-border);
     color: var(--color-aqi-very-unhealthy-text);
+    box-shadow: 0 0 16px var(--color-aqi-very-unhealthy-glow);
 }
 
 .ag-badge-hazardous {
     background: var(--color-aqi-hazardous-bg);
     border: 1px solid var(--color-aqi-hazardous-border);
     color: var(--color-aqi-hazardous-text);
+    box-shadow: 0 0 18px var(--color-aqi-hazardous-glow);
 }
 
 .ag-badge-neutral, .badge-info {
     background: rgba(56, 189, 248, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    border: 1px solid rgba(56, 189, 248, 0.35);
     color: var(--color-brand-cyan);
+    box-shadow: 0 0 12px var(--color-brand-cyan-glow);
 }
 
-/* Pulse Dot */
+/* Cinematic Telemetry Sonar Pulse Beacon */
 .ag-pulse-dot {
     width: 8px;
     height: 8px;
@@ -254,47 +290,67 @@ html, body, [data-testid="stAppViewContainer"] {
     border-radius: 50%;
     display: inline-block;
     box-shadow: 0 0 8px var(--color-aqi-good-border);
-    animation: ag-pulse 2s infinite ease-in-out;
+    position: relative;
 }
 
-@keyframes ag-pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-    70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+.ag-pulse-dot::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    border: 2px solid var(--color-aqi-good-border);
+    animation: ag-sonar 2.2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
-/* 3. Elevated Cards */
+@keyframes ag-sonar {
+    0% { transform: scale(0.9); opacity: 0.9; }
+    70% { transform: scale(2.6); opacity: 0; }
+    100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* 3. Elevated Cards with Specular Rim & Film Glow */
 .ag-card, .card {
     background: var(--color-bg-card);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--color-border-glass);
+    border-top: 1px solid var(--color-border-specular);
     border-radius: var(--radius-lg);
     padding: var(--space-5);
     box-shadow: var(--shadow-card);
-    transition: transform var(--transition-base), border-color var(--transition-base);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    will-change: transform, box-shadow;
 }
 
 .ag-card:hover, .card:hover {
     border-color: rgba(56, 189, 248, 0.35);
-    transform: translateY(-2px);
+    border-top-color: rgba(56, 189, 248, 0.55);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
 }
 
 /* Health Advisory Cards */
 .ag-health-card {
-    background: var(--color-bg-card);
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border: 1px solid var(--color-border-glass);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-lg);
     padding: var(--space-4) var(--space-5);
     box-shadow: var(--shadow-card);
-    transition: transform var(--transition-base), border-color var(--transition-base);
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
     margin-bottom: var(--space-3);
     min-height: 110px;
 }
 
 .ag-health-card:hover {
-    border-color: rgba(56, 189, 248, 0.35);
-    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.4);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .ag-health-icon {
@@ -325,8 +381,9 @@ html, body, [data-testid="stAppViewContainer"] {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-extrabold);
     color: var(--color-text-primary);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
     margin: 0;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .ag-section-subtitle {
@@ -338,8 +395,9 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 5. Telemetry Metric Card */
 .ag-metric-card {
-    background: var(--color-bg-surface);
+    background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.05), transparent 60%), rgba(15, 23, 42, 0.85);
     border: 1px solid var(--color-border-subtle);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-md);
     padding: var(--space-4);
     height: 100%;
@@ -347,6 +405,13 @@ html, body, [data-testid="stAppViewContainer"] {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: var(--shadow-subtle);
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.ag-metric-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
 }
 
 .ag-metric-label {
@@ -364,6 +429,8 @@ html, body, [data-testid="stAppViewContainer"] {
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
     letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.12);
 }
 
 .ag-metric-unit {
@@ -382,7 +449,7 @@ html, body, [data-testid="stAppViewContainer"] {
     margin-top: var(--space-3);
 }
 
-/* 6. Action Buttons */
+/* 6. Action Buttons with Kinetic Tactility */
 .ag-btn {
     display: inline-flex;
     align-items: center;
@@ -399,32 +466,53 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 .ag-btn-primary {
-    background: var(--color-brand-cyan);
+    background: linear-gradient(135deg, #38BDF8 0%, #0284C7 100%);
     color: var(--color-text-inverse);
     font-weight: var(--font-weight-bold);
+    box-shadow: 0 2px 10px rgba(56, 189, 248, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
 }
 .ag-btn-primary:hover {
-    background: #0284C7;
-    box-shadow: var(--shadow-glow);
+    background: linear-gradient(135deg, #7DD3FC 0%, #0369A1 100%);
+    box-shadow: 0 0 20px var(--color-brand-cyan-glow), 0 4px 14px rgba(0, 0, 0, 0.35);
+    transform: translateY(-1px);
+}
+.ag-btn-primary:active {
+    transform: translateY(1px) scale(0.98);
 }
 
 .ag-btn-secondary {
     background: var(--color-bg-elevated);
     border-color: var(--color-border-default);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--color-text-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .ag-btn-secondary:hover {
     border-color: var(--color-brand-cyan);
     color: var(--color-brand-cyan);
+    box-shadow: 0 0 14px var(--color-brand-cyan-glow);
+    transform: translateY(-1px);
+}
+.ag-btn-secondary:active {
+    transform: translateY(1px) scale(0.98);
 }
 
-/* 7. Callout Boxes */
+/* 7. Callout Boxes with Glass Depth */
 .ag-callout {
     border-radius: var(--radius-md);
     padding: var(--space-4) var(--space-5);
     margin: var(--space-4) 0;
     border-left: 4px solid var(--color-brand-cyan);
     background: rgba(56, 189, 248, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), var(--shadow-subtle);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ag-callout:hover {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
 }
 
 .ag-callout-title {
@@ -446,69 +534,90 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 /* ==========================================================================
-   STREAMLIT NATIVE COMPONENT RE-STYLING (TOKEN HARMONIZATION)
+   STREAMLIT NATIVE COMPONENT RE-STYLING (CINEMATIC HARMONIZATION)
    ========================================================================== */
+
+/* Native Streamlit Vertical Containers (border=True) */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid var(--color-border-glass) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-card) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base) !important;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    border-color: rgba(56, 189, 248, 0.3) !important;
+    box-shadow: var(--shadow-card-hover) !important;
+}
 
 /* Buttons */
 .stButton > button {
-    background: var(--color-bg-elevated) !important;
+    background: rgba(30, 41, 59, 0.85) !important;
     color: var(--color-text-primary) !important;
     border: 1px solid var(--color-border-default) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: var(--radius-sm) !important;
     font-family: var(--font-sans) !important;
     font-weight: var(--font-weight-semibold) !important;
     padding: var(--space-2) var(--space-4) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 0 rgba(255, 255, 255, 0.08) !important;
     transition: all var(--transition-fast) !important;
 }
 
 .stButton > button:hover {
     border-color: var(--color-brand-cyan) !important;
     color: var(--color-brand-cyan) !important;
-    box-shadow: 0 0 12px var(--color-brand-cyan-glow) !important;
+    box-shadow: 0 0 16px var(--color-brand-cyan-glow), 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(1px) scale(0.98) !important;
 }
 
 /* Download Buttons */
 .stDownloadButton > button {
     background: rgba(56, 189, 248, 0.12) !important;
     color: var(--color-brand-cyan) !important;
-    border: 1px solid rgba(56, 189, 248, 0.3) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
     border-radius: var(--radius-sm) !important;
     font-weight: var(--font-weight-semibold) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+    transition: all var(--transition-fast) !important;
 }
 
 .stDownloadButton > button:hover {
     background: var(--color-brand-cyan) !important;
     color: var(--color-text-inverse) !important;
+    box-shadow: 0 0 18px var(--color-brand-cyan-glow) !important;
+    transform: translateY(-1px) !important;
+}
+
+.stDownloadButton > button:active {
+    transform: translateY(1px) scale(0.98) !important;
 }
 
 /* Inputs & Selectboxes */
-[data-testid="stVerticalBlockBorderWrapper"] {
-    background: var(--color-bg-card) !important;
-    border: 1px solid var(--color-border-glass) !important;
-    border-radius: var(--radius-lg) !important;
-    box-shadow: var(--shadow-card) !important;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    transition: transform var(--transition-base), border-color var(--transition-base);
-}
-
-[data-testid="stVerticalBlockBorderWrapper"]:hover {
-    border-color: rgba(56, 189, 248, 0.35) !important;
-}
-
 .stTextInput > div > div > input,
-.stSelectbox > div > div {
-    background-color: var(--color-bg-surface) !important;
+.stSelectbox > div > div,
+.stMultiSelect > div > div {
+    background-color: rgba(15, 23, 42, 0.9) !important;
     color: var(--color-text-primary) !important;
     border: 1px solid var(--color-border-default) !important;
     border-radius: var(--radius-sm) !important;
     font-family: var(--font-sans) !important;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast) !important;
 }
 
 .stTextInput > div > div > input:focus,
-.stSelectbox > div > div:focus {
+.stSelectbox > div > div:focus,
+.stMultiSelect > div > div:focus {
     border-color: var(--color-brand-cyan) !important;
-    box-shadow: 0 0 0 2px var(--color-brand-cyan-glow) !important;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22), 0 0 14px rgba(56, 189, 248, 0.2) !important;
 }
 
 /* Tabs */
@@ -524,19 +633,48 @@ html, body, [data-testid="stAppViewContainer"] {
     font-family: var(--font-sans) !important;
     font-weight: var(--font-weight-semibold) !important;
     padding: var(--space-3) var(--space-5) !important;
+    transition: color var(--transition-fast), border-color var(--transition-fast) !important;
 }
 
 .stTabs [aria-selected="true"] {
     color: var(--color-brand-cyan) !important;
     border-bottom: 2px solid var(--color-brand-cyan) !important;
+    text-shadow: 0 0 12px var(--color-brand-cyan-glow) !important;
 }
 
-/* Responsive Breakpoints */
+/* Expanders */
+.streamlit-expanderHeader {
+    background: rgba(15, 23, 42, 0.7) !important;
+    border-radius: var(--radius-sm) !important;
+    font-weight: var(--font-weight-semibold) !important;
+    color: var(--color-text-primary) !important;
+    transition: background var(--transition-fast) !important;
+}
+
+.streamlit-expanderHeader:hover {
+    background: rgba(30, 41, 59, 0.8) !important;
+    color: var(--color-brand-cyan) !important;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS & ACCESSIBILITY (REDUCED MOTION)
+   ========================================================================== */
+
 @media (max-width: 768px) {
     .ag-navbar {
         flex-direction: column;
         align-items: flex-start;
         gap: var(--space-3);
         padding: var(--space-3) var(--space-4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        transform: none !important;
     }
 }
