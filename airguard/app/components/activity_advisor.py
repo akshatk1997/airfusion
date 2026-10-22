@@ -64,11 +64,11 @@ def render_safe_window_card(
         border-radius: 16px;
         padding: 24px 28px;
         margin-bottom: 20px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        box-shadow: none;
     ">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
+        <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px;">
             <div>
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                     <span style="
                         background: {win_bg};
                         border: 1px solid {win_color};

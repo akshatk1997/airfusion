@@ -252,7 +252,7 @@ with mcol1:
         <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
             🛡️ Safe Outdoor Plan
         </div>
-        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+        <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
             Personalized environmental decision support: Safe outdoor window finder, risk engine scoring, and cohort guidance.
         </p>
         """)
@@ -265,7 +265,7 @@ with mcol2:
         <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
             📡 Live Tracking & Alerts
         </div>
-        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+        <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
             Multi-pollutant ground telemetry, meteorology, personal threshold monitor, and advance peak warnings.
         </p>
         """)
@@ -278,7 +278,7 @@ with mcol3:
         <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
             📊 Atmospheric Trends
         </div>
-        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+        <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
             24h timeline safety zones, diurnal curves, 7-day patterns, and cross-correlation heatmaps.
         </p>
         """)
@@ -294,7 +294,7 @@ with mcol4:
         <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
             🔍 Model Insights & Governance
         </div>
-        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+        <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
             Global feature importances (XAI), candidate tournament (Persistence, Ridge, RF, XGBoost), and holdout metrics.
         </p>
         """)
@@ -307,7 +307,7 @@ with mcol5:
         <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
             🛡️ About & Safety Protocols
         </div>
-        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+        <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
             N95 mask guidance, indoor air defense, health cohort recommendations, and system documentation.
         </p>
         """)
@@ -320,7 +320,7 @@ with mcol6:
         <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
             🏙️ Multi-City Comparison
         </div>
-        <p style="color: #888888; font-size: 0.85rem; line-height: 1.5; margin: 0 0 12px 0;">
+        <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
             Simultaneous multi-city benchmarking across custom registered cities, states, and global locations.
         </p>
         """)

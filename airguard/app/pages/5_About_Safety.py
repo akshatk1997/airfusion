@@ -48,11 +48,11 @@ render_section_header(
 )
 
 # Top Action Toolbar
-tb_col1, tb_col2 = st.columns([2.2, 1.8])
+tb_col1, tb_col2 = st.columns([1.6, 1.6])
 with tb_col2:
     btn1, btn2, btn3 = st.columns(3)
     with btn1:
-        if st.button("🛡️ Outdoor Plan", use_container_width=True):
+        if st.button("🛡️ Safe Plan", use_container_width=True):
             st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
     with btn2:
         if st.button("📡 Live Tracking", use_container_width=True):

@@ -80,14 +80,14 @@ def render_aqi_hero_card(
         background: #121212;
         border: 1px solid #242424;
         border-radius: 16px;
-        padding: 26px 30px;
+        padding: 24px 28px;
         margin-bottom: 24px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        box-shadow: none;
         position: relative;
     ">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+        <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px;">
             <div>
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                <div style="display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                     <span style="
                         background: {theme['bg']};
                         border: 1px solid {theme['border']};
@@ -95,7 +95,7 @@ def render_aqi_hero_card(
                         font-family: var(--font-dot);
                         font-size: 0.76rem;
                         font-weight: 700;
-                        padding: 4px 12px;
+                        padding: 3px 12px;
                         border-radius: 9999px;
                         letter-spacing: 0.08em;
                         text-transform: uppercase;
@@ -105,12 +105,12 @@ def render_aqi_hero_card(
                     ">
                         ● {category}
                     </span>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #777777; text-transform: uppercase; letter-spacing: 0.04em;">US EPA Standard</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #777777; text-transform: uppercase; letter-spacing: 0.05em;">US EPA Standard</span>
                 </div>
-                <h1 style="margin: 0 0 6px 0; font-family: var(--font-heading); font-size: 2.3rem; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em;">
+                <h1 style="margin: 0 0 6px 0; font-family: var(--font-heading); font-size: 2.2rem; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">
                     {city}
                 </h1>
-                <p style="margin: 0; font-family: var(--font-mono); font-size: 0.8rem; color: #888888;">
+                <p style="margin: 0; font-family: var(--font-mono); font-size: 0.78rem; color: #888888;">
                     Telemetry Verified: <span style="color: #CCCCCC;">{timestamp}</span>
                 </p>
             </div>
@@ -118,7 +118,7 @@ def render_aqi_hero_card(
             <div style="text-align: right; min-width: 140px;">
                 <div style="
                     font-family: var(--font-dot);
-                    font-size: 5.2rem;
+                    font-size: 4.8rem;
                     font-weight: 700;
                     line-height: 0.9;
                     color: {theme['text']};
@@ -126,10 +126,10 @@ def render_aqi_hero_card(
                 ">
                     {aqi}
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; color: #777777; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px;">
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: #777777; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px;">
                     AIR QUALITY INDEX
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.85rem; color: #AAAAAA; margin-top: 4px;">
+                <div style="font-family: var(--font-mono); font-size: 0.82rem; color: #AAAAAA; margin-top: 4px;">
                     PM₂.₅: <b style="color: #FFFFFF;">{pm25_val:.1f}</b> µg/m³
                 </div>
             </div>

@@ -129,22 +129,23 @@ def render_metric_tile(
     icon: Optional[str] = None
 ) -> None:
     """
-    Renders an atomic metric tile with tabular mono typography.
+    Renders an atomic metric tile with tabular mono typography,
+    guaranteed unified card heights, and vertically centered icon alignment.
     """
-    icon_html = f"""<span style="color: var(--color-brand-cyan); margin-right: 6px;">{ICONS.get(icon, '')}</span>""" if icon else ""
+    icon_html = f"""<span style="color: #FFFFFF; opacity: 0.85; margin-right: 8px; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px;">{ICONS.get(icon, '')}</span>""" if icon else ""
     val_str = f"{value:.1f}" if isinstance(value, float) else str(value if value is not None else "--")
 
-    delta_color = "#34D399" if delta_positive else "#F87171"
-    delta_html = f"""<span style="color: {delta_color}; font-size: var(--font-size-xs); font-weight: 600; margin-left: 6px;">{delta}</span>""" if delta else ""
-    footer_html = f"""<div class="ag-metric-footer">{subtext}</div>""" if subtext else ""
+    delta_color = "#10B981" if delta_positive else "#EF4444"
+    delta_html = f"""<span style="color: {delta_color}; font-size: 0.72rem; font-weight: 700; margin-left: 8px; font-family: var(--font-mono);">{delta}</span>""" if delta else ""
+    footer_html = f"""<div class="ag-metric-footer">{subtext}</div>""" if subtext else """<div class="ag-metric-footer" style="visibility: hidden;">--</div>"""
 
     html = f"""
     <div class="ag-metric-card">
         <div>
             <div class="ag-metric-label">
-                {icon_html}{label}
+                {icon_html}<span>{label}</span>
             </div>
-            <div style="display: flex; align-items: baseline;">
+            <div style="display: flex; align-items: baseline; margin-top: 6px;">
                 <span class="ag-metric-val">{val_str}</span>
                 <span class="ag-metric-unit">{unit}</span>
                 {delta_html}

@@ -140,12 +140,12 @@ def render_global_navbar(page_title: str = "") -> str:
 
     current_idx = cities_keys.index(current_city) if current_city in cities_keys else 0
 
-    col_label, col_select, col_quick = st.columns([1.1, 2.6, 2.3])
+    col_label, col_select, col_quick = st.columns([1.2, 2.5, 2.3])
 
     with col_label:
         st.markdown(
-            "<div style='padding-top: 8px; font-family: var(--font-dot); font-weight: 700; color: #888888; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase;'>"
-            "📍 ACTIVE LOCATION:</div>",
+            "<div style='display: flex; align-items: center; height: 40px; font-family: var(--font-dot); font-weight: 700; color: #FFFFFF; font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase;'>"
+            "<span style='color: #D71921; margin-right: 6px; font-size: 0.65rem;'>●</span> ACTIVE LOCATION:</div>",
             unsafe_allow_html=True
         )
 

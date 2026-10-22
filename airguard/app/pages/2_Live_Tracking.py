@@ -75,11 +75,11 @@ with col_ctrl2:
     st.markdown("<div style='height: 4px;'></div>", unsafe_allow_html=True)
     c_btn1, c_btn2 = st.columns(2)
     with c_btn1:
-        if st.button("🔄 Refresh Telemetry", key="btn_refresh_live", use_container_width=True):
+        if st.button("🔄 Refresh", key="btn_refresh_live", use_container_width=True):
             st.cache_data.clear()
             st.rerun()
     with c_btn2:
-        if st.button("🛡️ Outdoor Plan →", key="btn_goto_plan", use_container_width=True):
+        if st.button("🛡️ Safe Plan", key="btn_goto_plan", use_container_width=True):
             st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
 
 # Fetch live atmospheric telemetry
@@ -187,7 +187,7 @@ if forecast_df is not None and not forecast_df.empty:
             avoid_period_msg = f"Avoid outdoor exposure near {peak_hours[0][-5:]} when peak concentration occurs."
 
 # Render Threshold Defense Strip
-st.markdown(f"""
+safe_markdown(f"""
 <div class="ag-card" style="border: 1px solid #242424; background: #0E0E0E; padding: var(--space-4); margin-bottom: var(--space-4);">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); flex-wrap: wrap; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -226,7 +226,7 @@ st.markdown(f"""
         {f"<br><span style='color: #F87171;'>⛔ <strong>Avoid Guidance:</strong> {avoid_period_msg}</span>" if avoid_period_msg else ""}
     </div>
 </div>
-""", unsafe_allow_html=True)
+""")
 
 # Personal Threshold Quick Adjuster Modal / Expander
 with st.expander("⚙️ Configure Personal PM₂.₅ Alert Threshold", expanded=False):

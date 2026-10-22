@@ -362,15 +362,16 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 5. Telemetry Metric Card */
 .ag-metric-card {
-    background: var(--color-bg-surface);
+    background: #121212;
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-md);
-    padding: var(--space-4);
+    padding: 16px 18px;
+    min-height: 122px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: var(--shadow-subtle);
+    box-shadow: none !important;
     transition: border-color var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -380,39 +381,44 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 
 .ag-metric-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-family: var(--font-sans);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
     color: var(--color-text-secondary);
     letter-spacing: 0.06em;
-    margin-bottom: var(--space-2);
+    min-height: 20px;
+    margin-bottom: 6px;
 }
 
 .ag-metric-val {
     font-family: var(--font-mono);
-    font-size: var(--font-size-2xl);
+    font-size: 1.85rem;
     font-weight: var(--font-weight-bold);
     color: var(--color-text-primary);
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
+    line-height: 1.1;
 }
 
 .ag-metric-unit {
     font-family: var(--font-sans);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-size: 0.78rem;
+    font-weight: 400;
     color: var(--color-text-muted);
-    margin-left: var(--space-1);
+    margin-left: 4px;
 }
 
 .ag-metric-footer {
     font-family: var(--font-mono);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-muted);
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--space-2);
-    margin-top: var(--space-3);
+    font-size: 0.72rem;
+    color: #777777;
+    border-top: 1px solid #1C1C1C;
+    padding-top: 6px;
+    margin-top: 8px;
 }
 
 /* 6. Action Buttons (Nothing Signature Pill Buttons) */
@@ -511,21 +517,29 @@ html, body, [data-testid="stAppViewContainer"] {
     border-color: var(--color-border-strong) !important;
 }
 
-/* Buttons */
+/* Buttons - Unified Heights, Alignment, & No-Wrap */
 .stButton > button {
-    background: #181818 !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    background: #141414 !important;
     color: #FFFFFF !important;
     border: 1px solid var(--color-border-default) !important;
     border-radius: var(--radius-pill) !important;
     font-family: var(--font-sans) !important;
-    font-weight: var(--font-weight-semibold) !important;
-    padding: var(--space-2) var(--space-5) !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    padding: 0 16px !important;
     box-shadow: none !important;
     transition: all var(--transition-fast) !important;
 }
 
 .stButton > button:hover {
-    border-color: var(--color-border-strong) !important;
+    border-color: #FFFFFF !important;
     background: #222222 !important;
     color: #FFFFFF !important;
     transform: translateY(-1px) !important;
@@ -538,12 +552,21 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* Download Buttons */
 .stDownloadButton > button {
+    min-height: 40px !important;
+    height: 40px !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
     background: #FFFFFF !important;
     color: #000000 !important;
     border: 1px solid #FFFFFF !important;
     border-radius: var(--radius-pill) !important;
     font-family: var(--font-sans) !important;
-    font-weight: var(--font-weight-bold) !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    padding: 0 18px !important;
     box-shadow: none !important;
     transition: all var(--transition-fast) !important;
 }
@@ -555,25 +578,35 @@ html, body, [data-testid="stAppViewContainer"] {
     box-shadow: none !important;
 }
 
-/* Inputs, Selectboxes & MultiSelect */
-.stTextInput > div > div > input,
-.stSelectbox > div > div,
-.stMultiSelect > div > div {
-    background-color: var(--color-bg-surface) !important;
-    color: var(--color-text-primary) !important;
-    border: 1px solid var(--color-border-default) !important;
-    border-radius: var(--radius-sm) !important;
+/* Inputs, Selectboxes & MultiSelect - Unified 40px Height */
+.stTextInput input,
+.stDateInput input,
+.stSelectbox [data-baseweb="select"] {
+    min-height: 40px !important;
+    height: 40px !important;
+    background-color: #121212 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #282828 !important;
+    border-radius: 8px !important;
     font-family: var(--font-sans) !important;
+    font-size: 0.85rem !important;
     box-shadow: none !important;
     transition: border-color var(--transition-fast) !important;
 }
 
-.stTextInput > div > div > input:focus,
-.stSelectbox > div > div:focus,
-.stMultiSelect > div > div:focus {
+.stTextInput input:focus,
+.stSelectbox [data-baseweb="select"]:focus,
+.stMultiSelect [data-baseweb="select"]:focus {
     border-color: #FFFFFF !important;
     box-shadow: none !important;
     outline: none !important;
+}
+
+.stMultiSelect [data-baseweb="select"] {
+    min-height: 40px !important;
+    background-color: #121212 !important;
+    border: 1px solid #282828 !important;
+    border-radius: 8px !important;
 }
 
 /* Tabs */
@@ -600,21 +633,39 @@ html, body, [data-testid="stAppViewContainer"] {
     letter-spacing: 0.05em !important;
 }
 
-/* Expanders */
-.streamlit-expanderHeader {
-    background: var(--color-bg-surface) !important;
-    border: 1px solid var(--color-border-subtle) !important;
-    border-radius: var(--radius-sm) !important;
-    font-family: var(--font-sans) !important;
-    font-weight: var(--font-weight-semibold) !important;
-    color: var(--color-text-primary) !important;
-    transition: background var(--transition-fast) !important;
+/* Expanders - Structured Nothing OS Palette */
+[data-testid="stExpander"] {
+    background: #101010 !important;
+    border: 1px solid #242424 !important;
+    border-radius: 12px !important;
     box-shadow: none !important;
+    overflow: hidden !important;
+    margin-bottom: 16px !important;
 }
 
-.streamlit-expanderHeader:hover {
-    background: var(--color-bg-elevated) !important;
-    border-color: var(--color-border-strong) !important;
+[data-testid="stExpander"] summary {
+    font-family: var(--font-sans) !important;
+    font-size: 0.86rem !important;
+    font-weight: 600 !important;
+    color: #FFFFFF !important;
+    padding: 12px 18px !important;
+    background: #121212 !important;
+    border-bottom: 1px solid transparent !important;
+    transition: background 180ms ease, border-color 180ms ease !important;
+}
+
+[data-testid="stExpander"] summary:hover {
+    background: #181818 !important;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stExpander"][open] summary {
+    border-bottom: 1px solid #222222 !important;
+}
+
+[data-testid="stExpander"] [data-testid="stExpanderDetails"] {
+    padding: 18px 22px !important;
+    background: #0E0E0E !important;
 }
 
 /* Streamlit Sidebar Matte Styling */

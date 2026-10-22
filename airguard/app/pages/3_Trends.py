@@ -94,13 +94,13 @@ with ctrl_col1:
         help="Filter historical observations by date"
     )
 with ctrl_col2:
-    st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
     b1, b2 = st.columns(2)
     with b1:
         if st.button("📡 Live Tracking", use_container_width=True):
             st.switch_page("pages/2_Live_Tracking.py")
     with b2:
-        if st.button("🛡️ Outdoor Plan", use_container_width=True):
+        if st.button("🛡️ Safe Plan", use_container_width=True):
             st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
 
 # Filter data
