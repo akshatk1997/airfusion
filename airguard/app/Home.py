@@ -87,15 +87,15 @@ def render_technical_home(active_city: str) -> None:
             with st.container(border=True):
                 safe_markdown("""
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
-                    <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">
-                        ⚡ COMMAND SHORTCUTS
+                    <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #38BDF8;">
+                        ⚡ RAPID DIRECTIVES
                     </span>
-                    <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px;">ACTIONS</span>
+                    <span class="ag-badge ag-badge-neutral" style="font-size: 0.65rem; padding: 2px 8px;">OPERATIONS</span>
                 </div>
-                <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: #FFFFFF; line-height: 1.3; margin-bottom: var(--space-1);">
+                <div style="font-family: var(--font-heading); font-size: 1.22rem; font-weight: 700; color: #FFFFFF; line-height: 1.3; margin-bottom: var(--space-1);">
                     Immediate Safety & Forecasting
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.8rem; color: #888888; margin: 0 0 var(--space-3) 0; line-height: 1.5;">
+                <p style="font-family: var(--font-sans); font-size: 0.8rem; color: #94A3B8; margin: 0 0 var(--space-3) 0; line-height: 1.5;">
                     Explore real-time multi-pollutant telemetry, run 72-hour machine learning projections, or configure threshold alerts.
                 </p>
                 """)
@@ -176,6 +176,20 @@ def render_technical_home(active_city: str) -> None:
                 is_active = (city.lower() == active_city.lower())
                 active_badge = "<span class='ag-badge ag-badge-good' style='font-size: 0.62rem; padding: 2px 6px;'>ACTIVE</span>" if is_active else ""
                 
+                aqi_num = snap['aqi']
+                if aqi_num <= 50:
+                    aqi_color = "#34D399"
+                elif aqi_num <= 100:
+                    aqi_color = "#FBBF24"
+                elif aqi_num <= 150:
+                    aqi_color = "#FB923C"
+                elif aqi_num <= 200:
+                    aqi_color = "#F87171"
+                elif aqi_num <= 300:
+                    aqi_color = "#C084FC"
+                else:
+                    aqi_color = "#FB7185"
+
                 with st.container(border=True):
                     safe_markdown(f"""
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
@@ -184,7 +198,7 @@ def render_technical_home(active_city: str) -> None:
                     </div>
                     <div style="display: flex; align-items: baseline; justify-content: space-between;">
                         <div>
-                            <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; line-height: 1;">
+                            <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: {aqi_color}; line-height: 1;">
                                 {snap['aqi']}
                             </div>
                             <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #777777; text-transform: uppercase; margin-top: 2px;">US AQI</div>
@@ -197,7 +211,7 @@ def render_technical_home(active_city: str) -> None:
                         </div>
                     </div>
                     <div style="margin-top: 10px; font-family: var(--font-sans); font-size: 0.75rem; color: #888888; border-top: 1px solid var(--color-border-subtle); padding-top: 8px;">
-                        ● {snap['category']} ({snap['temp']}°C, {snap['humidity']}%)
+                        <span style="color: {aqi_color};">●</span> {snap['category']} ({snap['temp']}°C, {snap['humidity']}%)
                     </div>
                     """)
                     

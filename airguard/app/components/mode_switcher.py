@@ -125,7 +125,7 @@ def render_mode_switcher(location: str = "sidebar") -> str:
 
 def render_mode_banner() -> None:
     """
-    Renders confirmation toast and an informative presentation badge at the top of the content area.
+    Renders confirmation toast and an elegant, unobtrusive presentation indicator.
     """
     mode = get_view_mode()
 
@@ -137,43 +137,29 @@ def render_mode_banner() -> None:
         except Exception:
             pass
 
-    # Informative presentation banner with cinematic glassmorphism
+    # Clean, bespoke status hint (no clunky robotic banners)
     if mode == TECHNICAL_MODE:
         banner_html = """
         <div style="
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(19, 25, 38, 0.65);
+            border: 1px solid rgba(56, 189, 248, 0.2);
             border-left: 3px solid #38BDF8;
             border-radius: 10px;
-            padding: 10px 16px;
-            margin-bottom: 20px;
+            padding: 8px 16px;
+            margin-bottom: 14px;
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         ">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="color: #38BDF8; font-size: 0.85rem;">⚙️</span>
-                <span style="font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; color: #CBD5E1;">
-                    You are viewing <strong style="color: #FFFFFF;">Technical Mode</strong>: full analytics, forecasts, and model details.
+                <span style="font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600; color: #CBD5E1;">
+                    Technical Mode active: full multi-pollutant telemetry, forecasting models, and statistical diagnostics.
                 </span>
             </div>
-            <span style="
-                font-family: var(--font-mono);
-                font-size: 0.65rem;
-                padding: 2px 8px;
-                border-radius: 9999px;
-                background: rgba(56, 189, 248, 0.15);
-                border: 1px solid #38BDF8;
-                color: #38BDF8;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
-            ">
-                ANALYTICAL DEPLOYMENT
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #38BDF8; font-weight: 600; letter-spacing: 0.04em;">
+                RESEARCH & ANALYTICS
             </span>
         </div>
         """
@@ -183,36 +169,22 @@ def render_mode_banner() -> None:
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(19, 25, 38, 0.65);
+            border: 1px solid rgba(16, 185, 129, 0.2);
             border-left: 3px solid #10B981;
             border-radius: 10px;
-            padding: 10px 16px;
-            margin-bottom: 20px;
+            padding: 8px 16px;
+            margin-bottom: 14px;
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
         ">
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="color: #10B981; font-size: 0.85rem;">🌿</span>
-                <span style="font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; color: #CBD5E1;">
-                    You are viewing <strong style="color: #FFFFFF;">Simple Mode</strong>: easy explanations and safety guidance.
+                <span style="font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600; color: #CBD5E1;">
+                    Simple Mode active: actionable safety guidance and personalized outdoor windows for everyday decisions.
                 </span>
             </div>
-            <span style="
-                font-family: var(--font-mono);
-                font-size: 0.65rem;
-                padding: 2px 8px;
-                border-radius: 9999px;
-                background: rgba(16, 185, 129, 0.15);
-                border: 1px solid #10B981;
-                color: #34D399;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
-            ">
-                PUBLIC DECISION AID
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #34D399; font-weight: 600; letter-spacing: 0.04em;">
+                DECISION SUPPORT
             </span>
         </div>
         """

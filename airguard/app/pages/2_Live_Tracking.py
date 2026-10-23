@@ -197,41 +197,41 @@ if forecast_df is not None and not forecast_df.empty:
 
 # Render Threshold Defense Strip
 safe_markdown(f"""
-<div class="ag-card" style="border: 1px solid #242424; background: #0E0E0E; padding: var(--space-4); margin-bottom: var(--space-4);">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); flex-wrap: wrap; gap: 8px;">
+<div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 10px;">
-            <span class="ag-pulse-dot" style="background-color: {thresh_badge_color};"></span>
+            <span class="ag-pulse-dot" style="background-color: {thresh_badge_color}; box-shadow: 0 0 10px {thresh_badge_color};"></span>
             <span style="font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">
                 LIVE ALERT DEFENSE STATUS
             </span>
         </div>
         <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #888888;">STATUS:</span>
-            <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; padding: 2px 10px; border-radius: 2px; background: {thresh_badge_color}; color: #000000; text-transform: uppercase; letter-spacing: 0.05em;">
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #94A3B8;">STATUS:</span>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; padding: 3px 12px; border-radius: 9999px; background: {thresh_badge_color}; color: #000000; text-transform: uppercase; letter-spacing: 0.05em;">
                 {thresh_status}
             </span>
         </div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: var(--space-3);">
-        <div style="padding: 12px; border: 1px solid #1E1E1E; background: #121212;">
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #888888; text-transform: uppercase;">CURRENT PM₂.₅</div>
-            <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; color: #FFFFFF;">{curr_pm:.1f} <span style="font-size: 0.8rem; font-weight: 400; color: #888888;">µg/m³</span></div>
-            <div style="font-family: var(--font-sans); font-size: 0.75rem; color: #AAAAAA;">AQI {curr_aqi} ({category})</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px;">
+        <div style="padding: 14px 16px; border: 1px solid var(--ag-border); background: rgba(11, 15, 25, 0.6); border-radius: 12px;">
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em;">CURRENT PM₂.₅</div>
+            <div style="font-family: var(--font-mono); font-size: 1.7rem; font-weight: 800; color: #FFFFFF; line-height: 1.1; margin: 4px 0;">{curr_pm:.1f} <span style="font-size: 0.8rem; font-weight: 500; color: #94A3B8;">µg/m³</span></div>
+            <div style="font-family: var(--font-sans); font-size: 0.76rem; color: #CBD5E1;">AQI {curr_aqi} ({category})</div>
         </div>
-        <div style="padding: 12px; border: 1px solid #1E1E1E; background: #121212;">
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #888888; text-transform: uppercase;">PERSONAL THRESHOLD</div>
-            <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; color: #FFFFFF;">{user_threshold:.1f} <span style="font-size: 0.8rem; font-weight: 400; color: #888888;">µg/m³</span></div>
-            <div style="font-family: var(--font-sans); font-size: 0.75rem; color: #AAAAAA;">Profile sensitivity limit</div>
+        <div style="padding: 14px 16px; border: 1px solid var(--ag-border); background: rgba(11, 15, 25, 0.6); border-radius: 12px;">
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em;">PERSONAL THRESHOLD</div>
+            <div style="font-family: var(--font-mono); font-size: 1.7rem; font-weight: 800; color: #FFFFFF; line-height: 1.1; margin: 4px 0;">{user_threshold:.1f} <span style="font-size: 0.8rem; font-weight: 500; color: #94A3B8;">µg/m³</span></div>
+            <div style="font-family: var(--font-sans); font-size: 0.76rem; color: #CBD5E1;">Profile sensitivity limit</div>
         </div>
-        <div style="padding: 12px; border: 1px solid #1E1E1E; background: #121212;">
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #888888; text-transform: uppercase;">EXPOSURE RATIO</div>
-            <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700; color: {'#D71921' if pct_threshold >= 1.0 else '#FFFFFF'};">{pct_threshold * 100:.0f}%</div>
-            <div style="font-family: var(--font-sans); font-size: 0.75rem; color: #AAAAAA;">{'Exceeded limit' if pct_threshold >= 1.0 else 'Within safety margin'}</div>
+        <div style="padding: 14px 16px; border: 1px solid var(--ag-border); background: rgba(11, 15, 25, 0.6); border-radius: 12px;">
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em;">EXPOSURE RATIO</div>
+            <div style="font-family: var(--font-mono); font-size: 1.7rem; font-weight: 800; color: {'#EF4444' if pct_threshold >= 1.0 else '#34D399'}; line-height: 1.1; margin: 4px 0;">{pct_threshold * 100:.0f}%</div>
+            <div style="font-family: var(--font-sans); font-size: 0.76rem; color: #CBD5E1;">{'Exceeded limit' if pct_threshold >= 1.0 else 'Within safety margin'}</div>
         </div>
     </div>
-    <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; line-height: 1.5; border-top: 1px solid #1C1C1C; padding-top: 10px;">
+    <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; line-height: 1.5; border-top: 1px solid var(--ag-border); padding-top: 12px;">
         <strong>Advisory:</strong> {thresh_desc}
-        {f"<br><span style='color: #EAB308;'>⚠️ <strong>Early Warning:</strong> {early_warning_msg}</span>" if early_warning_msg else ""}
+        {f"<br><span style='color: #FBBF24;'>⚠️ <strong>Early Warning:</strong> {early_warning_msg}</span>" if early_warning_msg else ""}
         {f"<br><span style='color: #F87171;'>⛔ <strong>Avoid Guidance:</strong> {avoid_period_msg}</span>" if avoid_period_msg else ""}
     </div>
 </div>
@@ -378,12 +378,12 @@ if triggered_alerts:
         action_tag = "🔴 IMMEDIATE ACTION REQUIRED" if t["type"] == "current" else "🟠 ADVANCE PEAK WARNING (+24H)"
 
         safe_markdown(f"""
-        <div style="border: 1px solid #242424; border-left: 4px solid {b_color}; background: {bg_col}; padding: var(--space-4); margin-bottom: var(--space-3);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <div style="border: 1px solid var(--ag-border); border-left: 4px solid {b_color}; background: {bg_col}; border-radius: 12px; padding: 16px 20px; margin-bottom: 14px; backdrop-filter: blur(12px);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: {b_color};">{action_tag}</span>
-                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #888888;">Severity: {t.get('severity', 'Moderate').upper()}</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #94A3B8;">Severity: {t.get('severity', 'Moderate').upper()}</span>
             </div>
-            <div style="font-family: var(--font-sans); color: #FFFFFF; font-size: 0.88rem; line-height: 1.5;">
+            <div style="font-family: var(--font-sans); color: #F8FAFC; font-size: 0.88rem; line-height: 1.5;">
                 {t['message']}
             </div>
         </div>

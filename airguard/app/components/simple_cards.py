@@ -1,71 +1,80 @@
 """
-Simple Mode UI Cards & Visual Components for AirGuard.
-Translates technical atmospheric telemetry, forecasting models, and risk evaluations
-into plain, friendly language, large readable status cards, and action-oriented advice
-with cinematic atmospheric depth, glassmorphism, and smooth physics.
+AirGuard Simple Mode Presentation Components.
+Bespoke, human-crafted environmental decision-support cards designed for clarity,
+elegance, and zero visual clutter.
 """
 
 from __future__ import annotations
 
 import streamlit as st
-from typing import Dict, Any, List, Optional
+from typing import Optional, Dict, Any, List
 from app.components.design_system import safe_markdown, ICONS
 
 
 def get_simple_status_style(status_level: str) -> Dict[str, str]:
     """
-    Returns friendly color tokens and optical ambient tints for simple safety status levels.
+    Returns semantic colors, icons, and refined styling tokens for safety levels.
     """
-    status_clean = status_level.lower().strip()
-    if "safe" in status_clean or "good" in status_clean or "low" in status_clean:
+    level_lower = status_level.lower()
+    if "high" in level_lower or "severe" in level_lower or "very" in level_lower:
         return {
-            "label": "Safe",
-            "color": "#10B981",
-            "bg": "rgba(16, 185, 129, 0.16)",
-            "icon": "🟢",
-            "badge_class": "ag-badge-good",
-            "glow_subtle": "rgba(16, 185, 129, 0.22)",
-            "gradient": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(16, 185, 129, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)"
-        }
-    elif "moderate" in status_clean:
-        return {
-            "label": "Moderate",
-            "color": "#F59E0B",
-            "bg": "rgba(245, 158, 11, 0.16)",
-            "icon": "🟡",
-            "badge_class": "ag-badge-moderate",
-            "glow_subtle": "rgba(245, 158, 11, 0.22)",
-            "gradient": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(245, 158, 11, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)"
-        }
-    elif "caution" in status_clean or "sensitive" in status_clean:
-        return {
-            "label": "Caution",
-            "color": "#F97316",
-            "bg": "rgba(249, 115, 22, 0.16)",
-            "icon": "🟠",
-            "badge_class": "ag-badge-sensitive",
-            "glow_subtle": "rgba(249, 115, 22, 0.22)",
-            "gradient": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(249, 115, 22, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)"
-        }
-    elif "high risk" in status_clean or "hazardous" in status_clean or "very high" in status_clean:
-        return {
-            "label": "High Risk",
             "color": "#D71921",
-            "bg": "rgba(215, 25, 33, 0.2)",
+            "bg": "rgba(215, 25, 33, 0.12)",
+            "border": "rgba(215, 25, 33, 0.35)",
+            "glow_subtle": "rgba(215, 25, 33, 0.2)",
+            "icon": "🔴",
+            "label": "High Risk",
+            "badge_class": "ag-badge-avoid",
+            "gradient": "linear-gradient(180deg, #161A26 0%, #10131D 100%)",
+            "top_line": "#D71921"
+        }
+    elif "avoid" in level_lower or "unhealthy" in level_lower:
+        return {
+            "color": "#EF4444",
+            "bg": "rgba(239, 68, 68, 0.12)",
+            "border": "rgba(239, 68, 68, 0.35)",
+            "glow_subtle": "rgba(239, 68, 68, 0.2)",
             "icon": "🛑",
-            "badge_class": "ag-badge-hazardous",
-            "glow_subtle": "rgba(215, 25, 33, 0.3)",
-            "gradient": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(215, 25, 33, 0.25), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)"
+            "label": "Avoid",
+            "badge_class": "ag-badge-avoid",
+            "gradient": "linear-gradient(180deg, #161A26 0%, #10131D 100%)",
+            "top_line": "#EF4444"
+        }
+    elif "caution" in level_lower:
+        return {
+            "color": "#F97316",
+            "bg": "rgba(249, 115, 22, 0.12)",
+            "border": "rgba(249, 115, 22, 0.35)",
+            "glow_subtle": "rgba(249, 115, 22, 0.2)",
+            "icon": "⚠️",
+            "label": "Caution",
+            "badge_class": "ag-badge-caution",
+            "gradient": "linear-gradient(180deg, #161A26 0%, #10131D 100%)",
+            "top_line": "#F97316"
+        }
+    elif "moderate" in level_lower:
+        return {
+            "color": "#F59E0B",
+            "bg": "rgba(245, 158, 11, 0.12)",
+            "border": "rgba(245, 158, 11, 0.35)",
+            "glow_subtle": "rgba(245, 158, 11, 0.2)",
+            "icon": "🟡",
+            "label": "Moderate",
+            "badge_class": "ag-badge-moderate",
+            "gradient": "linear-gradient(180deg, #161A26 0%, #10131D 100%)",
+            "top_line": "#F59E0B"
         }
     else:
         return {
-            "label": "Avoid",
-            "color": "#EF4444",
-            "bg": "rgba(239, 68, 68, 0.16)",
-            "icon": "🔴",
-            "badge_class": "ag-badge-unhealthy",
-            "glow_subtle": "rgba(239, 68, 68, 0.22)",
-            "gradient": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(239, 68, 68, 0.2), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)"
+            "color": "#10B981",
+            "bg": "rgba(16, 185, 129, 0.12)",
+            "border": "rgba(16, 185, 129, 0.35)",
+            "glow_subtle": "rgba(16, 185, 129, 0.2)",
+            "icon": "🟢",
+            "label": "Safe",
+            "badge_class": "ag-badge-good",
+            "gradient": "linear-gradient(180deg, #161A26 0%, #10131D 100%)",
+            "top_line": "#10B981"
         }
 
 
@@ -81,9 +90,8 @@ def render_air_safety_card(
     live_timestamp: Optional[str] = None
 ) -> None:
     """
-    Renders the primary Air Safety Card for Simple Mode with cinematic depth.
-    Answers: 'Is it safe for me to go outside right now?' with direct guidance
-    and real-time tracking badge.
+    Renders the primary Air Safety Directive Card for Simple Mode.
+    Human-crafted, editorial, high-contrast decision support.
     """
     theme = get_simple_status_style(status_level)
 
@@ -99,107 +107,126 @@ def render_air_safety_card(
     mask_html = ""
     if mask_tip:
         mask_html = f"""
-        <div style="margin-top: 14px; padding: 12px 16px; background: rgba(15, 23, 42, 0.7); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.08); border-left: 3px solid #38BDF8; font-family: var(--font-sans); font-size: 0.84rem; color: #E2E8F0; backdrop-filter: blur(12px);">
-            <strong style="color: #FFFFFF;">😷 Mask & Window Advice:</strong> {mask_tip}
+        <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; background: rgba(15, 23, 42, 0.6); border-radius: 10px; border: 1px solid rgba(56, 189, 248, 0.2); font-family: var(--font-sans); font-size: 0.85rem; color: #CBD5E1; margin-top: 14px;">
+            <span style="font-size: 1.1rem; line-height: 1;">😷</span>
+            <div>
+                <strong style="color: #FFFFFF; font-weight: 600;">Mask & Window Advice:</strong> {mask_tip}
+            </div>
         </div>
         """
 
     live_indicator = f"""
-    <div style="display: flex; align-items: center; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.74rem; color: #38BDF8; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); padding: 4px 10px; border-radius: 6px;">
         <span class="ag-pulse-dot"></span>
-        <span style="font-family: var(--font-mono); font-size: 0.74rem; color: #38BDF8; letter-spacing: 0.04em;">
-            {live_timestamp}
-        </span>
+        <span>{live_timestamp}</span>
     </div>
     """ if live_timestamp else """
     <span style="font-family: var(--font-sans); font-size: 0.74rem; color: #64748B;">
-        Today's Outdoor Decision Guide
+        Today's Outdoor Directive
     </span>
     """
 
     html = f"""
     <div style="
         background: {theme['gradient']};
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-top: 1px solid rgba(255, 255, 255, 0.22);
+        border: 1px solid var(--ag-border);
+        border-top: 3px solid {theme['top_line']};
         border-radius: 20px;
-        padding: 28px 32px;
+        padding: 30px 34px;
         margin-bottom: 24px;
-        box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.65), 0 0 30px -5px {theme['glow_subtle']};
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
+        box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5), 0 0 24px -6px {theme['glow_subtle']};
         position: relative;
         overflow: hidden;
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     ">
-        <!-- Top Status Row -->
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+        <!-- Top Status Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 1.25rem;">{theme['icon']}</span>
-                <div>
-                    <span style="
-                        background: {theme['bg']};
-                        border: 1px solid {theme['color']};
-                        color: {theme['color']};
-                        font-family: var(--font-sans);
-                        font-size: 0.78rem;
-                        font-weight: 700;
-                        padding: 3px 12px;
-                        border-radius: 9999px;
-                        text-transform: uppercase;
-                        letter-spacing: 0.05em;
-                        box-shadow: 0 0 12px {theme['glow_subtle']};
-                    ">
-                        ● {theme['label']} Conditions
-                    </span>
-                    <span style="font-family: var(--font-mono); font-size: 0.74rem; color: #94A3B8; margin-left: 10px;">
-                        {city_name}
-                    </span>
-                </div>
+                <span style="
+                    background: {theme['bg']};
+                    border: 1px solid {theme['border']};
+                    color: {theme['color']};
+                    font-family: var(--font-sans);
+                    font-size: 0.76rem;
+                    font-weight: 700;
+                    padding: 4px 12px;
+                    border-radius: 9999px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.04em;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                ">
+                    <span>●</span> {theme['label']} Conditions
+                </span>
+                <span style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; color: #94A3B8;">
+                    {city_name}
+                </span>
             </div>
             {live_indicator}
         </div>
 
-        <!-- Big Friendly Answer -->
-        <h2 style="margin: 0 0 10px 0; font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: #FFFFFF; line-height: 1.3; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);">
+        <!-- Big Clear Decision Headline -->
+        <h2 style="margin: 0 0 10px 0; font-family: var(--font-heading); font-size: 1.95rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.03em; line-height: 1.25;">
             {answer_text}
         </h2>
 
         <!-- Actionable Recommendation -->
-        <p style="margin: 0 0 20px 0; font-family: var(--font-sans); font-size: 0.96rem; color: #E2E8F0; line-height: 1.55;">
+        <p style="margin: 0 0 22px 0; font-family: var(--font-sans); font-size: 0.98rem; color: #CBD5E1; line-height: 1.6;">
             {recommendation}
         </p>
 
-        <!-- Two Core Decision Pillars -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 16px;">
-            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); border-top: 1px solid rgba(16, 185, 129, 0.5); border-radius: 14px; padding: 16px 20px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px);">
-                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #34D399; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
+        <!-- Two Core Decision Tickets -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 16px;">
+            <!-- Best Window -->
+            <div style="
+                background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(13, 19, 31, 0.8) 100%);
+                border: 1px solid rgba(16, 185, 129, 0.3);
+                border-radius: 14px;
+                padding: 18px 22px;
+            ">
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: #34D399; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
                     ✨ Best Safe Time Window
                 </div>
-                <div style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #FFFFFF; text-shadow: 0 0 12px rgba(52, 211, 153, 0.3);">
+                <div style="font-family: var(--font-mono); font-size: 1.45rem; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em; margin-bottom: 4px;">
                     {best_window}
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.76rem; color: #A7F3D0; margin-top: 4px;">
+                <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #94A3B8;">
                     Cleanest predicted air period for outdoor activity
                 </div>
             </div>
 
-            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.35); border-top: 1px solid rgba(239, 68, 68, 0.5); border-radius: 14px; padding: 16px 20px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px);">
-                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #F87171; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
+            <!-- Hours to Avoid -->
+            <div style="
+                background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(13, 19, 31, 0.8) 100%);
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                border-radius: 14px;
+                padding: 18px 22px;
+            ">
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: #F87171; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
                     ⚠️ Hours to Avoid
                 </div>
-                <div style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #FFFFFF; text-shadow: 0 0 12px rgba(248, 113, 113, 0.3);">
+                <div style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em; margin-bottom: 4px;">
                     {avoid_str}
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.76rem; color: #FCA5A5; margin-top: 4px;">
+                <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #94A3B8;">
                     High pollution hours — limit outdoor exertion
                 </div>
             </div>
         </div>
 
-        <!-- Plain Reason -->
-        <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-left: 3px solid #64748B; border-radius: 8px; padding: 12px 16px; font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; line-height: 1.5; backdrop-filter: blur(12px);">
-            <strong style="color: #FFFFFF;">Why:</strong> {main_reason}
+        <!-- Plain English Explanation -->
+        <div style="
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--ag-border);
+            border-left: 3px solid #64748B;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: #94A3B8;
+            line-height: 1.55;
+        ">
+            <strong style="color: #FFFFFF; font-weight: 600;">Why:</strong> {main_reason}
         </div>
 
         {mask_html}
@@ -210,8 +237,7 @@ def render_air_safety_card(
 
 def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
     """
-    Renders a friendly 24-hour safe/caution/avoid visual strip for Simple Mode
-    with glassmorphism and subtle lighting.
+    Renders a friendly 24-hour safe/caution/avoid visual track for Simple Mode.
     Green = Safe, Yellow = Caution, Orange = Sensitive, Red = Avoid.
     """
     if not hourly_data:
@@ -222,46 +248,59 @@ def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
         time_label = item.get("time", "")
         status = item.get("status", "Safe")
         color = item.get("color", "#10B981")
-        
-        # Friendly simplified label
+        pm25_val = item.get("pm25", 0.0)
+
         if "avoid" in status.lower() or "unhealthy" in status.lower():
             badge_text = "Avoid"
-            bg_tint = "rgba(239, 68, 68, 0.18)"
+            dot_color = "#EF4444"
+            badge_bg = "rgba(239, 68, 68, 0.15)"
+            badge_border = "rgba(239, 68, 68, 0.3)"
         elif "caution" in status.lower() or "moderate" in status.lower():
             badge_text = "Caution"
-            bg_tint = "rgba(245, 158, 11, 0.18)"
+            dot_color = "#F59E0B"
+            badge_bg = "rgba(245, 158, 11, 0.15)"
+            badge_border = "rgba(245, 158, 11, 0.3)"
         else:
             badge_text = "Safe"
-            bg_tint = "rgba(16, 185, 129, 0.18)"
+            dot_color = "#10B981"
+            badge_bg = "rgba(16, 185, 129, 0.15)"
+            badge_border = "rgba(16, 185, 129, 0.3)"
 
         boxes_html.append(f"""
         <div style="
+            flex: 0 0 68px;
+            background: rgba(11, 15, 25, 0.7);
+            border: 1px solid var(--ag-border);
+            border-radius: 12px;
+            padding: 10px 4px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            background: rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 3px solid {color};
-            border-radius: 10px;
-            padding: 10px 6px;
-            min-width: 58px;
-            flex: 1;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 6px;
         ">
-            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #94A3B8; margin-bottom: 4px;">{time_label}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #94A3B8; font-weight: 600;">
+                {time_label}
+            </span>
             <span style="
-                background: {bg_tint};
-                color: {color};
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: {dot_color};
+                box-shadow: 0 0 8px {dot_color};
+                display: inline-block;
+            "></span>
+            <span style="
+                background: {badge_bg};
+                border: 1px solid {badge_border};
+                color: {dot_color};
                 font-family: var(--font-sans);
-                font-size: 0.65rem;
+                font-size: 0.62rem;
                 font-weight: 700;
-                padding: 2px 8px;
+                padding: 1px 6px;
                 border-radius: 9999px;
                 text-transform: uppercase;
-                box-shadow: 0 0 8px {bg_tint};
+                letter-spacing: 0.03em;
             ">
                 {badge_text}
             </span>
@@ -271,19 +310,16 @@ def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
     strip_content = "".join(boxes_html)
     container_html = f"""
     <div style="
-        background: rgba(15, 23, 42, 0.75);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-top: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 18px;
-        padding: 22px 26px;
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-radius: 16px;
+        padding: 20px 24px;
         margin-bottom: 24px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     ">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
-            <div style="font-family: var(--font-heading); font-size: 0.92rem; font-weight: 700; color: #FFFFFF;">
-                📅 24-Hour Safe Outdoor Timeline
+            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+                <span>📅</span> 24-Hour Safe Outdoor Timeline
             </div>
             <div style="display: flex; gap: 14px; font-family: var(--font-sans); font-size: 0.74rem;">
                 <span style="color: #34D399;">● Green = Safe</span>
@@ -291,7 +327,7 @@ def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
                 <span style="color: #F87171;">● Red = Avoid</span>
             </div>
         </div>
-        <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px;">
+        <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin;">
             {strip_content}
         </div>
     </div>
@@ -301,8 +337,7 @@ def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
 
 def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
     """
-    Renders one short, practical non-technical insight for Simple Mode
-    with glassmorphism and subtle lighting aura.
+    Renders one short, practical non-technical insight for Simple Mode.
     """
     if aqi <= 50:
         tip_title = "Great Day for Outdoors"
@@ -327,16 +362,13 @@ def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
 
     html = f"""
     <div style="
-        background: radial-gradient(ellipse 75% 65% at 90% 15%, rgba(245, 158, 11, 0.1), transparent 70%), rgba(17, 24, 39, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-top: 1px solid rgba(255, 255, 255, 0.18);
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
         border-left: 3px solid #F59E0B;
         border-radius: 14px;
-        padding: 20px 24px;
+        padding: 18px 22px;
         margin-bottom: 24px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
     ">
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
             <span style="font-size: 1.15rem;">{tip_icon}</span>
@@ -344,7 +376,7 @@ def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
                 Today's Tip: {tip_title}
             </span>
         </div>
-        <p style="margin: 0; font-family: var(--font-sans); font-size: 0.88rem; color: #CBD5E1; line-height: 1.55;">
+        <p style="margin: 0; font-family: var(--font-sans); font-size: 0.86rem; color: #94A3B8; line-height: 1.55;">
             {tip_text}
         </p>
     </div>
@@ -360,10 +392,10 @@ def render_simple_alert_setup(current_threshold: float, on_save_callback=None) -
     with st.container(border=True):
         st.markdown(
             """
-            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 4px;">
-                🔔 Simple Safety Alerts
+            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                <span>🔔</span> Simple Safety Alerts
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin-bottom: 12px;">
+            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; margin-bottom: 12px; line-height: 1.45;">
                 Set a personal alert level. AirGuard will notify you whenever pollution rises above your comfort line.
             </p>
             """,
@@ -409,17 +441,16 @@ def render_simple_disclaimer() -> None:
     """
     html = """
     <div style="
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(11, 15, 23, 0.5);
+        border: 1px solid var(--ag-border);
         border-radius: 10px;
-        padding: 14px 20px;
-        margin-top: 20px;
+        padding: 12px 18px;
+        margin-top: 24px;
         font-family: var(--font-sans);
-        font-size: 0.76rem;
-        color: #94A3B8;
+        font-size: 0.74rem;
+        color: #64748B;
         line-height: 1.5;
         text-align: center;
-        backdrop-filter: blur(12px);
     ">
         <strong>Safety Note:</strong> This app gives general environmental safety guidance based on outdoor sensor readings and mathematical forecasts. It does not provide medical diagnosis or treatment. Follow your doctor's advice for personal health decisions.
     </div>
@@ -433,7 +464,7 @@ def render_simple_weather_cards(
     wind_speed: Optional[float]
 ) -> None:
     """
-    Renders 3 friendly, large readable weather cards for Simple Mode with glassmorphism.
+    Renders 3 friendly weather cards for Simple Mode.
     Translates raw meteorological variables into clear human comfort explanations.
     """
     temp_val = f"{temperature:.0f}°C" if temperature is not None else "--"
@@ -470,69 +501,54 @@ def render_simple_weather_cards(
         wind_note = "Wind data pending"
 
     html = f"""
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 24px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 24px;">
         <div style="
-            background: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.06), transparent 70%), rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            background: var(--ag-surface);
+            border: 1px solid var(--ag-border);
             border-radius: 14px;
             padding: 18px 22px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         ">
-            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-bottom: 6px;">
+            <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 🌡️ Outdoor Temperature
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.85rem; font-weight: 800; color: #FFFFFF; text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);">
+            <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em;">
                 {temp_val}
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.8rem; color: #CBD5E1; margin-top: 4px;">
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #CBD5E1; margin-top: 4px;">
                 {temp_note}
             </div>
         </div>
 
         <div style="
-            background: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.06), transparent 70%), rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            background: var(--ag-surface);
+            border: 1px solid var(--ag-border);
             border-radius: 14px;
             padding: 18px 22px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         ">
-            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-bottom: 6px;">
+            <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 💧 Air Moisture (Humidity)
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.85rem; font-weight: 800; color: #FFFFFF; text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);">
+            <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em;">
                 {hum_val}
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.8rem; color: #CBD5E1; margin-top: 4px;">
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #CBD5E1; margin-top: 4px;">
                 {hum_note}
             </div>
         </div>
 
         <div style="
-            background: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.06), transparent 70%), rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            background: var(--ag-surface);
+            border: 1px solid var(--ag-border);
             border-radius: 14px;
             padding: 18px 22px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         ">
-            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-bottom: 6px;">
+            <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 💨 Wind & Ventilation
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.85rem; font-weight: 800; color: #FFFFFF; text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);">
+            <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 700; color: #FFFFFF; letter-spacing: -0.02em;">
                 {wind_val}
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.8rem; color: #CBD5E1; margin-top: 4px;">
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #CBD5E1; margin-top: 4px;">
                 {wind_note}
             </div>
         </div>
@@ -543,7 +559,7 @@ def render_simple_weather_cards(
 
 def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> None:
     """
-    Renders 2 plain-language pollutant explanation cards for Simple Mode with glassmorphic depth.
+    Renders 2 plain-language pollutant explanation cards for Simple Mode.
     Translates raw numbers into plain meanings (Tiny harmful particles vs Coarse dust).
     """
     if pm25 <= 15:
@@ -580,57 +596,47 @@ def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> 
     html = f"""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
         <div style="
-            background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.05), transparent 60%), rgba(17, 24, 39, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
-            border-left: 4px solid {pm25_color};
+            background: var(--ag-surface);
+            border: 1px solid var(--ag-border);
+            border-left: 3px solid {pm25_color};
             border-radius: 14px;
             padding: 20px 24px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         ">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 700; color: #FFFFFF;">
+                <span style="font-family: var(--font-heading); font-size: 0.94rem; font-weight: 700; color: #FFFFFF;">
                     🔬 Tiny Particles (PM₂.₅)
                 </span>
-                <span style="font-family: var(--font-sans); font-size: 0.74rem; font-weight: 700; color: {pm25_color}; background: rgba(255, 255, 255, 0.08); padding: 3px 10px; border-radius: 9999px; border: 1px solid {pm25_color}; box-shadow: 0 0 10px {pm25_color};">
+                <span style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: {pm25_color}; background: rgba(255, 255, 255, 0.06); padding: 2px 8px; border-radius: 9999px; border: 1px solid {pm25_color};">
                     ● {pm25_status}
                 </span>
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0 0 8px 0; line-height: 1.55;">
+            <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #CBD5E1; margin: 0 0 8px 0; line-height: 1.55;">
                 {pm25_desc}
             </p>
-            <div style="font-family: var(--font-mono); font-size: 0.74rem; color: #94A3B8;">
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #94A3B8;">
                 Measured: {pm25:.1f} µg/m³ (particles 30x smaller than a human hair)
             </div>
         </div>
 
         <div style="
-            background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.05), transparent 60%), rgba(17, 24, 39, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
-            border-left: 4px solid {pm10_color};
+            background: var(--ag-surface);
+            border: 1px solid var(--ag-border);
+            border-left: 3px solid {pm10_color};
             border-radius: 14px;
             padding: 20px 24px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         ">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 700; color: #FFFFFF;">
+                <span style="font-family: var(--font-heading); font-size: 0.94rem; font-weight: 700; color: #FFFFFF;">
                     💨 Coarse Dust & Pollen (PM₁₀)
                 </span>
-                <span style="font-family: var(--font-sans); font-size: 0.74rem; font-weight: 700; color: {pm10_color}; background: rgba(255, 255, 255, 0.08); padding: 3px 10px; border-radius: 9999px; border: 1px solid {pm10_color}; box-shadow: 0 0 10px {pm10_color};">
+                <span style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: {pm10_color}; background: rgba(255, 255, 255, 0.06); padding: 2px 8px; border-radius: 9999px; border: 1px solid {pm10_color};">
                     ● {pm10_status}
                 </span>
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0 0 8px 0; line-height: 1.55;">
+            <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #CBD5E1; margin: 0 0 8px 0; line-height: 1.55;">
                 {pm10_desc}
             </p>
-            <div style="font-family: var(--font-mono); font-size: 0.74rem; color: #94A3B8;">
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #94A3B8;">
                 Measured: {pm10_val:.1f} µg/m³ (road dust, vehicle grit, construction particles)
             </div>
         </div>
@@ -641,53 +647,42 @@ def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> 
 
 def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> None:
     """
-    Renders 2 side-by-side cards for Mask guidance and Indoor air protection
-    with cinematic glassmorphism. Formats list or string advice gracefully.
+    Renders 2 side-by-side cards for Mask guidance and Indoor air protection.
     """
     if isinstance(mask_advice, (list, tuple)):
-        mask_content = "<ul style='margin: 0; padding-left: 18px; line-height: 1.55; color: #CBD5E1; font-size: 0.86rem;'>" + "".join(f"<li>{item}</li>" for item in mask_advice) + "</ul>"
+        mask_content = "<ul style='margin: 0; padding-left: 18px; line-height: 1.6; color: #CBD5E1; font-size: 0.86rem;'>" + "".join(f"<li style='margin-bottom: 4px;'>{item}</li>" for item in mask_advice) + "</ul>"
     else:
-        mask_content = f"<p style='font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.55;'>{mask_advice}</p>"
+        mask_content = f"<p style='font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.6;'>{mask_advice}</p>"
 
     if isinstance(indoor_advice, (list, tuple)):
-        indoor_content = "<ul style='margin: 0; padding-left: 18px; line-height: 1.55; color: #CBD5E1; font-size: 0.86rem;'>" + "".join(f"<li>{item}</li>" for item in indoor_advice) + "</ul>"
+        indoor_content = "<ul style='margin: 0; padding-left: 18px; line-height: 1.6; color: #CBD5E1; font-size: 0.86rem;'>" + "".join(f"<li style='margin-bottom: 4px;'>{item}</li>" for item in indoor_advice) + "</ul>"
     else:
-        indoor_content = f"<p style='font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.55;'>{indoor_advice}</p>"
+        indoor_content = f"<p style='font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.6;'>{indoor_advice}</p>"
 
     html = f"""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
         <div style="
-            background: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.06), transparent 70%), rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
-            border-left: 4px solid #38BDF8;
+            background: var(--ag-surface);
+            border: 1px solid var(--ag-border);
+            border-left: 3px solid #38BDF8;
             border-radius: 14px;
             padding: 20px 24px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         ">
-            <div style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
-                😷 Mask Advice
+            <div style="font-family: var(--font-heading); font-size: 0.94rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                <span>😷</span> Mask Advice
             </div>
             {mask_content}
         </div>
 
         <div style="
-            background: radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.06), transparent 70%), rgba(17, 24, 39, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.16);
-            border-left: 4px solid #10B981;
+            background: var(--ag-surface);
+            border: 1px solid var(--ag-border);
+            border-left: 3px solid #10B981;
             border-radius: 14px;
             padding: 20px 24px;
-            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         ">
-            <div style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
-                🏠 Indoor Air Defense
+            <div style="font-family: var(--font-heading); font-size: 0.94rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                <span>🏠</span> Indoor Air Defense
             </div>
             {indoor_content}
         </div>

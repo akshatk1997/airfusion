@@ -25,12 +25,13 @@ def render_protection_protocol_card(
 
     html = f"""
     <div style="
-        background: #121212;
-        border: 1px solid #242424;
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-top: 1px solid var(--ag-border-light);
         border-radius: 16px;
         padding: 24px 28px;
         margin-bottom: 20px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     ">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
             <div style="font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">
@@ -51,21 +52,21 @@ def render_protection_protocol_card(
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 18px;">
             <!-- Mask Guidance -->
-            <div style="background: #181818; border: 1px solid #282828; border-radius: 12px; padding: 16px 18px;">
+            <div style="background: rgba(11, 15, 25, 0.6); border: 1px solid var(--ag-border); border-radius: 12px; padding: 18px 20px;">
                 <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
                     😷 Respiratory Mask Protocol
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #E5E5E5; line-height: 1.5;">
+                <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #E2E8F0; line-height: 1.5;">
                     {mask_guidance}
                 </div>
             </div>
 
             <!-- Indoor Precautions -->
-            <div style="background: #181818; border: 1px solid #282828; border-radius: 12px; padding: 16px 18px;">
+            <div style="background: rgba(11, 15, 25, 0.6); border: 1px solid var(--ag-border); border-radius: 12px; padding: 18px 20px;">
                 <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
                     🏠 Indoor & In-Vehicle Air Quality
                 </div>
-                <ul style="margin: 0; padding-left: 18px; font-family: var(--font-sans); font-size: 0.82rem; color: #CCCCCC; line-height: 1.5;">
+                <ul style="margin: 0; padding-left: 18px; font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; line-height: 1.5;">
                     {indoor_items}
                 </ul>
             </div>
@@ -73,13 +74,14 @@ def render_protection_protocol_card(
 
         <!-- Visible Medical Disclaimer -->
         <div style="
-            background: #0E0E0E;
-            border-left: 3px solid #555555;
+            background: rgba(11, 15, 25, 0.4);
+            border: 1px solid var(--ag-border);
+            border-left: 3px solid #64748B;
             padding: 10px 14px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-family: var(--font-sans);
             font-size: 0.74rem;
-            color: #888888;
+            color: #94A3B8;
             line-height: 1.45;
         ">
             <b>Disclaimer:</b> AirGuard provides general environmental decision support based on outdoor sensor telemetry and numerical ML projections. It does not provide medical diagnosis, treatment, or individualized clinical advice. Users with respiratory or cardiac conditions should always adhere to their medical provider’s prescription plan.

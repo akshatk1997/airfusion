@@ -283,5 +283,5 @@ def render_global_navbar(page_title: str = "") -> str:
                         else:
                             st.error(f"Could not locate '{full_query}'. Please verify spelling or specify state/country.")
 
-    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 6px;'></div>", unsafe_allow_html=True)
     return st.session_state["selected_city"]

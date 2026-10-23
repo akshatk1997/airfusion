@@ -231,10 +231,10 @@ with tab_xai:
         with exp_col:
             safe_markdown(
                 """
-                <div class="ag-card" style="padding: var(--space-4); border: 1px solid #242424; background: #0E0E0E; height: 100%;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3);">
+                <div class="ag-card" style="padding: 22px 24px; border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); height: 100%;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
                         <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">Key Predictive Drivers</span>
-                        <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px;">ATTRIBUTIONS</span>
+                        <span class="ag-badge ag-badge-neutral" style="font-size: 0.65rem; padding: 2px 8px;">ATTRIBUTIONS</span>
                     </div>
                     <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; line-height: 1.6;">
                         <div style="margin-bottom: var(--space-3);">
@@ -259,7 +259,7 @@ with tab_methodology:
     st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
     safe_markdown(
         """
-        <div class="ag-card" style="padding: var(--space-5); border: 1px solid #242424; background: #0E0E0E;">
+        <div class="ag-card" style="padding: 24px 28px; border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;">
                 Strict Chronological Splitting & Leakage Prevention
             </div>

@@ -38,12 +38,13 @@ def render_risk_score_card(
 
     html = f"""
     <div style="
-        background: #121212;
-        border: 1px solid #242424;
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-top: 1px solid var(--ag-border-light);
         border-radius: 16px;
         padding: 24px 28px;
         margin-bottom: 20px;
-        box-shadow: none;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     ">
         <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px; margin-bottom: 16px;">
             <div>

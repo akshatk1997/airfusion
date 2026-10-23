@@ -59,12 +59,13 @@ def render_safe_window_card(
 
     html = f"""
     <div style="
-        background: #121212;
-        border: 1px solid #242424;
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-top: 1px solid var(--ag-border-light);
         border-radius: 16px;
         padding: 24px 28px;
         margin-bottom: 20px;
-        box-shadow: none;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     ">
         <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px;">
             <div>
@@ -141,11 +142,13 @@ def render_hourly_timeline_strip(hourly_timeline: List[Dict[str, Any]]) -> None:
     strip_content = "".join(boxes_html)
     container_html = f"""
     <div style="
-        background: #121212;
-        border: 1px solid #242424;
+        background: var(--ag-surface);
+        border: 1px solid var(--ag-border);
+        border-top: 1px solid var(--ag-border-light);
         border-radius: 16px;
         padding: 20px 24px;
         margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     ">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">

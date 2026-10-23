@@ -557,38 +557,38 @@ def render_simple_trends(active_city: str) -> None:
 
     safe_markdown(f"""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
-        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid #10B981; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #10B981; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #10B981; text-transform: uppercase; margin-bottom: 6px;">
                 ✨ Cleanest Time of Day
             </div>
             <div style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                 Early Morning & Afternoon
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; margin: 0; line-height: 1.5;">
                 Air is typically freshest between <strong>6:00 AM – 8:00 AM</strong> and <strong>1:00 PM – 4:00 PM</strong> when sun and wind disperse smoke.
             </p>
         </div>
 
-        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid #EF4444; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #EF4444; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;">
                 ⚠️ Hours Pollution Rises
             </div>
             <div style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                 Evening & Night Hours
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; margin: 0; line-height: 1.5;">
                 Pollution may rise between <strong>7:00 PM – 10:00 PM</strong> due to evening traffic and cooler night air trapping particles near ground.
             </p>
         </div>
 
-        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid #38BDF8; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #38BDF8; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #38BDF8; text-transform: uppercase; margin-bottom: 6px;">
                 📊 Recent Air Quality
             </div>
             <div style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                 {clean_pct:.0f}% Clean or Moderate
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; margin: 0; line-height: 1.5;">
                 Over the recent tracking period, most hours in <strong>{active_city}</strong> remained in acceptable outdoor safety ranges.
             </p>
         </div>
@@ -666,32 +666,32 @@ def render_simple_model_insights() -> None:
 
     safe_markdown("""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
-        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-size: 1.4rem; margin-bottom: 8px;">💨</div>
             <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                 Wind & Air Flow
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #AAAAAA; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
                 Low wind traps smoke and dust near street level. When winds pick up, fresh air disperses harmful particles quickly.
             </p>
         </div>
 
-        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-size: 1.4rem; margin-bottom: 8px;">🌡️</div>
             <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                 Temperature & Moisture
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #AAAAAA; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
                 Cool mornings and high humidity can form smog layers that hold vehicular smoke close to where people walk.
             </p>
         </div>
 
-        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-size: 1.4rem; margin-bottom: 8px;">🚗</div>
             <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
                 Daily Traffic & Activity
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #AAAAAA; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
                 Our model factors in weekday vs weekend rhythms and rush-hour pulses so you know when pollution spikes before it happens.
             </p>
         </div>
@@ -750,26 +750,26 @@ def render_simple_about_safety() -> None:
 
     safe_markdown("""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
-        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid #10B981; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #10B981; border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #10B981; margin-bottom: 4px;">
                 ✅ N95 / KN95 / FFP2 Masks
             </div>
             <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
                 RECOMMENDED FOR AIR POLLUTION (Blocks 95%+)
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #BBBBBB; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
                 These masks have dense electro-static filters that block tiny smoke and exhaust particles. Press the metal nose clip firmly to ensure no air leaks around your nose.
             </p>
         </div>
 
-        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid #EF4444; border-radius: 12px; padding: 18px 22px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #EF4444; border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #EF4444; margin-bottom: 4px;">
                 ❌ Cloth, Bandanas & Surgical Masks
             </div>
             <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
                 NOT EFFECTIVE AGAINST SMOG & PM₂.₅
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #BBBBBB; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
                 Cloth fibers and loose surgical mask edges allow tiny smoke particles to enter freely around the sides. They do not protect against harmful winter smog.
             </p>
         </div>
@@ -780,8 +780,8 @@ def render_simple_about_safety() -> None:
     st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>🏠 Keeping Your Home Air Clean</h3>", unsafe_allow_html=True)
 
     safe_markdown("""
-    <div style="background: #121212; border: 1px solid #242424; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; line-height: 1.5;">
+    <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 22px 26px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.5;">
             <div>
                 <strong style="color: #FFFFFF;">1. Close Windows During Peak Smog</strong><br>
                 Keep windows shut from 7:00 PM to 10:00 AM when outdoor pollution is thickest.
@@ -807,21 +807,21 @@ def render_simple_about_safety() -> None:
 
     safe_markdown("""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
-        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 16px 20px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <strong style="color: #FFFFFF; font-family: var(--font-heading); font-size: 0.95rem;">👶 Young Children</strong>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #AAAAAA; margin: 6px 0 0 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; margin: 6px 0 0 0; line-height: 1.5;">
                 Kids breathe faster and their lungs are still developing. Move recess indoors when the air safety status shows Caution or Avoid.
             </p>
         </div>
-        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 16px 20px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <strong style="color: #FFFFFF; font-family: var(--font-heading); font-size: 0.95rem;">👵 Senior Citizens</strong>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #AAAAAA; margin: 6px 0 0 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; margin: 6px 0 0 0; line-height: 1.5;">
                 High pollution puts stress on the heart and blood pressure. Take gentle walks during warm afternoon hours when air is cleanest.
             </p>
         </div>
-        <div style="background: #121212; border: 1px solid #222222; border-radius: 12px; padding: 16px 20px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
             <strong style="color: #FFFFFF; font-family: var(--font-heading); font-size: 0.95rem;">🫁 Asthma & Allergies</strong>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #AAAAAA; margin: 6px 0 0 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; margin: 6px 0 0 0; line-height: 1.5;">
                 Always keep your prescribed rescue inhaler in your pocket before leaving home, even for short neighbourhood errands.
             </p>
         </div>
@@ -942,13 +942,13 @@ def render_simple_city_comparison(active_city: str) -> None:
     # City list cards
     for c in city_results:
         safe_markdown(f"""
-        <div style="background: #121212; border: 1px solid #222222; border-left: 4px solid {c['color']}; border-radius: 10px; padding: 14px 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid {c['color']}; border-radius: 12px; padding: 16px 22px; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
                 <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF;">{c['city']}</span>
-                <span style="font-family: var(--font-sans); font-size: 0.8rem; color: #888888; margin-left: 12px;">{c['tip']}</span>
+                <span style="font-family: var(--font-sans); font-size: 0.8rem; color: #94A3B8; margin-left: 12px;">{c['tip']}</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: {c['color']}; background: rgba(255, 255, 255, 0.05); padding: 3px 10px; border-radius: 4px; border: 1px solid {c['color']};">
+                <span style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: {c['color']}; background: rgba(255, 255, 255, 0.05); padding: 3px 12px; border-radius: 9999px; border: 1px solid {c['color']};">
                     ● {c['category']}
                 </span>
             </div>
