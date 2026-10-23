@@ -171,6 +171,7 @@ def fetch_current_air_quality(latitude: float, longitude: float) -> Dict[str, An
     aq_params = {
         "latitude": latitude,
         "longitude": longitude,
+        "timezone": "auto",
         "current": [
             "us_aqi", "pm2_5", "pm10", "carbon_monoxide",
             "nitrogen_dioxide", "sulphur_dioxide", "ozone"
@@ -179,6 +180,7 @@ def fetch_current_air_quality(latitude: float, longitude: float) -> Dict[str, An
     weather_params = {
         "latitude": latitude,
         "longitude": longitude,
+        "timezone": "auto",
         "current": [
             "temperature_2m", "relative_humidity_2m",
             "surface_pressure", "wind_speed_10m", "wind_direction_10m"
@@ -249,6 +251,7 @@ def fetch_hourly_air_and_weather(
     aq_params = {
         "latitude": latitude,
         "longitude": longitude,
+        "timezone": "auto",
         "hourly": [
             "pm2_5", "pm10", "carbon_monoxide", "nitrogen_dioxide",
             "sulphur_dioxide", "ozone", "us_aqi"
@@ -278,6 +281,7 @@ def fetch_hourly_air_and_weather(
     wx_params = {
         "latitude": latitude,
         "longitude": longitude,
+        "timezone": "auto",
         "hourly": [
             "temperature_2m", "relative_humidity_2m",
             "surface_pressure", "wind_speed_10m", "wind_direction_10m"

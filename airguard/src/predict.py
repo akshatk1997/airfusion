@@ -38,7 +38,8 @@ from src.database import (
 from src.data_collection import (
     fetch_and_store_city_data,
     calculate_pm25_aqi,
-    geocode_city
+    geocode_city,
+    fetch_current_air_quality
 )
 from src.preprocessing import clean_air_quality_dataframe
 from src.feature_engineering import build_feature_pipeline
@@ -104,17 +105,48 @@ def generate_forecast(
         if col not in featured_df.columns:
             featured_df[col] = 0.0
 
-    # Get the latest observation row as base
-    latest_row = featured_df.iloc[-1:].copy()
-    base_time = pd.to_datetime(latest_row["timestamp"].values[0], format="mixed")
-    current_pm25 = float(latest_row["pm2_5"].values[0])
+    # Fetch live ground telemetry to anchor forecast to real-time observations
+    curr_live = fetch_current_air_quality(loc_meta["latitude"], loc_meta["longitude"])
+    live_pm25 = curr_live.get("pm2_5") if curr_live else None
+    live_timestamp_str = curr_live.get("timestamp") if curr_live else None
+
+    if live_timestamp_str:
+        current_time = pd.to_datetime(live_timestamp_str).floor("h")
+    else:
+        current_time = pd.Timestamp.now().floor("h")
+
+    # Anchor to the current real-time observation row
+    featured_df["ts_dt"] = pd.to_datetime(featured_df["timestamp"], format="mixed")
+    past_mask = featured_df["ts_dt"] <= current_time
+    if past_mask.any():
+        latest_row = featured_df[past_mask].iloc[-1:].copy()
+    else:
+        latest_row = featured_df.iloc[-1:].copy()
+
+    base_time = current_time
+    current_pm25 = float(live_pm25) if (live_pm25 is not None and live_pm25 > 0) else float(latest_row["pm2_5"].values[0])
+
+    # Inject real-time measurements into base observation
+    if TARGET_VARIABLE in latest_row.columns:
+        latest_row[TARGET_VARIABLE] = current_pm25
+    if f"{TARGET_VARIABLE}_lag_1h" in latest_row.columns:
+        latest_row[f"{TARGET_VARIABLE}_lag_1h"] = current_pm25
+    if curr_live:
+        if curr_live.get("temperature") is not None and "temperature" in latest_row.columns:
+            latest_row["temperature"] = float(curr_live["temperature"])
+        if curr_live.get("humidity") is not None and "humidity" in latest_row.columns:
+            latest_row["humidity"] = float(curr_live["humidity"])
+        if curr_live.get("wind_speed") is not None and "wind_speed" in latest_row.columns:
+            latest_row["wind_speed"] = float(curr_live["wind_speed"])
+        if curr_live.get("pressure") is not None and "pressure" in latest_row.columns:
+            latest_row["pressure"] = float(curr_live["pressure"])
 
     model_1h = bundle.get("model_1h")
     model_24h = bundle.get("model_24h")
     model_72h = bundle.get("model_72h")
     best_name = bundle.get("best_model_name", "XGBoost")
 
-    # Generate sequential hourly trajectory
+    # Generate sequential hourly trajectory starting from real-time base
     forecast_rows = []
     running_pm25 = current_pm25
     running_features = latest_row[required_features].copy()

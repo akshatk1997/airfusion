@@ -77,11 +77,13 @@ def render_air_safety_card(
     avoid_hours: List[str] | str,
     main_reason: str,
     recommendation: str,
-    mask_tip: Optional[str] = None
+    mask_tip: Optional[str] = None,
+    live_timestamp: Optional[str] = None
 ) -> None:
     """
     Renders the primary Air Safety Card for Simple Mode with cinematic depth.
-    Answers: 'Is it safe for me to go outside right now?' with direct guidance.
+    Answers: 'Is it safe for me to go outside right now?' with direct guidance
+    and real-time tracking badge.
     """
     theme = get_simple_status_style(status_level)
 
@@ -90,9 +92,9 @@ def render_air_safety_card(
         if avoid_hours:
             avoid_str = ", ".join(avoid_hours[:2])
         else:
-            avoid_str = "None expected today"
+            avoid_str = "None expected today — air is safe"
     else:
-        avoid_str = avoid_hours or "None expected today"
+        avoid_str = avoid_hours or "None expected today — air is safe"
 
     mask_html = ""
     if mask_tip:
@@ -101,6 +103,19 @@ def render_air_safety_card(
             <strong style="color: #FFFFFF;">😷 Mask & Window Advice:</strong> {mask_tip}
         </div>
         """
+
+    live_indicator = f"""
+    <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="ag-pulse-dot"></span>
+        <span style="font-family: var(--font-mono); font-size: 0.74rem; color: #38BDF8; letter-spacing: 0.04em;">
+            {live_timestamp}
+        </span>
+    </div>
+    """ if live_timestamp else """
+    <span style="font-family: var(--font-sans); font-size: 0.74rem; color: #64748B;">
+        Today's Outdoor Decision Guide
+    </span>
+    """
 
     html = f"""
     <div style="
@@ -142,9 +157,7 @@ def render_air_safety_card(
                     </span>
                 </div>
             </div>
-            <span style="font-family: var(--font-sans); font-size: 0.74rem; color: #64748B;">
-                Today's Outdoor Decision Guide
-            </span>
+            {live_indicator}
         </div>
 
         <!-- Big Friendly Answer -->
@@ -626,11 +639,21 @@ def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> 
     safe_markdown(html)
 
 
-def render_simple_indoor_mask_cards(mask_advice: str, indoor_advice: str) -> None:
+def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> None:
     """
     Renders 2 side-by-side cards for Mask guidance and Indoor air protection
-    with cinematic glassmorphism.
+    with cinematic glassmorphism. Formats list or string advice gracefully.
     """
+    if isinstance(mask_advice, (list, tuple)):
+        mask_content = "<ul style='margin: 0; padding-left: 18px; line-height: 1.55; color: #CBD5E1; font-size: 0.86rem;'>" + "".join(f"<li>{item}</li>" for item in mask_advice) + "</ul>"
+    else:
+        mask_content = f"<p style='font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.55;'>{mask_advice}</p>"
+
+    if isinstance(indoor_advice, (list, tuple)):
+        indoor_content = "<ul style='margin: 0; padding-left: 18px; line-height: 1.55; color: #CBD5E1; font-size: 0.86rem;'>" + "".join(f"<li>{item}</li>" for item in indoor_advice) + "</ul>"
+    else:
+        indoor_content = f"<p style='font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.55;'>{indoor_advice}</p>"
+
     html = f"""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
         <div style="
@@ -648,9 +671,7 @@ def render_simple_indoor_mask_cards(mask_advice: str, indoor_advice: str) -> Non
             <div style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
                 😷 Mask Advice
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.55;">
-                {mask_advice}
-            </p>
+            {mask_content}
         </div>
 
         <div style="
@@ -668,9 +689,7 @@ def render_simple_indoor_mask_cards(mask_advice: str, indoor_advice: str) -> Non
             <div style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
                 🏠 Indoor Air Defense
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.86rem; color: #CBD5E1; margin: 0; line-height: 1.55;">
-                {indoor_advice}
-            </p>
+            {indoor_content}
         </div>
     </div>
     """

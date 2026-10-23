@@ -271,7 +271,7 @@ def find_safe_outdoor_windows(
         mean_pm25 = float(chunk["predicted_pm2_5"].mean())
         mean_aqi = int(round(float(chunk["predicted_aqi"].mean())))
         start_t = chunk.iloc[0]["dt"]
-        end_t = chunk.iloc[-1]["dt"]
+        end_t = start_t + pd.Timedelta(minutes=duration_mins)
 
         r_score, r_cat = calculate_outdoor_risk_score(
             aqi=mean_aqi,
@@ -290,27 +290,32 @@ def find_safe_outdoor_windows(
             "mean_aqi": mean_aqi,
             "risk_score": r_score,
             "risk_category": r_cat,
-            "hour_of_day": start_t.hour
+            "hour_of_day": start_t.hour,
+            "index": i
         })
 
     if not window_scores:
+        first_t = df.iloc[0]["dt"]
+        end_first_t = first_t + pd.Timedelta(minutes=duration_mins)
         window_scores = [{
-            "start_time": df.iloc[0]["dt"],
-            "end_time": df.iloc[0]["dt"],
-            "label": "Next 1 Hour",
+            "start_time": first_t,
+            "end_time": end_first_t,
+            "label": f"{first_t.strftime('%I:%M %p')} – {end_first_t.strftime('%I:%M %p')}",
             "mean_pm25": float(df.iloc[0]["predicted_pm2_5"]),
             "mean_aqi": int(df.iloc[0]["predicted_aqi"]),
             "risk_score": 50,
             "risk_category": "Moderate",
-            "hour_of_day": df.iloc[0]["dt"].hour
+            "hour_of_day": first_t.hour,
+            "index": 0
         }]
 
     # Filter by preferred time period
     pref = preferred_period.lower().strip()
     def matches_preference(w: Dict[str, Any]) -> bool:
         h = w["hour_of_day"]
+        idx = w.get("index", 0)
         if pref == "now":
-            return True  # Near start
+            return idx == 0  # Immediate upcoming window from real-time now
         elif pref == "morning":
             return 5 <= h < 12
         elif pref == "afternoon":
@@ -318,7 +323,8 @@ def find_safe_outdoor_windows(
         elif pref == "evening":
             return 17 <= h < 22
         elif pref == "tomorrow":
-            return True
+            # Windows starting after 12h or tomorrow
+            return idx >= 12
         return True
 
     preferred_candidates = [w for w in window_scores if matches_preference(w)]
@@ -336,12 +342,34 @@ def find_safe_outdoor_windows(
     unsafe_hours = []
     for _, row in df.iterrows():
         if row["predicted_pm2_5"] >= effective_thresh or row["predicted_aqi"] >= 151:
-            unsafe_hours.append(row["dt"].strftime("%I:%M %p"))
+            unsafe_hours.append(row["dt"])
 
     avoid_summary = []
     if unsafe_hours:
-        # Group contiguous avoid periods
-        avoid_summary.append(f"Avoid {unsafe_hours[0]} – {unsafe_hours[-1]} (PM₂.₅ forecast exceeds {effective_thresh:.0f} µg/m³)")
+        # Group contiguous blocks of unsafe hours
+        blocks = []
+        cur_block = [unsafe_hours[0]]
+        for t in unsafe_hours[1:]:
+            if (t - cur_block[-1]).total_seconds() <= 3600:
+                cur_block.append(t)
+            else:
+                blocks.append(cur_block)
+                cur_block = [t]
+        if cur_block:
+            blocks.append(cur_block)
+
+        for b in blocks[:2]:
+            if len(b) >= 20:
+                avoid_summary.append(f"Avoid entire 24h horizon (PM₂.₅ forecast consistently exceeds {effective_thresh:.0f} µg/m³)")
+            else:
+                b_start = b[0].strftime("%I:%M %p")
+                end_dt = b[-1] + pd.Timedelta(hours=1)
+                b_end = end_dt.strftime("%I:%M %p")
+                if b[0].date() != end_dt.date():
+                    b_end += " (+1d)"
+                avoid_summary.append(f"Avoid {b_start} – {b_end} (PM₂.₅ forecast exceeds {effective_thresh:.0f} µg/m³)")
+    else:
+        avoid_summary.append("None expected today — air is forecast to remain within your safe threshold.")
 
     # Alternative recommendation if preferred window has High/Very High risk
     alternative_window = None
@@ -357,7 +385,7 @@ def find_safe_outdoor_windows(
 
     # Timeline classification for visualization
     timeline = []
-    for _, row in df.head(24).iterrows():
+    for i, (_, row) in enumerate(df.head(24).iterrows()):
         p_score, p_cat = calculate_outdoor_risk_score(
             aqi=int(row["predicted_aqi"]),
             pm25=float(row["predicted_pm2_5"]),
@@ -366,8 +394,9 @@ def find_safe_outdoor_windows(
             activity=activity,
             duration_mins=duration_mins
         )
+        time_display = "Now" if i == 0 else row["dt"].strftime("%I %p")
         timeline.append({
-            "time": row["dt"].strftime("%I %p"),
+            "time": time_display,
             "pm25": float(row["predicted_pm2_5"]),
             "aqi": int(row["predicted_aqi"]),
             "risk_score": p_score,

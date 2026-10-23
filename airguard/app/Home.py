@@ -135,12 +135,27 @@ def render_technical_home(active_city: str) -> None:
 
     rcols = st.columns(4)
 
-    @st.cache_data(ttl=600)
+    @st.cache_data(ttl=180)
     def get_city_snapshot(city_name: str):
-        # Check local SQLite archive first for instant render
-        df = fetch_historical_records(city=city_name)
         loc_meta = geocode_city(city_name)
         label = format_location_label(loc_meta) if loc_meta else city_name
+        if loc_meta:
+            try:
+                c = fetch_current_air_quality(loc_meta["latitude"], loc_meta["longitude"])
+                if c and c.get("aqi") is not None:
+                    return {
+                        "city": city_name,
+                        "label": label,
+                        "aqi": int(c.get("aqi", 0)),
+                        "category": str(c.get("aqi_category", "Unknown")),
+                        "pm2_5": float(c.get("pm2_5", 0.0)),
+                        "temp": c.get("temperature", "--"),
+                        "humidity": c.get("humidity", "--")
+                    }
+            except Exception:
+                pass
+        # Fallback to local archive
+        df = fetch_historical_records(city=city_name)
         if not df.empty:
             latest = df.iloc[-1]
             return {
@@ -151,18 +166,6 @@ def render_technical_home(active_city: str) -> None:
                 "pm2_5": float(latest.get("pm2_5", 0.0)),
                 "temp": latest.get("temperature", "--"),
                 "humidity": latest.get("humidity", "--")
-            }
-        # Fallback to live API if not yet archived
-        if loc_meta:
-            c = fetch_current_air_quality(loc_meta["latitude"], loc_meta["longitude"])
-            return {
-                "city": city_name,
-                "label": label,
-                "aqi": c.get("aqi", 0),
-                "category": c.get("aqi_category", "Unknown"),
-                "pm2_5": c.get("pm2_5", 0.0),
-                "temp": c.get("temperature", "--"),
-                "humidity": c.get("humidity", "--")
             }
         return None
 

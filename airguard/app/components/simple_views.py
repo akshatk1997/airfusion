@@ -156,6 +156,14 @@ def render_simple_home(active_city: str) -> None:
         unsafe_allow_html=True
     )
 
+    # Format real-time live telemetry timestamp
+    raw_ts = curr.get("timestamp", "").replace("T", " ")
+    try:
+        dt_obj = pd.to_datetime(raw_ts)
+        timestamp_display = dt_obj.strftime("%I:%M %p Today (Live)")
+    except Exception:
+        timestamp_display = raw_ts or "Live Ground Tracking"
+
     # 1. Large Air Safety Card
     render_air_safety_card(
         city_name=city_display,
@@ -165,10 +173,18 @@ def render_simple_home(active_city: str) -> None:
         avoid_hours=avoid_list,
         main_reason=simple_reason,
         recommendation=advice.get("action", f"Safe for a {duration_mins}-minute {usual_activity}."),
-        mask_tip=advice.get("mask_guidance")
+        mask_tip=advice.get("mask_guidance"),
+        live_timestamp=timestamp_display
     )
 
-    # 2. Simple 24-Hour Timeline
+    # 2. Real-Time Outdoor Weather Conditions Strip
+    render_simple_weather_cards(
+        temperature=temp_val,
+        humidity=humidity_val,
+        wind_speed=wind_val
+    )
+
+    # 3. Simple 24-Hour Timeline
     render_simple_timeline(hourly_timeline)
 
     # 3. Two-Column Row: Today's Tip + Simple Alert Setup
@@ -346,6 +362,14 @@ def render_simple_safe_plan(active_city: str) -> None:
     if sel_sens != "none":
         simple_reason += f" Your profile is set for {sel_sens.title()} sensitivity."
 
+    # Format real-time live telemetry timestamp
+    raw_ts = curr.get("timestamp", "").replace("T", " ")
+    try:
+        dt_obj = pd.to_datetime(raw_ts)
+        timestamp_display = dt_obj.strftime("%I:%M %p Today (Live)")
+    except Exception:
+        timestamp_display = raw_ts or "Live Ground Tracking"
+
     # Air Safety Card
     render_air_safety_card(
         city_name=format_location_label(loc),
@@ -355,7 +379,8 @@ def render_simple_safe_plan(active_city: str) -> None:
         avoid_hours=safe_windows.get("avoid_periods", []),
         main_reason=simple_reason,
         recommendation=advice.get("action", f"Safe for a {sel_dur}-minute {sel_act}."),
-        mask_tip=advice.get("mask_guidance")
+        mask_tip=advice.get("mask_guidance"),
+        live_timestamp=timestamp_display
     )
 
     # 24-hour visual strip
@@ -431,22 +456,47 @@ def render_simple_live_tracking(active_city: str) -> None:
         status_text = "Air is hazardous today."
         detail_msg = "Stay indoors with windows closed. Keep air purifiers running."
 
+    # Format real-time live telemetry timestamp
+    raw_ts = curr.get("timestamp", "").replace("T", " ")
+    try:
+        dt_obj = pd.to_datetime(raw_ts)
+        timestamp_display = dt_obj.strftime("%I:%M %p Today (Live)")
+    except Exception:
+        timestamp_display = raw_ts or "Live Ground Tracking"
+
     # Top Hero Status Card
-    theme = {"Safe": "#10B981", "Moderate": "#F59E0B", "Caution": "#F97316", "Avoid": "#EF4444", "High Risk": "#D71921"}.get(status, "#10B981")
+    theme_color = {"Safe": "#10B981", "Moderate": "#F59E0B", "Caution": "#F97316", "Avoid": "#EF4444", "High Risk": "#D71921"}.get(status, "#10B981")
+    theme_bg = {"Safe": "rgba(16, 185, 129, 0.16)", "Moderate": "rgba(245, 158, 11, 0.16)", "Caution": "rgba(249, 115, 22, 0.16)", "Avoid": "rgba(239, 68, 68, 0.16)", "High Risk": "rgba(215, 25, 33, 0.2)"}.get(status, "rgba(16, 185, 129, 0.16)")
+    theme_grad = {
+        "Safe": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(16, 185, 129, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
+        "Moderate": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(245, 158, 11, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
+        "Caution": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(249, 115, 22, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
+        "Avoid": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(239, 68, 68, 0.2), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
+        "High Risk": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(215, 25, 33, 0.25), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)"
+    }.get(status, "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(16, 185, 129, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)")
+
     safe_markdown(f"""
-    <div style="background: #121212; border: 1px solid #242424; border-left: 5px solid {theme}; border-radius: 14px; padding: 24px 28px; margin-bottom: 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-            <span style="font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700; color: {theme}; text-transform: uppercase; letter-spacing: 0.05em;">
-                ● Current Status: {status}
-            </span>
-            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: #888888;">
-                {format_location_label(loc)}
-            </span>
+    <div style="background: {theme_grad}; border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.22); border-left: 5px solid {theme_color}; border-radius: 18px; padding: 26px 30px; margin-bottom: 24px; box-shadow: 0 14px 35px -5px rgba(0, 0, 0, 0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="background: {theme_bg}; border: 1px solid {theme_color}; color: {theme_color}; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; padding: 3px 12px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 0 10px {theme_color};">
+                    ● Current Status: {status}
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 0.76rem; color: #94A3B8;">
+                    {format_location_label(loc)}
+                </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="ag-pulse-dot"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.74rem; color: #38BDF8;">
+                    {timestamp_display}
+                </span>
+            </div>
         </div>
-        <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: #FFFFFF; margin: 0 0 10px 0;">
+        <h2 style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: #FFFFFF; margin: 0 0 10px 0; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);">
             {status_text}
         </h2>
-        <p style="font-family: var(--font-sans); font-size: 0.92rem; color: #CCCCCC; margin: 0; line-height: 1.5;">
+        <p style="font-family: var(--font-sans); font-size: 0.94rem; color: #E2E8F0; margin: 0; line-height: 1.55;">
             {detail_msg}
         </p>
     </div>
