@@ -27,6 +27,7 @@ from app.components.mode_switcher import (
     TECHNICAL_MODE
 )
 from app.components.simple_views import render_simple_home
+from app.components.simple_cards import render_ensur_executive_footer
 from app.components.cards import render_aqi_hero_card
 from app.components.design_system import (
     render_section_header,
@@ -87,15 +88,15 @@ def render_technical_home(active_city: str) -> None:
             with st.container(border=True):
                 safe_markdown("""
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
-                    <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #38BDF8;">
+                    <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #FF6845;">
                         ⚡ RAPID DIRECTIVES
                     </span>
                     <span class="ag-badge ag-badge-neutral" style="font-size: 0.65rem; padding: 2px 8px;">OPERATIONS</span>
                 </div>
-                <div style="font-family: var(--font-heading); font-size: 1.22rem; font-weight: 700; color: #FFFFFF; line-height: 1.3; margin-bottom: var(--space-1);">
+                <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: #1F344C; line-height: 1.3; margin-bottom: var(--space-1);">
                     Immediate Safety & Forecasting
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.8rem; color: #94A3B8; margin: 0 0 var(--space-3) 0; line-height: 1.5;">
+                <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; margin: 0 0 var(--space-3) 0; line-height: 1.55;">
                     Explore real-time multi-pollutant telemetry, run 72-hour machine learning projections, or configure threshold alerts.
                 </p>
                 """)
@@ -193,7 +194,7 @@ def render_technical_home(active_city: str) -> None:
                 with st.container(border=True):
                     safe_markdown(f"""
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-family: var(--font-sans); font-weight: 700; font-size: 0.95rem; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{snap['label']}">{snap['label']}</span>
+                        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 0.98rem; color: #1F344C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{snap['label']}">{snap['label']}</span>
                         {active_badge}
                     </div>
                     <div style="display: flex; align-items: baseline; justify-content: space-between;">
@@ -201,16 +202,16 @@ def render_technical_home(active_city: str) -> None:
                             <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: {aqi_color}; line-height: 1;">
                                 {snap['aqi']}
                             </div>
-                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #777777; text-transform: uppercase; margin-top: 2px;">US AQI</div>
+                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #8896A6; text-transform: uppercase; margin-top: 2px;">US AQI</div>
                         </div>
                         <div style="text-align: right;">
-                            <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 600; color: #CCCCCC;">
+                            <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: #1F344C;">
                                 {snap['pm2_5']:.1f}
                             </div>
-                            <div style="font-family: var(--font-sans); font-size: 0.68rem; color: #666666;">PM₂.₅ µg/m³</div>
+                            <div style="font-family: var(--font-sans); font-size: 0.68rem; color: #8896A6;">PM₂.₅ µg/m³</div>
                         </div>
                     </div>
-                    <div style="margin-top: 10px; font-family: var(--font-sans); font-size: 0.75rem; color: #888888; border-top: 1px solid var(--color-border-subtle); padding-top: 8px;">
+                    <div style="margin-top: 10px; font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 8px;">
                         <span style="color: {aqi_color};">●</span> {snap['category']} ({snap['temp']}°C, {snap['humidity']}%)
                     </div>
                     """)
@@ -285,10 +286,10 @@ def render_technical_home(active_city: str) -> None:
     with mcol1:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 🛡️ Safe Outdoor Plan
             </div>
-            <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
+            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
                 Personalized environmental decision support: Safe outdoor window finder, risk engine scoring, and cohort guidance.
             </p>
             """)
@@ -298,10 +299,10 @@ def render_technical_home(active_city: str) -> None:
     with mcol2:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 📡 Live Tracking & Alerts
             </div>
-            <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
+            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
                 Multi-pollutant ground telemetry, meteorology, personal threshold monitor, and advance peak warnings.
             </p>
             """)
@@ -311,10 +312,10 @@ def render_technical_home(active_city: str) -> None:
     with mcol3:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 📊 Atmospheric Trends
             </div>
-            <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
+            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
                 24h timeline safety zones, diurnal curves, 7-day patterns, and cross-correlation heatmaps.
             </p>
             """)
@@ -327,10 +328,10 @@ def render_technical_home(active_city: str) -> None:
     with mcol4:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 🔍 Model Insights & Governance
             </div>
-            <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
+            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
                 Global feature importances (XAI), candidate tournament (Persistence, Ridge, RF, XGBoost), and holdout metrics.
             </p>
             """)
@@ -340,10 +341,10 @@ def render_technical_home(active_city: str) -> None:
     with mcol5:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 🛡️ About & Safety Protocols
             </div>
-            <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
+            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
                 N95 mask guidance, indoor air defense, health cohort recommendations, and system documentation.
             </p>
             """)
@@ -353,15 +354,18 @@ def render_technical_home(active_city: str) -> None:
     with mcol6:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 🏙️ Multi-City Comparison
             </div>
-            <p style="color: #888888; font-size: 0.84rem; line-height: 1.5; margin: 0 0 16px 0; min-height: 52px;">
+            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
                 Simultaneous multi-city benchmarking across custom registered cities, states, and global locations.
             </p>
             """)
             if st.button("Compare Regional Cities →", key="mod_compare", use_container_width=True):
                 st.switch_page("pages/6_City_Comparison.py")
+
+    # ensur.ai Executive Footer
+    render_ensur_executive_footer()
 
 
 # ==============================================================================

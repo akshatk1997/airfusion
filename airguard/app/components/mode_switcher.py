@@ -137,28 +137,28 @@ def render_mode_banner() -> None:
         except Exception:
             pass
 
-    # Clean, bespoke status hint (no clunky robotic banners)
+    # Clean ensur.ai style status hint
     if mode == TECHNICAL_MODE:
         banner_html = """
         <div style="
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(19, 25, 38, 0.65);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-left: 3px solid #38BDF8;
-            border-radius: 10px;
-            padding: 8px 16px;
-            margin-bottom: 14px;
-            backdrop-filter: blur(16px);
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-left: 4px solid #FF6845;
+            border-radius: 12px;
+            padding: 10px 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
         ">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="color: #38BDF8; font-size: 0.85rem;">⚙️</span>
-                <span style="font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600; color: #CBD5E1;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="color: #FF6845; font-size: 0.95rem;">⚙️</span>
+                <span style="font-family: var(--font-heading); font-size: 0.84rem; font-weight: 600; color: #1F344C;">
                     Technical Mode active: full multi-pollutant telemetry, forecasting models, and statistical diagnostics.
                 </span>
             </div>
-            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #38BDF8; font-weight: 600; letter-spacing: 0.04em;">
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #FF6845; font-weight: 700; letter-spacing: 0.05em; background: rgba(255, 104, 69, 0.08); padding: 3px 10px; border-radius: 9999px;">
                 RESEARCH & ANALYTICS
             </span>
         </div>
@@ -169,21 +169,21 @@ def render_mode_banner() -> None:
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(19, 25, 38, 0.65);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            border-left: 3px solid #10B981;
-            border-radius: 10px;
-            padding: 8px 16px;
-            margin-bottom: 14px;
-            backdrop-filter: blur(16px);
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-left: 4px solid #10B981;
+            border-radius: 12px;
+            padding: 10px 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
         ">
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="color: #10B981; font-size: 0.85rem;">🌿</span>
-                <span style="font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600; color: #CBD5E1;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="color: #10B981; font-size: 0.95rem;">🌿</span>
+                <span style="font-family: var(--font-heading); font-size: 0.84rem; font-weight: 600; color: #1F344C;">
                     Simple Mode active: actionable safety guidance and personalized outdoor windows for everyday decisions.
                 </span>
             </div>
-            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #34D399; font-weight: 600; letter-spacing: 0.04em;">
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #059669; font-weight: 700; letter-spacing: 0.05em; background: rgba(16, 185, 129, 0.08); padding: 3px 10px; border-radius: 9999px;">
                 DECISION SUPPORT
             </span>
         </div>

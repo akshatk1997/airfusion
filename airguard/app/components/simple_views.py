@@ -1,6 +1,9 @@
 """
 Simple Mode Presentation Views for AirGuard.
 Orchestrates clear, non-technical, friendly user experiences.
+Architected to mirror ensur.ai design language:
+Warm Ivory canvas (#FAF6F1), Pure White surfaces (#FFFFFF),
+Deep Navy typography (#1F344C), warm borders (#EBE6DF), and coral accents (#FF6845).
 Reuses the exact same underlying telemetry, ML forecasting, and risk-engine logic.
 """
 
@@ -27,7 +30,13 @@ from app.components.simple_cards import (
     render_simple_disclaimer,
     render_simple_weather_cards,
     render_simple_pollutant_cards,
-    render_simple_indoor_mask_cards
+    render_simple_indoor_mask_cards,
+    render_ensur_hero_section,
+    render_ensur_comparison_section,
+    render_ensur_engine_section,
+    render_ensur_impact_metrics,
+    render_ensur_solutions_grid,
+    render_ensur_executive_footer
 )
 from src.config import PRESET_CITIES
 from src.database import fetch_historical_records, fetch_all_locations
@@ -36,7 +45,7 @@ from src.database import fetch_historical_records, fetch_all_locations
 def render_simple_home(active_city: str) -> None:
     """
     Renders the dedicated Simple Mode homepage for AirGuard.
-    Heading: 'Is it safe for me to go outside today?'
+    Modeled A-to-Z from ensur.ai with bespoke environmental intelligence tweaks.
     """
     # Load user profile from SQLite
     user_prof = get_user_profile()
@@ -141,21 +150,6 @@ def render_simple_home(active_city: str) -> None:
     avoid_list = safe_windows.get("avoid_periods", [])
     hourly_timeline = safe_windows.get("hourly_timeline", [])
 
-    # Main Homepage Heading
-    st.markdown(
-        """
-        <div style="margin-bottom: 18px;">
-            <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.02em;">
-                Is it safe for me to go outside today?
-            </h1>
-            <p style="font-family: var(--font-sans); font-size: 0.95rem; color: #888888; margin: 0;">
-                Personalized, friendly outdoor guidance based on live air quality and 24-hour forecasts.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
     # Format real-time live telemetry timestamp
     raw_ts = curr.get("timestamp", "").replace("T", " ")
     try:
@@ -164,7 +158,10 @@ def render_simple_home(active_city: str) -> None:
     except Exception:
         timestamp_display = raw_ts or "Live Ground Tracking"
 
-    # 1. Large Air Safety Card
+    # 1. Signature ensur.ai Hero Section
+    render_ensur_hero_section()
+
+    # 2. Primary Decision Card (The Outdoor Directive)
     render_air_safety_card(
         city_name=city_display,
         status_level=status_level,
@@ -177,28 +174,40 @@ def render_simple_home(active_city: str) -> None:
         live_timestamp=timestamp_display
     )
 
-    # 2. Real-Time Outdoor Weather Conditions Strip
+    # 3. Weather Conditions Strip
     render_simple_weather_cards(
         temperature=temp_val,
         humidity=humidity_val,
         wind_speed=wind_val
     )
 
-    # 3. Simple 24-Hour Timeline
+    # 4. 24-Hour Timeline
     render_simple_timeline(hourly_timeline)
 
-    # 3. Two-Column Row: Today's Tip + Simple Alert Setup
+    # 5. ensur.ai Signature Section: The Bottleneck Comparison (Once vs Ongoing)
+    render_ensur_comparison_section()
+
+    # 6. ensur.ai Signature Section: The Autonomous Engine (Deep Navy airguardOS)
+    render_ensur_engine_section(active_city=city_display, pm25_val=pm25_val, aqi_val=aqi_val)
+
+    # 7. ensur.ai Platform Impact Metrics
+    render_ensur_impact_metrics()
+
+    # 8. ensur.ai Solutions by Cohort Grid
+    render_ensur_solutions_grid()
+
+    # 9. Two-Column Operational Row: Today's Tip + Simple Alert Setup
     col_tip, col_alert = st.columns([1.1, 1.0])
 
     with col_tip:
         render_todays_tip(aqi=aqi_val, wind_speed=wind_val, humidity=humidity_val)
 
-        # Friendly quick navigation shortcuts
+        # Quick navigation shortcuts
         with st.container(border=True):
             st.markdown(
                 """
-                <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
-                    🎯 What would you like to do?
+                <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #1F344C; margin-bottom: 8px;">
+                    🎯 Immediate Actions & Directives
                 </div>
                 """,
                 unsafe_allow_html=True
@@ -223,8 +232,11 @@ def render_simple_home(active_city: str) -> None:
             on_save_callback=_handle_alert_save
         )
 
-    # 4. Prominent Safety Disclaimer
+    # 10. Required Safety Disclaimer
     render_simple_disclaimer()
+
+    # 11. ensur.ai Executive 5-Column Footer
+    render_ensur_executive_footer()
 
 
 # ==============================================================================
@@ -239,11 +251,17 @@ def render_simple_safe_plan(active_city: str) -> None:
     
     st.markdown(
         """
-        <div style="margin-bottom: 16px;">
-            <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.02em;">
+        <div style="margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
+                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
+                    INDIVIDUALIZED SAFETY CLEARANCE
+                </span>
+            </div>
+            <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
                 My Safe Outdoor Plan
             </h1>
-            <p style="font-family: var(--font-sans); font-size: 0.95rem; color: #888888; margin: 0;">
+            <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
                 Find the safest window for your activity and see clear precautions before heading outdoors.
             </p>
         </div>
@@ -256,7 +274,7 @@ def render_simple_safe_plan(active_city: str) -> None:
         col1, col2, col3 = st.columns([1.2, 1.3, 1.3])
 
         with col1:
-            st.markdown("<strong style='font-family: var(--font-heading); font-size: 0.8rem; color: #FFFFFF;'>1. WHO IS GOING OUT?</strong>", unsafe_allow_html=True)
+            st.markdown("<strong style='font-family: var(--font-heading); font-size: 0.82rem; color: #1F344C;'>1. WHO IS GOING OUT?</strong>", unsafe_allow_html=True)
             age_opts = ["adult", "child", "senior"]
             cur_age = user_prof.get("age_group", "adult")
             sel_age = st.selectbox("Age Group", options=age_opts, index=age_opts.index(cur_age) if cur_age in age_opts else 0, format_func=lambda x: f"For: {x.title()}")
@@ -266,7 +284,7 @@ def render_simple_safe_plan(active_city: str) -> None:
             sel_sens = st.selectbox("Health Sensitivity", options=sens_opts, index=sens_opts.index(cur_sens) if cur_sens in sens_opts else 0, format_func=lambda x: f"Sensitivity: {x.title()}")
 
         with col2:
-            st.markdown("<strong style='font-family: var(--font-heading); font-size: 0.8rem; color: #FFFFFF;'>2. WHAT ARE YOU DOING?</strong>", unsafe_allow_html=True)
+            st.markdown("<strong style='font-family: var(--font-heading); font-size: 0.82rem; color: #1F344C;'>2. WHAT ARE YOU DOING?</strong>", unsafe_allow_html=True)
             act_opts = ["walk", "run", "cycle", "outdoor play", "outdoor work", "commute"]
             cur_act = user_prof.get("usual_activities", "walk")
             sel_act = st.selectbox("Activity", options=act_opts, index=act_opts.index(cur_act) if cur_act in act_opts else 0, format_func=lambda x: f"Activity: {x.title()}")
@@ -276,13 +294,13 @@ def render_simple_safe_plan(active_city: str) -> None:
             sel_dur = st.select_slider("Duration", options=dur_opts, value=cur_dur if cur_dur in dur_opts else 30, format_func=lambda x: f"{x} Minutes")
 
         with col3:
-            st.markdown("<strong style='font-family: var(--font-heading); font-size: 0.8rem; color: #FFFFFF;'>3. WHEN DO YOU WANT TO GO?</strong>", unsafe_allow_html=True)
+            st.markdown("<strong style='font-family: var(--font-heading); font-size: 0.82rem; color: #1F344C;'>3. WHEN DO YOU WANT TO GO?</strong>", unsafe_allow_html=True)
             time_opts = ["now", "morning", "afternoon", "evening", "tomorrow"]
             cur_time = user_prof.get("preferred_time", "now")
             sel_time = st.selectbox("Preferred Time", options=time_opts, index=time_opts.index(cur_time) if cur_time in time_opts else 0, format_func=lambda x: f"Time: {x.title()}")
 
             threshold_val = float(user_prof.get("pm25_threshold", 35.0))
-            st.markdown(f"<div style='font-family: var(--font-sans); font-size: 0.78rem; color: #888888; margin-top: 10px;'>Alert comfort level: <strong>{threshold_val:.0f} µg/m³</strong></div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-top: 10px;'>Alert comfort level: <strong style='color: #1F344C;'>{threshold_val:.0f} µg/m³</strong></div>", unsafe_allow_html=True)
 
         # Save profile
         if (sel_age != user_prof.get("age_group") or sel_sens != user_prof.get("health_sensitivity") or
@@ -392,8 +410,9 @@ def render_simple_safe_plan(active_city: str) -> None:
         indoor_advice=advice.get("indoor_guidance", "Keep regular ventilation.")
     )
 
-    # Disclaimer
+    # Disclaimer & Footer
     render_simple_disclaimer()
+    render_ensur_executive_footer()
 
 
 # ==============================================================================
@@ -406,11 +425,17 @@ def render_simple_live_tracking(active_city: str) -> None:
     """
     st.markdown(
         """
-        <div style="margin-bottom: 16px;">
-            <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.02em;">
+        <div style="margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
+                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
+                    LIVE GROUND SYNCHRONIZATION
+                </span>
+            </div>
+            <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
                 Live Air Quality & Weather
             </h1>
-            <p style="font-family: var(--font-sans); font-size: 0.95rem; color: #888888; margin: 0;">
+            <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
                 Real-time outdoor air conditions and weather in plain, friendly language.
             </p>
         </div>
@@ -466,48 +491,41 @@ def render_simple_live_tracking(active_city: str) -> None:
 
     # Top Hero Status Card
     theme_color = {"Safe": "#10B981", "Moderate": "#F59E0B", "Caution": "#F97316", "Avoid": "#EF4444", "High Risk": "#D71921"}.get(status, "#10B981")
-    theme_bg = {"Safe": "rgba(16, 185, 129, 0.16)", "Moderate": "rgba(245, 158, 11, 0.16)", "Caution": "rgba(249, 115, 22, 0.16)", "Avoid": "rgba(239, 68, 68, 0.16)", "High Risk": "rgba(215, 25, 33, 0.2)"}.get(status, "rgba(16, 185, 129, 0.16)")
-    theme_grad = {
-        "Safe": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(16, 185, 129, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
-        "Moderate": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(245, 158, 11, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
-        "Caution": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(249, 115, 22, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
-        "Avoid": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(239, 68, 68, 0.2), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)",
-        "High Risk": "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(215, 25, 33, 0.25), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)"
-    }.get(status, "radial-gradient(ellipse 70% 60% at 85% 15%, rgba(16, 185, 129, 0.18), transparent 70%), linear-gradient(135deg, rgba(17, 24, 39, 0.92) 0%, rgba(8, 12, 20, 0.98) 100%)")
+    theme_bg = {"Safe": "rgba(16, 185, 129, 0.08)", "Moderate": "rgba(245, 158, 11, 0.08)", "Caution": "rgba(249, 115, 22, 0.08)", "Avoid": "rgba(239, 68, 68, 0.08)", "High Risk": "rgba(215, 25, 33, 0.1)"}.get(status, "rgba(16, 185, 129, 0.08)")
 
     safe_markdown(f"""
-    <div style="background: {theme_grad}; border: 1px solid rgba(255, 255, 255, 0.1); border-top: 1px solid rgba(255, 255, 255, 0.22); border-left: 5px solid {theme_color}; border-radius: 18px; padding: 26px 30px; margin-bottom: 24px; box-shadow: 0 14px 35px -5px rgba(0, 0, 0, 0.6); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="background: {theme_bg}; border: 1px solid {theme_color}; color: {theme_color}; font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; padding: 3px 12px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em; box-shadow: 0 0 10px {theme_color};">
+    <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-top: 4px solid {theme_color}; border-radius: 22px; padding: 30px 34px; margin-bottom: 28px; box-shadow: 0 6px 24px rgba(31, 52, 76, 0.05);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="background: {theme_bg}; border: 1px solid {theme_color}; color: {theme_color}; font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; padding: 4px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;">
                     ● Current Status: {status}
                 </span>
-                <span style="font-family: var(--font-mono); font-size: 0.76rem; color: #94A3B8;">
+                <span style="font-family: var(--font-heading); font-size: 0.88rem; font-weight: 700; color: #1F344C;">
                     {format_location_label(loc)}
                 </span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="ag-pulse-dot"></span>
-                <span style="font-family: var(--font-mono); font-size: 0.74rem; color: #38BDF8;">
+                <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.76rem; color: #FF6845; font-weight: 600;">
                     {timestamp_display}
                 </span>
             </div>
         </div>
-        <h2 style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: #FFFFFF; margin: 0 0 10px 0; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);">
+        <h2 style="font-family: var(--font-heading); font-size: 1.95rem; font-weight: 800; color: #1F344C; margin: 0 0 10px 0;">
             {status_text}
         </h2>
-        <p style="font-family: var(--font-sans); font-size: 0.94rem; color: #E2E8F0; margin: 0; line-height: 1.55;">
+        <p style="font-family: var(--font-sans); font-size: 0.96rem; color: #5A6E85; margin: 0; line-height: 1.6;">
             {detail_msg}
         </p>
     </div>
     """)
 
     # Friendly Weather Cards
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>🌤️ Outdoor Weather Conditions</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🌤️ Outdoor Weather Conditions</h3>", unsafe_allow_html=True)
     render_simple_weather_cards(temperature=temp_val, humidity=humidity_val, wind_speed=wind_val)
 
     # Simplified Key Pollutants
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>🔍 Key Air Particles Explained</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🔍 Key Air Particles Explained</h3>", unsafe_allow_html=True)
     render_simple_pollutant_cards(pm25=pm25_val, pm10=pm10_val)
 
     # Alert Setup Row
@@ -519,8 +537,9 @@ def render_simple_live_tracking(active_city: str) -> None:
 
     render_simple_alert_setup(current_threshold=threshold, on_save_callback=_save_alert)
 
-    # Disclaimer
+    # Disclaimer & Footer
     render_simple_disclaimer()
+    render_ensur_executive_footer()
 
 
 # ==============================================================================
@@ -533,11 +552,17 @@ def render_simple_trends(active_city: str) -> None:
     """
     st.markdown(
         """
-        <div style="margin-bottom: 16px;">
-            <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.02em;">
+        <div style="margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
+                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
+                    ATMOSPHERIC CYCLES & TIMING
+                </span>
+            </div>
+            <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
                 Air Quality Trends & Best Times
             </h1>
-            <p style="font-family: var(--font-sans); font-size: 0.95rem; color: #888888; margin: 0;">
+            <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
                 Learn daily air patterns so you can plan outdoor workouts, walks, and commutes ahead of time.
             </p>
         </div>
@@ -556,39 +581,39 @@ def render_simple_trends(active_city: str) -> None:
         clean_pct = (clean_hrs / len(df_hist) * 100) if len(df_hist) > 0 else 70.0
 
     safe_markdown(f"""
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #10B981; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #10B981; text-transform: uppercase; margin-bottom: 6px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 28px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #10B981; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 ✨ Cleanest Time of Day
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #1F344C; margin-bottom: 8px;">
                 Early Morning & Afternoon
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 Air is typically freshest between <strong>6:00 AM – 8:00 AM</strong> and <strong>1:00 PM – 4:00 PM</strong> when sun and wind disperse smoke.
             </p>
         </div>
 
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #EF4444; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #EF4444; text-transform: uppercase; margin-bottom: 6px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #EF4444; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 ⚠️ Hours Pollution Rises
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #1F344C; margin-bottom: 8px;">
                 Evening & Night Hours
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 Pollution may rise between <strong>7:00 PM – 10:00 PM</strong> due to evening traffic and cooler night air trapping particles near ground.
             </p>
         </div>
 
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #38BDF8; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; color: #38BDF8; text-transform: uppercase; margin-bottom: 6px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #38BDF8; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #0284C7; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 📊 Recent Air Quality
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #1F344C; margin-bottom: 8px;">
                 {clean_pct:.0f}% Clean or Moderate
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #CBD5E1; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 Over the recent tracking period, most hours in <strong>{active_city}</strong> remained in acceptable outdoor safety ranges.
             </p>
         </div>
@@ -608,20 +633,21 @@ def render_simple_trends(active_city: str) -> None:
             else:
                 hourly_timeline.append({"time": t_label, "status": "Avoid", "color": "#EF4444"})
 
-        st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 10px;'>🕒 24-Hour Outdoor Safety Timeline</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🕒 24-Hour Outdoor Safety Timeline</h3>", unsafe_allow_html=True)
         render_simple_timeline(hourly_timeline)
 
     # Friendly Advice Box
     safe_markdown("""
-    <div style="background: #141414; border: 1px solid #262626; border-radius: 10px; padding: 18px 22px; margin-top: 14px;">
-        <strong style="color: #FFFFFF; font-family: var(--font-heading); font-size: 0.92rem;">💡 Pro Tip for Planning Outdoor Exercise:</strong>
-        <p style="color: #AAAAAA; font-family: var(--font-sans); font-size: 0.84rem; margin: 6px 0 0 0; line-height: 1.5;">
+    <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #FF6845; border-radius: 14px; padding: 20px 24px; margin-top: 16px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.04);">
+        <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 0.96rem;">💡 Pro Tip for Planning Outdoor Exercise:</strong>
+        <p style="color: #5A6E85; font-family: var(--font-sans); font-size: 0.88rem; margin: 6px 0 0 0; line-height: 1.55;">
             If you run or walk daily, aim for daylight morning hours before 8:30 AM or late afternoon around 4:30 PM. Avoid busy arterial roads during evening rush hours when diesel exhaust peaks.
         </p>
     </div>
     """)
 
     render_simple_disclaimer()
+    render_ensur_executive_footer()
 
 
 # ==============================================================================
@@ -631,14 +657,22 @@ def render_simple_model_insights() -> None:
     """
     Renders Simple Mode Model Insights.
     Explains how AirGuard predicts air quality without overwhelming math or loss tables.
+    Preserves exact substrings asserted by test suite:
+    'How AirGuard Forecasts Pollution', 'We are fairly confident about this forecast.', 'Low wind traps smoke'.
     """
     st.markdown(
         """
-        <div style="margin-bottom: 16px;">
-            <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.02em;">
+        <div style="margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
+                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
+                    PREDICTIVE MACHINE LEARNING
+                </span>
+            </div>
+            <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
                 How AirGuard Forecasts Pollution
             </h1>
-            <p style="font-family: var(--font-sans); font-size: 0.95rem; color: #888888; margin: 0;">
+            <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
                 Learn how artificial intelligence and weather data predict outdoor air safety before you step outside.
             </p>
         </div>
@@ -648,50 +682,50 @@ def render_simple_model_insights() -> None:
 
     # Confidence Reassurance Card
     safe_markdown("""
-    <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 14px; padding: 22px 26px; margin-bottom: 22px;">
+    <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 18px; padding: 24px 28px; margin-bottom: 26px;">
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-            <span style="font-size: 1.2rem;">✨</span>
-            <span style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #FFFFFF;">
+            <span style="font-size: 1.3rem;">✨</span>
+            <span style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #1F344C;">
                 We are fairly confident about this forecast.
             </span>
         </div>
-        <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #A7F3D0; margin: 0; line-height: 1.5;">
+        <p style="font-family: var(--font-sans); font-size: 0.92rem; color: #047857; margin: 0; line-height: 1.55;">
             AirGuard continuously tests itself against actual ground measurements. Predictions are updated hourly using incoming satellite, station, and wind data.
         </p>
     </div>
     """)
 
     # 3 Factors Driving Today's Forecast
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>🔍 What Drives Air Pollution in Your City?</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🔍 What Drives Air Pollution in Your City?</h3>", unsafe_allow_html=True)
 
     safe_markdown("""
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-size: 1.4rem; margin-bottom: 8px;">💨</div>
-            <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 28px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-size: 1.5rem; margin-bottom: 10px;">💨</div>
+            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 Wind & Air Flow
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 Low wind traps smoke and dust near street level. When winds pick up, fresh air disperses harmful particles quickly.
             </p>
         </div>
 
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-size: 1.4rem; margin-bottom: 8px;">🌡️</div>
-            <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-size: 1.5rem; margin-bottom: 10px;">🌡️</div>
+            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 Temperature & Moisture
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 Cool mornings and high humidity can form smog layers that hold vehicular smoke close to where people walk.
             </p>
         </div>
 
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-size: 1.4rem; margin-bottom: 8px;">🚗</div>
-            <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-size: 1.5rem; margin-bottom: 10px;">🚗</div>
+            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                 Daily Traffic & Activity
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 Our model factors in weekday vs weekend rhythms and rush-hour pulses so you know when pollution spikes before it happens.
             </p>
         </div>
@@ -701,26 +735,27 @@ def render_simple_model_insights() -> None:
     # How it works in 3 simple steps
     with st.container(border=True):
         st.markdown("""
-        <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;">
+        <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;">
             🛡️ How AirGuard Protects You in 3 Steps
         </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; line-height: 1.5;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; line-height: 1.55;">
             <div>
-                <strong style="color: #38BDF8;">Step 1: Check Live Air</strong><br>
+                <strong style="color: #0284C7;">Step 1: Check Live Air</strong><br>
                 Ingests real-time air quality sensors and local weather every hour.
             </div>
             <div>
-                <strong style="color: #F59E0B;">Step 2: Predict 24-Hour Trends</strong><br>
+                <strong style="color: #D97706;">Step 2: Predict 24-Hour Trends</strong><br>
                 Uses machine learning to forecast if air will improve or worsen today.
             </div>
             <div>
-                <strong style="color: #10B981;">Step 3: Give You a Plan</strong><br>
+                <strong style="color: #059669;">Step 3: Give You a Plan</strong><br>
                 Calculates your safest outdoor window and whether you need an N95 mask.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
     render_simple_disclaimer()
+    render_ensur_executive_footer()
 
 
 # ==============================================================================
@@ -733,11 +768,17 @@ def render_simple_about_safety() -> None:
     """
     st.markdown(
         """
-        <div style="margin-bottom: 16px;">
-            <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.02em;">
+        <div style="margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
+                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
+                    ENVIRONMENTAL HEALTH PROTOCOLS
+                </span>
+            </div>
+            <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
                 Simple Safety & Mask Guide
             </h1>
-            <p style="font-family: var(--font-sans); font-size: 0.95rem; color: #888888; margin: 0;">
+            <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
                 Easy practical tips to protect your lungs indoors and when stepping outside.
             </p>
         </div>
@@ -746,30 +787,30 @@ def render_simple_about_safety() -> None:
     )
 
     # 1. Mask Guide Cards
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>😷 Which Mask Actually Protects You?</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>😷 Which Mask Actually Protects You?</h3>", unsafe_allow_html=True)
 
     safe_markdown("""
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px;">
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #10B981; border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #10B981; margin-bottom: 4px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 28px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #10B981; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #059669; margin-bottom: 4px;">
                 ✅ N95 / KN95 / FFP2 Masks
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: #1F344C; margin-bottom: 8px;">
                 RECOMMENDED FOR AIR POLLUTION (Blocks 95%+)
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 These masks have dense electro-static filters that block tiny smoke and exhaust particles. Press the metal nose clip firmly to ensure no air leaks around your nose.
             </p>
         </div>
 
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid #EF4444; border-radius: 14px; padding: 20px 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: #EF4444; margin-bottom: 4px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #EF4444; border-radius: 18px; padding: 22px 26px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #DC2626; margin-bottom: 4px;">
                 ❌ Cloth, Bandanas & Surgical Masks
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 700; color: #1F344C; margin-bottom: 8px;">
                 NOT EFFECTIVE AGAINST SMOG & PM₂.₅
             </div>
-            <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; margin: 0; line-height: 1.5;">
+            <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
                 Cloth fibers and loose surgical mask edges allow tiny smoke particles to enter freely around the sides. They do not protect against harmful winter smog.
             </p>
         </div>
@@ -777,25 +818,25 @@ def render_simple_about_safety() -> None:
     """)
 
     # 2. Indoor Air Defense Checklist
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>🏠 Keeping Your Home Air Clean</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🏠 Keeping Your Home Air Clean</h3>", unsafe_allow_html=True)
 
     safe_markdown("""
-    <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 22px 26px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.5;">
+    <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 24px 28px; margin-bottom: 28px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; line-height: 1.55;">
             <div>
-                <strong style="color: #FFFFFF;">1. Close Windows During Peak Smog</strong><br>
+                <strong style="color: #1F344C;">1. Close Windows During Peak Smog</strong><br>
                 Keep windows shut from 7:00 PM to 10:00 AM when outdoor pollution is thickest.
             </div>
             <div>
-                <strong style="color: #FFFFFF;">2. Use a HEPA Purifier in Bedrooms</strong><br>
+                <strong style="color: #1F344C;">2. Use a HEPA Purifier in Bedrooms</strong><br>
                 Clean air while sleeping gives your lungs 8 hours of uninterrupted recovery.
             </div>
             <div>
-                <strong style="color: #FFFFFF;">3. Recirculate Car AC</strong><br>
+                <strong style="color: #1F344C;">3. Recirculate Car AC</strong><br>
                 Switch vehicle AC to internal recirculation so traffic exhaust isn't pulled inside.
             </div>
             <div>
-                <strong style="color: #FFFFFF;">4. Avoid Burning Candles or Coils</strong><br>
+                <strong style="color: #1F344C;">4. Avoid Burning Candles or Coils</strong><br>
                 Incense and mosquito coils indoors add heavy smoke particles to room air.
             </div>
         </div>
@@ -803,25 +844,25 @@ def render_simple_about_safety() -> None:
     """)
 
     # 3. Family Cohorts
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>👨‍👩‍👧 Caring for Family Members</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>👨‍👩‍👧 Caring for Family Members</h3>", unsafe_allow_html=True)
 
     safe_markdown("""
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <strong style="color: #FFFFFF; font-family: var(--font-heading); font-size: 0.95rem;">👶 Young Children</strong>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; margin: 6px 0 0 0; line-height: 1.5;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 22px 24px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 1rem;">👶 Young Children</strong>
+            <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; margin: 6px 0 0 0; line-height: 1.55;">
                 Kids breathe faster and their lungs are still developing. Move recess indoors when the air safety status shows Caution or Avoid.
             </p>
         </div>
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <strong style="color: #FFFFFF; font-family: var(--font-heading); font-size: 0.95rem;">👵 Senior Citizens</strong>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; margin: 6px 0 0 0; line-height: 1.5;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 22px 24px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 1rem;">👵 Senior Citizens</strong>
+            <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; margin: 6px 0 0 0; line-height: 1.55;">
                 High pollution puts stress on the heart and blood pressure. Take gentle walks during warm afternoon hours when air is cleanest.
             </p>
         </div>
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <strong style="color: #FFFFFF; font-family: var(--font-heading); font-size: 0.95rem;">🫁 Asthma & Allergies</strong>
-            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #94A3B8; margin: 6px 0 0 0; line-height: 1.5;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 22px 24px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+            <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 1rem;">🫁 Asthma & Allergies</strong>
+            <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; margin: 6px 0 0 0; line-height: 1.55;">
                 Always keep your prescribed rescue inhaler in your pocket before leaving home, even for short neighbourhood errands.
             </p>
         </div>
@@ -829,6 +870,7 @@ def render_simple_about_safety() -> None:
     """)
 
     render_simple_disclaimer()
+    render_ensur_executive_footer()
 
 
 # ==============================================================================
@@ -841,11 +883,17 @@ def render_simple_city_comparison(active_city: str) -> None:
     """
     st.markdown(
         """
-        <div style="margin-bottom: 16px;">
-            <h1 style="font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #FFFFFF; margin: 0 0 6px 0; letter-spacing: -0.02em;">
+        <div style="margin-bottom: 24px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
+                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
+                    REGIONAL COMPARISON
+                </span>
+            </div>
+            <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
                 City Air Comparison
             </h1>
-            <p style="font-family: var(--font-sans); font-size: 0.95rem; color: #888888; margin: 0;">
+            <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
                 See which nearby cities have cleaner air right now so you can plan trips or commutes safely.
             </p>
         </div>
@@ -906,14 +954,14 @@ def render_simple_city_comparison(active_city: str) -> None:
     col_c, col_d = st.columns(2)
     with col_c:
         safe_markdown(f"""
-        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 18px 22px;">
-            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #10B981; text-transform: uppercase; margin-bottom: 4px;">
+        <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 18px; padding: 22px 26px;">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 🌿 Cleanest City Right Now
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #FFFFFF;">
+            <div style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: #1F344C;">
                 {cleanest['city']}
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #A7F3D0; margin-top: 6px;">
+            <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #047857; margin-top: 6px;">
                 Status: <strong>{cleanest['category']}</strong> ({cleanest['pm25']:.1f} µg/m³)<br>
                 {cleanest['tip']}
             </div>
@@ -922,33 +970,33 @@ def render_simple_city_comparison(active_city: str) -> None:
 
     with col_d:
         safe_markdown(f"""
-        <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 18px 22px;">
-            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #EF4444; text-transform: uppercase; margin-bottom: 4px;">
+        <div style="background: rgba(239, 68, 68, 0.06); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 18px; padding: 22px 26px;">
+            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
                 🛑 Heaviest Pollution Right Now
             </div>
-            <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: #FFFFFF;">
+            <div style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: #1F344C;">
                 {dirtiest['city']}
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #FCA5A5; margin-top: 6px;">
+            <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #B91C1C; margin-top: 6px;">
                 Status: <strong>{dirtiest['category']}</strong> ({dirtiest['pm25']:.1f} µg/m³)<br>
                 {dirtiest['tip']}
             </div>
         </div>
         """)
 
-    st.markdown("<div style='height: 14px;'></div>", unsafe_allow_html=True)
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;'>🏙️ All Cities Ranked</h3>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 18px;'></div>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🏙️ All Cities Ranked</h3>", unsafe_allow_html=True)
 
     # City list cards
     for c in city_results:
         safe_markdown(f"""
-        <div style="background: var(--ag-surface); border: 1px solid var(--ag-border); border-left: 4px solid {c['color']}; border-radius: 12px; padding: 16px 22px; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid {c['color']}; border-radius: 16px; padding: 18px 24px; margin-bottom: 14px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
-                <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF;">{c['city']}</span>
-                <span style="font-family: var(--font-sans); font-size: 0.8rem; color: #94A3B8; margin-left: 12px;">{c['tip']}</span>
+                <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C;">{c['city']}</span>
+                <span style="font-family: var(--font-sans); font-size: 0.84rem; color: #5A6E85; margin-left: 12px;">{c['tip']}</span>
             </div>
             <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: {c['color']}; background: rgba(255, 255, 255, 0.05); padding: 3px 12px; border-radius: 9999px; border: 1px solid {c['color']};">
+                <span style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: {c['color']}; background: rgba(31, 52, 76, 0.04); padding: 4px 14px; border-radius: 9999px; border: 1px solid {c['color']};">
                     ● {c['category']}
                 </span>
             </div>
@@ -956,4 +1004,4 @@ def render_simple_city_comparison(active_city: str) -> None:
         """)
 
     render_simple_disclaimer()
-
+    render_ensur_executive_footer()

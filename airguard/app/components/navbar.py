@@ -97,20 +97,26 @@ def render_global_navbar(page_title: str = "") -> str:
         else f"""<span class="ag-badge ag-badge-neutral" style="font-size: 0.68rem; padding: 3px 10px; border-color: #38BDF8; color: #38BDF8;">⚙️ {current_mode.upper()}</span>"""
     )
 
-    # Top brand and status bar
+    # Top brand and status bar with ensur.ai decision pill
     navbar_html = f"""
+    <div style="text-align: center; margin-bottom: 8px;">
+        <div class="ensur-top-pill">
+            <span class="ensur-pulse-dot"></span>
+            <span><strong>28,453</strong> air safety decisions authorized today <span style="color: #8B95A5; font-size: 0.75rem;">ⓘ</span></span>
+        </div>
+    </div>
     <header class="ag-navbar" role="banner">
         <div class="ag-brand">
-            <span style="color: #FFFFFF; display: flex; align-items: center;">{ICONS['shield']}</span>
+            <span style="display: flex; align-items: center;">{ICONS['ensur_star']}</span>
             <div>
                 <div class="ag-brand-name">AIRGUARD</div>
-                <div class="ag-brand-tagline">Real-Time Air Quality Intelligence & Forecasting</div>
+                <div class="ag-brand-tagline">Real-Time Air Quality Intelligence &amp; Environmental Safety</div>
             </div>
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
             {mode_badge}
             <div class="ag-badge ag-badge-nothing">
-                <span class="ag-pulse-dot" aria-hidden="true"></span>
+                <span class="ensur-pulse-dot" style="margin-right: 2px;"></span>
                 <span>TELEMETRY ACTIVE</span>
             </div>
         </div>
@@ -160,8 +166,8 @@ def render_global_navbar(page_title: str = "") -> str:
 
     with col_label:
         st.markdown(
-            "<div style='display: flex; align-items: center; height: 40px; font-family: var(--font-sans); font-weight: 700; color: #FFFFFF; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase;'>"
-            "<span style='color: #D71921; margin-right: 6px; font-size: 0.65rem;'>●</span> ACTIVE LOCATION:</div>",
+            "<div style='display: flex; align-items: center; height: 40px; font-family: var(--font-sans); font-weight: 700; color: var(--ensur-text-primary); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase;'>"
+            "<span style='color: #FF6845; margin-right: 6px; font-size: 0.65rem;'>●</span> ACTIVE LOCATION:</div>",
             unsafe_allow_html=True
         )
 

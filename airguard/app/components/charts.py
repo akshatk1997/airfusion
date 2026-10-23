@@ -15,33 +15,33 @@ from typing import Dict, Any, List, Optional
 
 def apply_chart_theme(fig: go.Figure) -> go.Figure:
     """
-    Applies unified Plus Jakarta Sans and JetBrains Mono typography, transparent surface blending,
-    hairline grid dividers, and refined telemetry styling across all visualizations.
+    Applies unified Plus Jakarta Sans and JetBrains Mono typography, clean white surface,
+    hairline warm grid dividers (#EBE6DF), and refined telemetry styling across all visualizations.
     """
     fig.update_layout(
-        template="plotly_dark",
-        font=dict(family="Plus Jakarta Sans, -apple-system, sans-serif", color="#F8FAFC"),
-        plot_bgcolor="rgba(16, 21, 34, 0.4)",
+        template="plotly_white",
+        font=dict(family="Plus Jakarta Sans, -apple-system, sans-serif", color="#1F344C"),
+        plot_bgcolor="#FFFFFF",
         paper_bgcolor="rgba(0, 0, 0, 0)",
         hoverlabel=dict(
-            bgcolor="#101522",
-            bordercolor="rgba(255, 255, 255, 0.15)",
-            font=dict(family="JetBrains Mono, monospace", size=12, color="#F8FAFC")
+            bgcolor="#1F344C",
+            bordercolor="#EBE6DF",
+            font=dict(family="JetBrains Mono, monospace", size=12, color="#FFFFFF")
         )
     )
     fig.update_xaxes(
-        gridcolor="rgba(255, 255, 255, 0.06)",
-        zerolinecolor="rgba(255, 255, 255, 0.12)",
+        gridcolor="#EBE6DF",
+        zerolinecolor="#CBD5E1",
         showline=True,
-        linecolor="rgba(255, 255, 255, 0.1)",
-        tickfont=dict(family="JetBrains Mono, monospace", color="#94A3B8")
+        linecolor="#EBE6DF",
+        tickfont=dict(family="JetBrains Mono, monospace", color="#5A6E85")
     )
     fig.update_yaxes(
-        gridcolor="rgba(255, 255, 255, 0.06)",
-        zerolinecolor="rgba(255, 255, 255, 0.12)",
+        gridcolor="#EBE6DF",
+        zerolinecolor="#CBD5E1",
         showline=True,
-        linecolor="rgba(255, 255, 255, 0.1)",
-        tickfont=dict(family="JetBrains Mono, monospace", color="#94A3B8")
+        linecolor="#EBE6DF",
+        tickfont=dict(family="JetBrains Mono, monospace", color="#5A6E85")
     )
     return fig
 
