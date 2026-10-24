@@ -95,7 +95,7 @@ def render_section_header(
     Renders standardized section title with clean typographic hierarchy.
     """
     badge_html = f"""<span class="ag-badge ag-badge-neutral" style="margin-bottom: 8px;">{badge}</span><br>""" if badge else ""
-    sub_html = f"""<p class="ag-section-subtitle" style="color: #5A6E85; font-size: 0.85rem; margin: 0; line-height: 1.5;">{subtitle}</p>""" if subtitle else ""
+    sub_html = f"""<p class="ag-section-subtitle" style="color: #24384D; font-size: 0.90rem; font-weight: 500; margin: 0; line-height: 1.5;">{subtitle}</p>""" if subtitle else ""
 
     html = f"""
     <div class="ag-section-header" style="margin-bottom: 20px;">

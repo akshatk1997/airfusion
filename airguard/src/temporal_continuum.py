@@ -10,6 +10,7 @@ Supports both Simple Mode (friendly human summaries) and Technical Mode (scienti
 from __future__ import annotations
 
 import logging
+import time
 import sys
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, Optional, Tuple, List
@@ -35,6 +36,13 @@ from src.database import get_or_create_location, upsert_air_quality_dataframe
 
 logger = logging.getLogger("airguard.temporal_continuum")
 
+_CONTINUUM_CACHE: Dict[Tuple[str, int, int], Tuple[float, Dict[str, Any]]] = {}
+
+
+def clear_continuum_cache() -> None:
+    """Clear in-memory continuum cache."""
+    _CONTINUUM_CACHE.clear()
+
 
 def get_city_temporal_continuum(
     city_name: str,
@@ -50,8 +58,16 @@ def get_city_temporal_continuum(
     - forecast_df: Hourly predicted future records (from T_0 onward)
     - unified_df: Continuous time-series with 'phase' column ('History', 'Now', 'Forecast')
     - metrics: Statistical summary of past, present, and projected future
+    Cached for 3 minutes for ultra-fast, snappy interaction.
     """
     clean_name = city_name.strip() if city_name else "Chandigarh"
+    cache_key = (clean_name.lower(), past_days, forecast_days)
+    now = time.time()
+    if cache_key in _CONTINUUM_CACHE:
+        ts, cached = _CONTINUUM_CACHE[cache_key]
+        if now - ts < 180:  # 3 minute cache
+            return dict(cached)
+
     loc_meta = geocode_city(clean_name)
     if not loc_meta:
         logger.warning(f"Could not resolve geocoding for '{clean_name}'")
@@ -220,7 +236,7 @@ def get_city_temporal_continuum(
     except Exception:
         pass
 
-    return {
+    result_data = {
         "loc_meta": loc_meta,
         "current": curr_live,
         "actual_time_display": actual_time_display,
@@ -250,3 +266,5 @@ def get_city_temporal_continuum(
             "multi_summary": multi_summary
         }
     }
+    _CONTINUUM_CACHE[cache_key] = (now, result_data)
+    return result_data

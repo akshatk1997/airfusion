@@ -167,8 +167,8 @@ def render_global_navbar(page_title: str = "") -> str:
 
     with col_label:
         st.markdown(
-            "<div style='display: flex; align-items: center; height: 40px; font-family: var(--font-sans); font-weight: 700; color: var(--ensur-text-primary); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase;'>"
-            "<span style='color: #FF6845; margin-right: 6px; font-size: 0.65rem;'>●</span> ACTIVE LOCATION:</div>",
+            "<div style='display: flex; align-items: center; height: 40px; font-family: var(--font-sans); font-weight: 800; color: #0F1E2E; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;'>"
+            "<span style='color: #FF6845; margin-right: 6px; font-size: 0.70rem;'>●</span> ACTIVE LOCATION:</div>",
             unsafe_allow_html=True
         )
 

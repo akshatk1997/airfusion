@@ -27,6 +27,18 @@ from src.database import get_or_create_location, upsert_air_quality_dataframe
 
 logger = logging.getLogger("airguard.data_collection")
 
+# High-Performance In-Memory Response Caches (Sub-millisecond reruns)
+_GEO_CACHE: Dict[str, Tuple[float, Optional[Dict[str, Any]]]] = {}
+_CURRENT_AQ_CACHE: Dict[Tuple[float, float], Tuple[float, Dict[str, Any]]] = {}
+_HOURLY_CACHE: Dict[Tuple[float, float, int, int], Tuple[float, pd.DataFrame]] = {}
+
+
+def clear_api_cache() -> None:
+    """Clear all in-memory API response caches."""
+    _GEO_CACHE.clear()
+    _CURRENT_AQ_CACHE.clear()
+    _HOURLY_CACHE.clear()
+
 
 def calculate_pm25_aqi(pm25: float) -> Tuple[int, str, str]:
     """
@@ -66,16 +78,24 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
     Resolve city name to geographical coordinates (latitude, longitude).
     Checks preset database first, then local SQLite locations table, and queries Open-Meteo Geocoding API.
     Supports clean parsing for 'City', 'City, State', or 'City, State, Country' inputs.
+    Cached in memory for instant responses on reruns.
     """
     clean_name = city_name.strip()
     if not clean_name:
         return None
 
+    cache_key = clean_name.lower()
+    now = time.time()
+    if cache_key in _GEO_CACHE:
+        ts, cached_res = _GEO_CACHE[cache_key]
+        if now - ts < 86400:  # 24h cache
+            return dict(cached_res) if cached_res else None
+
     # Check preset cities
     for preset, details in PRESET_CITIES.items():
         if preset.lower() == clean_name.lower():
             state_val = details.get("state", "")
-            return {
+            res = {
                 "city": preset,
                 "name": preset,
                 "latitude": details["lat"],
@@ -84,6 +104,8 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
                 "state": state_val,
                 "admin1": state_val
             }
+            _GEO_CACHE[cache_key] = (now, res)
+            return res
 
     # Check local SQLite locations table
     try:
@@ -102,7 +124,7 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
         conn.close()
         if row:
             st_val = row["state"] or ""
-            return {
+            res = {
                 "city": row["city"],
                 "name": row["city"],
                 "latitude": float(row["latitude"]),
@@ -111,6 +133,8 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
                 "state": st_val,
                 "admin1": st_val
             }
+            _GEO_CACHE[cache_key] = (now, res)
+            return res
     except Exception as e:
         logger.debug(f"Local database location lookup note: {e}")
 
@@ -145,7 +169,7 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
 
         resolved_name = best.get("name", search_term)
         admin1_val = best.get("admin1", "")
-        return {
+        res = {
             "city": resolved_name,
             "name": resolved_name,
             "latitude": round(float(best["latitude"]), 4),
@@ -154,6 +178,8 @@ def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
             "state": admin1_val,
             "admin1": admin1_val
         }
+        _GEO_CACHE[cache_key] = (now, res)
+        return res
 
     except requests.RequestException as e:
         logger.error(f"Geocoding network error for '{clean_name}': {e}")
@@ -167,7 +193,15 @@ def fetch_current_air_quality(latitude: float, longitude: float) -> Dict[str, An
     """
     Fetch current air quality & weather conditions for given coordinates.
     Returns a unified dictionary with pollutants, weather, and AQI assessment.
+    Cached for 2 minutes to provide instantaneous rerun speed and smooth scrolling.
     """
+    coord_key = (round(float(latitude), 3), round(float(longitude), 3))
+    now = time.time()
+    if coord_key in _CURRENT_AQ_CACHE:
+        ts, cached_data = _CURRENT_AQ_CACHE[coord_key]
+        if now - ts < 120:  # 2 minute cache
+            return dict(cached_data)
+
     aq_params = {
         "latitude": latitude,
         "longitude": longitude,
@@ -234,6 +268,7 @@ def fetch_current_air_quality(latitude: float, longitude: float) -> Dict[str, An
     except Exception as e:
         logger.error(f"Error fetching current weather: {e}")
 
+    _CURRENT_AQ_CACHE[coord_key] = (now, dict(result))
     return result
 
 
@@ -246,7 +281,14 @@ def fetch_hourly_air_and_weather(
     """
     Fetch comprehensive hourly time-series combining air pollution and weather.
     Retrieves both historical past days and future forecast hours in unified DataFrame.
+    Cached in memory for 5 minutes for rapid interactions and buttery scrolling.
     """
+    hourly_key = (round(float(latitude), 3), round(float(longitude), 3), past_days, forecast_days)
+    now = time.time()
+    if hourly_key in _HOURLY_CACHE:
+        ts, cached_df = _HOURLY_CACHE[hourly_key]
+        if now - ts < 300:  # 5 minute cache
+            return cached_df.copy()
     # 1. Fetch Air Quality Hourly
     aq_params = {
         "latitude": latitude,
@@ -330,6 +372,7 @@ def fetch_hourly_air_and_weather(
             categories.append(cat)
         df_merged["aqi_category"] = categories
 
+    _HOURLY_CACHE[hourly_key] = (now, df_merged.copy())
     return df_merged
 
 

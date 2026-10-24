@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import sys
+import time
 import logging
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional, Tuple
@@ -71,6 +72,14 @@ def load_model_bundle(model_path: Optional[Path | str] = None) -> Optional[Dict[
         return None
 
 
+_FORECAST_CACHE: Dict[Tuple[str, int], Tuple[float, Tuple[pd.DataFrame, Dict[str, Any]]]] = {}
+
+
+def clear_forecast_cache() -> None:
+    """Clear in-memory forecast cache."""
+    _FORECAST_CACHE.clear()
+
+
 def generate_forecast(
     city_name: str,
     horizon_hours: int = 72,
@@ -79,7 +88,16 @@ def generate_forecast(
     """
     Generate an hourly PM2.5 and AQI forecast for up to `horizon_hours` (e.g. 24 or 72).
     Returns (forecast_dataframe, summary_metrics).
+    Cached in memory for 5 minutes for rapid multi-page navigation.
     """
+    clean_city = (city_name or "").strip().lower()
+    cache_key = (clean_city, horizon_hours)
+    now = time.time()
+    if cache_key in _FORECAST_CACHE:
+        ts, (cached_df, cached_sum) = _FORECAST_CACHE[cache_key]
+        if now - ts < 300:  # 5 minute cache
+            return cached_df.copy(), dict(cached_sum)
+
     bundle = load_model_bundle()
     if not bundle:
         return None, {"error": "Model not trained yet."}
@@ -241,4 +259,5 @@ def generate_forecast(
         "model_used": best_name
     }
 
+    _FORECAST_CACHE[cache_key] = (now, (forecast_df.copy(), summary.copy()))
     return forecast_df, summary

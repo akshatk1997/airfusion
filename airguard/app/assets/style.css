@@ -29,10 +29,10 @@
     --ensur-border-light: rgba(31, 52, 76, 0.08);
     --ensur-border-hover: rgba(255, 104, 69, 0.35);
 
-    /* Typography Colors */
-    --ensur-text-primary: #1F344C;
-    --ensur-text-secondary: #5A6578;
-    --ensur-text-muted: #8B95A5;
+    /* Typography Colors - High Visibility & WCAG AAA Contrast */
+    --ensur-text-primary: #0F1E2E;
+    --ensur-text-secondary: #24384D;
+    --ensur-text-muted: #475569;
     --ensur-text-light: #FFFFFF;
 
     /* Semantic Status Accents */
@@ -178,12 +178,73 @@ h1, h2, h3, h4, h5, h6,
 [data-testid="stWidgetLabel"] label,
 label[data-baseweb="label"],
 [data-testid="stWidgetLabel"] span {
-    color: #5A6E85 !important;
+    color: #0F1E2E !important;
     font-family: var(--font-sans) !important;
     font-weight: 700 !important;
-    font-size: 0.78rem !important;
+    font-size: 0.82rem !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.04em !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Universal Smooth Scrolling & Typography Optimization */
+html {
+    scroll-behavior: smooth !important;
+}
+
+body {
+    overflow-x: hidden !important;
+}
+
+* {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Markdown Paragraph Readability on Light Surfaces */
+[data-testid="stMarkdownContainer"] p {
+    color: #1F344C;
+    font-size: 0.94rem;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* Automatic High-Contrast Fixes for legacy gray styles across all pages */
+[style*="color: #5A6E85"], [style*="color:#5A6E85"],
+[style*="color: #5A6578"], [style*="color:#5A6578"],
+[style*="color: #718096"], [style*="color:#718096"] {
+    color: #24384D !important;
+    font-weight: 500 !important;
+}
+
+[style*="color: #8B95A5"], [style*="color:#8B95A5"],
+[style*="color: #8896A6"], [style*="color:#8896A6"] {
+    color: #475569 !important;
+    font-weight: 600 !important;
+}
+
+[style*="color: #64748B"], [style*="color:#64748B"] {
+    color: #334155 !important;
+    font-weight: 500 !important;
+}
+
+/* Hardware-accelerated GPU layer compositing for buttery 60fps scrolling */
+.ag-hero-directive,
+.ag-card,
+.ag-photo-card,
+.ag-news-card,
+.ensur-engine-container,
+div[data-testid="stVerticalBlockBorderWrapper"],
+[data-testid="stPopover"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Perfect alignment across Streamlit columns */
+div[data-testid="column"] {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
 }
 
 [data-testid="stAppViewContainer"] {
@@ -294,6 +355,15 @@ div[data-baseweb="input"] input {
     box-shadow: 0 4px 12px rgba(31, 52, 76, 0.08) !important;
 }
 
+/* Protect all Material Symbols and Streamlit Material Icons from font overrides */
+[data-testid="stIconMaterial"],
+[data-testid="stExpanderToggleIcon"],
+.material-icons,
+.material-symbols-rounded,
+.material-symbols-outlined {
+    font-family: "Material Symbols Rounded", "Material Icons", sans-serif !important;
+}
+
 /* Expanders */
 div[data-testid="stExpander"] {
     background: var(--ensur-surface) !important;
@@ -304,14 +374,26 @@ div[data-testid="stExpander"] {
 }
 
 div[data-testid="stExpander"] details summary {
-    font-family: var(--font-sans) !important;
-    font-weight: 700 !important;
-    font-size: 0.88rem !important;
-    color: var(--ensur-text-primary) !important;
+    background: #FFFFFF !important;
     padding: 14px 20px !important;
+    border-bottom: 1px solid var(--ensur-border) !important;
+    transition: background 0.15s ease, color 0.15s ease !important;
+}
+
+div[data-testid="stExpander"] details summary [data-testid="stMarkdownContainer"] p {
+    font-family: var(--font-sans) !important;
+    font-weight: 800 !important;
+    font-size: 0.94rem !important;
+    color: var(--ensur-text-primary) !important;
+    margin: 0 !important;
 }
 
 div[data-testid="stExpander"] details summary:hover {
+    color: var(--ensur-coral) !important;
+    background: var(--ensur-surface-hover) !important;
+}
+
+div[data-testid="stExpander"] details summary:hover [data-testid="stMarkdownContainer"] p {
     color: var(--ensur-coral) !important;
 }
 
@@ -1107,6 +1189,39 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 /* ==========================================================================
    ENSUR.AI REAL-LIFE PHOTOGRAPHY & INTERACTIVE SIMULATOR STYLES
    ========================================================================== */
+/* Universal Streamlit Image Styling & Alignment */
+div[data-testid="stImage"] {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 8px 0 !important;
+}
+
+div[data-testid="stImage"] img {
+    border-radius: 16px !important;
+    border: 1px solid var(--ensur-border) !important;
+    box-shadow: 0 4px 20px rgba(31, 52, 76, 0.08) !important;
+    object-fit: cover !important;
+    max-width: 100% !important;
+    height: auto !important;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+}
+
+div[data-testid="stImage"] img:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 10px 28px rgba(31, 52, 76, 0.12) !important;
+}
+
+div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
+    color: #0F1E2E !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+    line-height: 1.45 !important;
+}
+
 .ag-photo-card {
     background: #FFFFFF;
     border: 1px solid var(--ensur-border);

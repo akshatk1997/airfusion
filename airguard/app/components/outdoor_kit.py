@@ -53,10 +53,10 @@ def render_outdoor_departure_kit(
                                 SMART DEPARTURE KIT — {city_name}
                             </span>
                         </div>
-                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: #1F344C; margin: 0; line-height: 1.2;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; color: #0F1E2E; margin: 0; line-height: 1.2;">
                             What to Carry Outside & Outdoor Safety Kit
                         </h2>
-                        <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 4px 0 0 0;">
+                        <p style="font-family: var(--font-sans); font-size: 0.90rem; font-weight: 500; color: #24384D; margin: 4px 0 0 0;">
                             Live recommendations tailored to today's {temp:.0f}°C temperature, {wind:.0f} km/h breeze, and air condition.
                         </p>
                     </div>
@@ -70,8 +70,8 @@ def render_outdoor_departure_kit(
     # -------------------------------------------------------------------------
     # PART 1: INTERACTIVE BACKPACK PACKING CHECKLIST
     # -------------------------------------------------------------------------
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #1F344C; margin: 16px 0 12px 0;'>🎒 Your Superhero Outdoor Backpack Checklist</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0 0 14px 0;'>Check off each item before leaving your doorstep so you're 100% protected against outdoor air hazards!</p>", unsafe_allow_html=True)
+    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #0F1E2E; margin: 16px 0 12px 0;'>🎒 Your Superhero Outdoor Backpack Checklist</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='font-family: var(--font-sans); font-size: 0.90rem; font-weight: 500; color: #24384D; margin: 0 0 14px 0;'>Check off each item before leaving your doorstep so you're 100% protected against outdoor air hazards!</p>", unsafe_allow_html=True)
 
     # Determine recommended status for each item
     # 1. Mask
