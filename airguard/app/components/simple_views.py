@@ -45,6 +45,7 @@ from app.components.outdoor_kit import render_outdoor_departure_kit
 from app.components.simple_games import render_eco_quest_hub
 from src.config import PRESET_CITIES
 from src.database import fetch_historical_records, fetch_all_locations
+from src.news_service import get_news_feed
 
 
 def render_simple_home(active_city: str) -> None:
@@ -280,6 +281,77 @@ def render_simple_home(active_city: str) -> None:
             current_threshold=threshold,
             on_save_callback=_handle_alert_save
         )
+
+    # 9.1 Today's Clean Air News & Story Updates (6-Hour Cycle)
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    try:
+        s_feed = get_news_feed(active_city=active_city, current_pm25=pm25_val, current_aqi=aqi_val)
+        s_local = s_feed["local_news"][0] if s_feed["local_news"] else None
+        s_intl = s_feed["international_news"][0] if s_feed["international_news"] else None
+
+        with st.container(border=True):
+            st.markdown(
+                f"""
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; display: flex; align-items: center; gap: 8px;">
+                            <span>📰 Today's Clean Air News for Your Family</span>
+                            <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px; color: #FF6845; background: rgba(255,104,69,0.1);">
+                                UPDATED EVERY 6 HOURS
+                            </span>
+                        </div>
+                        <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85;">
+                            Stories from doctors, scientists, and city air protectors in plain, friendly language.
+                        </div>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+            sn_col1, sn_col2 = st.columns(2)
+            with sn_col1:
+                if s_local:
+                    st.markdown(
+                        f"""
+                        <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 14px 16px; min-height: 140px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #FF6845; font-weight: 700; margin-bottom: 4px;">
+                                📍 LOCAL: {s_local['source_name'].split('(')[0].strip()} • {s_local['time_ago']}
+                            </div>
+                            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                                {s_local['title'][:75]}...
+                            </div>
+                            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #9A3412; font-weight: 500;">
+                                🧒 {s_local['simple_summary'][:110]}...
+                            </div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+            with sn_col2:
+                if s_intl:
+                    st.markdown(
+                        f"""
+                        <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 14px 16px; min-height: 140px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #0284C7; font-weight: 700; margin-bottom: 4px;">
+                                🌍 GLOBAL: {s_intl['source_name'].split('(')[0].strip()} • {s_intl['time_ago']}
+                            </div>
+                            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                                {s_intl['title'][:75]}...
+                            </div>
+                            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #0369A1; font-weight: 500;">
+                                🧒 {s_intl['simple_summary'][:110]}...
+                            </div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+            st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+            if st.button("📰 Explore All Local & International Air News →", key="btn_simple_news_all", use_container_width=True):
+                st.switch_page("pages/7_Air_Quality_News.py")
+    except Exception as e:
+        pass
 
     # 10. Required Safety Disclaimer
     render_simple_disclaimer()

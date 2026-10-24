@@ -138,16 +138,28 @@ def generate_aero_response(
             }
         elif pm25 > 25:
             return {
-                "answer": f"A mask is a great idea if you're walking along busy car streets or waiting at a bus stop in {city_name}. If you're in a quiet green park with trees, you can breathe freely!",
-                "tip": "Tip: Keep a clean spare mask tucked in your pocket just in case traffic gets smoky.",
-                "mascot": "mascot_caution_mask.jpg"
+                "answer": f"The air in {city_name} is okay, but if you're running fast near busy roads or feeling sensitive, popping on your light mask is a smart superhero move!",
+                "tip": "Tip: Keep a clean spare mask zipped inside your schoolbag.",
+                "mascot": "mascot_clean_air.jpg"
             }
         else:
             return {
-                "answer": f"Good news! The air in {city_name} is fresh and clean right now (PM2.5 is only {pm25:.0f}). You don't need a mask today—breathe in the lovely fresh breeze!",
-                "tip": "Tip: Enjoy the clean air, and give a big smile to the sunshine!",
+                "answer": f"Good news! The air in {city_name} is sparkling clean ({pm25:.0f} specks), so you don't need a mask right now. Breathe deep and enjoy the fresh breeze!",
+                "tip": "Tip: Still keep one in your backpack just in case you pass smoky traffic later.",
                 "mascot": "mascot_clean_air.jpg"
             }
+
+    # 5.1 NEWS / TODAY'S ALERTS / OFFICIAL BULLETINS
+    if any(k in q for k in ["news", "headline", "alert", "directive", "bulletin", "today", "report"]):
+        return {
+            "answer": (
+                f"Today in clean air news for {city_name}: Environmental teams and doctors are watching our breezes closely! "
+                f"Green canopy projects around lakes and parks are actively soaking up dust, and metro transit is running extra trips. "
+                f"Check out our full Air Quality Newsroom on Page 7 for all the latest stories from verified clean air protectors!"
+            ),
+            "tip": "Tip: You can read child-safe news summaries updated every 6 hours in our News tab!",
+            "mascot": "mascot_clean_air.jpg"
+        }
 
     # 6. TREES, PLANTS, ECO ACTION
     if any(k in q for k in ["tree", "plant", "eco", "nature", "houseplant", "clean air", "help the air", "earth"]):

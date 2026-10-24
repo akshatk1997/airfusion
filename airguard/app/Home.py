@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from src.database import init_db, fetch_historical_records
 from src.predict import is_model_trained
 from src.data_collection import geocode_city, fetch_current_air_quality
+from src.news_service import get_news_feed
 from app.components.navbar import render_global_navbar
 from app.components.mode_switcher import (
     get_view_mode,
@@ -725,6 +726,108 @@ def render_technical_home(active_city: str) -> None:
             """)
             if st.button("Compare Regional Cities →", key="mod_compare", use_container_width=True):
                 st.switch_page("pages/6_City_Comparison.py")
+
+    # ==========================================================================
+    # VERIFIED ENVIRONMENTAL NEWS & STATUTORY DIRECTIVES (6-HOUR CADENCE)
+    # ==========================================================================
+    st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
+    render_section_header(
+        title="Verified Environmental News & Directives",
+        subtitle=f"Synchronized on an automated 6-hour cycle &bull; Area-Specific ({active_city}) &amp; Global Atmospheric Intelligence",
+        badge="6-HOUR CYCLE"
+    )
+
+    try:
+        feed = get_news_feed(active_city=active_city)
+        top_local = feed["local_news"][0] if feed["local_news"] else None
+        top_intl = feed["international_news"][0] if feed["international_news"] else None
+        sync_meta = feed["sync_status"]
+
+        ncol1, ncol2, ncol3 = st.columns([1.3, 1.3, 1.0])
+
+        with ncol1:
+            if top_local:
+                with st.container(border=True):
+                    st.markdown(
+                        f"""
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
+                                        📍 LOCAL • {top_local['source_name'].split('(')[0].strip()}
+                                    </span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #8B95A5;">
+                                        {top_local['time_ago']}
+                                    </span>
+                                </div>
+                                <div style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                                    {top_local['title'][:85]}...
+                                </div>
+                                <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; line-height: 1.45; margin: 0;">
+                                    {top_local['summary'][:130]}...
+                                </p>
+                            </div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+            else:
+                st.info("Local news feed synchronizing...")
+
+        with ncol2:
+            if top_intl:
+                with st.container(border=True):
+                    st.markdown(
+                        f"""
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
+                                        🌍 GLOBAL • {top_intl['source_name'].split('(')[0].strip()}
+                                    </span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #8B95A5;">
+                                        {top_intl['time_ago']}
+                                    </span>
+                                </div>
+                                <div style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                                    {top_intl['title'][:85]}...
+                                </div>
+                                <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; line-height: 1.45; margin: 0;">
+                                    {top_intl['summary'][:130]}...
+                                </p>
+                            </div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True
+                    )
+            else:
+                st.info("International news feed synchronizing...")
+
+        with ncol3:
+            with st.container(border=True):
+                st.markdown(
+                    f"""
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
+                        <div>
+                            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: #FF6845; margin-bottom: 4px;">
+                                ⚡ NEWSROOM DISPATCH
+                            </div>
+                            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                                Environmental Wire
+                            </div>
+                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #5A6578; margin-bottom: 8px;">
+                                Next sync: <strong style="color: #FF6845;">{sync_meta['next_sync_in_str']}</strong><br/>
+                                Sources: CPCB, WHO, Copernicus, EPA
+                            </div>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+                if st.button("Explore Full Newsroom →", key="btn_home_newsroom", use_container_width=True):
+                    st.switch_page("pages/7_Air_Quality_News.py")
+    except Exception as e:
+        pass
 
     # ensur.ai Executive Footer
     render_ensur_executive_footer()

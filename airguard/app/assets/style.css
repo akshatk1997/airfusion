@@ -1229,3 +1229,107 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     letter-spacing: 0.04em;
 }
 
+/* ==========================================================================
+   AirGuard Environmental Newsroom & 6-Hour Intelligence Feed Styles
+   ========================================================================== */
+
+.ag-news-sync-banner {
+    background: linear-gradient(135deg, #1F344C 0%, #162638 100%);
+    border: 1px solid rgba(255, 104, 69, 0.35);
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(22, 38, 56, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.ag-news-sync-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 104, 69, 0.14);
+    border: 1px solid rgba(255, 104, 69, 0.4);
+    border-radius: 9999px;
+    padding: 5px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #FFA48C;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ag-news-card {
+    background: var(--ensur-surface);
+    border: 1px solid var(--ensur-border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ag-news-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(31, 52, 76, 0.08);
+    border-color: rgba(255, 104, 69, 0.3);
+}
+
+.ag-news-card-critical {
+    border-left: 5px solid #EF4444;
+}
+
+.ag-news-card-high {
+    border-left: 5px solid #F59E0B;
+}
+
+.ag-news-card-moderate {
+    border-left: 5px solid #10B981;
+}
+
+.ag-news-card-info {
+    border-left: 5px solid #38BDF8;
+}
+
+.ag-news-source-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F1F5F9;
+    color: #334155;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.ag-news-action-box {
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 14px 0;
+}
+
+.ag-news-tech-box {
+    background: #111827;
+    border: 1px solid #1F2937;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-family: var(--font-mono);
+    color: #E2E8F0;
+    font-size: 0.8rem;
+}
+
+
