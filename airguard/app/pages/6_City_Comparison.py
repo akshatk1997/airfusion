@@ -249,13 +249,13 @@ with rank_col1:
                 </div>
                 <span class="badge {badge_cls}">{clean_cat.upper()}</span>
             </div>
-            <div style="font-size: var(--text-2xl); font-weight: 800; color: #FFFFFF; margin: var(--space-1) 0;">
+            <div style="font-size: var(--text-2xl); font-weight: 800; color: #1F344C; margin: var(--space-1) 0;">
                 {clean_label}
             </div>
-            <div style="font-size: var(--text-sm); color: #CCCCCC; display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
+            <div style="font-size: var(--text-sm); color: #5A6E85; display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
                 <span>Current AQI: <strong style="color: var(--color-good); font-family: var(--font-mono); font-size: var(--text-base);">{cleanest_row['current_aqi']}</strong></span>
-                <span>PM₂.₅: <strong style="color: #FFFFFF; font-family: var(--font-mono); font-size: var(--text-base);">{cleanest_row['current_pm2_5']:.1f} µg/m³</strong></span>
-                <span>Wind: <strong style="color: #CCCCCC; font-family: var(--font-mono);">{cleanest_row['wind_speed']} km/h</strong></span>
+                <span>PM₂.₅: <strong style="color: #1F344C; font-family: var(--font-mono); font-size: var(--text-base);">{cleanest_row['current_pm2_5']:.1f} µg/m³</strong></span>
+                <span>Wind: <strong style="color: #5A6E85; font-family: var(--font-mono);">{cleanest_row['wind_speed']} km/h</strong></span>
             </div>
             """
         )
@@ -279,13 +279,13 @@ with rank_col2:
                 </div>
                 <span class="badge {poll_badge_cls}">{poll_cat.upper()}</span>
             </div>
-            <div style="font-size: var(--text-2xl); font-weight: 800; color: #FFFFFF; margin: var(--space-1) 0;">
+            <div style="font-size: var(--text-2xl); font-weight: 800; color: #1F344C; margin: var(--space-1) 0;">
                 {poll_label}
             </div>
-            <div style="font-size: var(--text-sm); color: #CCCCCC; display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
+            <div style="font-size: var(--text-sm); color: #5A6E85; display: flex; gap: var(--space-4); margin-bottom: var(--space-3);">
                 <span>Current AQI: <strong style="color: {poll_border}; font-family: var(--font-mono); font-size: var(--text-base);">{polluted_row['current_aqi']}</strong></span>
-                <span>PM₂.₅: <strong style="color: #FFFFFF; font-family: var(--font-mono); font-size: var(--text-base);">{polluted_row['current_pm2_5']:.1f} µg/m³</strong></span>
-                <span>Wind: <strong style="color: #CCCCCC; font-family: var(--font-mono);">{polluted_row['wind_speed']} km/h</strong></span>
+                <span>PM₂.₅: <strong style="color: #1F344C; font-family: var(--font-mono); font-size: var(--text-base);">{polluted_row['current_pm2_5']:.1f} µg/m³</strong></span>
+                <span>Wind: <strong style="color: #5A6E85; font-family: var(--font-mono);">{polluted_row['wind_speed']} km/h</strong></span>
             </div>
             """
         )

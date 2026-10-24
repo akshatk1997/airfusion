@@ -7,9 +7,29 @@ warm borders (#EBE6DF), and coral accents (#FF6845).
 
 from __future__ import annotations
 
+import base64
+from functools import lru_cache
+from pathlib import Path
 import streamlit as st
 from typing import Optional, Dict, Any, List
 from app.components.design_system import safe_markdown, ICONS
+
+
+@lru_cache(maxsize=16)
+def get_mascot_base64(filename: str) -> str:
+    """
+    Reads and base64-encodes local 3D cartoon mascot assets for Simple Mode only.
+    Cached in memory to prevent repeated disk I/O.
+    """
+    img_path = Path(__file__).resolve().parent.parent / "assets" / "images" / filename
+    if img_path.exists():
+        try:
+            with open(img_path, "rb") as f:
+                encoded = base64.b64encode(f.read()).decode("utf-8")
+                return f"data:image/jpeg;base64,{encoded}"
+        except Exception:
+            return ""
+    return ""
 
 
 def get_simple_status_style(status_level: str) -> Dict[str, str]:
@@ -129,6 +149,19 @@ def render_air_safety_card(
     </span>
     """
 
+    # 3D Animated Cartoon Mascot (Simple Mode Only)
+    is_safe = "safe" in status_level.lower() or "moderate" in status_level.lower()
+    mascot_name = "mascot_clean_air.jpg" if is_safe else "mascot_caution_mask.jpg"
+    mascot_b64 = get_mascot_base64(mascot_name)
+    anim_class = "ag-cartoon-float ag-cartoon-glow-green" if is_safe else "ag-cartoon-bob ag-cartoon-glow-coral"
+    mascot_tooltip = "AirGuard Clean Air Sentry" if is_safe else "AirGuard Protective Alert Sentry"
+
+    mascot_html = f"""
+    <div class="ag-cartoon-container {anim_class}" style="flex: 0 0 108px; text-align: center;" title="{mascot_tooltip}">
+        <img src="{mascot_b64}" alt="AirGuard Mascot" class="ag-cartoon-mascot-img" style="width: 108px; height: 108px;" />
+    </div>
+    """ if mascot_b64 else ""
+
     html = f"""
     <div style="
         background: #FFFFFF;
@@ -168,15 +201,18 @@ def render_air_safety_card(
             {live_indicator}
         </div>
 
-        <!-- Big Clear Decision Headline -->
-        <h2 style="margin: 0 0 12px 0; font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #1F344C; letter-spacing: -0.03em; line-height: 1.25;">
-            {answer_text}
-        </h2>
-
-        <!-- Actionable Recommendation -->
-        <p style="margin: 0 0 24px 0; font-family: var(--font-sans); font-size: 1.02rem; color: #5A6E85; line-height: 1.6;">
-            {recommendation}
-        </p>
+        <!-- Big Clear Decision Headline & 3D Animated Mascot -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap-reverse; margin-bottom: 24px;">
+            <div style="flex: 1 1 480px; min-width: 260px;">
+                <h2 style="margin: 0 0 12px 0; font-family: var(--font-heading); font-size: 2.1rem; font-weight: 800; color: #1F344C; letter-spacing: -0.03em; line-height: 1.25;">
+                    {answer_text}
+                </h2>
+                <p style="margin: 0; font-family: var(--font-sans); font-size: 1.02rem; color: #5A6E85; line-height: 1.6;">
+                    {recommendation}
+                </p>
+            </div>
+            {mascot_html}
+        </div>
 
         <!-- Two Core Decision Tickets -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
@@ -345,6 +381,7 @@ def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
     """
     Renders one short, practical non-technical insight for Simple Mode.
     ensur.ai styling: White surface (#FFFFFF), warm border (#EBE6DF), coral accent (#FF6845).
+    Features friendly 3D cartoon mascot companion in Simple Mode.
     """
     if aqi <= 50:
         tip_title = "Great Day for Outdoors"
@@ -367,6 +404,20 @@ def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
         tip_text = "Air pollution is high today. Keep home windows closed, avoid outdoor cardio, and consider wearing an N95 mask if you need to travel through heavy traffic."
         tip_icon = "🛡️"
 
+    # 3D Animated Mascot Companion (Simple Mode Only)
+    if aqi <= 100:
+        tip_mascot_file = "mascot_outdoor_runner.jpg"
+        tip_anim = "ag-cartoon-drift"
+    else:
+        tip_mascot_file = "mascot_indoor_sanctuary.jpg"
+        tip_anim = "ag-cartoon-bob"
+    tip_mascot_b64 = get_mascot_base64(tip_mascot_file)
+    tip_mascot_html = f"""
+    <div class="ag-cartoon-container {tip_anim}" style="flex: 0 0 74px; text-align: center;">
+        <img src="{tip_mascot_b64}" alt="Tip Mascot" class="ag-cartoon-mascot-img" style="width: 74px; height: 74px; border-radius: 16px;" />
+    </div>
+    """ if tip_mascot_b64 else ""
+
     html = f"""
     <div style="
         background: #FFFFFF;
@@ -377,15 +428,20 @@ def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
         margin-bottom: 24px;
         box-shadow: 0 4px 18px rgba(31, 52, 76, 0.05);
     ">
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-            <span style="font-size: 1.25rem;">{tip_icon}</span>
-            <span style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #1F344C;">
-                Today's Tip: {tip_title}
-            </span>
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;">
+            <div style="flex: 1 1 auto;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                    <span style="font-size: 1.25rem;">{tip_icon}</span>
+                    <span style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #1F344C;">
+                        Today's Tip: {tip_title}
+                    </span>
+                </div>
+                <p style="margin: 0; font-family: var(--font-sans); font-size: 0.9rem; color: #5A6E85; line-height: 1.6;">
+                    {tip_text}
+                </p>
+            </div>
+            {tip_mascot_html}
         </div>
-        <p style="margin: 0; font-family: var(--font-sans); font-size: 0.9rem; color: #5A6E85; line-height: 1.6;">
-            {tip_text}
-        </p>
     </div>
     """
     safe_markdown(html)
@@ -663,6 +719,7 @@ def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> Non
     """
     Renders 2 side-by-side cards for Mask guidance and Indoor air protection.
     ensur.ai styling: White surfaces (#FFFFFF), warm borders (#EBE6DF), coral and emerald accents.
+    Accompanied by animated 3D cartoon mascots in Simple Mode.
     """
     if isinstance(mask_advice, (list, tuple)):
         mask_content = "<ul style='margin: 0; padding-left: 18px; line-height: 1.6; color: #5A6E85; font-size: 0.88rem;'>" + "".join(f"<li style='margin-bottom: 4px;'>{item}</li>" for item in mask_advice) + "</ul>"
@@ -674,6 +731,21 @@ def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> Non
     else:
         indoor_content = f"<p style='font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.6;'>{indoor_advice}</p>"
 
+    mask_b64 = get_mascot_base64("mascot_caution_mask.jpg")
+    indoor_b64 = get_mascot_base64("mascot_indoor_sanctuary.jpg")
+
+    mask_mascot_html = f"""
+    <div class="ag-cartoon-container ag-cartoon-bob" style="flex: 0 0 52px; text-align: center;">
+        <img src="{mask_b64}" alt="Mask Mascot" class="ag-cartoon-mascot-img" style="width: 52px; height: 52px; border-radius: 12px;" />
+    </div>
+    """ if mask_b64 else ""
+
+    indoor_mascot_html = f"""
+    <div class="ag-cartoon-container ag-cartoon-float" style="flex: 0 0 52px; text-align: center;">
+        <img src="{indoor_b64}" alt="Indoor Sanctuary" class="ag-cartoon-mascot-img" style="width: 52px; height: 52px; border-radius: 12px;" />
+    </div>
+    """ if indoor_b64 else ""
+
     html = f"""
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 28px;">
         <div style="
@@ -684,8 +756,11 @@ def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> Non
             padding: 22px 26px;
             box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
         ">
-            <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #1F344C; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                <span>😷</span> Mask Advice
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #1F344C; display: flex; align-items: center; gap: 8px;">
+                    <span>😷</span> Mask Advice
+                </div>
+                {mask_mascot_html}
             </div>
             {mask_content}
         </div>
@@ -698,8 +773,11 @@ def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> Non
             padding: 22px 26px;
             box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
         ">
-            <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #1F344C; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                <span>🏠</span> Indoor Air Defense
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: #1F344C; display: flex; align-items: center; gap: 8px;">
+                    <span>🏠</span> Indoor Air Defense
+                </div>
+                {indoor_mascot_html}
             </div>
             {indoor_content}
         </div>

@@ -38,13 +38,12 @@ def render_risk_score_card(
 
     html = f"""
     <div style="
-        background: var(--ag-surface);
-        border: 1px solid var(--ag-border);
-        border-top: 1px solid var(--ag-border-light);
+        background: #FFFFFF;
+        border: 1px solid #EBE6DF;
         border-radius: 16px;
         padding: 24px 28px;
         margin-bottom: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05);
     ">
         <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px; margin-bottom: 16px;">
             <div>
@@ -63,11 +62,11 @@ def render_risk_score_card(
                     ">
                         ● {risk_category} Risk
                     </span>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #777777; text-transform: uppercase; letter-spacing: 0.05em;">
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #8896A6; text-transform: uppercase; letter-spacing: 0.05em;">
                         Personal Outdoor Risk Score
                     </span>
                 </div>
-                <div style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 700; color: #FFFFFF; line-height: 1.3;">
+                <div style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: #1F344C; line-height: 1.3;">
                     {action}
                 </div>
             </div>
@@ -75,7 +74,7 @@ def render_risk_score_card(
                 <div style="font-family: var(--font-mono); font-size: 3.8rem; font-weight: 800; line-height: 0.9; color: {cat_color};">
                     {risk_score}
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #777777; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px;">
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #8896A6; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px;">
                     Out of 100
                 </div>
             </div>
@@ -83,7 +82,7 @@ def render_risk_score_card(
 
         <!-- Risk Progress Bar -->
         <div style="margin-bottom: 16px;">
-            <div style="height: 6px; background: #202020; border-radius: 9999px; position: relative;">
+            <div style="height: 6px; background: #EBE6DF; border-radius: 9999px; position: relative;">
                 <div style="
                     width: {pct}%;
                     height: 100%;
@@ -92,7 +91,7 @@ def render_risk_score_card(
                     transition: width 0.5s ease;
                 "></div>
             </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.68rem; font-family: var(--font-mono); color: #666666; margin-top: 6px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.68rem; font-family: var(--font-mono); color: #8896A6; margin-top: 6px;">
                 <span>0 Low</span>
                 <span>25</span>
                 <span>50 Moderate</span>
@@ -103,16 +102,17 @@ def render_risk_score_card(
 
         <!-- Transparent 'Why' Rationale -->
         <div style="
-            background: #181818;
+            background: #FAF6F1;
+            border: 1px solid #EBE6DF;
             border-left: 3px solid {cat_color};
             border-radius: 8px;
             padding: 12px 16px;
             font-family: var(--font-sans);
-            font-size: 0.82rem;
-            color: #CCCCCC;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            color: #5A6E85;
+            line-height: 1.55;
         ">
-            <b style="color: #FFFFFF;">Why:</b> {reason}
+            <b style="color: #1F344C;">Why:</b> {reason}
         </div>
     </div>
     """

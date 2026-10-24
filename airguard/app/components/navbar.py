@@ -162,7 +162,7 @@ def render_global_navbar(page_title: str = "") -> str:
 
     current_idx = cities_keys.index(current_city) if current_city in cities_keys else 0
 
-    col_label, col_select, col_quick, col_mode = st.columns([1.1, 2.0, 1.8, 1.3])
+    col_label, col_select, col_quick, col_intro, col_mode = st.columns([1.0, 1.8, 1.6, 0.9, 0.9])
 
     with col_label:
         st.markdown(
@@ -214,6 +214,14 @@ def render_global_navbar(page_title: str = "") -> str:
             on_change=_handle_quick_search,
             label_visibility="collapsed"
         )
+
+    with col_intro:
+        if page_title == "Platform Intro":
+            if st.button("🏠 Home", key="nav_home_btn", help="Return to Main Dashboard", use_container_width=True):
+                st.switch_page("Home.py")
+        else:
+            if st.button("🌟 Tour", key="nav_tour_btn", help="Explore Platform Architecture & Intro Tour", use_container_width=True):
+                st.switch_page("pages/0_Platform_Intro.py")
 
     with col_mode:
         target_mode = TECHNICAL_MODE if current_mode == SIMPLE_MODE else SIMPLE_MODE

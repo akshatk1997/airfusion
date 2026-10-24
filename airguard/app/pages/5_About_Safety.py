@@ -73,13 +73,13 @@ with tb_col2:
 # Prominent Medical Disclaimer Banner
 safe_markdown(
     """
-    <div class="ag-card" style="border: 1px solid #D71921; background: rgba(215, 25, 33, 0.05); padding: var(--space-4); margin-bottom: var(--space-4);">
+    <div class="ag-card" style="border: 1px solid #FCA5A5; background: #FEF2F2; border-radius: 12px; padding: var(--space-4); margin-bottom: var(--space-4);">
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-            <span style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #D71921;">
+            <span style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800; color: #DC2626; text-transform: uppercase; letter-spacing: 0.05em;">
                 ⚠️ GENERAL ENVIRONMENTAL SAFETY DISCLAIMER
             </span>
         </div>
-        <div style="font-family: var(--font-sans); font-size: 0.86rem; color: #E5E5E5; line-height: 1.6;">
+        <div style="font-family: var(--font-sans); font-size: 0.86rem; color: #991B1B; line-height: 1.6;">
             <strong>This app provides general environmental safety guidance. It does not provide medical diagnosis or treatment.</strong><br>
             All recommendations, risk scores, safe outdoor windows, and precautions are generated based on mathematical models and ambient environmental observations. If you suffer from asthma, COPD, cardiovascular conditions, or other medical sensitivities, always prioritize your licensed physician's guidance and carry prescribed reliever medication as instructed.
         </div>
@@ -102,51 +102,51 @@ with tab_cohorts:
     safe_markdown(
         """
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
-            <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 22px 24px;">
+            <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 22px 24px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF;">Asthma & Respiratory Allergies</span>
-                    <span class="ag-badge ag-badge-caution" style="color: #F87171; border-color: rgba(239, 68, 68, 0.35); background: rgba(239, 68, 68, 0.1);">HIGH SENSITIVITY</span>
+                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C;">Asthma & Respiratory Allergies</span>
+                    <span class="ag-badge ag-badge-caution" style="color: #DC2626; border-color: rgba(220, 38, 38, 0.35); background: rgba(220, 38, 38, 0.1);">HIGH SENSITIVITY</span>
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.6;">
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                     Fine particulates (PM₂.₅) penetrate deep into the bronchial tree, triggering hyper-responsiveness, bronchospasm, and acute flare-ups.
                     <br><br>
-                    <strong style="color: #CBD5E1;">Guidance:</strong> Keep outdoor exertion under 30 minutes when PM₂.₅ exceeds 35 µg/m³. Always carry prescribed rescue inhalers. Wear a sealed N95/KN95 mask if outdoor transit is unavoidable.
+                    <strong style="color: #1F344C;">Guidance:</strong> Keep outdoor exertion under 30 minutes when PM₂.₅ exceeds 35 µg/m³. Always carry prescribed rescue inhalers. Wear a sealed N95/KN95 mask if outdoor transit is unavoidable.
                 </div>
             </div>
 
-            <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 22px 24px;">
+            <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 22px 24px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF;">Children & Young Dependents</span>
-                    <span class="ag-badge ag-badge-moderate" style="color: #FBBF24; border-color: rgba(245, 158, 11, 0.35); background: rgba(245, 158, 11, 0.1);">DEVELOPING LUNGS</span>
+                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C;">Children & Young Dependents</span>
+                    <span class="ag-badge ag-badge-moderate" style="color: #D97706; border-color: rgba(217, 119, 6, 0.35); background: rgba(217, 119, 6, 0.1);">DEVELOPING LUNGS</span>
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.6;">
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                     Children breathe 50% more air per pound of body weight than adults and have narrower airways and developing immune defense systems.
                     <br><br>
-                    <strong style="color: #CBD5E1;">Guidance:</strong> Relocate school recess and sports indoors when AQI exceeds 100. Choose early morning safe windows (06:00–08:00) before photochemical smog develops.
+                    <strong style="color: #1F344C;">Guidance:</strong> Relocate school recess and sports indoors when AQI exceeds 100. Choose early morning safe windows (06:00–08:00) before photochemical smog develops.
                 </div>
             </div>
 
-            <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 22px 24px;">
+            <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 22px 24px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF;">Senior Citizens (65+)</span>
-                    <span class="ag-badge ag-badge-moderate" style="color: #FBBF24; border-color: rgba(245, 158, 11, 0.35); background: rgba(245, 158, 11, 0.1);">VULNERABLE</span>
+                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C;">Senior Citizens (65+)</span>
+                    <span class="ag-badge ag-badge-moderate" style="color: #D97706; border-color: rgba(217, 119, 6, 0.35); background: rgba(217, 119, 6, 0.1);">VULNERABLE</span>
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.6;">
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                     Elevated particulate exposure triggers systemic vascular inflammation, arterial stiffness, and increases ischemic cardiac events.
                     <br><br>
-                    <strong style="color: #CBD5E1;">Guidance:</strong> Prefer gentle indoor walking during high-pollution episodes. Avoid morning traffic corridors where diesel soot (elemental carbon) is concentrated.
+                    <strong style="color: #1F344C;">Guidance:</strong> Prefer gentle indoor walking during high-pollution episodes. Avoid morning traffic corridors where diesel soot (elemental carbon) is concentrated.
                 </div>
             </div>
 
-            <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 22px 24px;">
+            <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 22px 24px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #FFFFFF;">Athletes & Outdoor Runners</span>
+                    <span style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C;">Athletes & Outdoor Runners</span>
                     <span class="ag-badge ag-badge-neutral">HIGH VENTILATION</span>
                 </div>
-                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.6;">
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                     During vigorous running or cycling, minute ventilation surges from 6 L/min to over 60 L/min, shifting breathing from nasal filtration to mouth breathing.
                     <br><br>
-                    <strong style="color: #CBD5E1;">Guidance:</strong> Check the Safe Outdoor Window Finder before training. Avoid evening rush hour (17:00–21:00) when inversion layers trap vehicle emissions.
+                    <strong style="color: #1F344C;">Guidance:</strong> Check the Safe Outdoor Window Finder before training. Avoid evening rush hour (17:00–21:00) when inversion layers trap vehicle emissions.
                 </div>
             </div>
         </div>
@@ -160,39 +160,39 @@ with tab_masks:
     safe_markdown(
         """
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
-            <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 22px 24px;">
-                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 22px 24px;">
+                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                     N95 / KN95 / FFP2 Respirators
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #34D399; margin-bottom: 12px;">RECOMMENDED STANDARD (≥95% FILTRATION)</div>
-                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.6;">
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #059669; margin-bottom: 12px;">RECOMMENDED STANDARD (≥95% FILTRATION)</div>
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                     Electrostatic meltblown filter layers capture sub-micron particles down to 0.1 µm. Requires a tight facial seal without air leaks around the bridge of the nose.
                     <br><br>
-                    <strong style="color: #CBD5E1;">Best for:</strong> Commuting, walking, or essential outdoor presence when PM₂.₅ > 55 µg/m³.
+                    <strong style="color: #1F344C;">Best for:</strong> Commuting, walking, or essential outdoor presence when PM₂.₅ > 55 µg/m³.
                 </div>
             </div>
 
-            <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 22px 24px;">
-                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 22px 24px;">
+                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                     Surgical 3-Ply Masks
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #FBBF24; margin-bottom: 12px;">PARTIAL BENEFIT (30–50% LEAKAGE)</div>
-                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.6;">
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #D97706; margin-bottom: 12px;">PARTIAL BENEFIT (30–50% LEAKAGE)</div>
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                     Captures large respiratory droplets and coarse dust (PM₁₀), but loose perimeter gaps permit ambient PM₂.₅ aerosols to bypass the filter media entirely.
                     <br><br>
-                    <strong style="color: #CBD5E1;">Best for:</strong> Emergency barrier only when certified respirators are unavailable.
+                    <strong style="color: #1F344C;">Best for:</strong> Emergency barrier only when certified respirators are unavailable.
                 </div>
             </div>
 
-            <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 22px 24px;">
-                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">
+            <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 22px 24px;">
+                <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
                     Cloth Bandanas & Fabric Covers
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #F87171; margin-bottom: 12px;">INEFFECTIVE AGAINST PM₂.₅ (&lt;15% EFFICIENCY)</div>
-                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #94A3B8; line-height: 1.6;">
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #DC2626; margin-bottom: 12px;">INEFFECTIVE AGAINST PM₂.₅ (&lt;15% EFFICIENCY)</div>
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                     Woven cotton weaves have pore sizes exceeding 50–200 µm, offering zero physical resistance against combustion particles and hazardous toxic chemicals.
                     <br><br>
-                    <strong style="color: #CBD5E1;">Notice:</strong> Do not rely on fabric masks during severe pollution or smog events.
+                    <strong style="color: #1F344C;">Notice:</strong> Do not rely on fabric masks during severe pollution or smog events.
                 </div>
             </div>
         </div>
@@ -205,25 +205,25 @@ with tab_indoor:
 
     safe_markdown(
         """
-        <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 24px 28px;">
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 14px;">
+        <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 24px 28px;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;">
                 Indoor Clean Air Sanctuary Checklist
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; font-family: var(--font-sans); font-size: 0.85rem; color: #94A3B8; line-height: 1.6;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                 <div>
-                    <strong style="color: #FFFFFF;">1. True HEPA Air Purification:</strong><br>
+                    <strong style="color: #1F344C;">1. True HEPA Air Purification:</strong><br>
                     Operate a mechanical H13/H14 HEPA purifier in the bedroom and living spaces. Ensure the Clean Air Delivery Rate (CADR) matches the room volume with 4 to 5 air changes per hour (ACH).
                 </div>
                 <div>
-                    <strong style="color: #FFFFFF;">2. Window & Door Sealing:</strong><br>
+                    <strong style="color: #1F344C;">2. Window & Door Sealing:</strong><br>
                     Keep exterior windows tightly shut during morning and evening stagnation inversions (07:00–10:00 and 18:00–22:00). Use rubber weather stripping on frame gaps.
                 </div>
                 <div>
-                    <strong style="color: #FFFFFF;">3. HVAC Recirculation Mode:</strong><br>
+                    <strong style="color: #1F344C;">3. HVAC Recirculation Mode:</strong><br>
                     In vehicles and buildings equipped with central air conditioning, ensure the system is set to internal recirculation mode to prevent drawing contaminated street air inside.
                 </div>
                 <div>
-                    <strong style="color: #FFFFFF;">4. Eliminate Indoor Combustion:</strong><br>
+                    <strong style="color: #1F344C;">4. Eliminate Indoor Combustion:</strong><br>
                     Avoid burning incense, mosquito coils, candles, or indoor fireplaces during high AQI days. Use kitchen exhaust hoods during cooking to prevent fine oil mist accumulation.
                 </div>
             </div>
@@ -237,19 +237,19 @@ with tab_arch:
 
     safe_markdown(
         """
-        <div class="ag-card" style="border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); padding: 24px 28px;">
-            <div style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;">
+        <div class="ag-card" style="border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); padding: 24px 28px;">
+            <div style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; color: #1F344C; margin-bottom: 12px;">
                 Open Environmental Tech Architecture
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #94A3B8; line-height: 1.7;">
+            <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; line-height: 1.7;">
                 <p>
                     AirGuard is an autonomous, open environmental intelligence platform built with Python 3.10+, Streamlit, Scikit-learn, XGBoost, and SQLite.
                 </p>
-                <ul>
-                    <li><strong>Live Air Quality & Weather Ingestion:</strong> Ingests continuous boundary layer meteorology and atmospheric particulate concentrations via the free, open-access <strong>Open-Meteo Air Quality & Weather APIs</strong>.</li>
-                    <li><strong>Autoregressive ML Forecaster:</strong> Sequential lag feature engineering (1h–24h) and rolling statistics (3h–24h) powering an XGBoost champion regressor with expanding confidence bands.</li>
-                    <li><strong>Transparent Risk Engine:</strong> Multi-factor composite weighting that factors health sensitivity, age vulnerability, outdoor activity intensity, and continuous exposure duration.</li>
-                    <li><strong>Local Privacy-Preserving Storage:</strong> SQLite Write-Ahead Logging (WAL) stores historical telemetry and user health profiles locally without transmitting sensitive personal records to third-party servers.</li>
+                <ul style="color: #5A6E85;">
+                    <li><strong style="color: #1F344C;">Live Air Quality & Weather Ingestion:</strong> Ingests continuous boundary layer meteorology and atmospheric particulate concentrations via the free, open-access <strong>Open-Meteo Air Quality & Weather APIs</strong>.</li>
+                    <li><strong style="color: #1F344C;">Autoregressive ML Forecaster:</strong> Sequential lag feature engineering (1h–24h) and rolling statistics (3h–24h) powering an XGBoost champion regressor with expanding confidence bands.</li>
+                    <li><strong style="color: #1F344C;">Transparent Risk Engine:</strong> Multi-factor composite weighting that factors health sensitivity, age vulnerability, outdoor activity intensity, and continuous exposure duration.</li>
+                    <li><strong style="color: #1F344C;">Local Privacy-Preserving Storage:</strong> SQLite Write-Ahead Logging (WAL) stores historical telemetry and user health profiles locally without transmitting sensitive personal records to third-party servers.</li>
                 </ul>
             </div>
         </div>

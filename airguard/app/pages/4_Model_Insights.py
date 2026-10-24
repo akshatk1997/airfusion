@@ -231,22 +231,22 @@ with tab_xai:
         with exp_col:
             safe_markdown(
                 """
-                <div class="ag-card" style="padding: 22px 24px; border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); height: 100%;">
+                <div class="ag-card" style="padding: 22px 24px; border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); height: 100%;">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-                        <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #FFFFFF;">Key Predictive Drivers</span>
+                        <span style="font-family: var(--font-heading); font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #1F344C;">Key Predictive Drivers</span>
                         <span class="ag-badge ag-badge-neutral" style="font-size: 0.65rem; padding: 2px 8px;">ATTRIBUTIONS</span>
                     </div>
-                    <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #CCCCCC; line-height: 1.6;">
+                    <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; line-height: 1.6;">
                         <div style="margin-bottom: var(--space-3);">
-                            <strong style="color: #FFFFFF;">1. Autoregressive Inertia:</strong><br>
+                            <strong style="color: #1F344C;">1. Autoregressive Inertia:</strong><br>
                             PM₂.₅ 1-hour and 24-hour lags carry the highest predictive mass (~40%+), reflecting atmospheric particulate persistence and diurnal memory.
                         </div>
                         <div style="margin-bottom: var(--space-3);">
-                            <strong style="color: #FFFFFF;">2. Stagnation & Boundary Height:</strong><br>
+                            <strong style="color: #1F344C;">2. Stagnation & Boundary Height:</strong><br>
                             Wind speed and ventilation index exert strong negative attribution weights; lower wind speeds trap aerosols in the surface layer.
                         </div>
                         <div>
-                            <strong style="color: #FFFFFF;">3. Precursor Combustion Signals:</strong><br>
+                            <strong style="color: #1F344C;">3. Precursor Combustion Signals:</strong><br>
                             NO₂ and PM₁₀ signals capture anthropogenic vehicular traffic pulses during early morning rush hours.
                         </div>
                     </div>
@@ -259,19 +259,19 @@ with tab_methodology:
     st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
     safe_markdown(
         """
-        <div class="ag-card" style="padding: 24px 28px; border: 1px solid var(--ag-border); border-top: 1px solid var(--ag-border-light); background: var(--ag-surface); border-radius: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);">
-            <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;">
+        <div class="ag-card" style="padding: 24px 28px; border: 1px solid #EBE6DF; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05);">
+            <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: #1F344C; margin-bottom: 12px;">
                 Strict Chronological Splitting & Leakage Prevention
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #AAAAAA; line-height: 1.7;">
+            <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; line-height: 1.7;">
                 <p>
                     Standard k-fold cross-validation or random train/test shuffling causes disastrous future-to-past data leakage in time-series forecasting.
                     AirGuard enforces strict chronological partitioning across all candidate model evaluations:
                 </p>
-                <ul>
-                    <li><strong>Training Partition (First 70%):</strong> Historical baseline used exclusively to fit regressors and scalers.</li>
-                    <li><strong>Validation Partition (Middle 15%):</strong> Used strictly for candidate hyperparameter tuning and champion model selection.</li>
-                    <li><strong>Holdout Test Partition (Final 15%):</strong> Strictly untouched until final reporting to verify generalization on unseen future days.</li>
+                <ul style="color: #5A6E85;">
+                    <li><strong style="color: #1F344C;">Training Partition (First 70%):</strong> Historical baseline used exclusively to fit regressors and scalers.</li>
+                    <li><strong style="color: #1F344C;">Validation Partition (Middle 15%):</strong> Used strictly for candidate hyperparameter tuning and champion model selection.</li>
+                    <li><strong style="color: #1F344C;">Holdout Test Partition (Final 15%):</strong> Strictly untouched until final reporting to verify generalization on unseen future days.</li>
                 </ul>
                 <p>
                     All rolling averages and lag features are calculated sequentially without any lookahead windows. Scaler fits are learned strictly on training partitions and applied downstream.

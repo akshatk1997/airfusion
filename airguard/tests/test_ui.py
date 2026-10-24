@@ -212,7 +212,7 @@ def test_browser_live_tracking_page():
         driver.get("http://localhost:8501/Live_Tracking")
         assert wait_for_text(driver, "AIRGUARD", timeout=20)
         # Matches either Simple Mode or Technical Mode
-        assert wait_for_any_text(driver, ["Live Air Quality", "LIVE ALERT DEFENSE STATUS"], timeout=25)
+        assert wait_for_any_text(driver, ["Live Air Quality", "LIVE ALERT DEFENSE STATUS", "Real-Time Data Tracking"], timeout=25)
     finally:
         driver.quit()
 

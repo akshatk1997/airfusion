@@ -445,3 +445,135 @@ def create_city_grouped_benchmark_chart(df_comp: pd.DataFrame) -> go.Figure:
     )
     return apply_chart_theme(fig)
 
+
+def create_temporal_continuum_chart(
+    history_df: pd.DataFrame,
+    forecast_df: pd.DataFrame,
+    current_val: float,
+    current_time: Any,
+    city_name: str = "",
+    metric: str = "pm2_5",
+    metric_label: str = "PM₂.₅ (µg/m³)",
+    threshold: Optional[float] = 15.0
+) -> go.Figure:
+    """
+    Renders the unified chronological continuum chart:
+    - Past Observed History (T_-48h to T_0) in solid technical cyan
+    - Current On-Time Real-Time Marker (T_0) with vertical anchor line
+    - Future Predictive Forecast (T_0 to T_+48h) in coral with 90% confidence envelope
+    - WHO reference guideline (15 µg/m³) benchmark line
+    """
+    fig = go.Figure()
+
+    # 1. 90% Confidence Interval Ribbon for Forecast
+    if "upper_ci" in forecast_df.columns and "lower_ci" in forecast_df.columns and metric == "pm2_5":
+        fc_times = forecast_df["ts_dt"] if "ts_dt" in forecast_df.columns else pd.to_datetime(forecast_df["target_time"])
+        fig.add_trace(go.Scatter(
+            x=fc_times,
+            y=forecast_df["upper_ci"],
+            mode="lines",
+            line=dict(width=0),
+            showlegend=False,
+            hoverinfo="skip"
+        ))
+        fig.add_trace(go.Scatter(
+            x=fc_times,
+            y=forecast_df["lower_ci"],
+            mode="lines",
+            line=dict(width=0),
+            fill="tonexty",
+            fillcolor="rgba(255, 104, 69, 0.12)",
+            name="90% Confidence Band",
+            hoverinfo="skip"
+        ))
+
+    # 2. Past Observed History Line
+    if not history_df.empty and metric in history_df.columns:
+        hist_times = history_df["timestamp"] if "timestamp" in history_df.columns else history_df.index
+        fig.add_trace(go.Scatter(
+            x=hist_times,
+            y=history_df[metric],
+            mode="lines+markers",
+            name="Observed History",
+            line=dict(color="#0284C7", width=2.5),
+            marker=dict(size=4, color="#0284C7"),
+            hovertemplate="<b>Past Observed</b><br>Time: %{x|%b %d, %I:%M %p}<br>" + f"{metric_label}: " + "<b>%{y:.1f}</b><extra></extra>"
+        ))
+
+    # 3. Future Predicted Model Forecast Line
+    if not forecast_df.empty:
+        fc_times = forecast_df["ts_dt"] if "ts_dt" in forecast_df.columns else pd.to_datetime(forecast_df["target_time"])
+        fc_y = forecast_df["predicted_pm2_5"] if metric == "pm2_5" and "predicted_pm2_5" in forecast_df.columns else (
+            forecast_df["predicted_aqi"] if metric == "aqi" and "predicted_aqi" in forecast_df.columns else forecast_df.iloc[:, 1]
+        )
+        fig.add_trace(go.Scatter(
+            x=fc_times,
+            y=fc_y,
+            mode="lines+markers",
+            name="Predicted Forecast",
+            line=dict(color="#FF6845", width=2.5, dash="dash"),
+            marker=dict(size=4, color="#FF6845"),
+            hovertemplate="<b>ML Prediction</b><br>Time: %{x|%b %d, %I:%M %p}<br>" + f"{metric_label}: " + "<b>%{y:.1f}</b><extra></extra>"
+        ))
+
+    # 4. Highlighted 'NOW' Real-Time On-Time Observation Anchor
+    if current_time is not None:
+        c_time_dt = pd.to_datetime(current_time).tz_localize(None) if hasattr(pd.to_datetime(current_time), "tz") and pd.to_datetime(current_time).tz else pd.to_datetime(current_time)
+        fig.add_trace(go.Scatter(
+            x=[c_time_dt],
+            y=[current_val],
+            mode="markers",
+            name="Live On-Time (Now)",
+            marker=dict(size=13, color="#FF6845", symbol="diamond", line=dict(width=2.5, color="#FFFFFF")),
+            hovertemplate="<b>ON-TIME OBSERVATION (NOW)</b><br>Time: %{x|%b %d, %I:%M %p}<br>" + f"{metric_label}: " + "<b>%{y:.1f}</b><extra></extra>"
+        ))
+
+        # Vertical marker line for T_0 (NOW)
+        fig.add_vline(
+            x=c_time_dt,
+            line_width=1.5,
+            line_dash="dot",
+            line_color="#FF6845",
+            annotation_text="<b>NOW (Actual Time)</b>",
+            annotation_position="top left",
+            annotation_font=dict(family="JetBrains Mono", size=10, color="#FF6845")
+        )
+
+    # 5. WHO 24h Guideline Reference Line
+    if threshold is not None and metric == "pm2_5":
+        fig.add_hline(
+            y=threshold,
+            line_width=1.5,
+            line_dash="dash",
+            line_color="#10B981",
+            annotation_text=f"WHO Guideline ({threshold:.0f} µg/m³)",
+            annotation_position="bottom right",
+            annotation_font=dict(family="JetBrains Mono", size=10, color="#059669")
+        )
+
+    title_text = f"<b>Chronological Atmospheric Continuum: History ➔ Live ➔ Predictions ({city_name})</b>" if city_name else "<b>Chronological Atmospheric Continuum: History ➔ Live ➔ Predictions</b>"
+
+    fig.update_layout(
+        title=dict(text=title_text, font=dict(family="Plus Jakarta Sans", size=15, color="#1F344C")),
+        xaxis=dict(
+            title="",
+            hoverformat="%b %d, %I:%M %p",
+            rangeslider=dict(visible=False)
+        ),
+        yaxis=dict(
+            title=dict(text=metric_label, font=dict(family="Plus Jakarta Sans", size=12, color="#5A6E85"))
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.04,
+            xanchor="right",
+            x=1,
+            font=dict(family="Plus Jakarta Sans", size=11, color="#1F344C")
+        ),
+        margin=dict(l=45, r=30, t=60, b=40),
+        hovermode="x unified"
+    )
+
+    return apply_chart_theme(fig)
+

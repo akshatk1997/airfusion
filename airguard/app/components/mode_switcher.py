@@ -62,7 +62,6 @@ def set_view_mode(mode: str) -> None:
     if mode in MODE_OPTIONS:
         prev = st.session_state.get("view_mode")
         st.session_state["view_mode"] = mode
-        st.session_state["global_view_mode_selector"] = mode
         if prev != mode:
             st.session_state["_mode_switched_notice"] = CONFIRMATION_MESSAGES.get(mode)
             st.session_state["_prev_view_mode"] = mode
@@ -98,6 +97,11 @@ def render_mode_switcher(location: str = "sidebar") -> str:
             )
 
             idx = MODE_OPTIONS.index(current_mode) if current_mode in MODE_OPTIONS else 0
+            if st.session_state.get("global_view_mode_selector") != current_mode:
+                try:
+                    st.session_state["global_view_mode_selector"] = current_mode
+                except Exception:
+                    pass
             selected = st.radio(
                 "View mode",
                 options=MODE_OPTIONS,

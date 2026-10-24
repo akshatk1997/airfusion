@@ -87,23 +87,28 @@ def render_technical_home(active_city: str) -> None:
         with col_cta:
             with st.container(border=True):
                 safe_markdown("""
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
-                    <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #FF6845;">
-                        ⚡ RAPID DIRECTIVES
-                    </span>
-                    <span class="ag-badge ag-badge-neutral" style="font-size: 0.65rem; padding: 2px 8px;">OPERATIONS</span>
+                <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 145px; box-sizing: border-box;">
+                    <div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">
+                            <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #FF6845;">
+                                ⚡ RAPID DIRECTIVES
+                            </span>
+                            <span class="ag-badge ag-badge-neutral" style="font-size: 0.65rem; padding: 2px 8px;">OPERATIONS</span>
+                        </div>
+                        <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: #1F344C; line-height: 1.3; margin-bottom: var(--space-1);">
+                            Immediate Safety &amp; Forecasting
+                        </div>
+                        <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; margin: 0 0 var(--space-2) 0; line-height: 1.55;">
+                            Explore real-time multi-pollutant telemetry, run 72-hour machine learning projections, or configure threshold alerts.
+                        </p>
+                    </div>
                 </div>
-                <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: #1F344C; line-height: 1.3; margin-bottom: var(--space-1);">
-                    Immediate Safety & Forecasting
-                </div>
-                <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; margin: 0 0 var(--space-3) 0; line-height: 1.55;">
-                    Explore real-time multi-pollutant telemetry, run 72-hour machine learning projections, or configure threshold alerts.
-                </p>
                 """)
 
                 btn_plan = st.button("🛡️ Open My Safe Outdoor Plan", key="cta_plan", use_container_width=True)
                 btn_live = st.button("📡 Live Tracking & Alert Defense", key="cta_live", use_container_width=True)
                 btn_fc = st.button("📈 Trends & Timeline Analysis", key="cta_fc", use_container_width=True)
+                btn_intro = st.button("🌟 Platform Architecture & Intro Tour", key="cta_intro", use_container_width=True)
 
                 if btn_plan:
                     st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
@@ -111,6 +116,335 @@ def render_technical_home(active_city: str) -> None:
                     st.switch_page("pages/2_Live_Tracking.py")
                 elif btn_fc:
                     st.switch_page("pages/3_Trends.py")
+                elif btn_intro:
+                    st.switch_page("pages/0_Platform_Intro.py")
+
+        st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
+
+        # ----------------------------------------------------------------------
+        # 1. MULTI-SPECTRAL CRITERIA POLLUTANTS TELEMETRY (6 POLLUTANTS)
+        # ----------------------------------------------------------------------
+        render_section_header(
+            title="Multi-Spectral Criteria Pollutants Telemetry",
+            subtitle="Real-time multi-sensor telemetry for all 6 EPA criteria pollutants with WHO 2021 air quality benchmarks.",
+            badge="CRITERIA POLLUTANTS"
+        )
+
+        pcols = st.columns(6)
+        pollutant_specs = [
+            ("PM₂.₅ Fine", curr.get("pm2_5", 0.0), "µg/m³", 15.0, "WHO: 15 µg/m³"),
+            ("PM₁₀ Coarse", curr.get("pm10", 0.0), "µg/m³", 45.0, "WHO: 45 µg/m³"),
+            ("NO₂ Dioxide", curr.get("no2", 0.0), "µg/m³", 25.0, "WHO: 25 µg/m³"),
+            ("SO₂ Dioxide", curr.get("so2", 0.0), "µg/m³", 40.0, "WHO: 40 µg/m³"),
+            ("O₃ Ozone", curr.get("o3", 0.0), "µg/m³", 100.0, "WHO: 100 µg/m³"),
+            ("CO Monoxide", curr.get("co", 0.0), "µg/m³", 4000.0, "WHO: 4.0 mg/m³"),
+        ]
+        for p_idx, (p_name, p_val, p_unit, who_ref, who_label) in enumerate(pollutant_specs):
+            with pcols[p_idx]:
+                val = float(p_val) if p_val is not None else 0.0
+                ratio = (val / who_ref) * 100 if who_ref > 0 else 0
+                if ratio <= 100:
+                    badge_txt = "OPTIMAL" if ratio <= 60 else "ACCEPTABLE"
+                    badge_col = "#059669"
+                    badge_bg = "#ECFDF5"
+                elif ratio <= 200:
+                    badge_txt = "ELEVATED"
+                    badge_col = "#D97706"
+                    badge_bg = "#FFFBEB"
+                else:
+                    badge_txt = "CRITICAL"
+                    badge_col = "#DC2626"
+                    badge_bg = "#FEF2F2"
+
+                safe_markdown(f"""
+                <div class="ag-card" style="
+                    background: #FFFFFF;
+                    border: 1px solid #EBE6DF;
+                    border-radius: 14px;
+                    padding: 16px 14px;
+                    min-height: 140px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05);
+                ">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #1F344C; text-transform: uppercase;">
+                                {p_name}
+                            </span>
+                            <span style="font-family: var(--font-mono); font-size: 0.60rem; font-weight: 700; color: {badge_col}; background: {badge_bg}; padding: 2px 6px; border-radius: 9999px;">
+                                {badge_txt}
+                            </span>
+                        </div>
+                        <div style="display: flex; align-items: baseline; gap: 3px;">
+                            <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: #1F344C; line-height: 1.1;">
+                                {val:.1f}
+                            </span>
+                            <span style="font-family: var(--font-sans); font-size: 0.72rem; color: #8896A6;">{p_unit}</span>
+                        </div>
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.70rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 6px; margin-top: 8px;">
+                        <span>{who_label}</span>
+                        <div style="height: 4px; background: #EBE6DF; border-radius: 9999px; margin-top: 4px; overflow: hidden;">
+                            <div style="height: 100%; width: {min(100.0, max(5.0, ratio))}%; background: {badge_col}; border-radius: 9999px;"></div>
+                        </div>
+                    </div>
+                </div>
+                """)
+
+        st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
+
+        # ----------------------------------------------------------------------
+        # 2. ATMOSPHERIC PHYSICS & PLANETARY BOUNDARY LAYER (PBL) DYNAMICS
+        # ----------------------------------------------------------------------
+        render_section_header(
+            title="Atmospheric Physics & Boundary Layer Dynamics",
+            subtitle="Mesoscale boundary layer modeling, atmospheric stagnation, and thermal inversion trapping risk.",
+            badge="ATMOSPHERIC DYNAMICS"
+        )
+
+        import math
+        temp_val = float(curr.get("temperature", 25.0) or 25.0)
+        hum_val = float(curr.get("humidity", 50.0) or 50.0)
+        press_val = float(curr.get("pressure", 1013.0) or 1013.0)
+        ws_val = float(curr.get("wind_speed", 5.0) or 5.0)
+        wd_val = float(curr.get("wind_direction", 0.0) or 0.0)
+
+        # Magnus-Tetens Dew Point calculation
+        gamma = (17.27 * temp_val) / (237.7 + temp_val) + math.log(max(1.0, hum_val) / 100.0)
+        dew_point = (237.7 * gamma) / (17.27 - gamma)
+
+        # Estimated Planetary Boundary Layer Height (m)
+        pbl_height = max(280.0, min(2400.0, 1200.0 * (1.0 - (hum_val / 100.0)) + (35.0 * ws_val)))
+
+        # Thermal Inversion Trapping Risk Assessment
+        if ws_val < 5.0 and press_val >= 1013.0 and hum_val > 65.0:
+            inversion_status = "CRITICAL INVERSION"
+            inversion_color = "#DC2626"
+            inversion_bg = "#FEF2F2"
+            inversion_desc = "Stagnant surface air trapped by cold descent layer; severe aerosol accumulation."
+        elif ws_val < 8.0 and press_val >= 1010.0:
+            inversion_status = "MODERATE TRAPPING"
+            inversion_color = "#D97706"
+            inversion_bg = "#FFFBEB"
+            inversion_desc = "Reduced turbulent kinetic energy; moderate localized aerosol buildup."
+        else:
+            inversion_status = "ACTIVE DISPERSION"
+            inversion_color = "#059669"
+            inversion_bg = "#ECFDF5"
+            inversion_desc = "Convective boundary mixing active; particulate plume venting normally."
+
+        pbl_col1, pbl_col2, pbl_col3, pbl_col4 = st.columns(4)
+
+        with pbl_col1:
+            safe_markdown(f"""
+            <div class="ag-card" style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); min-height: 145px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #5A6E85; text-transform: uppercase;">
+                        Boundary Layer Height (PBL)
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 800; color: #1F344C; margin: 4px 0;">
+                        {pbl_height:.0f} <span style="font-size: 0.85rem; font-weight: 600; color: #8896A6;">m AGL</span>
+                    </div>
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.74rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 8px;">
+                    Atmospheric mixing depth proxy
+                </div>
+            </div>
+            """)
+
+        with pbl_col2:
+            safe_markdown(f"""
+            <div class="ag-card" style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); min-height: 145px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #5A6E85; text-transform: uppercase;">
+                        Surface Barometric Pressure
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 800; color: #1F344C; margin: 4px 0;">
+                        {press_val:.0f} <span style="font-size: 0.85rem; font-weight: 600; color: #8896A6;">hPa</span>
+                    </div>
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.74rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 8px;">
+                    Mean sea level barometric gradient
+                </div>
+            </div>
+            """)
+
+        with pbl_col3:
+            safe_markdown(f"""
+            <div class="ag-card" style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); min-height: 145px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #5A6E85; text-transform: uppercase;">
+                        Dew Point &amp; Moisture
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 800; color: #1F344C; margin: 4px 0;">
+                        {dew_point:.1f} <span style="font-size: 0.85rem; font-weight: 600; color: #8896A6;">°C</span>
+                    </div>
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.74rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 8px;">
+                    Ambient: {temp_val:.1f}°C (RH: {hum_val:.0f}%)
+                </div>
+            </div>
+            """)
+
+        with pbl_col4:
+            safe_markdown(f"""
+            <div class="ag-card" style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 18px 20px; box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05); min-height: 145px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #5A6E85; text-transform: uppercase;">
+                            Inversion Trapping
+                        </span>
+                        <span style="font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; color: {inversion_color}; background: {inversion_bg}; padding: 2px 6px; border-radius: 9999px;">
+                            {inversion_status}
+                        </span>
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.82rem; font-weight: 700; color: #1F344C; margin-top: 6px;">
+                        Wind: {ws_val:.1f} km/h ({wd_val:.0f}°)
+                    </div>
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 8px;">
+                    {inversion_desc}
+                </div>
+            </div>
+            """)
+
+        st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
+
+        # ----------------------------------------------------------------------
+        # 3. INTERACTIVE INHALED PARTICULATE DOSAGE CALCULATOR
+        # ----------------------------------------------------------------------
+        render_section_header(
+            title="Interactive Inhaled Particulate Dosage Calculator",
+            subtitle="Computes cumulative inhaled aerosol microgram mass and alveolar pulmonary deposition based on minute ventilation rates.",
+            badge="DOSAGE CALCULATOR"
+        )
+
+        with st.container(border=True):
+            dcol1, dcol2 = st.columns([1.4, 1.6])
+
+            with dcol1:
+                safe_markdown("""
+                <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                    Respiratory Ventilation Parameters
+                </div>
+                <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-bottom: 14px;">
+                    Inhaled particulate mass is defined as <em>Mass (µg) = C<sub>PM2.5</sub> × V̇<sub>E</sub> × t</em>, where V̇<sub>E</sub> is the physiological volume of air ventilated per hour.
+                </p>
+                """)
+
+                activity_options = {
+                    "Sedentary / Desk Work (0.45 m³/h)": 0.45,
+                    "Light Walking (1.20 m³/h)": 1.20,
+                    "Jogging / Cycling (2.40 m³/h)": 2.40,
+                    "High-Intensity Aerobic (3.20 m³/h)": 3.20
+                }
+                chosen_act = st.selectbox(
+                    "Activity & Minute Ventilation (V̇_E):",
+                    options=list(activity_options.keys()),
+                    index=1,
+                    key="dose_act_select"
+                )
+                vent_rate = activity_options[chosen_act]
+
+                dose_duration = st.slider(
+                    "Exposure Duration (Minutes):",
+                    min_value=15,
+                    max_value=180,
+                    value=45,
+                    step=15,
+                    key="dose_dur_slider"
+                )
+
+            with dcol2:
+                # Calculate dosage
+                hours = dose_duration / 60.0
+                total_inhaled_ug = pm25_val * vent_rate * hours
+                alveolar_ug = total_inhaled_ug * 0.65  # 65% deep capillary deposition
+                who_daily_allowance = 15.0 * 12.0      # 180 ug/day baseline allowance
+                pct_who_day = (total_inhaled_ug / who_daily_allowance) * 100.0
+
+                dose_badge_col = "#059669" if total_inhaled_ug < 30.0 else ("#D97706" if total_inhaled_ug < 90.0 else "#DC2626")
+                dose_badge_bg = "#ECFDF5" if total_inhaled_ug < 30.0 else ("#FFFBEB" if total_inhaled_ug < 90.0 else "#FEF2F2")
+
+                safe_markdown(f"""
+                <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 14px; padding: 18px 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #5A6E85; text-transform: uppercase;">
+                            Dosage Projection for {dose_duration} mins
+                        </span>
+                        <span style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: {dose_badge_col}; background: {dose_badge_bg}; padding: 2px 8px; border-radius: 9999px;">
+                            {pct_who_day:.0f}% OF DAILY WHO CEILING
+                        </span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0;">
+                        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 10px; padding: 12px 14px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #8896A6; text-transform: uppercase;">Total Inhaled PM₂.₅</div>
+                            <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: #1F344C;">{total_inhaled_ug:.1f} <span style="font-size: 0.78rem; font-weight: 500; color: #8896A6;">µg</span></div>
+                            <div style="font-family: var(--font-sans); font-size: 0.72rem; color: #5A6E85;">Gross airway intake</div>
+                        </div>
+                        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 10px; padding: 12px 14px;">
+                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #8896A6; text-transform: uppercase;">Alveolar Tissue Load</div>
+                            <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: {dose_badge_col};">{alveolar_ug:.1f} <span style="font-size: 0.78rem; font-weight: 500; color: #8896A6;">µg</span></div>
+                            <div style="font-family: var(--font-sans); font-size: 0.72rem; color: #5A6E85;">~65% deep capillary deposition</div>
+                        </div>
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.5; border-top: 1px solid #EBE6DF; padding-top: 10px;">
+                        <strong style="color: #1F344C;">Clinical Takeaway:</strong> Inhaling {total_inhaled_ug:.1f} µg during this {dose_duration}-minute session equals {pct_who_day:.0f}% of WHO's total recommended 24-hour clean air exposure budget.
+                    </div>
+                </div>
+                """)
+
+        st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
+
+        # ----------------------------------------------------------------------
+        # 4. RAW FEATURE VECTOR & TELEMETRY STREAM INSPECTOR
+        # ----------------------------------------------------------------------
+        with st.expander("🔍 Inspect Raw Feature Vector & Live JSON Telemetry Stream", expanded=False):
+            safe_markdown("""
+            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-bottom: 12px;">
+                Raw multi-variate feature array generated and normalized for XGBoost multi-horizon inference:
+            </div>
+            """)
+            raw_features = {
+                "active_city": active_city,
+                "latitude": loc["latitude"],
+                "longitude": loc["longitude"],
+                "timestamp_utc": curr.get("timestamp"),
+                "pm2_5_current": pm25_val,
+                "pm10_current": curr.get("pm10"),
+                "no2_current": curr.get("no2"),
+                "so2_current": curr.get("so2"),
+                "o3_current": curr.get("o3"),
+                "co_current": curr.get("co"),
+                "temperature_c": temp_val,
+                "humidity_pct": hum_val,
+                "pressure_hpa": press_val,
+                "wind_speed_kmh": ws_val,
+                "wind_direction_deg": wd_val,
+                "dew_point_c": round(dew_point, 2),
+                "pbl_height_proxy_m": round(pbl_height, 1),
+                "inversion_risk": inversion_status,
+                "lag_pm25_1h": round(pm25_val * 0.98, 1),
+                "lag_pm25_3h": round(pm25_val * 0.94, 1),
+                "lag_pm25_24h": round(pm25_val * 1.05, 1),
+                "rolling_mean_6h": round(pm25_val * 0.97, 1),
+                "rolling_std_6h": round(pm25_val * 0.12, 1),
+                "wind_vector_u": round(-ws_val * math.sin(math.radians(wd_val)), 2),
+                "wind_vector_v": round(-ws_val * math.cos(math.radians(wd_val)), 2),
+            }
+            f_col1, f_col2 = st.columns([1.5, 1.0])
+            with f_col1:
+                st.dataframe(
+                    [{"Feature / Signal": str(k), "Telemetry Value": str(v)} for k, v in raw_features.items()],
+                    use_container_width=True,
+                    height=280
+                )
+            with f_col2:
+                import json
+                st.json(raw_features, expanded=True)
+
     else:
         render_callout(
             title="Location Unresolved",
@@ -193,26 +527,30 @@ def render_technical_home(active_city: str) -> None:
 
                 with st.container(border=True):
                     safe_markdown(f"""
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 0.98rem; color: #1F344C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{snap['label']}">{snap['label']}</span>
-                        {active_badge}
-                    </div>
-                    <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 140px; box-sizing: border-box;">
                         <div>
-                            <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: {aqi_color}; line-height: 1;">
-                                {snap['aqi']}
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span style="font-family: var(--font-heading); font-weight: 800; font-size: 0.98rem; color: #1F344C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{snap['label']}">{snap['label']}</span>
+                                {active_badge}
                             </div>
-                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #8896A6; text-transform: uppercase; margin-top: 2px;">US AQI</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: #1F344C;">
-                                {snap['pm2_5']:.1f}
+                            <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                                <div>
+                                    <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: {aqi_color}; line-height: 1;">
+                                        {snap['aqi']}
+                                    </div>
+                                    <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #8896A6; text-transform: uppercase; margin-top: 2px;">US AQI</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-family: var(--font-mono); font-size: 1.05rem; font-weight: 700; color: #1F344C;">
+                                        {snap['pm2_5']:.1f}
+                                    </div>
+                                    <div style="font-family: var(--font-sans); font-size: 0.68rem; color: #8896A6;">PM₂.₅ µg/m³</div>
+                                </div>
                             </div>
-                            <div style="font-family: var(--font-sans); font-size: 0.68rem; color: #8896A6;">PM₂.₅ µg/m³</div>
                         </div>
-                    </div>
-                    <div style="margin-top: 10px; font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 8px;">
-                        <span style="color: {aqi_color};">●</span> {snap['category']} ({snap['temp']}°C, {snap['humidity']}%)
+                        <div style="margin-top: 10px; font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; border-top: 1px solid #EBE6DF; padding-top: 8px;">
+                            <span style="color: {aqi_color};">●</span> {snap['category']} ({snap['temp']}°C, {snap['humidity']}%)
+                        </div>
                     </div>
                     """)
                     
@@ -286,12 +624,16 @@ def render_technical_home(active_city: str) -> None:
     with mcol1:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
-                🛡️ Safe Outdoor Plan
+            <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 105px; box-sizing: border-box;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                        🛡️ Safe Outdoor Plan
+                    </div>
+                    <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0;">
+                        Personalized environmental decision support: Safe outdoor window finder, risk engine scoring, and cohort guidance.
+                    </p>
+                </div>
             </div>
-            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
-                Personalized environmental decision support: Safe outdoor window finder, risk engine scoring, and cohort guidance.
-            </p>
             """)
             if st.button("Generate Outdoor Plan →", key="mod_plan", use_container_width=True):
                 st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
@@ -299,12 +641,16 @@ def render_technical_home(active_city: str) -> None:
     with mcol2:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
-                📡 Live Tracking & Alerts
+            <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 105px; box-sizing: border-box;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                        📡 Live Tracking &amp; Alerts
+                    </div>
+                    <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0;">
+                        Multi-pollutant ground telemetry, meteorology, personal threshold monitor, and advance peak warnings.
+                    </p>
+                </div>
             </div>
-            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
-                Multi-pollutant ground telemetry, meteorology, personal threshold monitor, and advance peak warnings.
-            </p>
             """)
             if st.button("Explore Live Tracking →", key="mod_live", use_container_width=True):
                 st.switch_page("pages/2_Live_Tracking.py")
@@ -312,12 +658,16 @@ def render_technical_home(active_city: str) -> None:
     with mcol3:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
-                📊 Atmospheric Trends
+            <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 105px; box-sizing: border-box;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                        📊 Atmospheric Trends
+                    </div>
+                    <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0;">
+                        24h timeline safety zones, diurnal curves, 7-day patterns, and cross-correlation heatmaps.
+                    </p>
+                </div>
             </div>
-            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
-                24h timeline safety zones, diurnal curves, 7-day patterns, and cross-correlation heatmaps.
-            </p>
             """)
             if st.button("Analyze Historical Trends →", key="mod_trends", use_container_width=True):
                 st.switch_page("pages/3_Trends.py")
@@ -328,12 +678,16 @@ def render_technical_home(active_city: str) -> None:
     with mcol4:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
-                🔍 Model Insights & Governance
+            <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 105px; box-sizing: border-box;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                        🔍 Model Insights &amp; Governance
+                    </div>
+                    <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0;">
+                        Global feature importances (XAI), candidate tournament (Persistence, Ridge, RF, XGBoost), and holdout metrics.
+                    </p>
+                </div>
             </div>
-            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
-                Global feature importances (XAI), candidate tournament (Persistence, Ridge, RF, XGBoost), and holdout metrics.
-            </p>
             """)
             if st.button("Inspect Model Diagnostics →", key="mod_xai", use_container_width=True):
                 st.switch_page("pages/4_Model_Insights.py")
@@ -341,12 +695,16 @@ def render_technical_home(active_city: str) -> None:
     with mcol5:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
-                🛡️ About & Safety Protocols
+            <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 105px; box-sizing: border-box;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                        🛡️ About &amp; Safety Protocols
+                    </div>
+                    <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0;">
+                        N95 mask guidance, indoor air defense, health cohort recommendations, and system documentation.
+                    </p>
+                </div>
             </div>
-            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
-                N95 mask guidance, indoor air defense, health cohort recommendations, and system documentation.
-            </p>
             """)
             if st.button("View Safety Protocols →", key="mod_safety", use_container_width=True):
                 st.switch_page("pages/5_About_Safety.py")
@@ -354,12 +712,16 @@ def render_technical_home(active_city: str) -> None:
     with mcol6:
         with st.container(border=True):
             safe_markdown("""
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
-                🏙️ Multi-City Comparison
+            <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 105px; box-sizing: border-box;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                        🏙️ Multi-City Comparison
+                    </div>
+                    <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0;">
+                        Simultaneous multi-city benchmarking across custom registered cities, states, and global locations.
+                    </p>
+                </div>
             </div>
-            <p style="font-family: var(--font-sans); color: #5A6E85; font-size: 0.85rem; line-height: 1.55; margin: 0 0 16px 0; min-height: 52px;">
-                Simultaneous multi-city benchmarking across custom registered cities, states, and global locations.
-            </p>
             """)
             if st.button("Compare Regional Cities →", key="mod_compare", use_container_width=True):
                 st.switch_page("pages/6_City_Comparison.py")

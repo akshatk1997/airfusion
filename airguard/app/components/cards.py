@@ -102,6 +102,11 @@ def render_aqi_hero_card(
         border-radius: 20px;
         padding: 28px 32px;
         margin-bottom: 24px;
+        min-height: 295px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
         box-shadow: {theme['glow']}, 0 20px 50px -10px rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
@@ -132,9 +137,9 @@ def render_aqi_hero_card(
                     </span>
                     <span style="color: #64748B; font-size: 0.75rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em;">US EPA Standard</span>
                 </div>
-                <h1 style="margin: 0 0 6px 0; font-family: var(--font-heading); font-size: 2.35rem; font-weight: 800; color: #F8FAFC; letter-spacing: -0.025em; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6); line-height: 1.2;">
+                <div style="margin: 0 0 6px 0; font-family: var(--font-heading); font-size: 2.35rem; font-weight: 800; color: #FFFFFF !important; letter-spacing: -0.025em; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6); line-height: 1.2;">
                     {city}
-                </h1>
+                </div>
                 <p style="margin: 0; font-family: var(--font-mono); font-size: 0.8rem; color: #94A3B8;">
                     Telemetry Verified: <span style="color: #F8FAFC;">{timestamp}</span>
                 </p>
@@ -212,42 +217,41 @@ def render_pollutant_metric_card(
     delta: Optional[str] = None
 ) -> None:
     """
-    Renders standardized pollutant telemetry card with subscript formatting and cinematic depth.
+    Renders standardized pollutant telemetry card with crisp contrast and ensur.ai depth.
     """
     val_str = f"{value:.1f}" if (value is not None and value >= 0) else "--"
-    delta_html = f"<span style='color: #34D399; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; margin-left: 6px;'>{delta}</span>" if delta else ""
+    delta_html = f"<span style='color: #059669; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; margin-left: 6px;'>{delta}</span>" if delta else ""
 
     html = f"""
     <div class="ag-card ag-metric-card" style="
-        background: radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.05), transparent 60%), rgba(17, 24, 39, 0.88);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-top: 1px solid rgba(255, 255, 255, 0.16);
+        background: #FFFFFF;
+        border: 1px solid #EBE6DF;
         border-radius: 14px;
-        padding: 16px 18px;
+        padding: 18px 20px;
         height: 100%;
-        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+        min-height: 125px;
+        box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        box-sizing: border-box;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     ">
         <div>
-            <div style="color: #94A3B8; font-family: var(--font-sans); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
+            <div style="color: #5A6E85; font-family: var(--font-sans); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
                 {label}
             </div>
             <div style="display: flex; align-items: baseline; gap: 4px;">
-                <span style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; color: #F8FAFC; letter-spacing: -0.02em; text-shadow: 0 0 16px rgba(255, 255, 255, 0.15);">
+                <span style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 800; color: #1F344C; letter-spacing: -0.02em;">
                     {val_str}
                 </span>
-                <span style="color: #64748B; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 500;">
+                <span style="color: #8896A6; font-family: var(--font-sans); font-size: 0.8rem; font-weight: 600;">
                     {unit}
                 </span>
                 {delta_html}
             </div>
         </div>
-        <div style="color: #64748B; font-family: var(--font-mono); font-size: 0.74rem; margin-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 6px;">
+        <div style="color: #5A6E85; font-family: var(--font-mono); font-size: 0.74rem; margin-top: 8px; border-top: 1px solid #EBE6DF; padding-top: 8px;">
             {subtext}
         </div>
     </div>
@@ -262,45 +266,41 @@ def render_weather_metric_card(
     icon: str = "🌤️"
 ) -> None:
     """
-    Renders meteorological telemetry card with cinematic glass and icon aura.
+    Renders meteorological telemetry card with clean ensur.ai style and clear contrast.
     """
     val_str = f"{value:.1f}" if value is not None else "--"
     html = f"""
     <div class="ag-card" style="
-        background: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.06), transparent 70%), rgba(17, 24, 39, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        background: #FFFFFF;
+        border: 1px solid #EBE6DF;
         border-radius: 14px;
-        padding: 14px 18px;
+        padding: 16px 20px;
         display: flex;
         align-items: center;
         gap: 14px;
-        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05);
+        box-sizing: border-box;
     ">
         <div style="
-            font-size: 1.6rem;
-            background: rgba(11, 15, 23, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 1.5rem;
+            background: #FAF6F1;
+            border: 1px solid #EBE6DF;
             border-radius: 12px;
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
         ">
             {icon}
         </div>
         <div>
-            <div style="color: #94A3B8; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;">
+            <div style="color: #5A6E85; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
                 {label}
             </div>
-            <div style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 700; color: #F8FAFC; text-shadow: 0 0 12px rgba(255, 255, 255, 0.1);">
-                {val_str} <span style="font-size: 0.75rem; color: #64748B; font-family: var(--font-sans); font-weight: 400;">{unit}</span>
+            <div style="font-family: var(--font-mono); font-size: 1.35rem; font-weight: 800; color: #1F344C;">
+                {val_str} <span style="font-size: 0.75rem; color: #8896A6; font-family: var(--font-sans); font-weight: 500;">{unit}</span>
             </div>
         </div>
     </div>

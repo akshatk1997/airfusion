@@ -16,6 +16,7 @@ from typing import Dict, Any, Optional
 from src.database import get_user_profile, save_user_profile
 from src.data_collection import geocode_city, fetch_current_air_quality
 from src.predict import generate_forecast
+from src.temporal_continuum import get_city_temporal_continuum
 from src.safety_rules import (
     calculate_outdoor_risk_score,
     generate_personalized_advice,
@@ -23,6 +24,7 @@ from src.safety_rules import (
 )
 from app.components.design_system import format_location_label, safe_markdown
 from app.components.simple_cards import (
+    get_mascot_base64,
     render_air_safety_card,
     render_simple_timeline,
     render_todays_tip,
@@ -212,13 +214,16 @@ def render_simple_home(active_city: str) -> None:
                 """,
                 unsafe_allow_html=True
             )
-            col_b1, col_b2 = st.columns(2)
+            col_b1, col_b2, col_b3 = st.columns([1.1, 1.1, 1.0])
             with col_b1:
                 if st.button("🛡️ Customize Safe Plan", key="simple_btn_plan", use_container_width=True):
                     st.switch_page("pages/1_My_Safe_Outdoor_Plan.py")
             with col_b2:
-                if st.button("📡 View Weather & Air Details", key="simple_btn_live", use_container_width=True):
+                if st.button("📡 Weather & Air", key="simple_btn_live", use_container_width=True):
                     st.switch_page("pages/2_Live_Tracking.py")
+            with col_b3:
+                if st.button("🌟 Platform Tour", key="simple_btn_intro", use_container_width=True):
+                    st.switch_page("pages/0_Platform_Intro.py")
 
     with col_alert:
         def _handle_alert_save(new_threshold_val: float):
@@ -420,126 +425,319 @@ def render_simple_safe_plan(active_city: str) -> None:
 # ==============================================================================
 def render_simple_live_tracking(active_city: str) -> None:
     """
-    Renders Simple Mode Live Tracking & Alerts.
-    Clear safety status, friendly weather tiles, simple pollutant cards, and quick alert setup.
+    Renders Simple Mode Live Tracking & Unified Atmospheric Continuum.
+    Features:
+    1. On-Time Actual Local Time synchronizer with live telemetry.
+    2. Primary live directive card with animated 3D cartoon mascot.
+    3. The 3-Phase Interactive Temporal Explorer:
+       - Tab 1: ⏱️ Right Now (On-Time Telemetry & Conditions)
+       - Tab 2: 🔙 Past 24h History (What Happened Earlier)
+       - Tab 3: 🔮 Next 48h Future (Predictive Forecast & Best Windows)
+    4. Quick alert adjustments and safety notes.
     """
+    continuum = get_city_temporal_continuum(active_city)
+    if not continuum:
+        st.error(f"Could not retrieve telemetry for '{active_city}'. Please select another city from the top bar.")
+        return
+
+    loc = continuum["loc_meta"]
+    curr = continuum["current"]
+    metrics = continuum["metrics"]
+    actual_time = continuum["actual_time_display"]
+    actual_date = continuum["actual_date_display"]
+    history_df = continuum["history_df"]
+    forecast_df = continuum["forecast_df"]
+
+    pm25_val = metrics["current_pm"]
+    aqi_val = metrics["current_aqi"]
+    category = metrics["current_category"]
+    color = metrics["current_color"]
+    pm10_val = curr.get("pm10")
+    temp_val = curr.get("temperature", 24.0)
+    humidity_val = curr.get("humidity", 50.0)
+    wind_val = curr.get("wind_speed", 2.0)
+
+    user_prof = get_user_profile()
+    threshold = float(user_prof.get("pm25_threshold", 35.0))
+    sensitivity = user_prof.get("health_sensitivity", "none")
+    age_group = user_prof.get("age_group", "adult")
+    usual_activity = user_prof.get("usual_activities", "walk")
+    duration_mins = int(user_prof.get("typical_duration_mins", 30))
+
+    # Plain Status Mapping
+    if pm25_val <= 15:
+        status_level = "Safe"
+        answer = "Yes! The air is clean and safe to go outside right now."
+        recommendation = f"Safe for a {duration_mins}-minute {usual_activity}. Atmospheric dispersion is favorable."
+    elif pm25_val <= 35:
+        if sensitivity != "none" or age_group in ["child", "senior"]:
+            status_level = "Caution"
+            answer = "Caution: Air pollution is slightly elevated for sensitive lungs."
+            recommendation = "Sensitive individuals should choose lighter outdoor exertion and keep inhalers handy."
+        else:
+            status_level = "Moderate"
+            answer = "Mostly Safe: Air quality is acceptable for healthy adults."
+            recommendation = f"Safe for a {duration_mins}-minute {usual_activity} in parks or away from major thoroughfares."
+    elif pm25_val <= 75:
+        status_level = "Caution"
+        answer = "Caution: Harmful particles are elevated across the city."
+        recommendation = "Sensitive adults, children, and elderly should limit prolonged or heavy outdoor exertion."
+    elif pm25_val <= 120:
+        status_level = "Avoid"
+        answer = "Not Recommended: Outdoor air is unhealthy right now."
+        recommendation = "Avoid outdoor cardio workouts. Consider wearing a protective N95 mask if commuting."
+    else:
+        status_level = "High Risk"
+        answer = "High Risk: Stay indoors with windows closed."
+        recommendation = "Air is hazardous right now. Avoid all outdoor exertion and run clean-air indoor filtration."
+
+    if pm25_val > 55:
+        simple_reason = f"Tiny harmful particles in the air are elevated ({pm25_val:.0f} µg/m³)."
+    elif pm25_val > 35:
+        simple_reason = "Air pollution is moderately high, especially for children, seniors, and sensitive lungs."
+    else:
+        simple_reason = "Pollution levels are currently within safe, healthy boundaries."
+
+    # Top Header: Station sync & Actual Time Badge
     st.markdown(
-        """
+        f"""
         <div style="margin-bottom: 24px;">
-            <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
-                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
-                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
-                    LIVE GROUND SYNCHRONIZATION
-                </span>
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+                <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px;">
+                    <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
+                    <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
+                        LIVE GROUND SYNCHRONIZATION
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.76rem; color: #FF6845; background: rgba(255, 104, 69, 0.08); border: 1px solid rgba(255, 104, 69, 0.25); padding: 5px 14px; border-radius: 9999px;">
+                    <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
+                    <span>ACTUAL TIME: <strong>{actual_time}</strong> ({actual_date})</span>
+                </div>
             </div>
             <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
-                Live Air Quality & Weather
+                Live Air Quality & Real-Time Data Tracking — {format_location_label(loc)}
             </h1>
             <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
-                Real-time outdoor air conditions and weather in plain, friendly language.
+                Live on-time air conditions, past 24-hour history, and predictive future outlook in friendly, plain English.
             </p>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    loc = geocode_city(active_city)
-    if not loc:
-        st.error(f"Could not find coordinates for '{active_city}'.")
-        return
+    # 1. Primary Air Safety Directive Card with Floating 3D Mascot
+    render_air_safety_card(
+        city_name=format_location_label(loc),
+        status_level=status_level,
+        answer_text=answer,
+        best_window=metrics["best_future_time"],
+        avoid_hours=f"Spike peak: {metrics['future_24h_peak']:.0f} µg/m³" if metrics['future_24h_peak'] > 35 else "None expected today — air is safe",
+        main_reason=simple_reason,
+        recommendation=recommendation,
+        mask_tip="Wear an N95 mask if traveling through traffic." if pm25_val > 45 else "No mask required under current conditions.",
+        live_timestamp=f"{actual_time} (Live)"
+    )
 
-    curr = fetch_current_air_quality(loc["latitude"], loc["longitude"])
-    pm25_val = float(curr.get("pm2_5", 0.0))
-    pm10_val = float(curr.get("pm10", 0.0)) if curr.get("pm10") is not None else None
-    aqi_val = int(curr.get("aqi", 0))
-    temp_val = float(curr.get("temperature", 24.0)) if curr.get("temperature") is not None else 24.0
-    humidity_val = float(curr.get("humidity", 50.0)) if curr.get("humidity") is not None else 50.0
-    wind_val = float(curr.get("wind_speed", 2.0)) if curr.get("wind_speed") is not None else 2.0
+    # --------------------------------------------------------------------------
+    # 2. THE 3-PHASE INTERACTIVE TEMPORAL EXPLORER (Right Now, Past 24h, Future 48h)
+    # --------------------------------------------------------------------------
+    st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
+    tab_now, tab_history, tab_future = st.tabs([
+        "⏱️ Right Now (On-Time Telemetry)",
+        "🔙 Past 24h History (What Happened)",
+        "🔮 Next 48h Future (Predictive Forecast)"
+    ])
 
-    user_prof = get_user_profile()
-    threshold = float(user_prof.get("pm25_threshold", 35.0))
+    with tab_now:
+        # Weather comfort cards
+        st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin: 16px 0 14px 0;'>🌤️ Outdoor Weather Conditions</h3>", unsafe_allow_html=True)
+        render_simple_weather_cards(temperature=temp_val, humidity=humidity_val, wind_speed=wind_val)
 
-    # Plain Status Mapping
-    if pm25_val <= 15:
-        status = "Safe"
-        status_text = "The air is clean and fresh right now."
-        detail_msg = "Pollution levels are low. A great time for outdoor exercise, walking, or playing outside."
-    elif pm25_val <= 35:
-        status = "Moderate"
-        status_text = "Air quality is acceptable for most people."
-        detail_msg = "Healthy adults can enjoy outdoor activities. Sensitive individuals should take normal precautions."
-    elif pm25_val <= 75:
-        status = "Caution"
-        status_text = "Air is unhealthy for sensitive individuals."
-        detail_msg = "Tiny harmful particles in the air are elevated. Children, seniors, and anyone with asthma should shorten outdoor time."
-    elif pm25_val <= 120:
-        status = "Avoid"
-        status_text = "Air is unhealthy right now."
-        detail_msg = "Pollution is high. Avoid long outdoor runs or intense workouts. Consider wearing an N95 mask."
-    else:
-        status = "High Risk"
-        status_text = "Air is hazardous today."
-        detail_msg = "Stay indoors with windows closed. Keep air purifiers running."
+        # Microscopic particulate breakdown
+        st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin: 16px 0 14px 0;'>🔬 Key Air Particles Explained</h3>", unsafe_allow_html=True)
+        render_simple_pollutant_cards(pm25=pm25_val, pm10=pm10_val)
 
-    # Format real-time live telemetry timestamp
-    raw_ts = curr.get("timestamp", "").replace("T", " ")
-    try:
-        dt_obj = pd.to_datetime(raw_ts)
-        timestamp_display = dt_obj.strftime("%I:%M %p Today (Live)")
-    except Exception:
-        timestamp_display = raw_ts or "Live Ground Tracking"
+        # Today's Tip with animated 3D Mascot companion
+        render_todays_tip(aqi=aqi_val, wind_speed=wind_val, humidity=humidity_val)
 
-    # Top Hero Status Card
-    theme_color = {"Safe": "#10B981", "Moderate": "#F59E0B", "Caution": "#F97316", "Avoid": "#EF4444", "High Risk": "#D71921"}.get(status, "#10B981")
-    theme_bg = {"Safe": "rgba(16, 185, 129, 0.08)", "Moderate": "rgba(245, 158, 11, 0.08)", "Caution": "rgba(249, 115, 22, 0.08)", "Avoid": "rgba(239, 68, 68, 0.08)", "High Risk": "rgba(215, 25, 33, 0.1)"}.get(status, "rgba(16, 185, 129, 0.08)")
+        # Mask & Indoor Air Defense Cards with 3D Mascots
+        render_simple_indoor_mask_cards(
+            mask_advice="Wear a snug N95 mask during peak commute hours." if pm25_val > 35 else "No mask needed for casual outdoor activities today.",
+            indoor_advice="Keep windows closed during afternoon dust hours." if pm25_val > 35 else "Safe to open windows for clean indoor ventilation."
+        )
 
-    safe_markdown(f"""
-    <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-top: 4px solid {theme_color}; border-radius: 22px; padding: 30px 34px; margin-bottom: 28px; box-shadow: 0 6px 24px rgba(31, 52, 76, 0.05);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="background: {theme_bg}; border: 1px solid {theme_color}; color: {theme_color}; font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; padding: 4px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;">
-                    ● Current Status: {status}
-                </span>
-                <span style="font-family: var(--font-heading); font-size: 0.88rem; font-weight: 700; color: #1F344C;">
-                    {format_location_label(loc)}
-                </span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
-                <span style="font-family: var(--font-mono); font-size: 0.76rem; color: #FF6845; font-weight: 600;">
-                    {timestamp_display}
-                </span>
+    with tab_history:
+        # 3D Mascot Historical Insight Card
+        mascot_hist_b64 = get_mascot_base64("mascot_clean_air.jpg")
+        mascot_hist_html = f"""
+        <div class="ag-cartoon-container ag-cartoon-float" style="flex: 0 0 84px; text-align: center;">
+            <img src="{mascot_hist_b64}" alt="History Mascot" class="ag-cartoon-mascot-img" style="width: 84px; height: 84px; border-radius: 18px;" />
+        </div>
+        """ if mascot_hist_b64 else ""
+
+        safe_markdown(f"""
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #0284C7; border-radius: 20px; padding: 26px 30px; margin: 16px 0 24px 0; box-shadow: 0 4px 18px rgba(31, 52, 76, 0.05);">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1 1 500px;">
+                    <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #0284C7; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+                        🔙 PAST 24-HOUR AIR QUALITY RECAP
+                    </div>
+                    <div style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: #1F344C; margin-bottom: 8px;">
+                        Past 24-Hour Observed Air Quality in {format_location_label(loc)}
+                    </div>
+                    <p style="font-family: var(--font-sans); font-size: 0.92rem; color: #5A6E85; line-height: 1.6; margin: 0;">
+                        Over the past 24 hours, average PM₂.₅ concentration was <strong>{metrics['past_24h_avg']} µg/m³</strong>. The air was cleanest at <strong>{metrics['cleanest_past_time']}</strong> ({metrics['cleanest_past_val']} µg/m³) and reached its highest concentration at <strong>{metrics['dirtiest_past_time']}</strong> ({metrics['dirtiest_past_val']} µg/m³).
+                    </p>
+                </div>
+                {mascot_hist_html}
             </div>
         </div>
-        <h2 style="font-family: var(--font-heading); font-size: 1.95rem; font-weight: 800; color: #1F344C; margin: 0 0 10px 0;">
-            {status_text}
-        </h2>
-        <p style="font-family: var(--font-sans); font-size: 0.96rem; color: #5A6E85; margin: 0; line-height: 1.6;">
-            {detail_msg}
-        </p>
-    </div>
-    """)
+        """)
 
-    # Friendly Weather Cards
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🌤️ Outdoor Weather Conditions</h3>", unsafe_allow_html=True)
-    render_simple_weather_cards(temperature=temp_val, humidity=humidity_val, wind_speed=wind_val)
+        # Two Historical Snapshot Comparison Cards
+        col_h1, col_h2 = st.columns(2)
+        with col_h1:
+            safe_markdown(f"""
+            <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-top: 3px solid #10B981; border-radius: 16px; padding: 20px 24px; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.05);">
+                <div style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+                    🌿 CLEANEST PAST MOMENT
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: #1F344C;">
+                    {metrics['cleanest_past_val']} <span style="font-size: 0.85rem; font-weight: 500; color: #8896A6;">µg/m³</span>
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #5A6E85; margin-top: 4px;">
+                    Observed at {metrics['cleanest_past_time']}
+                </div>
+            </div>
+            """)
+        with col_h2:
+            safe_markdown(f"""
+            <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-top: 3px solid #EF4444; border-radius: 16px; padding: 20px 24px; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.05);">
+                <div style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #DC2626; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+                    ⚠️ HIGHEST PAST SPIKE
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: #1F344C;">
+                    {metrics['dirtiest_past_val']} <span style="font-size: 0.85rem; font-weight: 500; color: #8896A6;">µg/m³</span>
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.84rem; color: #5A6E85; margin-top: 4px;">
+                    Observed at {metrics['dirtiest_past_time']}
+                </div>
+            </div>
+            """)
 
-    # Simplified Key Pollutants
-    st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;'>🔍 Key Air Particles Explained</h3>", unsafe_allow_html=True)
-    render_simple_pollutant_cards(pm25=pm25_val, pm10=pm10_val)
+        # 24-Hour Historical Hourly Visual Strip
+        if not history_df.empty:
+            st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin: 24px 0 14px 0;'>⏱️ Past 24-Hour Hourly Sequence</h3>", unsafe_allow_html=True)
+            past_tail = history_df.tail(24)
+            h_boxes = []
+            for _, row in past_tail.iterrows():
+                t_str = row["timestamp"].strftime("%I %p")
+                p_val = float(row.get("pm2_5", 0.0))
+                if p_val <= 15:
+                    d_col = "#10B981"
+                    b_txt = "Clean"
+                    b_bg = "rgba(16, 185, 129, 0.1)"
+                elif p_val <= 35:
+                    d_col = "#F59E0B"
+                    b_txt = "Moderate"
+                    b_bg = "rgba(245, 158, 11, 0.1)"
+                else:
+                    d_col = "#EF4444"
+                    b_txt = "Spike"
+                    b_bg = "rgba(239, 68, 68, 0.1)"
 
-    # Alert Setup Row
-    def _save_alert(val: float):
-        p = get_user_profile()
-        p["pm25_threshold"] = val
-        p["aqi_threshold"] = int(val * 2.8)
-        save_user_profile(p)
+                h_boxes.append(f"""
+                <div style="flex: 0 0 72px; background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 10px 4px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #1F344C; font-weight: 700;">{t_str}</span>
+                    <span style="width: 8px; height: 8px; border-radius: 50%; background: {d_col};"></span>
+                    <span style="font-family: var(--font-mono); font-size: 0.76rem; font-weight: 800; color: #1F344C;">{p_val:.0f}</span>
+                    <span style="background: {b_bg}; color: {d_col}; font-family: var(--font-sans); font-size: 0.6rem; font-weight: 700; padding: 2px 6px; border-radius: 9999px;">{b_txt}</span>
+                </div>
+                """)
 
-    render_simple_alert_setup(current_threshold=threshold, on_save_callback=_save_alert)
+            strip_html = f"""
+            <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 18px; padding: 20px 24px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);">
+                <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px;">
+                    {''.join(h_boxes)}
+                </div>
+            </div>
+            """
+            safe_markdown(strip_html)
 
-    # Disclaimer & Footer
+    with tab_future:
+        # 3D Mascot Predictive Outlook Card
+        mascot_fc_b64 = get_mascot_base64("mascot_outdoor_runner.jpg")
+        mascot_fc_html = f"""
+        <div class="ag-cartoon-container ag-cartoon-drift" style="flex: 0 0 84px; text-align: center;">
+            <img src="{mascot_fc_b64}" alt="Future Mascot" class="ag-cartoon-mascot-img" style="width: 84px; height: 84px; border-radius: 18px;" />
+        </div>
+        """ if mascot_fc_b64 else ""
+
+        safe_markdown(f"""
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-left: 4px solid #FF6845; border-radius: 20px; padding: 26px 30px; margin: 16px 0 24px 0; box-shadow: 0 4px 18px rgba(31, 52, 76, 0.05);">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1 1 500px;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.06em;">
+                            🔮 NEXT 48-HOUR PREDICTIVE OUTLOOK
+                        </span>
+                        <span style="background: rgba(255, 104, 69, 0.1); color: {metrics['trend_color']}; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px;">
+                            {metrics['trend_icon']} {metrics['trend_label'].upper()}
+                        </span>
+                    </div>
+                    <div style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: #1F344C; margin-bottom: 8px;">
+                        Cleanest Window Projected: {metrics['best_future_time']}
+                    </div>
+                    <p style="font-family: var(--font-sans); font-size: 0.92rem; color: #5A6E85; line-height: 1.6; margin: 0;">
+                        {metrics['trend_desc']} Peak pollution over the next 48 hours is projected to reach <strong>{metrics['future_24h_peak']} µg/m³</strong>. Outdoor cardio is recommended during the cleanest morning windows.
+                    </p>
+                </div>
+                {mascot_fc_html}
+            </div>
+        </div>
+        """)
+
+        # Future 24-Hour Safe Outdoor Timeline
+        if not forecast_df.empty:
+            timeline_items = []
+            for _, r in forecast_df.head(24).iterrows():
+                t_str = pd.to_datetime(r["target_time"]).strftime("%I %p")
+                p_pred = float(r["predicted_pm2_5"])
+                if p_pred <= 15:
+                    status_lbl = "Safe"
+                    c_dot = "#10B981"
+                elif p_pred <= 35:
+                    status_lbl = "Moderate"
+                    c_dot = "#F59E0B"
+                elif p_pred <= 75:
+                    status_lbl = "Caution"
+                    c_dot = "#F97316"
+                else:
+                    status_lbl = "Avoid"
+                    c_dot = "#EF4444"
+
+                timeline_items.append({
+                    "time": t_str,
+                    "status": status_lbl,
+                    "color": c_dot,
+                    "pm25": p_pred
+                })
+
+            render_simple_timeline(timeline_items)
+
+        # Alert configuration
+        def _save_alert(val: float):
+            p = get_user_profile()
+            p["pm25_threshold"] = val
+            p["aqi_threshold"] = int(val * 2.8)
+            save_user_profile(p)
+
+        render_simple_alert_setup(current_threshold=threshold, on_save_callback=_save_alert)
+
+    # 3. Disclaimer & Footer
     render_simple_disclaimer()
     render_ensur_executive_footer()
+
 
 
 # ==============================================================================

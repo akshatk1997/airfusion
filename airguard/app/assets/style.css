@@ -122,6 +122,70 @@ html, body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Force high-contrast typography across all headings and labels on the Warm Ivory canvas */
+h1, h2, h3, h4, h5, h6,
+.ag-section-title,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+[data-testid="stMarkdownContainer"] h4,
+[data-testid="stMarkdownContainer"] h5,
+[data-testid="stMarkdownContainer"] h6 {
+    color: #1F344C !important;
+    font-family: var(--font-heading) !important;
+}
+
+/* Explicit high-contrast white overrides for dark cards and dark telemetry surfaces */
+[data-testid="stMarkdownContainer"] .ag-hero-city-title,
+[data-testid="stMarkdownContainer"] .ensur-compare-ongoing h1,
+[data-testid="stMarkdownContainer"] .ensur-compare-ongoing h2,
+[data-testid="stMarkdownContainer"] .ensur-compare-ongoing h3,
+[data-testid="stMarkdownContainer"] .ensur-compare-ongoing strong,
+[data-testid="stMarkdownContainer"] .ensur-engine-title,
+[data-testid="stMarkdownContainer"] .ensur-engine-container h1,
+[data-testid="stMarkdownContainer"] .ensur-engine-container h2,
+[data-testid="stMarkdownContainer"] .ensur-engine-container h3,
+[data-testid="stMarkdownContainer"] .ensur-dark-surface h1,
+[data-testid="stMarkdownContainer"] .ensur-dark-surface h2,
+[data-testid="stMarkdownContainer"] .ensur-dark-surface h3,
+.ag-hero-city-title,
+.ensur-engine-title {
+    color: #FFFFFF !important;
+}
+
+.ensur-pulse-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid #EBE6DF;
+    border-radius: 9999px;
+    padding: 6px 16px;
+    box-shadow: 0 2px 8px rgba(31, 52, 76, 0.04);
+    font-family: var(--font-heading);
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #FF6845 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.ensur-pulse-badge span {
+    color: #FF6845 !important;
+}
+
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] label,
+label[data-baseweb="label"],
+[data-testid="stWidgetLabel"] span {
+    color: #5A6E85 !important;
+    font-family: var(--font-sans) !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+}
+
 [data-testid="stAppViewContainer"] {
     background: radial-gradient(800px circle at 85% 10%, rgba(255, 104, 69, 0.08), transparent 70%),
                 radial-gradient(900px circle at 15% 45%, rgba(255, 134, 101, 0.06), transparent 75%),
@@ -926,4 +990,116 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     color: var(--ensur-text-secondary);
     margin: 0;
     line-height: 1.5;
+}
+
+/* ==========================================================================
+   3D CARTOON MASCOT ANIMATIONS (SIMPLE MODE ONLY)
+   ========================================================================== */
+@keyframes float3d {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(1.2deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes gentleBob {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes breezeDrift {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(3px, -4px) rotate(1deg);
+    }
+    50% {
+        transform: translate(0px, -7px) rotate(0deg);
+    }
+    75% {
+        transform: translate(-3px, -4px) rotate(-1deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+}
+
+@keyframes softPulseGlow {
+    0% {
+        box-shadow: 0 10px 24px -4px rgba(255, 104, 69, 0.22);
+    }
+    50% {
+        box-shadow: 0 16px 36px -2px rgba(255, 104, 69, 0.38);
+    }
+    100% {
+        box-shadow: 0 10px 24px -4px rgba(255, 104, 69, 0.22);
+    }
+}
+
+@keyframes greenPulseGlow {
+    0% {
+        box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.22);
+    }
+    50% {
+        box-shadow: 0 16px 36px -2px rgba(16, 185, 129, 0.38);
+    }
+    100% {
+        box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.22);
+    }
+}
+
+.ag-cartoon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+}
+
+.ag-cartoon-float {
+    animation: float3d 3.8s ease-in-out infinite;
+    will-change: transform;
+}
+
+.ag-cartoon-bob {
+    animation: gentleBob 3.2s ease-in-out infinite;
+    will-change: transform;
+}
+
+.ag-cartoon-drift {
+    animation: breezeDrift 5s ease-in-out infinite;
+    will-change: transform;
+}
+
+.ag-cartoon-glow-coral {
+    animation: softPulseGlow 3.5s ease-in-out infinite;
+}
+
+.ag-cartoon-glow-green {
+    animation: greenPulseGlow 3.5s ease-in-out infinite;
+}
+
+.ag-cartoon-mascot-img {
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 12px 28px -6px rgba(31, 52, 76, 0.16);
+    border: 3px solid #FFFFFF;
+    transition: transform 0.3s ease;
+}
+
+.ag-cartoon-mascot-img:hover {
+    transform: scale(1.05) rotate(2deg);
 }

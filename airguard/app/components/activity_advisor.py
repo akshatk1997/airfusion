@@ -34,11 +34,11 @@ def render_safe_window_card(
     if avoid_list:
         avoid_items = "".join([f"<li>{item}</li>" for item in avoid_list])
         avoid_html = f"""
-        <div style="margin-top: 14px; padding: 12px 16px; background: rgba(215, 25, 33, 0.08); border: 1px solid rgba(215, 25, 33, 0.3); border-radius: 10px;">
-            <div style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: #D71921; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">
+        <div style="margin-top: 14px; padding: 12px 16px; background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 10px;">
+            <div style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: #DC2626; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">
                 ⚠️ Unsafe Exposure Periods to Avoid
             </div>
-            <ul style="margin: 0; padding-left: 20px; font-family: var(--font-sans); font-size: 0.8rem; color: #E5E5E5; line-height: 1.5;">
+            <ul style="margin: 0; padding-left: 20px; font-family: var(--font-sans); font-size: 0.82rem; color: #991B1B; line-height: 1.5;">
                 {avoid_items}
             </ul>
         </div>
@@ -47,11 +47,11 @@ def render_safe_window_card(
     alt_html = ""
     if alt:
         alt_html = f"""
-        <div style="margin-top: 12px; padding: 12px 16px; background: #181818; border-left: 3px solid #10B981; border-radius: 8px;">
-            <div style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: #10B981; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">
+        <div style="margin-top: 12px; padding: 12px 16px; background: #FAF6F1; border: 1px solid #EBE6DF; border-left: 3px solid #10B981; border-radius: 8px;">
+            <div style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">
                 💡 Recommended Cleaner Alternative
             </div>
-            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #CCCCCC;">
+            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85;">
                 {alt['note']}
             </div>
         </div>
@@ -59,13 +59,12 @@ def render_safe_window_card(
 
     html = f"""
     <div style="
-        background: var(--ag-surface);
-        border: 1px solid var(--ag-border);
-        border-top: 1px solid var(--ag-border-light);
+        background: #FFFFFF;
+        border: 1px solid #EBE6DF;
         border-radius: 16px;
         padding: 24px 28px;
         margin-bottom: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05);
     ">
         <div style="display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px;">
             <div>
@@ -84,15 +83,15 @@ def render_safe_window_card(
                     ">
                         ● Window Finder
                     </span>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #777777; text-transform: uppercase;">
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #8896A6; text-transform: uppercase;">
                         {duration_mins}-Minute {activity.title()}
                     </span>
                 </div>
-                <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 700; color: #FFFFFF; line-height: 1.3;">
+                <div style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 800; color: #1F344C; line-height: 1.3;">
                     Best Window: <span style="color: {win_color};">{best_win}</span>
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; color: #888888; margin-top: 4px;">
-                    Forecasted PM₂.₅: <b style="color: #FFFFFF;">{best_pm25:.1f} µg/m³</b> (AQI {best_aqi}, {best_cat})
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; color: #5A6E85; margin-top: 4px;">
+                    Forecasted PM₂.₅: <b style="color: #1F344C;">{best_pm25:.1f} µg/m³</b> (AQI {best_aqi}, {best_cat})
                 </div>
             </div>
         </div>
@@ -124,8 +123,8 @@ def render_hourly_timeline_strip(hourly_timeline: List[Dict[str, Any]]) -> None:
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: #161616;
-            border: 1px solid #282828;
+            background: #FAF6F1;
+            border: 1px solid #EBE6DF;
             border-top: 3px solid {color};
             border-radius: 8px;
             padding: 8px 4px;
@@ -133,8 +132,8 @@ def render_hourly_timeline_strip(hourly_timeline: List[Dict[str, Any]]) -> None:
             flex: 1;
             text-align: center;
         ">
-            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #888888; margin-bottom: 4px;">{time_label}</span>
-            <span style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: #FFFFFF;">{pm25:.0f}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #5A6E85; margin-bottom: 4px;">{time_label}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; color: #1F344C;">{pm25:.0f}</span>
             <span style="font-family: var(--font-sans); font-size: 0.62rem; color: {color}; font-weight: 700; text-transform: uppercase; margin-top: 4px;">{status}</span>
         </div>
         """)
@@ -142,22 +141,21 @@ def render_hourly_timeline_strip(hourly_timeline: List[Dict[str, Any]]) -> None:
     strip_content = "".join(boxes_html)
     container_html = f"""
     <div style="
-        background: var(--ag-surface);
-        border: 1px solid var(--ag-border);
-        border-top: 1px solid var(--ag-border-light);
+        background: #FFFFFF;
+        border: 1px solid #EBE6DF;
         border-radius: 16px;
         padding: 20px 24px;
         margin-bottom: 20px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 4px 14px rgba(31, 52, 76, 0.05);
     ">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">
+            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800; color: #1F344C; text-transform: uppercase; letter-spacing: 0.05em;">
                 📅 24-Hour Outdoor Safety Trajectory Timeline
             </div>
-            <div style="display: flex; gap: 12px; font-family: var(--font-mono); font-size: 0.68rem;">
-                <span style="color: #10B981;">● Safe</span>
-                <span style="color: #F59E0B;">● Caution</span>
-                <span style="color: #EF4444;">● Avoid</span>
+            <div style="display: flex; gap: 12px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600;">
+                <span style="color: #059669;">● Safe</span>
+                <span style="color: #D97706;">● Caution</span>
+                <span style="color: #DC2626;">● Avoid</span>
             </div>
         </div>
         <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px;">
