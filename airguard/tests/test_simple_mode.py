@@ -178,3 +178,49 @@ def test_outdoor_kit_and_game_state():
     assert isinstance(state["badges_unlocked"], set)
 
 
+def test_dual_mode_ai_assistant_responses():
+    from app.components.ai_assistant_popup import generate_technical_response, generate_aero_response
+    
+    # 1. Technical Mode Inversion & PBL test
+    tech_inversion = generate_technical_response(
+        user_query="Tell me about inversion trapping and boundary layer",
+        city_name="Delhi",
+        pm25=120.0,
+        aqi=220,
+        temp=14.0,
+        wind=4.0,
+        humidity=65.0
+    )
+    assert "pbl" in tech_inversion["answer"].lower() or "boundary" in tech_inversion["answer"].lower()
+    assert "ventilation coefficient" in tech_inversion["answer"].lower() or "v_c" in tech_inversion["answer"].lower()
+    assert "metric" in tech_inversion
+    assert "protocol" in tech_inversion
+
+    # 2. Technical Mode Dosage test
+    tech_dosage = generate_technical_response(
+        user_query="Calculate minute ventilation and inhaled lung dosage",
+        city_name="Delhi",
+        pm25=50.0,
+        aqi=130,
+        temp=22.0,
+        wind=10.0,
+        humidity=50.0,
+        user_profile={"usual_activities": "active"}
+    )
+    assert "inhaled" in tech_dosage["answer"].lower() or "alveolar" in tech_dosage["answer"].lower()
+    assert "who" in tech_dosage["metric"].lower()
+
+    # 3. Simple Mode Aero test
+    aero_resp = generate_aero_response(
+        user_query="Can I go outside to the park?",
+        city_name="Mumbai",
+        pm25=10.0,
+        aqi=35,
+        temp=28.0,
+        wind=15.0,
+        humidity=70.0
+    )
+    assert "mumbai" in aero_resp["answer"].lower()
+    assert "mascot" in aero_resp
+
+

@@ -20,6 +20,7 @@ from app.components.mode_switcher import (
     SIMPLE_MODE,
     TECHNICAL_MODE
 )
+from app.components.ai_assistant_popup import render_floating_ai_popup
 
 
 def _init_location_registry() -> None:
@@ -296,6 +297,13 @@ def render_global_navbar(page_title: str = "") -> str:
                             st.rerun()
                         else:
                             st.error(f"Could not locate '{full_query}'. Please verify spelling or specify state/country.")
+
+    # Render Universal Floating AI Popup Assistant in the bottom-right corner across all pages
+    try:
+        render_floating_ai_popup(st.session_state["selected_city"])
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
 
     st.markdown("<div style='height: 6px;'></div>", unsafe_allow_html=True)
     return st.session_state["selected_city"]
