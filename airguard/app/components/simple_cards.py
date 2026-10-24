@@ -524,13 +524,17 @@ def render_simple_disclaimer() -> None:
 def render_simple_weather_cards(
     temperature: Optional[float],
     humidity: Optional[float],
-    wind_speed: Optional[float]
+    wind_speed: Optional[float],
+    weather_data: Optional[Dict[str, Any]] = None,
+    city_name: str = "Active Location"
 ) -> None:
     """
-    Renders 3 friendly weather cards for Simple Mode.
-    Translates raw meteorological variables into clear human comfort explanations.
-    Preserves exact strings asserted by test suite.
+    Renders comprehensive real-time weather details for Simple Mode.
+    Combines core comfort cards (preserving exact test suite strings) with
+    a full real-time meteorological suite: Feels Like, UV radiation, rain risk,
+    wind direction/gusts, visibility, sunrise/sunset, and 24h step-by-step weather forecast.
     """
+    # 1. Core Primary Comfort Metrics (Maintains strict test suite compatibility)
     temp_val = f"{temperature:.0f}°C" if temperature is not None else "--"
     if temperature is not None:
         if temperature < 15:
@@ -564,64 +568,345 @@ def render_simple_weather_cards(
     else:
         wind_note = "Wind data pending"
 
-    html = f"""
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 28px;">
-        <div style="
-            background: #FFFFFF;
-            border: 1px solid #EBE6DF;
-            border-radius: 18px;
-            padding: 22px 24px;
-            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
-        ">
-            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #8896A6; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
-                🌡️ Outdoor Temperature
+    # 2. Rich Weather Metadata Extraction (if available)
+    wx = weather_data or {}
+    feels_like = wx.get("feels_like", temperature)
+    feels_like_str = f"{feels_like:.0f}°C" if feels_like is not None else temp_val
+    weather_desc = wx.get("weather_desc", "Mainly Clear")
+    weather_icon = wx.get("weather_icon", "🌤️")
+    weather_summary = wx.get("weather_summary", "Favorable ambient atmospheric conditions.")
+    wind_cardinal = wx.get("wind_direction_cardinal", "NE")
+    wind_gusts = wx.get("wind_gusts", 0.0)
+    wind_gusts_val = f"{wind_gusts:.1f} km/h" if wind_gusts is not None else "--"
+    uv_index = wx.get("uv_index", 0.0)
+    uv_cat = wx.get("uv_category", "Low")
+    uv_adv = wx.get("uv_advice", "Minimal sun danger — safe for outdoor recreation without sunscreen.")
+    uv_col = wx.get("uv_color", "#10B981")
+    dew_point = wx.get("dew_point")
+    dew_str = f"{dew_point:.0f}°C" if dew_point is not None else "--"
+    pressure = wx.get("pressure", 1013.0)
+    press_str = f"{pressure:.0f} hPa" if pressure is not None else "1013 hPa"
+    cloud_cover = wx.get("cloud_cover", 0)
+    pop = wx.get("precipitation_probability", 0)
+    precip_mm = wx.get("precipitation", 0.0)
+    vis_km = wx.get("visibility_km", 10.0)
+    sunrise = wx.get("sunrise", "06:30 AM")
+    sunset = wx.get("sunset", "05:45 PM")
+    hourly_weather = wx.get("hourly_weather", [])
+
+    # Format Sun Cycle String
+    sun_cycle_html = ""
+    if sunrise or sunset:
+        sun_cycle_html = f"""
+        <div style="display: flex; align-items: center; gap: 14px; background: rgba(31, 52, 76, 0.04); border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px;">
+            <span style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: #1F344C;">
+                🌅 Sunrise: <strong>{sunrise}</strong>
+            </span>
+            <span style="color: #CBD5E1;">•</span>
+            <span style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 700; color: #1F344C;">
+                🌇 Sunset: <strong>{sunset}</strong>
+            </span>
+        </div>
+        """
+
+    # Real-Time Weather Header Bar
+    weather_header_html = f"""
+    <div style="
+        background: #FFFFFF;
+        border: 1px solid #EBE6DF;
+        border-radius: 20px;
+        padding: 24px 28px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(31, 52, 76, 0.04);
+        position: relative;
+        overflow: hidden;
+    ">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 9999px; padding: 4px 14px;">
+                <span class="ensur-pulse-dot" style="background: #0284C7;"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #0284C7; text-transform: uppercase; letter-spacing: 0.08em;">
+                    REAL-TIME WEATHER TELEMETRY • HOURLY STEP-BY-STEP UPDATES
+                </span>
             </div>
-            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: #1F344C; letter-spacing: -0.02em;">
-                {temp_val}
-            </div>
-            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-top: 6px;">
-                {temp_note}
-            </div>
+            {sun_cycle_html}
         </div>
 
-        <div style="
-            background: #FFFFFF;
-            border: 1px solid #EBE6DF;
-            border-radius: 18px;
-            padding: 22px 24px;
-            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
-        ">
-            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #8896A6; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
-                💧 Air Moisture (Humidity)
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 18px;">
+                <div style="
+                    font-size: 3.2rem;
+                    line-height: 1;
+                    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.1));
+                ">
+                    {weather_icon}
+                </div>
+                <div>
+                    <div style="display: flex; align-items: baseline; gap: 10px;">
+                        <span style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 800; color: #0F1E2E; letter-spacing: -0.03em; line-height: 1;">
+                            {temp_val}
+                        </span>
+                        <span style="background: rgba(255, 104, 69, 0.1); border: 1px solid rgba(255, 104, 69, 0.3); color: #FF6845; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px;">
+                            Feels Like {feels_like_str}
+                        </span>
+                    </div>
+                    <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: #0F1E2E; margin-top: 4px;">
+                        {weather_desc} in {city_name}
+                    </div>
+                </div>
             </div>
-            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: #1F344C; letter-spacing: -0.02em;">
-                {hum_val}
-            </div>
-            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-top: 6px;">
-                {hum_note}
-            </div>
-        </div>
 
-        <div style="
-            background: #FFFFFF;
-            border: 1px solid #EBE6DF;
-            border-radius: 18px;
-            padding: 22px 24px;
-            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
-        ">
-            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; color: #8896A6; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
-                💨 Wind & Ventilation
-            </div>
-            <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 800; color: #1F344C; letter-spacing: -0.02em;">
-                {wind_val}
-            </div>
-            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-top: 6px;">
-                {wind_note}
+            <div style="max-width: 480px; background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 14px; padding: 12px 18px;">
+                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #24384D; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">
+                    🌤️ Current Atmospheric Atmosphere
+                </div>
+                <p style="font-family: var(--font-sans); font-size: 0.84rem; font-weight: 500; color: #24384D; line-height: 1.45; margin: 0;">
+                    {weather_summary}
+                </p>
             </div>
         </div>
     </div>
     """
-    safe_markdown(html)
+
+    # Primary 3 Cards Grid (Test Suite Assertions: 'Pleasantly comfortable', '60%', '8.5 km/h')
+    primary_cards_html = f"""
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 16px;">
+        <div style="
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-radius: 18px;
+            padding: 22px 24px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        ">
+            <div>
+                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+                    🌡️ Outdoor Temperature
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #0F1E2E; letter-spacing: -0.02em;">
+                    {temp_val}
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: #24384D; margin-top: 6px;">
+                    {temp_note}
+                </div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: #475569; border-top: 1px solid #EBE6DF; padding-top: 8px; margin-top: 10px;">
+                Feels like: <strong style="color: #0F1E2E;">{feels_like_str}</strong> • Dew point: <strong style="color: #0F1E2E;">{dew_str}</strong>
+            </div>
+        </div>
+
+        <div style="
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-radius: 18px;
+            padding: 22px 24px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        ">
+            <div>
+                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+                    💧 Air Moisture (Humidity)
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #0F1E2E; letter-spacing: -0.02em;">
+                    {hum_val}
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: #24384D; margin-top: 6px;">
+                    {hum_note}
+                </div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: #475569; border-top: 1px solid #EBE6DF; padding-top: 8px; margin-top: 10px;">
+                Surface pressure: <strong style="color: #0F1E2E;">{press_str}</strong>
+            </div>
+        </div>
+
+        <div style="
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-radius: 18px;
+            padding: 22px 24px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        ">
+            <div>
+                <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+                    💨 Wind & Ventilation
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #0F1E2E; letter-spacing: -0.02em;">
+                    {wind_val}
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.85rem; font-weight: 500; color: #24384D; margin-top: 6px;">
+                    {wind_note}
+                </div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: #475569; border-top: 1px solid #EBE6DF; padding-top: 8px; margin-top: 10px;">
+                Direction: <strong style="color: #0F1E2E;">{wind_cardinal}</strong> • Peak Gusts: <strong style="color: #0F1E2E;">{wind_gusts_val}</strong>
+            </div>
+        </div>
+    </div>
+    """
+
+    # Secondary Atmospheric Vitals Grid (UV, Rain Risk, Sky Visibility)
+    secondary_cards_html = f"""
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+        <div style="
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-radius: 18px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        ">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em;">
+                        ☀️ UV Radiation
+                    </span>
+                    <span style="background: {uv_col}18; color: {uv_col}; border: 1px solid {uv_col}44; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px;">
+                        ● {uv_cat}
+                    </span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 800; color: #0F1E2E;">
+                    {uv_index:.1f} <span style="font-size: 0.8rem; font-weight: 600; color: #475569;">Index</span>
+                </div>
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: #24384D; line-height: 1.4; border-top: 1px solid #EBE6DF; padding-top: 8px; margin-top: 8px;">
+                {uv_adv}
+            </div>
+        </div>
+
+        <div style="
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-radius: 18px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        ">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em;">
+                        🌧️ Rain Risk &amp; Chance
+                    </span>
+                    <span style="background: rgba(56, 189, 248, 0.1); color: #0284C7; border: 1px solid rgba(56, 189, 248, 0.35); font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px;">
+                        {pop}% Prob
+                    </span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 800; color: #0F1E2E;">
+                    {precip_mm:.1f} <span style="font-size: 0.8rem; font-weight: 600; color: #475569;">mm</span>
+                </div>
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: #24384D; line-height: 1.4; border-top: 1px solid #EBE6DF; padding-top: 8px; margin-top: 8px;">
+                {"Dry conditions — umbrella not needed." if pop < 30 else ("Scattered light showers possible." if pop < 70 else "Rain highly likely — carry an umbrella.")}
+            </div>
+        </div>
+
+        <div style="
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-radius: 18px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        ">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.06em;">
+                        👁️ Sky &amp; Cloud Cover
+                    </span>
+                    <span style="background: rgba(31, 52, 76, 0.06); color: #1F344C; border: 1px solid #CBD5E1; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px;">
+                        {cloud_cover}% Cover
+                    </span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.85rem; font-weight: 800; color: #0F1E2E;">
+                    {vis_km:.1f} <span style="font-size: 0.8rem; font-weight: 600; color: #475569;">km visual</span>
+                </div>
+            </div>
+            <div style="font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: #24384D; line-height: 1.4; border-top: 1px solid #EBE6DF; padding-top: 8px; margin-top: 8px;">
+                {"Unobstructed long-range atmospheric sight." if vis_km >= 10 else "Minor haze or ground mist restricting sight distance."}
+            </div>
+        </div>
+    </div>
+    """
+
+    # Next 24-Hour Hourly Weather Step Continuum Track
+    hourly_cards_html = ""
+    if hourly_weather:
+        hour_tiles = []
+        for h in hourly_weather[:18]:  # show next 18 hours
+            hour_tiles.append(f"""
+            <div style="
+                flex: 0 0 88px;
+                background: #FFFFFF;
+                border: 1px solid #EBE6DF;
+                border-radius: 14px;
+                padding: 12px 6px;
+                text-align: center;
+                box-shadow: 0 2px 8px rgba(31, 52, 76, 0.03);
+                transition: transform 0.18s ease, border-color 0.18s ease;
+            ">
+                <div style="font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; color: #475569; margin-bottom: 4px;">
+                    {h['time']}
+                </div>
+                <div style="font-size: 1.6rem; line-height: 1.2; margin: 4px 0;">
+                    {h['weather_icon']}
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.96rem; font-weight: 800; color: #0F1E2E; margin-bottom: 2px;">
+                    {h['temp']:.0f}°
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; color: {('#0284C7' if h['pop'] > 20 else '#475569')};">
+                    {h['pop']}% rain
+                </div>
+            </div>
+            """)
+
+        hourly_track_inner = "\n".join(hour_tiles)
+        hourly_cards_html = f"""
+        <div style="
+            background: #FFFFFF;
+            border: 1px solid #EBE6DF;
+            border-radius: 18px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+        ">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #0F1E2E;">
+                        ⏱️ Next 18-Hour Weather Forecast Continuum
+                    </span>
+                    <span style="font-family: var(--font-mono); font-size: 0.70rem; color: #475569; background: #FAF6F1; border: 1px solid #EBE6DF; padding: 2px 8px; border-radius: 9999px;">
+                        Time-Step Synchronization
+                    </span>
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.76rem; font-weight: 600; color: #475569;">
+                    Scroll right to inspect evening &amp; morning shifts ➔
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin;">
+                {hourly_track_inner}
+            </div>
+        </div>
+        """
+
+    # If weather_data is provided, render the full multi-tier suite!
+    if weather_data:
+        full_html = weather_header_html + primary_cards_html + secondary_cards_html + hourly_cards_html
+    else:
+        # Fallback to pristine primary cards for standalone component invocation
+        full_html = primary_cards_html
+
+    safe_markdown(full_html)
 
 
 def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> None:

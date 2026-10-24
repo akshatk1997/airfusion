@@ -29,7 +29,7 @@ from app.components.mode_switcher import (
 )
 from app.components.simple_views import render_simple_home
 from app.components.simple_cards import render_ensur_executive_footer
-from app.components.cards import render_aqi_hero_card
+from app.components.cards import render_aqi_hero_card, render_technical_weather_station
 from app.components.design_system import (
     render_section_header,
     render_metric_tile,
@@ -123,7 +123,19 @@ def render_technical_home(active_city: str) -> None:
         st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
 
         # ----------------------------------------------------------------------
-        # 1. MULTI-SPECTRAL CRITERIA POLLUTANTS TELEMETRY (6 POLLUTANTS)
+        # 1. REAL-TIME METEOROLOGICAL STATION & MESOSCALE ATMOSPHERIC STATE
+        # ----------------------------------------------------------------------
+        render_section_header(
+            title="Real-Time Meteorological Station & Atmospheric State",
+            subtitle="Live ambient temperature, apparent feels-like index, Magnus-Tetens dew point, wind vectors, and solar irradiance.",
+            badge="METEOROLOGICAL SENTRY"
+        )
+        render_technical_weather_station(curr, format_location_label(loc))
+
+        st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
+
+        # ----------------------------------------------------------------------
+        # 2. MULTI-SPECTRAL CRITERIA POLLUTANTS TELEMETRY (6 POLLUTANTS)
         # ----------------------------------------------------------------------
         render_section_header(
             title="Multi-Spectral Criteria Pollutants Telemetry",

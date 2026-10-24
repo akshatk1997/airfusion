@@ -23,17 +23,25 @@ def render_outdoor_departure_kit(
     temp: float,
     wind: float,
     humidity: float,
-    user_profile: Optional[Dict[str, Any]] = None
+    user_profile: Optional[Dict[str, Any]] = None,
+    weather_data: Optional[Dict[str, Any]] = None
 ) -> None:
     """
     Renders the dynamic 'What to Carry Today & Outdoor Survival Kit'
     with interactive checklist and symptom soothers.
     """
     prof = user_profile or {}
+    w_data = weather_data or {}
     sensitivity = prof.get("health_sensitivity", "none")
     age = prof.get("age_group", "adult")
     activity = prof.get("usual_activities", "walk")
     is_sensitive = sensitivity != "none" or age in ["child", "senior"]
+
+    uv_val = float(w_data.get("uv_index", 0.0) or 0.0)
+    pop = int(w_data.get("precipitation_probability", 0) or 0)
+    precip_mm = float(w_data.get("precipitation", 0.0) or 0.0)
+    feels_like = float(w_data.get("feels_like", temp) or temp)
+    weather_desc = w_data.get("weather_desc", "")
 
     mascot_runner = get_mascot_base64("mascot_outdoor_runner.jpg")
     mascot_mask = get_mascot_base64("mascot_caution_mask.jpg")
@@ -91,8 +99,22 @@ def render_outdoor_departure_kit(
     # 2. Water
     water_desc = "Hydration is your secret weapon! Drinking water keeps your throat moist and flushes swallowed dust specks safely down into your stomach."
 
-    # 3. Sunglasses
-    sunglass_desc = "Wraparound sunglasses shield your eyes from drying winds, blowing street grit, and UV sunshine smog."
+    # 3. Sunglasses / UV Protection
+    if uv_val >= 6:
+        sunglass_title = "🕶️ 3. UV Shield Sunglasses & SPF 50+"
+        sunglass_need = f"🔴 High UV ({uv_val:.1f})"
+        sunglass_desc = f"Solar UV radiation is High ({uv_val:.1f}). Wraparound sunglasses and sunscreen protect eyes and skin from photolytic smog damage."
+        sunglass_default = True
+    elif uv_val >= 3:
+        sunglass_title = "🕶️ 3. Wind & UV Sunglasses"
+        sunglass_need = f"🟡 Moderate UV ({uv_val:.1f})"
+        sunglass_desc = f"UV Index is {uv_val:.1f}. Sunglasses shield retinas from drying wind gusts ({wind:.0f} km/h) and UV glare."
+        sunglass_default = True
+    else:
+        sunglass_title = "🕶️ 3. Wind & Dust Sunglasses"
+        sunglass_need = "🟢 Eye Shield"
+        sunglass_desc = f"Wraparound sunglasses shield eyes from drying winds ({wind:.0f} km/h) and blowing roadside grit."
+        sunglass_default = False
 
     # 4. Saline drops
     saline_desc = "Gentle saline eye drops rinse itchy soot out of your eyes without harsh rubbing. Great to keep in a side pocket."
@@ -105,8 +127,27 @@ def render_outdoor_departure_kit(
         inhaler_need = "🟢 Routine Precaution"
         inhaler_desc = "If you or anyone in your group has allergies or breathing sensitivities, verify comfort medicines before heading out."
 
-    # 6. Light scarf / jacket
-    jacket_desc = "A light windbreaker or cotton scarf keeps road soot and pollen off your neck, hair, and clothing."
+    # 6. Weather-smart Outer Layer
+    if pop >= 30 or precip_mm > 0:
+        jacket_title = "🌧️ 6. Rain Shield / Compact Umbrella"
+        jacket_need = f"🔴 {pop}% Rain Risk"
+        jacket_desc = f"Rain chance is {pop}% ({precip_mm:.1f} mm precipitation expected). Bring an umbrella or water-resistant jacket."
+        jacket_default = True
+    elif feels_like <= 15:
+        jacket_title = "🧣 6. Warm Layer & Windbreaker"
+        jacket_need = f"🟡 Chilly ({feels_like:.0f}°C Feels Like)"
+        jacket_desc = f"Feels like {feels_like:.0f}°C with {wind:.0f} km/h wind. Keep a warm layer handy to prevent respiratory chill."
+        jacket_default = True
+    elif feels_like >= 32:
+        jacket_title = "🧊 6. Cooling Scarf & Sun Cap"
+        jacket_need = f"🟡 High Heat ({feels_like:.0f}°C Feels Like)"
+        jacket_desc = f"Feels like {feels_like:.0f}°C with {humidity:.0f}% humidity. Wear breathable light clothing and stay cool."
+        jacket_default = True
+    else:
+        jacket_title = "🧥 6. Light Outer Layer / Scarf"
+        jacket_need = "🟢 Dust Barrier"
+        jacket_desc = "A light windbreaker or cotton scarf keeps road soot and pollen off your neck, hair, and clothing."
+        jacket_default = True
 
     # Render checklist in two columns
     col_c1, col_c2 = st.columns(2)
@@ -142,14 +183,14 @@ def render_outdoor_departure_kit(
             st.markdown(
                 f"""
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <strong style="font-family: var(--font-heading); font-size: 0.95rem; color: #1F344C;">🕶️ 3. Wind & UV Sunglasses</strong>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #059669;">🟢 Eye Shield</span>
+                    <strong style="font-family: var(--font-heading); font-size: 0.95rem; color: #1F344C;">{sunglass_title}</strong>
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: {'#DC2626' if uv_val >= 6 else ('#D97706' if uv_val >= 3 else '#059669')};">{sunglass_need}</span>
                 </div>
                 <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-bottom: 10px;">{sunglass_desc}</div>
                 """,
                 unsafe_allow_html=True
             )
-            item_glasses = st.checkbox("Packed sunglasses for eye protection", value=False, key="pack_glasses")
+            item_glasses = st.checkbox("Packed sunglasses / UV protection", value=sunglass_default, key="pack_glasses")
 
     with col_c2:
         with st.container(border=True):
@@ -182,14 +223,14 @@ def render_outdoor_departure_kit(
             st.markdown(
                 f"""
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <strong style="font-family: var(--font-heading); font-size: 0.95rem; color: #1F344C;">🧥 6. Light Outer Layer / Scarf</strong>
-                    <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #059669;">🟢 Dust Barrier</span>
+                    <strong style="font-family: var(--font-heading); font-size: 0.95rem; color: #1F344C;">{jacket_title}</strong>
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: {'#DC2626' if (pop >= 30 or precip_mm > 0) else ('#D97706' if (feels_like <= 15 or feels_like >= 32) else '#059669')};">{jacket_need}</span>
                 </div>
                 <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; margin-bottom: 10px;">{jacket_desc}</div>
                 """,
                 unsafe_allow_html=True
             )
-            item_jacket = st.checkbox("Wearing/packed light jacket or cotton scarf", value=True, key="pack_jacket")
+            item_jacket = st.checkbox("Wearing / packed smart outer layer", value=jacket_default, key="pack_jacket")
 
     # Live Packing Readiness Score
     packed_count = sum([item_mask, item_water, item_glasses, item_inhaler, item_saline, item_jacket])

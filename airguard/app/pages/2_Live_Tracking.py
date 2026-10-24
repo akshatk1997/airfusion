@@ -36,7 +36,7 @@ from src.alerts import evaluate_alerts_for_city
 from app.components.navbar import render_global_navbar
 from app.components.mode_switcher import is_simple_mode, render_mode_banner
 from app.components.simple_views import render_simple_live_tracking
-from app.components.cards import render_aqi_hero_card
+from app.components.cards import render_aqi_hero_card, render_technical_weather_station
 from app.components.charts import create_temporal_continuum_chart
 from app.components.health_advisory import render_health_advisory_panel
 from app.components.design_system import (
@@ -326,6 +326,8 @@ with col_met:
                 icon="gauge"
             )
 
+st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+render_technical_weather_station(curr_data, target_city)
 st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
 
 # ----------------- SECTION 3: UNIFIED CHRONOLOGICAL CONTINUUM PLOT -----------------

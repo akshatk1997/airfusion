@@ -180,11 +180,13 @@ def render_simple_home(active_city: str) -> None:
         live_timestamp=timestamp_display
     )
 
-    # 3. Weather Conditions Strip
+    # 3. Comprehensive Real-Time Weather Station & Atmospheric Continuum
     render_simple_weather_cards(
         temperature=temp_val,
         humidity=humidity_val,
-        wind_speed=wind_val
+        wind_speed=wind_val,
+        weather_data=curr,
+        city_name=city_display
     )
 
     # 4. 24-Hour Timeline
@@ -546,7 +548,8 @@ def render_simple_safe_plan(active_city: str) -> None:
             "health_sensitivity": sel_sens,
             "age_group": sel_age,
             "usual_activities": sel_act
-        }
+        },
+        weather_data=curr
     )
 
     # Disclaimer & Footer
@@ -687,7 +690,13 @@ def render_simple_live_tracking(active_city: str) -> None:
     with tab_now:
         # Weather comfort cards
         st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin: 16px 0 14px 0;'>🌤️ Outdoor Weather Conditions</h3>", unsafe_allow_html=True)
-        render_simple_weather_cards(temperature=temp_val, humidity=humidity_val, wind_speed=wind_val)
+        render_simple_weather_cards(
+            temperature=temp_val,
+            humidity=humidity_val,
+            wind_speed=wind_val,
+            weather_data=curr,
+            city_name=format_location_label(loc)
+        )
 
         # Microscopic particulate breakdown
         st.markdown("<h3 style='font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; margin: 16px 0 14px 0;'>🔬 Key Air Particles Explained</h3>", unsafe_allow_html=True)
@@ -710,7 +719,8 @@ def render_simple_live_tracking(active_city: str) -> None:
             temp=temp_val,
             wind=wind_val,
             humidity=humidity_val,
-            user_profile=user_prof
+            user_profile=user_prof,
+            weather_data=curr
         )
 
     with tab_history:

@@ -27,7 +27,7 @@ from src.safety_rules import (
 from app.components.navbar import render_global_navbar
 from app.components.mode_switcher import is_simple_mode, render_mode_banner
 from app.components.simple_views import render_simple_safe_plan
-from app.components.cards import render_aqi_hero_card
+from app.components.cards import render_aqi_hero_card, render_technical_weather_station
 from app.components.risk_engine import render_risk_score_card
 from app.components.activity_advisor import render_safe_window_card, render_hourly_timeline_strip
 from app.components.protection_advisor import render_protection_protocol_card
@@ -259,6 +259,10 @@ render_protection_protocol_card(
     indoor_guidance=advice["indoor_guidance"],
     risk_category=advice["risk_category"]
 )
+
+# 4b. Real-Time Meteorological Station & Atmospheric State
+st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
+render_technical_weather_station(curr, format_location_label(loc))
 
 # 5. Threshold Live Tracking Status & Forecast Trajectory Chart
 st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)

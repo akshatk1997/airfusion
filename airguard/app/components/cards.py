@@ -306,3 +306,198 @@ def render_weather_metric_card(
     </div>
     """
     safe_markdown(html)
+
+
+def render_technical_weather_station(curr: Dict[str, Any], city: str) -> None:
+    """
+    Renders the quantitative Meteorological & Boundary Layer Weather Suite for Technical Mode.
+    Provides thermodynamic state variables, kinematic wind vectors, photolysis proxies,
+    and step-by-step 18-hour atmospheric continuum modeling.
+    """
+    import math
+
+    temp_val = float(curr.get("temperature", 20.0) or 20.0)
+    app_temp = float(curr.get("apparent_temperature", temp_val) or temp_val)
+    hum_val = float(curr.get("humidity", 50.0) or 50.0)
+    press_val = float(curr.get("pressure", 1013.0) or 1013.0)
+    ws_val = float(curr.get("wind_speed", 5.0) or 5.0)
+    wd_val = float(curr.get("wind_direction", 0.0) or 0.0)
+    cardinal = curr.get("wind_direction_cardinal", "NE")
+    gusts = float(curr.get("wind_gusts", ws_val * 1.5) or ws_val * 1.5)
+    wmo_code = curr.get("weather_code", 0)
+    weather_desc = curr.get("weather_desc", "Mainly Clear")
+    weather_icon = curr.get("weather_icon", "🌤️")
+    weather_summary = curr.get("weather_summary", "Stable atmospheric layer.")
+    uv_val = float(curr.get("uv_index", 0.0) or 0.0)
+    uv_cat = curr.get("uv_category", "Low")
+    cloud_cover = float(curr.get("cloud_cover", 0.0) or 0.0)
+    pop = int(curr.get("precipitation_probability", 0) or 0)
+    precip_mm = float(curr.get("precipitation", 0.0) or 0.0)
+    vis_km = float(curr.get("visibility_km", 10.0) or 10.0)
+    sunrise = curr.get("sunrise", "06:30 AM")
+    sunset = curr.get("sunset", "05:45 PM")
+    hourly = curr.get("hourly_weather", [])
+
+    # Magnus-Tetens Dew Point calculation & Dew Point Depression
+    gamma = (17.27 * temp_val) / (237.7 + temp_val) + math.log(max(1.0, hum_val) / 100.0)
+    dew_point = (237.7 * gamma) / (17.27 - gamma)
+    depression = max(0.0, temp_val - dew_point)
+
+    # Koschmieder optical extinction coefficient proxy: sigma = 3.912 / visibility_km
+    extinction_coeff = (3.912 / max(0.1, vis_km)) if vis_km > 0 else 0.39
+
+    # Meteorological Header Card
+    html = f"""
+    <div style="
+        background: #FFFFFF;
+        border: 1px solid #EBE6DF;
+        border-radius: 20px;
+        padding: 24px 28px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 20px rgba(31, 52, 76, 0.05);
+    ">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px;">
+                <span class="ag-badge ag-badge-neutral" style="font-family: var(--font-mono); font-size: 0.72rem; padding: 3px 10px; border-color: #38BDF8; color: #0284C7;">
+                    METEOROLOGICAL SENTRY • WMO CODE {wmo_code}
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #475569;">
+                    Step-by-step on-time telemetry
+                </span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 0.76rem; color: #24384D;">
+                <span>🌅 Sunrise: <strong>{sunrise}</strong></span>
+                <span style="color: #CBD5E1;">•</span>
+                <span>🌇 Sunset: <strong>{sunset}</strong></span>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="font-size: 3rem; line-height: 1;">
+                    {weather_icon}
+                </div>
+                <div>
+                    <div style="display: flex; align-items: baseline; gap: 10px;">
+                        <span style="font-family: var(--font-mono); font-size: 2.8rem; font-weight: 800; color: #0F1E2E; letter-spacing: -0.03em; line-height: 1;">
+                            {temp_val:.1f}°C
+                        </span>
+                        <span style="font-family: var(--font-mono); font-size: 0.84rem; font-weight: 700; color: #FF6845; background: rgba(255, 104, 69, 0.08); border: 1px solid rgba(255, 104, 69, 0.25); padding: 3px 10px; border-radius: 9999px;">
+                            Apparent: {app_temp:.1f}°C
+                        </span>
+                    </div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #0F1E2E; margin-top: 4px;">
+                        {weather_desc} • {city} Mesoscale Station
+                    </div>
+                </div>
+            </div>
+
+            <div style="max-width: 520px; background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 12px 18px;">
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: #0F1E2E; text-transform: uppercase; margin-bottom: 2px;">
+                    Boundary Layer Assessment
+                </div>
+                <div style="font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: #24384D; line-height: 1.45;">
+                    {weather_summary} Dew point depression ΔT = {depression:.1f}°C. Optical extinction σ_ext = {extinction_coeff:.3f} km⁻¹.
+                </div>
+            </div>
+        </div>
+
+        <!-- 4 Quantitative Columns -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 20px;">
+            <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 14px; padding: 16px 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+                    💧 Moisture &amp; Dew Point
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: #0F1E2E;">
+                    {hum_val:.0f}% <span style="font-size: 0.75rem; color: #475569; font-weight: 600;">RH</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: #24384D; margin-top: 4px;">
+                    T_d: {dew_point:.1f}°C • ΔT: {depression:.1f}°C
+                </div>
+            </div>
+
+            <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 14px; padding: 16px 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+                    💨 Wind Velocity &amp; Vector
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: #0F1E2E;">
+                    {ws_val:.1f} <span style="font-size: 0.75rem; color: #475569; font-weight: 600;">km/h</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: #24384D; margin-top: 4px;">
+                    Heading: {cardinal} ({wd_val:.0f}°) • Gusts: {gusts:.1f} km/h
+                </div>
+            </div>
+
+            <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 14px; padding: 16px 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+                    ☀️ UV Index &amp; Irradiance
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: #0F1E2E;">
+                    {uv_val:.1f} <span style="font-size: 0.75rem; color: #475569; font-weight: 600;">UV ({uv_cat})</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: #24384D; margin-top: 4px;">
+                    Solar photolysis rate: {"Minimal" if uv_val < 3 else "Active O3 generation"}
+                </div>
+            </div>
+
+            <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 14px; padding: 16px 18px;">
+                <div style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+                    🌧️ Rain &amp; Atmospheric Depth
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: #0F1E2E;">
+                    {pop}% <span style="font-size: 0.75rem; color: #475569; font-weight: 600;">Prob ({precip_mm:.1f} mm)</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: #24384D; margin-top: 4px;">
+                    Vis: {vis_km:.1f} km • Cloud: {cloud_cover:.0f}%
+                </div>
+            </div>
+        </div>
+    """
+
+    # Hourly Progression strip
+    if hourly:
+        h_tiles = []
+        for h in hourly[:18]:
+            h_tiles.append(f"""
+            <div style="
+                flex: 0 0 92px;
+                background: #FAF6F1;
+                border: 1px solid #EBE6DF;
+                border-radius: 12px;
+                padding: 10px 4px;
+                text-align: center;
+                box-shadow: 0 1px 4px rgba(31, 52, 76, 0.02);
+            ">
+                <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; color: #475569;">
+                    {h['time']}
+                </div>
+                <div style="font-size: 1.5rem; margin: 3px 0;">
+                    {h['weather_icon']}
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800; color: #0F1E2E;">
+                    {h['temp']:.0f}°C
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 600; color: #24384D;">
+                    {h['wind']:.0f}k • {h['pop']}%
+                </div>
+            </div>
+            """)
+        track_html = "\n".join(h_tiles)
+        html += f"""
+        <div style="border-top: 1px solid #EBE6DF; padding-top: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-family: var(--font-heading); font-size: 0.88rem; font-weight: 800; color: #0F1E2E;">
+                    Step-by-Step 18-Hour Meteorological Progression
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #475569;">
+                    Wind speed (k) &amp; precipitation chance (%)
+                </span>
+            </div>
+            <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin;">
+                {track_html}
+            </div>
+        </div>
+        """
+
+    html += "</div>"
+    safe_markdown(html)

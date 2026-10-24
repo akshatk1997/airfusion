@@ -73,6 +73,81 @@ def calculate_pm25_aqi(pm25: float) -> Tuple[int, str, str]:
     return 0, "Good", "#00E400"
 
 
+# WMO Weather Interpretation Table
+WMO_WEATHER_TABLE: Dict[int, Tuple[str, str, str]] = {
+    0: ("Clear Sky", "☀️", "Sunny and unobstructed clear atmosphere"),
+    1: ("Mainly Clear", "🌤️", "Scattered high cirrus clouds, excellent dispersion"),
+    2: ("Partly Cloudy", "⛅", "Intermittent sunshine and fair-weather cumulus clouds"),
+    3: ("Overcast", "☁️", "Uniform grey cloud deck covering the sky"),
+    45: ("Foggy", "🌫️", "Ground-level mist reducing atmospheric visibility"),
+    48: ("Depositing Rime Fog", "🌫️", "Freezing fog with icy droplet suspension"),
+    51: ("Light Drizzle", "🌦️", "Fine misting rain, minor ground dampening"),
+    53: ("Moderate Drizzle", "🌦️", "Steady damp drizzle, roads are wet"),
+    55: ("Dense Drizzle", "🌧️", "Heavy mist and persistent low-level rain"),
+    61: ("Slight Rain", "🌦️", "Gentle light rainfall, clean-air scrubbing"),
+    63: ("Moderate Rain", "🌧️", "Steady rainfall scrubbing airborne particulates"),
+    65: ("Heavy Rain", "🌧️", "Intense precipitation washing atmospheric aerosol"),
+    71: ("Slight Snow", "🌨️", "Light fluttering snow flurries"),
+    73: ("Moderate Snow", "🌨️", "Steady falling snow"),
+    75: ("Heavy Snow", "❄️", "Heavy snow accumulation and winter drift"),
+    77: ("Snow Grains", "❄️", "Frozen solid precipitation pellets"),
+    80: ("Light Rain Showers", "🌦️", "Brief scattered showers passing overhead"),
+    81: ("Moderate Rain Showers", "🌧️", "Periodic downpours between clear intervals"),
+    82: ("Violent Rain Showers", "⛈️", "Sudden torrential cloudburst showers"),
+    95: ("Thunderstorm", "⛈️", "Active electrical storm with gusty wind shifts"),
+    96: ("Thunderstorm with Hail", "⛈️", "Severe convective storm with hail pellets"),
+    99: ("Severe Hailstorm", "⛈️", "Damaging convective storm with heavy hail")
+}
+
+
+def get_wmo_weather_info(code: Optional[int], is_day: int = 1) -> Tuple[str, str, str]:
+    """
+    Translates WMO weather code into human condition, emoji icon, and plain summary.
+    Accounts for day vs night icons for clear skies.
+    """
+    if code is None or pd.isna(code):
+        return ("Clear Conditions", "🌤️" if is_day else "🌙", "Fair atmospheric conditions")
+    code_int = int(code)
+    info = WMO_WEATHER_TABLE.get(code_int, ("Fair Conditions", "🌤️", "Normal ambient weather"))
+    name, icon, summary = info
+    if code_int == 0 and not is_day:
+        icon = "🌙"
+        summary = "Clear starry night sky"
+    elif code_int == 1 and not is_day:
+        icon = "☁️"
+        summary = "Passing night clouds"
+    return (name, icon, summary)
+
+
+def degrees_to_cardinal(deg: Optional[float]) -> str:
+    """Converts wind direction in degrees (0-360) into compass cardinal string."""
+    if deg is None or pd.isna(deg):
+        return "Calm"
+    cardinals = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+                 "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+    idx = round(float(deg) / 22.5) % 16
+    return cardinals[idx]
+
+
+def get_uv_category(uv: Optional[float]) -> Tuple[str, str, str]:
+    """
+    Calculates WHO UV Index category, status color, and sun-protection recommendation.
+    """
+    if uv is None or pd.isna(uv) or uv < 0:
+        return ("Zero", "#10B981", "No sun protection required right now.")
+    val = float(uv)
+    if val <= 2.9:
+        return ("Low", "#10B981", "Minimal sun danger — safe for outdoor recreation without sunscreen.")
+    elif val <= 5.9:
+        return ("Moderate", "#F59E0B", "Moderate UV — sunglasses and light sunscreen recommended for prolonged outings.")
+    elif val <= 7.9:
+        return ("High", "#F97316", "High UV risk — wear a wide-brim hat, sunglasses, and seek shade during midday.")
+    elif val <= 10.9:
+        return ("Very High", "#EF4444", "Very high sun danger — skin burns rapidly; apply SPF 30+ sunscreen.")
+    else:
+        return ("Extreme", "#9333EA", "Extreme solar radiation — stay indoors or in full protective coverage.")
+
+
 def geocode_city(city_name: str) -> Optional[Dict[str, Any]]:
     """
     Resolve city name to geographical coordinates (latitude, longitude).
@@ -216,8 +291,16 @@ def fetch_current_air_quality(latitude: float, longitude: float) -> Dict[str, An
         "longitude": longitude,
         "timezone": "auto",
         "current": [
-            "temperature_2m", "relative_humidity_2m",
-            "surface_pressure", "wind_speed_10m", "wind_direction_10m"
+            "temperature_2m", "relative_humidity_2m", "apparent_temperature",
+            "is_day", "precipitation", "weather_code", "cloud_cover",
+            "surface_pressure", "wind_speed_10m", "wind_direction_10m", "wind_gusts_10m"
+        ],
+        "daily": [
+            "sunrise", "sunset", "uv_index_max", "precipitation_probability_max"
+        ],
+        "hourly": [
+            "temperature_2m", "weather_code", "precipitation_probability",
+            "wind_speed_10m", "uv_index", "visibility", "dew_point_2m"
         ]
     }
 
@@ -252,18 +335,106 @@ def fetch_current_air_quality(latitude: float, longitude: float) -> Dict[str, An
     except Exception as e:
         logger.error(f"Error fetching current air quality: {e}")
 
-    # 2. Fetch Weather
+    # 2. Fetch Comprehensive Weather
     try:
         r_wx = requests.get(OPEN_METEO_WEATHER_URL, params=weather_params, timeout=10)
         r_wx.raise_for_status()
-        wx_data = r_wx.json().get("current", {})
+        wx_json = r_wx.json()
+        wx_data = wx_json.get("current", {})
+        daily_data = wx_json.get("daily", {})
+        hourly_data = wx_json.get("hourly", {})
+
+        temp_2m = wx_data.get("temperature_2m")
+        app_temp = wx_data.get("apparent_temperature", temp_2m)
+        is_day = int(wx_data.get("is_day", 1))
+        wmo_code = wx_data.get("weather_code")
+        cond_name, cond_icon, cond_summary = get_wmo_weather_info(wmo_code, is_day)
+
+        wind_dir = wx_data.get("wind_direction_10m")
+        wind_cardinal = degrees_to_cardinal(wind_dir)
+
+        # Process sunrise & sunset
+        sunrise_list = daily_data.get("sunrise", [])
+        sunset_list = daily_data.get("sunset", [])
+        sunrise_str = ""
+        sunset_str = ""
+        if sunrise_list and sunrise_list[0]:
+            try:
+                sunrise_str = pd.to_datetime(sunrise_list[0]).strftime("%I:%M %p").lstrip("0")
+            except Exception:
+                sunrise_str = str(sunrise_list[0])
+        if sunset_list and sunset_list[0]:
+            try:
+                sunset_str = pd.to_datetime(sunset_list[0]).strftime("%I:%M %p").lstrip("0")
+            except Exception:
+                sunset_str = str(sunset_list[0])
+
+        # Match current hour in hourly data
+        times = hourly_data.get("time", [])
+        curr_time_str = wx_data.get("time", "")
+        curr_hour_idx = 0
+        if curr_time_str and times:
+            for idx, t in enumerate(times):
+                if t.startswith(curr_time_str[:13]):
+                    curr_hour_idx = idx
+                    break
+
+        uv_now = hourly_data.get("uv_index", [0])[curr_hour_idx] if hourly_data.get("uv_index") else 0.0
+        uv_cat, uv_col, uv_adv = get_uv_category(uv_now)
+        dew_now = hourly_data.get("dew_point_2m", [None])[curr_hour_idx] if hourly_data.get("dew_point_2m") else None
+        vis_meters = hourly_data.get("visibility", [None])[curr_hour_idx] if hourly_data.get("visibility") else None
+        vis_km = round(vis_meters / 1000.0, 1) if vis_meters is not None else 10.0
+        pop_now = hourly_data.get("precipitation_probability", [0])[curr_hour_idx] if hourly_data.get("precipitation_probability") else 0
+
+        # Construct next 24-hour step-by-step forecast
+        hourly_track = []
+        for i in range(curr_hour_idx, min(curr_hour_idx + 24, len(times))):
+            t_str = times[i]
+            dt = pd.to_datetime(t_str)
+            h_code = hourly_data.get("weather_code", [0])[i] if hourly_data.get("weather_code") else 0
+            h_temp = hourly_data.get("temperature_2m", [temp_2m])[i] if hourly_data.get("temperature_2m") else temp_2m
+            h_pop = hourly_data.get("precipitation_probability", [0])[i] if hourly_data.get("precipitation_probability") else 0
+            h_wind = hourly_data.get("wind_speed_10m", [wx_data.get("wind_speed_10m")])[i] if hourly_data.get("wind_speed_10m") else wx_data.get("wind_speed_10m")
+            h_name, h_icon, _ = get_wmo_weather_info(h_code, is_day=1 if 6 <= dt.hour < 18 else 0)
+            hourly_track.append({
+                "time": dt.strftime("%I %p").lstrip("0"),
+                "time_full": dt.strftime("%I:%M %p"),
+                "hour": dt.hour,
+                "temp": round(float(h_temp), 1) if h_temp is not None else 20.0,
+                "weather_code": h_code,
+                "weather_desc": h_name,
+                "weather_icon": h_icon,
+                "pop": int(h_pop) if h_pop is not None else 0,
+                "wind": round(float(h_wind), 1) if h_wind is not None else 5.0
+            })
 
         result.update({
-            "temperature": wx_data.get("temperature_2m"),
+            "temperature": temp_2m,
+            "apparent_temperature": app_temp,
+            "feels_like": app_temp,
             "humidity": wx_data.get("relative_humidity_2m"),
             "pressure": wx_data.get("surface_pressure"),
             "wind_speed": wx_data.get("wind_speed_10m"),
-            "wind_direction": wx_data.get("wind_direction_10m")
+            "wind_direction": wind_dir,
+            "wind_direction_cardinal": wind_cardinal,
+            "wind_gusts": wx_data.get("wind_gusts_10m"),
+            "is_day": is_day,
+            "weather_code": wmo_code,
+            "weather_desc": cond_name,
+            "weather_icon": cond_icon,
+            "weather_summary": cond_summary,
+            "cloud_cover": wx_data.get("cloud_cover", 0),
+            "precipitation": wx_data.get("precipitation", 0.0),
+            "precipitation_probability": pop_now,
+            "uv_index": uv_now,
+            "uv_category": uv_cat,
+            "uv_color": uv_col,
+            "uv_advice": uv_adv,
+            "dew_point": dew_now,
+            "visibility_km": vis_km,
+            "sunrise": sunrise_str,
+            "sunset": sunset_str,
+            "hourly_weather": hourly_track
         })
     except Exception as e:
         logger.error(f"Error fetching current weather: {e}")
