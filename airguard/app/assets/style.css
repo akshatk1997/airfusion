@@ -1103,3 +1103,129 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 .ag-cartoon-mascot-img:hover {
     transform: scale(1.05) rotate(2deg);
 }
+
+/* ==========================================================================
+   ENSUR.AI REAL-LIFE PHOTOGRAPHY & INTERACTIVE SIMULATOR STYLES
+   ========================================================================== */
+.ag-photo-card {
+    background: #FFFFFF;
+    border: 1px solid var(--ensur-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(31, 52, 76, 0.06);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.ag-photo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(31, 52, 76, 0.12);
+    border-color: rgba(255, 104, 69, 0.4);
+}
+
+.ag-photo-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #1F344C;
+}
+
+.ag-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ag-photo-card:hover .ag-photo-img {
+    transform: scale(1.05);
+}
+
+.ag-photo-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(31, 52, 76, 0.85);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ag-photo-content {
+    padding: 18px 18px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.ag-photo-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--ensur-navy);
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.ag-photo-desc {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--ensur-text-secondary);
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Certificate of Safety */
+.ag-cert-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FAF6F1 100%);
+    border: 2px solid #FF6845;
+    border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0 12px 36px rgba(255, 104, 69, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.ag-cert-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 104, 69, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ag-cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    color: #065F46;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 9999px;
+    padding: 4px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ag-cert-token {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: #8896A6;
+    letter-spacing: 0.04em;
+}
+
