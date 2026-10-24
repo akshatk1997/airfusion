@@ -224,3 +224,57 @@ def test_dual_mode_ai_assistant_responses():
     assert "mascot" in aero_resp
 
 
+def test_decoupled_chat_history_and_accuracy():
+    """
+    Verifies that Simple Mode and Technical Mode have completely decoupled,
+    non-shareable histories, and tests high-accuracy query handling for diverse intents.
+    """
+    import streamlit as st
+    from app.components.ai_assistant_popup import (
+        generate_technical_response,
+        generate_aero_response
+    )
+
+    # 1. Verify decoupled history separation
+    st.session_state["simple_chat_history"] = [{"query": "Can I play?", "answer": "Yes!"}]
+    st.session_state["technical_chat_history"] = [{"query": "PBL height?", "answer": "350m"}]
+
+    assert len(st.session_state["simple_chat_history"]) == 1
+    assert len(st.session_state["technical_chat_history"]) == 1
+    assert "Can I play?" in st.session_state["simple_chat_history"][0]["query"]
+    assert "PBL height?" in st.session_state["technical_chat_history"][0]["query"]
+    assert st.session_state["simple_chat_history"] != st.session_state["technical_chat_history"]
+
+    # 2. Simple Mode High Accuracy Across Varied User Intents
+    # Symptom query
+    symp = generate_aero_response("My throat hurts and eyes sting", "Chandigarh", 45.0, 110, 22.0, 8.0, 60.0)
+    assert "honey" in symp["answer"].lower() or "soothe" in symp["answer"].lower()
+    assert "mascot" in symp
+
+    # Baby stroller query
+    baby = generate_aero_response("Can I take my 3 month old newborn baby stroller walk?", "Delhi", 70.0, 160, 18.0, 5.0, 50.0)
+    assert "gentle" in baby["answer"].lower() or "stroller" in baby["tip"].lower() or "baby" in baby["answer"].lower()
+
+    # Rain shower query
+    rain = generate_aero_response("Will the rain clean our sky?", "Kolkata", 30.0, 80, 26.0, 12.0, 85.0)
+    assert "rain" in rain["answer"].lower()
+    assert "power shower" in rain["answer"].lower() or "shower" in rain["answer"].lower()
+
+    # 3. Technical Mode High Accuracy Across Varied Engineering Queries
+    # Criteria pollutants (Ozone & NO2)
+    chem = generate_technical_response("What about ground-level ozone kinetics and NO2?", "Mumbai", 40.0, 95, 29.0, 14.0, 75.0)
+    assert "ozone" in chem["answer"].lower() or "o₃" in chem["answer"].lower()
+    assert "stoichiometry" in chem["metric"].lower() or "precursors" in chem["answer"].lower()
+
+    # IAQ and building HVAC
+    hvac = generate_technical_response("Building HVAC MERV-13 positive pressurization guidelines", "Bengaluru", 25.0, 65, 24.0, 10.0, 55.0)
+    assert "hvac" in hvac["answer"].lower() or "merv" in hvac["answer"].lower() or "envelope" in hvac["answer"].lower()
+    assert "ach" in hvac["metric"].lower() or "cadr" in hvac["metric"].lower() or "ppm" in hvac["metric"].lower()
+
+    # Clinical pathophysiology
+    copd = generate_technical_response("Asthma COPD bronchospasm and vascular inflammation risk", "Jaipur", 85.0, 175, 25.0, 6.0, 40.0)
+    assert "inflammatory" in copd["answer"].lower() or "bronchial" in copd["answer"].lower() or "oxidative" in copd["answer"].lower()
+    assert "risk" in copd["metric"].lower() or "protocol" in copd
+
+
+

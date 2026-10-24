@@ -44,19 +44,55 @@ def generate_aero_response(
 ) -> Dict[str, str]:
     """
     Generates a child-friendly, storytelling response from Aero the Cloud.
+    Maintains zero technical jargon, 2-3 short sentences, warm analogies,
+    actionable tips, and tailored advice for ANY user query.
     Returns dict with:
       - 'answer': short, warm explanation (2-3 sentences)
       - 'tip': short actionable takeaway for kids/parents
       - 'mascot': mascot filename to display
     """
-    q = user_query.lower().strip()
+    q = (user_query or "").lower().strip()
     prof = user_profile or {}
     sensitivity = prof.get("health_sensitivity", "none")
     age = prof.get("age_group", "adult")
     is_sensitive = sensitivity != "none" or age in ["child", "senior"]
 
-    # 1. OUTDOOR PLAY / SOCCER / CYCLING / PARK
-    if any(k in q for k in ["play", "soccer", "football", "run", "cycle", "bike", "outside", "playground", "park"]):
+    # 1. GREETINGS, IDENTITY & CAPABILITY
+    if any(k in q for k in ["hi", "hello", "hey", "who are you", "what can you do", "help me", "good morning", "good evening"]):
+        return {
+            "answer": (
+                f"Hello there! I'm Aero, your friendly Clean Air Buddy ☁️✨! "
+                f"Right now in {city_name}, the air is {temp:.0f}°C with a dust level of {pm25:.0f} specks. "
+                f"I'm here to tell you when it's safe to play, what to pack in your bag, or how to soothe any coughs!"
+            ),
+            "tip": "Tip: Ask me 'Can I play outside?', 'What to pack?', or 'Why do my eyes sting?'!",
+            "mascot": "mascot_clean_air.jpg"
+        }
+
+    # 2. SENSITIVE GROUPS: BABIES, INFANTS, PREGNANCY, GRANDPARENTS, ASTHMA
+    if any(k in q for k in ["baby", "infant", "newborn", "toddler", "stroller", "pregnant", "pregnancy", "grandma", "grandpa", "elderly", "senior", "asthma", "inhaler", "wheez", "allergy"]):
+        if pm25 > 35:
+            return {
+                "answer": (
+                    f"Extra gentle care is needed for sensitive lungs in {city_name} today! "
+                    f"Babies, grandparents, and friends with asthma breathe more dust per breath, so it's safest to stay in a cozy indoor room with an air purifier running. "
+                    f"Keep inhalers and warm drinks close by!"
+                ),
+                "tip": "Tip: Keep stroller covers on if you must take a baby outside near busy roads.",
+                "mascot": "mascot_caution_mask.jpg"
+            }
+        else:
+            return {
+                "answer": (
+                    f"Good news for sensitive lungs in {city_name}! The air is peaceful and mild right now ({pm25:.0f} specks). "
+                    f"A gentle 20-minute walk in a quiet tree-filled park is wonderful for health—just stay away from smoky car tailpipes!"
+                ),
+                "tip": "Tip: Bring your water bottle and take gentle strolls on grassy paths.",
+                "mascot": "mascot_clean_air.jpg"
+            }
+
+    # 3. OUTDOOR ACTIVITIES, RUNNING, CYCLING, SPORTS & RECESS
+    if any(k in q for k in ["play", "soccer", "football", "cricket", "run", "jog", "cycle", "bike", "outside", "playground", "park", "recess", "walk", "stroll", "gym", "exercise"]):
         if pm25 <= 15:
             return {
                 "answer": f"Hooray! The air in {city_name} is squeaky clean and fresh right now (only {pm25:.0f} dust specks)! You can run, kick the soccer ball, and play at the playground as much as you like!",
@@ -66,7 +102,7 @@ def generate_aero_response(
         elif pm25 <= 35:
             if is_sensitive:
                 return {
-                    "answer": f"You can still play outside in {city_name}, but let's take it a little gentler! Since your lungs are a bit sensitive, choose fun games that don't make you breathe super hard, and drink plenty of water.",
+                    "answer": f"You can play outside in {city_name}, but let's take it a little gentler! Since your lungs are a bit sensitive, choose fun games that don't make you breathe super hard, and drink plenty of water.",
                     "tip": "Tip: Green grassy parks have much fresher air than streets with cars!",
                     "mascot": "mascot_clean_air.jpg"
                 }
@@ -78,19 +114,19 @@ def generate_aero_response(
                 }
         elif pm25 <= 75:
             return {
-                "answer": f"Caution, little explorer! The invisible dust monsters in {city_name} are floating around in higher numbers right now. It's best to play outdoor games for just 20–30 minutes, or enjoy fun indoor Lego and board games!",
+                "answer": f"Caution, little explorer! The invisible dust monsters in {city_name} are floating around in higher numbers ({pm25:.0f} specks) right now. It's best to play outdoor games for just 20–30 minutes, or enjoy fun indoor Lego and board games!",
                 "tip": "Tip: If you do go out, wear your cool superhero mask to block the dust!",
                 "mascot": "mascot_caution_mask.jpg"
             }
         else:
             return {
-                "answer": f"Uh-oh! The air in {city_name} is very dusty and unhappy today. The best superhero move right now is staying inside your cozy indoor fort where the air is safe and pure!",
+                "answer": f"Uh-oh! The air in {city_name} is very dusty and unhappy today ({pm25:.0f} dust specks). The best superhero move right now is staying inside your cozy indoor fort where the air is safe and pure!",
                 "tip": "Tip: Keep windows closed and build a fun blanket fortress indoors!",
                 "mascot": "mascot_indoor_sanctuary.jpg"
             }
 
-    # 2. WHAT TO PACK / SCHOOLBAG / BACKPACK
-    if any(k in q for k in ["pack", "bag", "schoolbag", "backpack", "bring", "carry", "take with me"]):
+    # 3. WHAT TO PACK / SCHOOLBAG / BACKPACK / GEAR
+    if any(k in q for k in ["pack", "bag", "schoolbag", "backpack", "bring", "carry", "take with", "bottle", "gear", "supplies"]):
         pack_items = ["a tall bottle of fresh water", "sunglasses to block ground dust"]
         if pm25 > 25:
             pack_items.append("a snug clean-air mask (like an N95 or soft kid-shield)")
@@ -101,35 +137,23 @@ def generate_aero_response(
         items_str = ", ".join(pack_items)
         return {
             "answer": f"Ready for an outdoor adventure in {city_name}? Make sure your backpack has: {items_str}! Water keeps your throat moist, and sunglasses stop dusty grit from blowing into your eyes.",
-            "tip": f"Aero's Rule: Water flushes dust specks down your tummy where they can't tickle your lungs!",
+            "tip": "Aero's Rule: Water flushes dust specks down your tummy where they can't tickle your lungs!",
             "mascot": "mascot_clean_air.jpg"
         }
 
-    # 3. SYMPTOMS: ITCHY THROAT, BURNING EYES, COUGH
-    if any(k in q for k in ["throat", "eyes", "burn", "cough", "itch", "tickle", "headache", "sneeze", "sick", "hurts"]):
+    # 4. SYMPTOMS & FIRST AID REMEDIES (THROAT, EYES, COUGH, SNEEZE)
+    if any(k in q for k in ["throat", "cough", "itch", "scratch", "burn", "eye", "sting", "watery", "sneeze", "headache", "chest", "breath", "sick", "hurt"]):
         return {
-            "answer": "Oh no, let's soothe those tickles right away! First, splash cool water on your face and place a clean, cool damp washcloth gently over your eyes—never rub them! Next, sip warm water with a spoonful of sweet honey to coat your throat like a warm blanket.",
-            "tip": "Aero's Comfort Remedy: Breathe warm steam from a warm shower or mug, and rest inside with windows closed.",
+            "answer": (
+                "Oh no, let's soothe those tickles right away! First, splash cool water on your face and place a clean, cool damp washcloth gently over your eyes—never rub them! "
+                "Next, sip warm water with a spoonful of sweet honey to coat your throat like a warm blanket, and rest inside."
+            ),
+            "tip": "Aero's Comfort Remedy: Breathe warm steam from a warm mug or shower, and rest in your cozy room with windows closed.",
             "mascot": "mascot_indoor_sanctuary.jpg"
         }
 
-    # 4. PETS: DOG / CAT
-    if any(k in q for k in ["dog", "cat", "pet", "puppy", "kitten"]):
-        if pm25 > 55:
-            return {
-                "answer": f"Furry friends breathe much closer to the ground where dust settles! Since {city_name}'s air is dusty ({pm25:.0f} specks), keep doggy potty walks short (5-10 minutes) and wipe their paws with a damp cloth when you get back inside.",
-                "tip": "Tip: Play tug-of-war or ball rolling in the living room today instead of long runs!",
-                "mascot": "mascot_caution_mask.jpg"
-            }
-        else:
-            return {
-                "answer": f"Your furry buddy will love a walk today! The air in {city_name} is safe and comfortable. Head to a grassy dog park or tree-lined lawn for sniffing fun!",
-                "tip": "Tip: Bring a collapsible water dish so your pup stays hydrated too!",
-                "mascot": "mascot_clean_air.jpg"
-            }
-
-    # 5. MASK GUIDANCE
-    if any(k in q for k in ["mask", "n95", "cloth mask", "wear a mask"]):
+    # 5. MASKS & FACE SHIELDS
+    if any(k in q for k in ["mask", "n95", "cloth", "surgical", "face cover", "shield", "wear"]):
         if pm25 > 50:
             return {
                 "answer": f"Yes! Wearing a snug mask (like an N95 or a soft filtered kid mask) is like giving your nose a magical shield. It traps 95% of invisible dust ninjas before they can tickle your breathing pipes!",
@@ -149,8 +173,81 @@ def generate_aero_response(
                 "mascot": "mascot_clean_air.jpg"
             }
 
-    # 5.1 NEWS / TODAY'S ALERTS / OFFICIAL BULLETINS
-    if any(k in q for k in ["news", "headline", "alert", "directive", "bulletin", "today", "report"]):
+    # 7. INDOOR AIR SANCTUARY, BEDROOM & WINDOWS
+    if any(k in q for k in ["indoor", "house", "home", "room", "window", "purifier", "hepa", "bedroom", "close window", "open window", "ac", "fan", "filter"]):
+        if pm25 > 45:
+            return {
+                "answer": (
+                    f"To make your home a clean air fortress in {city_name}, keep doors and windows shut tight to block outside dust. "
+                    f"Turn on your bedroom air cleaner or HEPA filter, and avoid burning candles, incense, or frying food with doors open!"
+                ),
+                "tip": "Tip: Air out your room only in the bright afternoon (1:00–3:00 PM) when the sun has warmed up the breeze.",
+                "mascot": "mascot_indoor_sanctuary.jpg"
+            }
+        else:
+            return {
+                "answer": (
+                    f"The outside air in {city_name} is fresh right now ({pm25:.0f} specks)! "
+                    f"Open up your windows for 30 minutes to welcome in cool fresh oxygen and flush out stale indoor air!"
+                ),
+                "tip": "Tip: Cross-ventilation (opening opposite windows) cleans room air in just 15 minutes.",
+                "mascot": "mascot_clean_air.jpg"
+            }
+
+    # 8. NATURE, TREES & HOUSEPLANTS
+    if any(k in q for k in ["tree", "plant", "nature", "garden", "leaf", "snake plant", "spider plant", "areca", "clean air", "help the air"]):
+        return {
+            "answer": "Trees and houseplants are earth's giant green air scrubbers! While we breathe in oxygen and breathe out carbon, plants do the magical opposite—their leaves catch dust and drink in pollutants, breathing out delicious fresh oxygen for us all day long!",
+            "tip": "Aero's Eco Mission: Adopt a Snake Plant or Spider Plant in your bedroom—they clean the air while you sleep!",
+            "mascot": "mascot_clean_air.jpg"
+        }
+
+    # 9. PETS & ANIMALS
+    if any(k in q for k in ["dog", "cat", "pet", "puppy", "kitten", "walk dog"]):
+        if pm25 > 55:
+            return {
+                "answer": f"Furry friends breathe much closer to the ground where dust settles! Since {city_name}'s air is dusty ({pm25:.0f} specks), keep doggy potty walks short (5-10 minutes) and wipe their paws with a damp cloth when you get back inside.",
+                "tip": "Tip: Play tug-of-war or ball rolling in the living room today instead of long runs!",
+                "mascot": "mascot_caution_mask.jpg"
+            }
+        else:
+            return {
+                "answer": f"Your furry buddy will love a walk today! The air in {city_name} is safe and comfortable. Head to a grassy dog park or tree-lined lawn for sniffing fun!",
+                "tip": "Tip: Bring a collapsible water dish so your pup stays hydrated too!",
+                "mascot": "mascot_clean_air.jpg"
+            }
+
+    # 10. WEATHER, RAIN, FOG & SMOG
+    if any(k in q for k in ["weather", "rain", "fog", "smog", "sun", "wind", "cold", "hot", "storm"]):
+        if "rain" in q:
+            return {
+                "answer": f"Rain is nature's giant power shower! When water droplets tumble from the sky over {city_name}, they grab dust specks and pull them straight down to the soil, leaving the sky sparkling clean!",
+                "tip": "Tip: The air immediately after a nice rain shower is the freshest air of the entire week!",
+                "mascot": "mascot_clean_air.jpg"
+            }
+        else:
+            return {
+                "answer": (
+                    f"In {city_name} right now, the temperature is {temp:.0f}°C with a wind speed of {wind:.0f} km/h and humidity around {humidity:.0f}%. "
+                    f"Early morning chilly air often traps dust near the ground like a cold lid, but afternoon sunshine helps float it away!"
+                ),
+                "tip": "Tip: The sunniest hours of the afternoon are usually the cleanest hours to step outside.",
+                "mascot": "mascot_clean_air.jpg"
+            }
+
+    # 11. FOOD & HEALTHY LUNGS
+    if any(k in q for k in ["food", "drink", "eat", "turmeric", "honey", "orange", "carrot", "nutrition", "milk", "water"]):
+        return {
+            "answer": (
+                "Eating colorful foods gives your lungs superhero shields! "
+                "Sweet orange carrots and citrus fruits like oranges have Vitamin A and C that repair breathing passages, while warm golden turmeric milk soothes irritation like a warm blanket!"
+            ),
+            "tip": "Aero's Power Snack: Drink 4-6 glasses of fresh water daily to wash away throat dust specks.",
+            "mascot": "mascot_clean_air.jpg"
+        }
+
+    # 12. NEWS & TODAY'S ALERTS
+    if any(k in q for k in ["news", "headline", "alert", "directive", "bulletin", "today", "report", "government", "rules"]):
         return {
             "answer": (
                 f"Today in clean air news for {city_name}: Environmental teams and doctors are watching our breezes closely! "
@@ -161,15 +258,7 @@ def generate_aero_response(
             "mascot": "mascot_clean_air.jpg"
         }
 
-    # 6. TREES, PLANTS, ECO ACTION
-    if any(k in q for k in ["tree", "plant", "eco", "nature", "houseplant", "clean air", "help the air", "earth"]):
-        return {
-            "answer": "Trees and houseplants are earth's giant green air scrubbers! While we breathe in oxygen and breathe out carbon, plants do the magical opposite—their leaves catch dust and drink in pollutants, breathing out delicious fresh oxygen for us all day long!",
-            "tip": "Aero's Eco Mission: Adopt a Snake Plant or Spider Plant in your bedroom—they clean the air while you sleep!",
-            "mascot": "mascot_clean_air.jpg"
-        }
-
-    # 7. BEDTIME STORY / FUN STORY
+    # 13. BEDTIME STORY / FUN STORY
     if any(k in q for k in ["story", "bedtime", "tale", "adventure", "fairy"]):
         return {
             "answer": f"Once upon a time in {city_name}, a cheerful cloud named Aero floated over the city with a tiny green sprout friend named Pip! Whenever smoky traffic tried to rise into the sky, Pip would wiggle his leaves and call upon the Gentle Mountain Breeze. Together, they puffed away the gray dust, turning the sky into a shimmering ocean of clean blue air where children could play safely under the stars!",
@@ -177,18 +266,33 @@ def generate_aero_response(
             "mascot": "mascot_clean_air.jpg"
         }
 
-    # 8. PM2.5 / AQI EXPLANATION FOR KIDS
-    if any(k in q for k in ["pm2.5", "pm25", "aqi", "particle", "micro", "what is", "mean"]):
+    # 14. PM2.5 & AQI EXPLANATION
+    if any(k in q for k in ["pm2.5", "pm25", "aqi", "particle", "micro", "what is", "mean", "dust speck"]):
         return {
             "answer": f"Imagine taking a single strand of your hair and slicing it into 30 tiny microscopic pieces—that's how tiny PM2.5 dust specks are! Right now in {city_name}, there are {pm25:.0f} of these little specks per breath. When the number is low, your lungs feel happy and breezy!",
             "tip": "Easy Rule: Under 30 is Clean & Green, 30-60 is Caution Yellow, and over 60 means Dust Alert!",
             "mascot": "mascot_clean_air.jpg"
         }
 
-    # 9. GENERAL / FRIENDLY FALLBACK WITH CONTEXT
+    # 15. GRATITUDE, GOODBYE & CLOSING
+    if any(k in q for k in ["thank", "bye", "goodbye", "awesome", "great", "love", "good job", "cool"]):
+        return {
+            "answer": (
+                f"You're so very welcome, friend! I love helping you and your family breathe happy in {city_name}. "
+                f"Drink a nice sip of water, stay safe, and give your lungs a big superhero high-five! ☁️✨"
+            ),
+            "tip": "Tip: I'm always floating here on the bottom right if you need me again!",
+            "mascot": "mascot_clean_air.jpg"
+        }
+
+    # 16. COMPREHENSIVE CONTEXTUAL SITUATIONAL FALLBACK
     return {
-        "answer": f"Hi friend! In {city_name} right now, the air is {temp:.0f}°C with a pleasant {wind:.0f} km/h breeze and a particle level of {pm25:.0f} (AQI {aqi}). I'm always here to help you pick the safest hour to play, pack your superhero backpack, or soothe any dust tickles!",
-        "tip": "Tip: Tap any of the quick question buttons below for instant clean-air tips!",
+        "answer": (
+            f"Hi friend! In {city_name} right now, the air is {temp:.0f}°C with a pleasant {wind:.0f} km/h breeze and a particle level of {pm25:.0f} (AQI {aqi}). "
+            f"{'Conditions are nice and clear for outdoor fun!' if pm25 <= 35 else 'Take it gentle outside today and keep your water bottle handy!'} "
+            f"I'm always right here to guide your outdoor adventures, bag packing, or home air fortress!"
+        ),
+        "tip": "Tip: You can tap any of the quick prompt buttons for instant advice on playing, packing, or masks!",
         "mascot": "mascot_clean_air.jpg"
     }
 

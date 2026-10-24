@@ -445,6 +445,9 @@ def render_simple_safe_plan(active_city: str) -> None:
     curr = fetch_current_air_quality(loc["latitude"], loc["longitude"])
     pm25_val = float(curr.get("pm2_5", 0.0))
     aqi_val = int(curr.get("aqi", 0))
+    temp_val = float(curr.get("temperature", 24.0))
+    wind_val = float(curr.get("wind_speed", 2.0))
+    humidity_val = float(curr.get("humidity", 50.0))
 
     forecast_df, _ = generate_forecast(active_city, horizon_hours=24)
     if forecast_df is None or forecast_df.empty:
