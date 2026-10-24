@@ -1,6 +1,6 @@
 """
 AirGuard Simple Mode Presentation Components.
-Bespoke, human-crafted environmental decision-support cards inspired by ensur.ai architecture.
+Bespoke, human-crafted environmental decision-support cards and AirGuard design system.
 Warm ivory canvas, pure white surfaces (#FFFFFF), deep navy headings (#1F344C),
 warm borders (#EBE6DF), and coral accents (#FF6845).
 """
@@ -113,7 +113,7 @@ def render_air_safety_card(
 ) -> None:
     """
     Renders the primary Air Safety Directive Card for Simple Mode.
-    ensur.ai architecture: Pure White surface (#FFFFFF), subtle warm border (#EBE6DF),
+    AirGuard architecture: Pure White surface (#FFFFFF), subtle warm border (#EBE6DF),
     deep navy (#1F344C) typography, and coral/emerald accents.
     """
     theme = get_simple_status_style(status_level)
@@ -140,7 +140,7 @@ def render_air_safety_card(
 
     live_indicator = f"""
     <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.76rem; color: #FF6845; background: rgba(255, 104, 69, 0.08); border: 1px solid rgba(255, 104, 69, 0.25); padding: 5px 12px; border-radius: 9999px;">
-        <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
+        <span class="ag-pulse-dot" style="width: 7px; height: 7px;"></span>
         <span style="font-weight: 600;">{live_timestamp}</span>
     </div>
     """ if live_timestamp else """
@@ -279,7 +279,7 @@ def render_air_safety_card(
 def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
     """
     Renders a friendly 24-hour safe/caution/avoid visual track for Simple Mode.
-    ensur.ai styling: White surface (#FFFFFF), warm borders (#EBE6DF), clean typography.
+    AirGuard styling: White surface (#FFFFFF), warm borders (#EBE6DF), clean typography.
     """
     if not hourly_data:
         return
@@ -380,7 +380,7 @@ def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
 def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
     """
     Renders one short, practical non-technical insight for Simple Mode.
-    ensur.ai styling: White surface (#FFFFFF), warm border (#EBE6DF), coral accent (#FF6845).
+    AirGuard styling: White surface (#FFFFFF), warm border (#EBE6DF), coral accent (#FF6845).
     Features friendly 3D cartoon mascot companion in Simple Mode.
     """
     if aqi <= 50:
@@ -623,7 +623,7 @@ def render_simple_weather_cards(
     ">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 9999px; padding: 4px 14px;">
-                <span class="ensur-pulse-dot" style="background: #0284C7;"></span>
+                <span class="ag-pulse-dot" style="background: #0284C7;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #0284C7; text-transform: uppercase; letter-spacing: 0.08em;">
                     REAL-TIME WEATHER TELEMETRY • HOURLY STEP-BY-STEP UPDATES
                 </span>
@@ -1003,7 +1003,7 @@ def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> 
 def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> None:
     """
     Renders 2 side-by-side cards for Mask guidance and Indoor air protection.
-    ensur.ai styling: White surfaces (#FFFFFF), warm borders (#EBE6DF), coral and emerald accents.
+    AirGuard styling: White surfaces (#FFFFFF), warm borders (#EBE6DF), coral and emerald accents.
     Accompanied by animated 3D cartoon mascots in Simple Mode.
     """
     if isinstance(mask_advice, (list, tuple)):
@@ -1072,31 +1072,31 @@ def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> Non
 
 
 # ==============================================================================
-# SIGNATURE ENSUR.AI ARCHITECTURAL COMPONENTS
+# SIGNATURE AIRGUARD ARCHITECTURAL COMPONENTS
 # ==============================================================================
 
-def render_ensur_hero_section() -> None:
+def render_airguard_hero_section() -> None:
     """
-    Renders the signature ensur.ai Hero Section:
+    Renders the signature AirGuard Hero Section:
     Warm Ivory canvas, Montserrat 800 bold title with coral gradient keyword ('smart.'),
     subtext, orbital animation, and floating live decision badges.
     """
     html = """
     <div style="position: relative; padding: 20px 0 36px 0; text-align: left;">
         <!-- Floating blurred gradient orb -->
-        <div class="ensur-bg-orb" style="top: -60px; right: 5%; width: 380px; height: 380px; background: radial-gradient(circle, rgba(255, 104, 69, 0.12) 0%, rgba(255, 134, 101, 0.04) 50%, transparent 75%);"></div>
+        <div class="ag-bg-orb" style="top: -60px; right: 5%; width: 380px; height: 380px; background: radial-gradient(circle, rgba(255, 104, 69, 0.12) 0%, rgba(255, 134, 101, 0.04) 50%, transparent 75%);"></div>
 
         <!-- Eyebrow Pill -->
         <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 6px 16px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(31, 52, 76, 0.04);">
-            <span class="ensur-pulse-dot"></span>
+            <span class="ag-pulse-dot"></span>
             <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
                 AUTONOMOUS ENVIRONMENTAL INTELLIGENCE
             </span>
         </div>
 
-        <!-- Main ensur.ai Headline -->
+        <!-- Main AirGuard Headline -->
         <h1 style="font-family: var(--font-heading); font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; color: #1F344C; letter-spacing: -0.03em; line-height: 1.15; margin: 0 0 18px 0; max-width: 900px;">
-            Making outdoor safety <span class="ensur-title-highlight">smart.</span>
+            Making outdoor safety <span class="ag-title-highlight">smart.</span>
         </h1>
 
         <!-- Subtitle -->
@@ -1108,9 +1108,9 @@ def render_ensur_hero_section() -> None:
     safe_markdown(html)
 
 
-def render_ensur_comparison_section() -> None:
+def render_airguard_comparison_section() -> None:
     """
-    Renders ensur.ai's signature 'The Bottleneck' comparison section:
+    Renders AirGuard's signature 'The Bottleneck' comparison section:
     Side-by-side comparison of Traditional Static Check ('Once') vs. Active Real-Time Clearance ('Ongoing').
     """
     html = """
@@ -1187,7 +1187,7 @@ def render_ensur_comparison_section() -> None:
                 </div>
             </div>
 
-            <!-- Right Card: airguardOS Active Clearance (ensur.ai Coral Gradient Card) -->
+            <!-- Right Card: airguardOS Active Clearance (AirGuard Coral Gradient Card) -->
             <div style="
                 background: linear-gradient(145deg, #FF6845 0%, #FF8665 100%);
                 border-radius: 22px;
@@ -1258,9 +1258,9 @@ def render_ensur_comparison_section() -> None:
     safe_markdown(html)
 
 
-def render_ensur_engine_section(active_city: str, pm25_val: float, aqi_val: int) -> None:
+def render_airguard_engine_section(active_city: str, pm25_val: float, aqi_val: int) -> None:
     """
-    Renders ensur.ai's signature Deep Navy Slate Engine Section:
+    Renders AirGuard's signature Deep Navy Slate Engine Section:
     Container in #1F344C with diamond dot lattice pattern, 3-step pipeline (01 Ingest, 02 Predict & Certify, 03 Authorize),
     and a pure white multi-source validation showcase card.
     """
@@ -1280,7 +1280,7 @@ def render_ensur_engine_section(active_city: str, pm25_val: float, aqi_val: int)
         <!-- Section Header -->
         <div style="max-width: 680px; margin-bottom: 34px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 104, 69, 0.15); border: 1px solid rgba(255, 104, 69, 0.4); border-radius: 9999px; padding: 4px 14px; margin-bottom: 14px;">
-                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span class="ag-pulse-dot" style="width: 6px; height: 6px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF8665; text-transform: uppercase; letter-spacing: 0.08em;">
                     THE AIRGUARD ENGINE: airguardOS
                 </span>
@@ -1346,7 +1346,7 @@ def render_ensur_engine_section(active_city: str, pm25_val: float, aqi_val: int)
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; border-bottom: 1px solid #EBE6DF; padding-bottom: 14px;">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <div style="width: 28px; height: 28px;">
-                        {ICONS['ensur_star']}
+                        {ICONS['ag_star']}
                     </div>
                     <span style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 800; color: #1F344C;">
                         airguardOS Multi-Source Validation Consensus
@@ -1396,9 +1396,9 @@ def render_ensur_engine_section(active_city: str, pm25_val: float, aqi_val: int)
     safe_markdown(html)
 
 
-def render_ensur_impact_metrics() -> None:
+def render_airguard_impact_metrics() -> None:
     """
-    Renders ensur.ai's signature Platform Impact Metrics:
+    Renders AirGuard's signature Platform Impact Metrics:
     5 rounded white cards with soft warm borders and tabular metrics.
     """
     html = """
@@ -1474,9 +1474,9 @@ def render_ensur_impact_metrics() -> None:
     safe_markdown(html)
 
 
-def render_ensur_solutions_grid() -> None:
+def render_airguard_solutions_grid() -> None:
     """
-    Renders ensur.ai's Multi-Vertical Solutions Grid:
+    Renders AirGuard's Multi-Cohort Environmental Solutions Grid:
     Numbered solution cards across cohorts (1 • Sensitive Lungs, 2 • Children, 3 • Seniors, 4 • Athletes).
     """
     html = """
@@ -1563,9 +1563,9 @@ def render_ensur_solutions_grid() -> None:
     safe_markdown(html)
 
 
-def render_ensur_executive_footer() -> None:
+def render_airguard_executive_footer() -> None:
     """
-    Renders ensur.ai's 5-column Executive Footer with AirGuard branding,
+    Renders AirGuard's 5-column Executive Footer with verified regulatory benchmarks,
     aperture logo, architecture references, and legal disclaimers.
     """
     html = f"""
@@ -1580,7 +1580,7 @@ def render_ensur_executive_footer() -> None:
             <div style="grid-column: span 1;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
                     <div style="width: 24px; height: 24px;">
-                        {ICONS['ensur_star']}
+                        {ICONS['ag_star']}
                     </div>
                     <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem; color: #1F344C; letter-spacing: -0.02em;">
                         AIRGUARD
@@ -1653,7 +1653,7 @@ def render_ensur_executive_footer() -> None:
 
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid #EBE6DF; padding: 18px 0; font-size: 0.76rem; color: #8896A6;">
             <div>
-                © 2026 AirGuard Environmental Intelligence. Re-architected with ensur.ai design language.
+                © 2026 AirGuard Environmental Intelligence. Autonomous environmental safety and predictive health telemetry.
             </div>
             <div style="display: flex; gap: 16px;">
                 <span>Privacy Architecture</span>
@@ -1666,3 +1666,12 @@ def render_ensur_executive_footer() -> None:
     </footer>
     """
     safe_markdown(html)
+
+
+# Backward compatibility aliases
+render_ensur_hero_section = render_airguard_hero_section
+render_ensur_comparison_section = render_airguard_comparison_section
+render_ensur_engine_section = render_airguard_engine_section
+render_ensur_impact_metrics = render_airguard_impact_metrics
+render_ensur_solutions_grid = render_airguard_solutions_grid
+render_ensur_executive_footer = render_airguard_executive_footer

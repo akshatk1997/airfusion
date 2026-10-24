@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AirGuard Design System — ensur.ai Inspired Visual Architecture
+   AirGuard Design System — Professional Environmental Intelligence Visual Architecture
    Brand Aesthetics: Warm Ivory Canvas, Deep Navy Slate Engine, Coral Gradient Accents
    Typography: Montserrat (Headings) & JetBrains Mono (Telemetry)
    ========================================================================== */
@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
 
 :root {
-    /* ensur.ai Primary Palette */
+    /* AirGuard Professional Palette */
     --ensur-canvas: #FAF6F1;
     --ensur-surface: #FFFFFF;
     --ensur-surface-warm: #F4EFEB;
@@ -16,7 +16,7 @@
     --ensur-navy-surface: #162638;
     --ensur-navy-card: #253C56;
     
-    /* Coral Accents (The signature ensur.ai gradient) */
+    /* AirGuard Coral Accents */
     --ensur-coral: #FF6845;
     --ensur-tangerine: #FF8665;
     --ensur-peach: #FFA48C;
@@ -53,15 +53,15 @@
     --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
 
     /* Legacy Backward Compatibility Tokens (Required by pytest test_design_system.py) */
-    --color-bg-base: var(--ensur-canvas);
-    --color-bg-surface: var(--ensur-surface);
-    --color-bg-card: var(--ensur-surface);
-    --color-border-subtle: var(--ensur-border);
-    --color-border-specular: var(--ensur-border-light);
-    --color-text-primary: var(--ensur-text-primary);
-    --color-text-secondary: var(--ensur-text-secondary);
-    --color-text-muted: var(--ensur-text-muted);
-    --color-brand-cyan: var(--ensur-coral);
+    --color-bg-base: var(--ag-canvas);
+    --color-bg-surface: var(--ag-surface);
+    --color-bg-card: var(--ag-surface);
+    --color-border-subtle: var(--ag-border);
+    --color-border-specular: var(--ag-border-light);
+    --color-text-primary: var(--ag-text-primary);
+    --color-text-secondary: var(--ag-text-secondary);
+    --color-text-muted: var(--ag-text-muted);
+    --color-brand-cyan: var(--ag-coral);
     --color-brand-red: #FF6845;
 
     --space-1: 4px;
@@ -76,13 +76,13 @@
     --radius-xl: 20px;
 
     /* Status Tokens */
-    --color-aqi-good-border: var(--ensur-green);
+    --color-aqi-good-border: var(--ag-green);
     --color-aqi-good-text: #059669;
-    --color-aqi-moderate-border: var(--ensur-amber);
+    --color-aqi-moderate-border: var(--ag-amber);
     --color-aqi-moderate-text: #D97706;
-    --color-aqi-sensitive-border: var(--ensur-orange);
+    --color-aqi-sensitive-border: var(--ag-orange);
     --color-aqi-sensitive-text: #EA580C;
-    --color-aqi-unhealthy-border: var(--ensur-red);
+    --color-aqi-unhealthy-border: var(--ag-red);
     --color-aqi-unhealthy-text: #DC2626;
     --color-aqi-very-unhealthy-border: #9333EA;
     --color-aqi-very-unhealthy-text: #7E22CE;
@@ -90,24 +90,24 @@
     --color-aqi-hazardous-text: #BE123C;
 
     /* Aliases for components */
-    --ag-canvas: var(--ensur-canvas);
-    --ag-surface: var(--ensur-surface);
-    --ag-surface-hover: var(--ensur-surface-hover);
-    --ag-surface-card: var(--ensur-surface);
-    --ag-border: var(--ensur-border);
-    --ag-border-light: var(--ensur-border-light);
-    --ag-text-primary: var(--ensur-text-primary);
-    --ag-text-secondary: var(--ensur-text-secondary);
-    --ag-text-tertiary: var(--ensur-text-muted);
-    --ag-green: var(--ensur-green);
-    --ag-yellow: var(--ensur-amber);
-    --ag-orange: var(--ensur-orange);
-    --ag-red: var(--ensur-red);
-    --ag-cyan: var(--ensur-coral);
+    --ag-canvas: var(--ag-canvas);
+    --ag-surface: var(--ag-surface);
+    --ag-surface-hover: var(--ag-surface-hover);
+    --ag-surface-card: var(--ag-surface);
+    --ag-border: var(--ag-border);
+    --ag-border-light: var(--ag-border-light);
+    --ag-text-primary: var(--ag-text-primary);
+    --ag-text-secondary: var(--ag-text-secondary);
+    --ag-text-tertiary: var(--ag-text-muted);
+    --ag-green: var(--ag-green);
+    --ag-yellow: var(--ag-amber);
+    --ag-orange: var(--ag-orange);
+    --ag-red: var(--ag-red);
+    --ag-cyan: var(--ag-coral);
 }
 
 :focus-visible {
-    outline: 2px solid var(--ensur-coral) !important;
+    outline: 2px solid var(--ag-coral) !important;
     outline-offset: 2px !important;
 }
 
@@ -115,8 +115,8 @@
    GLOBAL APP CONTAINER & RESET (WARM IVORY SURFACE)
    ========================================================================== */
 html, body {
-    background-color: var(--ensur-canvas) !important;
-    color: var(--ensur-text-primary) !important;
+    background-color: var(--ag-canvas) !important;
+    color: var(--ag-text-primary) !important;
     font-family: var(--font-sans) !important;
     letter-spacing: -0.01em;
     -webkit-font-smoothing: antialiased;
@@ -137,23 +137,23 @@ h1, h2, h3, h4, h5, h6,
 
 /* Explicit high-contrast white overrides for dark cards and dark telemetry surfaces */
 [data-testid="stMarkdownContainer"] .ag-hero-city-title,
-[data-testid="stMarkdownContainer"] .ensur-compare-ongoing h1,
-[data-testid="stMarkdownContainer"] .ensur-compare-ongoing h2,
-[data-testid="stMarkdownContainer"] .ensur-compare-ongoing h3,
-[data-testid="stMarkdownContainer"] .ensur-compare-ongoing strong,
-[data-testid="stMarkdownContainer"] .ensur-engine-title,
-[data-testid="stMarkdownContainer"] .ensur-engine-container h1,
-[data-testid="stMarkdownContainer"] .ensur-engine-container h2,
-[data-testid="stMarkdownContainer"] .ensur-engine-container h3,
-[data-testid="stMarkdownContainer"] .ensur-dark-surface h1,
-[data-testid="stMarkdownContainer"] .ensur-dark-surface h2,
-[data-testid="stMarkdownContainer"] .ensur-dark-surface h3,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing h1,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing h2,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing h3,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing strong,
+[data-testid="stMarkdownContainer"] .ag-engine-title, .ensur-engine-title,
+[data-testid="stMarkdownContainer"] .ag-engine-container, .ensur-engine-container h1,
+[data-testid="stMarkdownContainer"] .ag-engine-container, .ensur-engine-container h2,
+[data-testid="stMarkdownContainer"] .ag-engine-container, .ensur-engine-container h3,
+[data-testid="stMarkdownContainer"] .ag-dark-surface, .ensur-dark-surface h1,
+[data-testid="stMarkdownContainer"] .ag-dark-surface, .ensur-dark-surface h2,
+[data-testid="stMarkdownContainer"] .ag-dark-surface, .ensur-dark-surface h3,
 .ag-hero-city-title,
-.ensur-engine-title {
+.ag-engine-title, .ensur-engine-title {
     color: #FFFFFF !important;
 }
 
-.ensur-pulse-badge {
+.ag-pulse-badge, .ensur-pulse-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -170,7 +170,7 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: 0.08em;
 }
 
-.ensur-pulse-badge span {
+.ag-pulse-badge, .ensur-pulse-badge span {
     color: #FF6845 !important;
 }
 
@@ -233,7 +233,7 @@ body {
 .ag-card,
 .ag-photo-card,
 .ag-news-card,
-.ensur-engine-container,
+.ag-engine-container, .ensur-engine-container,
 div[data-testid="stVerticalBlockBorderWrapper"],
 [data-testid="stPopover"] {
     transform: translateZ(0);
@@ -251,7 +251,7 @@ div[data-testid="column"] {
     background: radial-gradient(800px circle at 85% 10%, rgba(255, 104, 69, 0.08), transparent 70%),
                 radial-gradient(900px circle at 15% 45%, rgba(255, 134, 101, 0.06), transparent 75%),
                 radial-gradient(600px circle at 50% 90%, rgba(255, 164, 140, 0.05), transparent 70%),
-                var(--ensur-canvas) !important;
+                var(--ag-canvas) !important;
     background-attachment: fixed !important;
 }
 
@@ -261,17 +261,17 @@ div[data-testid="column"] {
 
 /* Sidebar Refinements (Warm Ivory Sidebar) */
 [data-testid="stSidebar"] {
-    background-color: var(--ensur-surface-warm) !important;
-    border-right: 1px solid var(--ensur-border) !important;
+    background-color: var(--ag-surface-warm) !important;
+    border-right: 1px solid var(--ag-border) !important;
 }
 
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p,
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] span {
-    color: var(--ensur-text-primary) !important;
+    color: var(--ag-text-primary) !important;
 }
 
 [data-testid="stSidebar"] hr {
-    border-color: var(--ensur-border) !important;
+    border-color: var(--ag-border) !important;
     margin: 16px 0 !important;
 }
 
@@ -283,39 +283,39 @@ div[data-testid="column"] {
 }
 
 /* ==========================================================================
-   STREAMLIT NATIVE CONTROLS OVERRIDE (ENSUR.AI WARM SLEEK STYLING)
+   STREAMLIT NATIVE CONTROLS OVERRIDE (AIRGUARD PROFESSIONAL STYLING)
    ========================================================================== */
 /* Selectboxes & Text Inputs */
 div[data-baseweb="select"] > div,
 div[data-baseweb="input"] > div {
-    background-color: var(--ensur-surface) !important;
-    border: 1px solid var(--ensur-border) !important;
+    background-color: var(--ag-surface) !important;
+    border: 1px solid var(--ag-border) !important;
     border-radius: 10px !important;
-    color: var(--ensur-text-primary) !important;
+    color: var(--ag-text-primary) !important;
     transition: all 0.2s ease !important;
     box-shadow: 0 1px 3px rgba(31, 52, 76, 0.04) !important;
 }
 
 div[data-baseweb="select"] > div:hover,
 div[data-baseweb="input"] > div:hover {
-    border-color: var(--ensur-coral) !important;
+    border-color: var(--ag-coral) !important;
     background-color: #FFFFFF !important;
 }
 
 div[data-baseweb="select"] > div:focus-within,
 div[data-baseweb="input"] > div:focus-within {
-    border-color: var(--ensur-coral) !important;
+    border-color: var(--ag-coral) !important;
     box-shadow: 0 0 0 3px rgba(255, 104, 69, 0.15) !important;
 }
 
 div[data-baseweb="select"] span,
 div[data-baseweb="input"] input {
-    color: var(--ensur-text-primary) !important;
+    color: var(--ag-text-primary) !important;
     font-family: var(--font-sans) !important;
     font-size: 0.88rem !important;
 }
 
-/* Streamlit Buttons (Coral ensur.ai Gradient) */
+/* Streamlit Buttons (AirGuard Coral Gradient) */
 .stButton > button {
     background: linear-gradient(135deg, #FF6845 0%, #FF8665 100%) !important;
     border: none !important;
@@ -344,14 +344,14 @@ div[data-baseweb="input"] input {
 /* Secondary Button Variant (Outlined Ivory) */
 .stButton > button[kind="secondary"] {
     background: #FFFFFF !important;
-    border: 1px solid var(--ensur-border) !important;
-    color: var(--ensur-text-primary) !important;
+    border: 1px solid var(--ag-border) !important;
+    color: var(--ag-text-primary) !important;
     box-shadow: 0 1px 3px rgba(31, 52, 76, 0.05) !important;
 }
 
 .stButton > button[kind="secondary"]:hover {
-    border-color: var(--ensur-coral) !important;
-    color: var(--ensur-coral) !important;
+    border-color: var(--ag-coral) !important;
+    color: var(--ag-coral) !important;
     box-shadow: 0 4px 12px rgba(31, 52, 76, 0.08) !important;
 }
 
@@ -366,8 +366,8 @@ div[data-baseweb="input"] input {
 
 /* Expanders */
 div[data-testid="stExpander"] {
-    background: var(--ensur-surface) !important;
-    border: 1px solid var(--ensur-border) !important;
+    background: var(--ag-surface) !important;
+    border: 1px solid var(--ag-border) !important;
     border-radius: 14px !important;
     overflow: hidden !important;
     box-shadow: 0 2px 8px rgba(31, 52, 76, 0.04) !important;
@@ -376,7 +376,7 @@ div[data-testid="stExpander"] {
 div[data-testid="stExpander"] details summary {
     background: #FFFFFF !important;
     padding: 14px 20px !important;
-    border-bottom: 1px solid var(--ensur-border) !important;
+    border-bottom: 1px solid var(--ag-border) !important;
     transition: background 0.15s ease, color 0.15s ease !important;
 }
 
@@ -384,23 +384,23 @@ div[data-testid="stExpander"] details summary [data-testid="stMarkdownContainer"
     font-family: var(--font-sans) !important;
     font-weight: 800 !important;
     font-size: 0.94rem !important;
-    color: var(--ensur-text-primary) !important;
+    color: var(--ag-text-primary) !important;
     margin: 0 !important;
 }
 
 div[data-testid="stExpander"] details summary:hover {
-    color: var(--ensur-coral) !important;
-    background: var(--ensur-surface-hover) !important;
+    color: var(--ag-coral) !important;
+    background: var(--ag-surface-hover) !important;
 }
 
 div[data-testid="stExpander"] details summary:hover [data-testid="stMarkdownContainer"] p {
-    color: var(--ensur-coral) !important;
+    color: var(--ag-coral) !important;
 }
 
 /* Radio Mode Switcher (Clean Pill Segmented) */
 div[data-testid="stRadio"] > div {
     background: #FFFFFF !important;
-    border: 1px solid var(--ensur-border) !important;
+    border: 1px solid var(--ag-border) !important;
     border-radius: 12px !important;
     padding: 4px !important;
     gap: 4px !important;
@@ -414,19 +414,19 @@ div[data-testid="stRadio"] label {
     font-family: var(--font-sans) !important;
     font-size: 0.82rem !important;
     font-weight: 600 !important;
-    color: var(--ensur-text-secondary) !important;
+    color: var(--ag-text-secondary) !important;
     transition: all 0.15s ease !important;
 }
 
 div[data-testid="stRadio"] label:hover {
-    color: var(--ensur-coral) !important;
+    color: var(--ag-coral) !important;
     background: rgba(255, 104, 69, 0.06) !important;
 }
 
 /* Tabs */
 div[data-baseweb="tab-list"] {
     gap: 8px !important;
-    border-bottom: 1px solid var(--ensur-border) !important;
+    border-bottom: 1px solid var(--ag-border) !important;
     margin-bottom: 20px !important;
 }
 
@@ -436,19 +436,19 @@ div[data-baseweb="tab"] {
     font-family: var(--font-sans) !important;
     font-weight: 700 !important;
     font-size: 0.86rem !important;
-    color: var(--ensur-text-secondary) !important;
+    color: var(--ag-text-secondary) !important;
     padding: 10px 18px !important;
 }
 
 div[data-baseweb="tab"][aria-selected="true"] {
-    color: var(--ensur-coral) !important;
-    border-bottom: 2px solid var(--ensur-coral) !important;
+    color: var(--ag-coral) !important;
+    border-bottom: 2px solid var(--ag-coral) !important;
 }
 
 /* Container Border Wrapper (Streamlit st.container(border=True)) */
 div[data-testid="stVerticalBlockBorderWrapper"] {
-    background: var(--ensur-surface) !important;
-    border: 1px solid var(--ensur-border) !important;
+    background: var(--ag-surface) !important;
+    border: 1px solid var(--ag-border) !important;
     border-radius: 16px !important;
     box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04) !important;
     transition: all 0.2s ease !important;
@@ -460,38 +460,38 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   ENSUR.AI KEYFRAME ANIMATIONS
+   AIRGUARD KEYFRAME ANIMATIONS
    ========================================================================== */
-@keyframes ensur-pulse-ring {
+@keyframes ag-pulse-ring {
     0% { transform: scale(0.85); opacity: 1; }
     100% { transform: scale(2.2); opacity: 0; }
 }
 
-@keyframes ensur-float {
+@keyframes ag-float {
     0%, 100% { transform: translate(0, 0) scale(1); }
     50% { transform: translate(12px, -16px) scale(1.04); }
 }
 
-@keyframes ensur-orbit {
+@keyframes ag-orbit {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-@keyframes ensur-flow {
+@keyframes ag-flow {
     0% { stroke-dashoffset: 100; }
     100% { stroke-dashoffset: 0; }
 }
 
-.ensur-pulse-dot {
+.ag-pulse-dot, .ensur-pulse-dot {
     position: relative;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--ensur-coral);
+    background-color: var(--ag-coral);
     display: inline-block;
 }
 
-.ensur-pulse-dot::after {
+.ag-pulse-dot, .ensur-pulse-dot::after {
     content: '';
     position: absolute;
     top: -2px;
@@ -499,14 +499,14 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     right: -2px;
     bottom: -2px;
     border-radius: 50%;
-    border: 2px solid var(--ensur-coral);
-    animation: ensur-pulse-ring 2s cubic-bezier(0.2, 0, 0, 1) infinite;
+    border: 2px solid var(--ag-coral);
+    animation: ag-pulse-ring 2s cubic-bezier(0.2, 0, 0, 1) infinite;
 }
 
 /* ==========================================================================
-   ENSUR.AI FLOATING PILL (DECISION AUTHORIZATION BADGE)
+   AIRGUARD FLOATING PILL (DECISION AUTHORIZATION BADGE)
    ========================================================================== */
-.ensur-top-pill {
+.ag-top-pill, .ensur-top-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -518,19 +518,19 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-sans);
     font-size: 0.78rem;
     font-weight: 500;
-    color: var(--ensur-text-primary);
+    color: var(--ag-text-primary);
     margin: 0 auto 16px auto;
     text-align: center;
 }
 
-.ensur-top-pill strong {
-    color: var(--ensur-coral);
+.ag-top-pill, .ensur-top-pill strong {
+    color: var(--ag-coral);
     font-weight: 800;
     font-family: var(--font-mono);
 }
 
 /* ==========================================================================
-   ENSUR.AI EXECUTIVE NAVBAR & BRAND
+   AIRGUARD EXECUTIVE NAVBAR & BRAND
    ========================================================================== */
 .ag-navbar {
     display: flex;
@@ -538,7 +538,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     justify-content: space-between;
     padding: 12px 24px;
     background: rgba(255, 255, 255, 0.88);
-    border: 1px solid var(--ensur-border);
+    border: 1px solid var(--ag-border);
     border-radius: 16px;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -556,7 +556,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-heading);
     font-size: 1.15rem;
     font-weight: 800;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     letter-spacing: -0.02em;
     display: flex;
     align-items: center;
@@ -567,7 +567,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-sans);
     font-size: 0.72rem;
     font-weight: 500;
-    color: var(--ensur-text-muted);
+    color: var(--ag-text-muted);
     letter-spacing: 0.01em;
 }
 
@@ -585,47 +585,47 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 .ag-badge-good {
-    background: var(--ensur-green-soft);
+    background: var(--ag-green-soft);
     color: #059669;
     border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .ag-badge-moderate {
-    background: var(--ensur-amber-soft);
+    background: var(--ag-amber-soft);
     color: #D97706;
     border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .ag-badge-caution {
-    background: var(--ensur-orange-soft);
+    background: var(--ag-orange-soft);
     color: #EA580C;
     border: 1px solid rgba(249, 115, 22, 0.3);
 }
 
 .ag-badge-avoid, .ag-badge-unhealthy {
-    background: var(--ensur-red-soft);
+    background: var(--ag-red-soft);
     color: #DC2626;
     border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .ag-badge-neutral, .ag-badge-nothing {
     background: rgba(31, 52, 76, 0.05);
-    color: var(--ensur-navy);
-    border: 1px solid var(--ensur-border);
+    color: var(--ag-navy);
+    border: 1px solid var(--ag-border);
 }
 
 .ag-badge-cyan {
-    background: var(--ensur-coral-soft);
-    color: var(--ensur-coral);
+    background: var(--ag-coral-soft);
+    color: var(--ag-coral);
     border: 1px solid rgba(255, 104, 69, 0.3);
 }
 
 /* ==========================================================================
-   ENSUR.AI HERO DIRECTIVE CARD
+   AIRGUARD HERO DIRECTIVE CARD
    ========================================================================== */
 .ag-hero-directive {
     background: #FFFFFF;
-    border: 1px solid var(--ensur-border);
+    border: 1px solid var(--ag-border);
     border-radius: 20px;
     padding: 32px 36px;
     box-shadow: 0 12px 36px -4px rgba(31, 52, 76, 0.07);
@@ -660,14 +660,14 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-sans);
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
 }
 
 .ag-hero-timestamp {
     font-family: var(--font-mono);
     font-size: 0.76rem;
     font-weight: 600;
-    color: var(--ensur-coral);
+    color: var(--ag-coral);
     background: rgba(255, 104, 69, 0.08);
     border: 1px solid rgba(255, 104, 69, 0.2);
     padding: 4px 12px;
@@ -681,7 +681,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-heading);
     font-size: 2.15rem;
     font-weight: 800;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     letter-spacing: -0.03em;
     line-height: 1.25;
     margin-bottom: 10px;
@@ -690,7 +690,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 .ag-hero-summary {
     font-family: var(--font-sans);
     font-size: 1.0rem;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
     line-height: 1.6;
     margin-bottom: 26px;
     max-width: 820px;
@@ -707,8 +707,8 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 .ag-ticket {
-    background: var(--ensur-canvas);
-    border: 1px solid var(--ensur-border);
+    background: var(--ag-canvas);
+    border: 1px solid var(--ag-border);
     border-radius: 14px;
     padding: 20px 24px;
     transition: all 0.2s ease;
@@ -746,14 +746,14 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-size: 1.6rem;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     margin-bottom: 6px;
 }
 
 .ag-ticket-note {
     font-family: var(--font-sans);
     font-size: 0.82rem;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
     line-height: 1.45;
 }
 
@@ -769,7 +769,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 
 .ag-vital-tile {
     background: #FFFFFF;
-    border: 1px solid var(--ensur-border);
+    border: 1px solid var(--ag-border);
     border-radius: 16px;
     padding: 18px 22px;
     box-shadow: 0 4px 16px rgba(31, 52, 76, 0.03);
@@ -777,7 +777,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 .ag-vital-tile:hover {
-    border-color: var(--ensur-coral);
+    border-color: var(--ag-coral);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(31, 52, 76, 0.06);
 }
@@ -791,7 +791,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--ensur-text-muted);
+    color: var(--ag-text-muted);
     margin-bottom: 8px;
 }
 
@@ -799,7 +799,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-mono);
     font-size: 1.85rem;
     font-weight: 800;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     letter-spacing: -0.03em;
     line-height: 1.1;
     margin-bottom: 4px;
@@ -808,16 +808,16 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 .ag-vital-desc {
     font-family: var(--font-sans);
     font-size: 0.78rem;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
     line-height: 1.35;
 }
 
 /* ==========================================================================
-   24-HOUR HORIZON TIMELINE (ENSUR.AI / APPLE STYLE)
+   24-HOUR HORIZON TIMELINE (AIRGUARD CONTINUUM STYLE)
    ========================================================================== */
 .ag-timeline-container {
     background: #FFFFFF;
-    border: 1px solid var(--ensur-border);
+    border: 1px solid var(--ag-border);
     border-radius: 16px;
     padding: 22px 24px;
     margin-bottom: 24px;
@@ -837,7 +837,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-heading);
     font-size: 0.95rem;
     font-weight: 800;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
 }
 
 .ag-timeline-legend {
@@ -854,13 +854,13 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     overflow-x: auto;
     padding-bottom: 8px;
     scrollbar-width: thin;
-    scrollbar-color: var(--ensur-border) transparent;
+    scrollbar-color: var(--ag-border) transparent;
 }
 
 .ag-hour-card {
     flex: 0 0 76px;
-    background: var(--ensur-canvas);
-    border: 1px solid var(--ensur-border);
+    background: var(--ag-canvas);
+    border: 1px solid var(--ag-border);
     border-radius: 12px;
     padding: 12px 6px;
     text-align: center;
@@ -868,7 +868,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 .ag-hour-card:hover {
-    border-color: var(--ensur-coral);
+    border-color: var(--ag-coral);
     background: #FFFFFF;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(31, 52, 76, 0.08);
@@ -878,7 +878,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-mono);
     font-size: 0.74rem;
     font-weight: 600;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
     margin-bottom: 8px;
 }
 
@@ -893,7 +893,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     font-weight: 700;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     margin-bottom: 4px;
 }
 
@@ -909,7 +909,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
    ========================================================================== */
 .ag-metric-card {
     background: #FFFFFF;
-    border: 1px solid var(--ensur-border);
+    border: 1px solid var(--ag-border);
     border-radius: 16px;
     padding: 20px 22px;
     height: 100%;
@@ -921,7 +921,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 .ag-metric-card:hover {
-    border-color: var(--ensur-coral);
+    border-color: var(--ag-coral);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(31, 52, 76, 0.08);
 }
@@ -934,14 +934,14 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: var(--ensur-text-muted);
+    color: var(--ag-text-muted);
 }
 
 .ag-metric-val {
     font-family: var(--font-mono);
     font-size: 1.9rem;
     font-weight: 800;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     letter-spacing: -0.03em;
     line-height: 1.1;
 }
@@ -950,24 +950,24 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-sans);
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--ensur-text-muted);
+    color: var(--ag-text-muted);
     margin-left: 6px;
 }
 
 .ag-metric-footer {
     font-family: var(--font-sans);
     font-size: 0.75rem;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
     margin-top: 10px;
     padding-top: 8px;
-    border-top: 1px solid var(--ensur-border);
+    border-top: 1px solid var(--ag-border);
 }
 
 /* ==========================================================================
-   ENSUR.AI ENGINE SECTION (DEEP NAVY WITH DIAMOND LATTICE)
+   AIRGUARD ENGINE SECTION (DEEP NAVY WITH DIAMOND LATTICE)
    ========================================================================== */
-.ensur-engine-container {
-    background-color: var(--ensur-navy);
+.ag-engine-container, .ensur-engine-container {
+    background-color: var(--ag-navy);
     background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
     background-size: 24px 24px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -980,17 +980,17 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     box-shadow: 0 20px 50px -10px rgba(10, 20, 35, 0.5);
 }
 
-.ensur-engine-eyebrow {
+.ag-engine-eyebrow, .ensur-engine-eyebrow {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--ensur-coral);
+    color: var(--ag-coral);
     margin-bottom: 8px;
 }
 
-.ensur-engine-title {
+.ag-engine-title, .ensur-engine-title {
     font-family: var(--font-heading);
     font-size: 2.2rem;
     font-weight: 800;
@@ -999,11 +999,11 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     margin-bottom: 12px;
 }
 
-.ensur-engine-title span {
-    color: var(--ensur-coral);
+.ag-engine-title, .ensur-engine-title span {
+    color: var(--ag-coral);
 }
 
-.ensur-engine-subtitle {
+.ag-engine-subtitle, .ensur-engine-subtitle {
     font-family: var(--font-sans);
     font-size: 0.95rem;
     color: #A0B0C4;
@@ -1031,23 +1031,23 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 .ag-callout-info {
     background: rgba(255, 104, 69, 0.06);
     border: 1px solid rgba(255, 104, 69, 0.25);
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
 }
 
 .ag-callout-warning {
-    background: var(--ensur-amber-soft);
+    background: var(--ag-amber-soft);
     border: 1px solid rgba(245, 158, 11, 0.3);
     color: #92400E;
 }
 
 .ag-callout-danger {
-    background: var(--ensur-red-soft);
+    background: var(--ag-red-soft);
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #991B1B;
 }
 
 .ag-callout-success {
-    background: var(--ensur-green-soft);
+    background: var(--ag-green-soft);
     border: 1px solid rgba(16, 185, 129, 0.3);
     color: #065F46;
 }
@@ -1061,7 +1061,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     font-family: var(--font-heading);
     font-size: 1.45rem;
     font-weight: 800;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     letter-spacing: -0.02em;
     margin: 0 0 4px 0;
 }
@@ -1069,7 +1069,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 .ag-section-subtitle {
     font-family: var(--font-sans);
     font-size: 0.85rem;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
     margin: 0;
     line-height: 1.5;
 }
@@ -1187,7 +1187,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   ENSUR.AI REAL-LIFE PHOTOGRAPHY & INTERACTIVE SIMULATOR STYLES
+   AIRGUARD REAL-LIFE PHOTOGRAPHY & INTERACTIVE SIMULATOR STYLES
    ========================================================================== */
 /* Universal Streamlit Image Styling & Alignment */
 div[data-testid="stImage"] {
@@ -1199,7 +1199,7 @@ div[data-testid="stImage"] {
 
 div[data-testid="stImage"] img {
     border-radius: 16px !important;
-    border: 1px solid var(--ensur-border) !important;
+    border: 1px solid var(--ag-border) !important;
     box-shadow: 0 4px 20px rgba(31, 52, 76, 0.08) !important;
     object-fit: cover !important;
     max-width: 100% !important;
@@ -1224,7 +1224,7 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
 
 .ag-photo-card {
     background: #FFFFFF;
-    border: 1px solid var(--ensur-border);
+    border: 1px solid var(--ag-border);
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 4px 18px rgba(31, 52, 76, 0.06);
@@ -1286,7 +1286,7 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
     font-family: var(--font-heading);
     font-size: 1.05rem;
     font-weight: 800;
-    color: var(--ensur-navy);
+    color: var(--ag-navy);
     margin-bottom: 6px;
     line-height: 1.3;
 }
@@ -1294,7 +1294,7 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
 .ag-photo-desc {
     font-family: var(--font-sans);
     font-size: 0.82rem;
-    color: var(--ensur-text-secondary);
+    color: var(--ag-text-secondary);
     line-height: 1.55;
     margin: 0;
 }
@@ -1379,8 +1379,8 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
 }
 
 .ag-news-card {
-    background: var(--ensur-surface);
-    border: 1px solid var(--ensur-border);
+    background: var(--ag-surface);
+    border: 1px solid var(--ag-border);
     border-radius: 16px;
     padding: 24px;
     margin-bottom: 20px;

@@ -56,7 +56,7 @@ def render_outdoor_departure_kit(
                     <div style="font-size: 2.2rem;">🎒</div>
                     <div>
                         <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 104, 69, 0.08); border: 1px solid rgba(255, 104, 69, 0.25); border-radius: 9999px; padding: 3px 12px; margin-bottom: 6px;">
-                            <span class="ensur-pulse-dot" style="width: 6px; height: 6px; background: #FF6845;"></span>
+                            <span class="ag-pulse-dot" style="width: 6px; height: 6px; background: #FF6845;"></span>
                             <span style="font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800; color: #FF6845; text-transform: uppercase;">
                                 SMART DEPARTURE KIT — {city_name}
                             </span>

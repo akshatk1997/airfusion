@@ -1,7 +1,7 @@
 """
 Simple Mode Presentation Views for AirGuard.
 Orchestrates clear, non-technical, friendly user experiences.
-Architected to mirror ensur.ai design language:
+AirGuard Professional Design Language:
 Warm Ivory canvas (#FAF6F1), Pure White surfaces (#FFFFFF),
 Deep Navy typography (#1F344C), warm borders (#EBE6DF), and coral accents (#FF6845).
 Reuses the exact same underlying telemetry, ML forecasting, and risk-engine logic.
@@ -33,12 +33,12 @@ from app.components.simple_cards import (
     render_simple_weather_cards,
     render_simple_pollutant_cards,
     render_simple_indoor_mask_cards,
-    render_ensur_hero_section,
-    render_ensur_comparison_section,
-    render_ensur_engine_section,
-    render_ensur_impact_metrics,
-    render_ensur_solutions_grid,
-    render_ensur_executive_footer
+    render_airguard_hero_section,
+    render_airguard_comparison_section,
+    render_airguard_engine_section,
+    render_airguard_impact_metrics,
+    render_airguard_solutions_grid,
+    render_airguard_executive_footer
 )
 from app.components.simple_chatbot import render_aero_chatbot
 from app.components.outdoor_kit import render_outdoor_departure_kit
@@ -51,7 +51,7 @@ from src.news_service import get_news_feed
 def render_simple_home(active_city: str) -> None:
     """
     Renders the dedicated Simple Mode homepage for AirGuard.
-    Modeled A-to-Z from ensur.ai with bespoke environmental intelligence tweaks.
+    AirGuard flagship environmental intelligence architecture.
     """
     # Load user profile from SQLite
     user_prof = get_user_profile()
@@ -164,8 +164,8 @@ def render_simple_home(active_city: str) -> None:
     except Exception:
         timestamp_display = raw_ts or "Live Ground Tracking"
 
-    # 1. Signature ensur.ai Hero Section
-    render_ensur_hero_section()
+    # 1. Flagship AirGuard Hero Section
+    render_airguard_hero_section()
 
     # 2. Primary Decision Card (The Outdoor Directive)
     render_air_safety_card(
@@ -223,17 +223,17 @@ def render_simple_home(active_city: str) -> None:
         }
     )
 
-    # 5. ensur.ai Signature Section: The Bottleneck Comparison (Once vs Ongoing)
-    render_ensur_comparison_section()
+    # 5. AirGuard Signature Section: The Bottleneck Comparison (Once vs Ongoing)
+    render_airguard_comparison_section()
 
-    # 6. ensur.ai Signature Section: The Autonomous Engine (Deep Navy airguardOS)
-    render_ensur_engine_section(active_city=city_display, pm25_val=pm25_val, aqi_val=aqi_val)
+    # 6. AirGuard Signature Section: The Autonomous Engine (Deep Navy airguardOS)
+    render_airguard_engine_section(active_city=city_display, pm25_val=pm25_val, aqi_val=aqi_val)
 
-    # 7. ensur.ai Platform Impact Metrics
-    render_ensur_impact_metrics()
+    # 7. AirGuard Platform Impact Metrics
+    render_airguard_impact_metrics()
 
-    # 8. ensur.ai Solutions by Cohort Grid
-    render_ensur_solutions_grid()
+    # 8. AirGuard Solutions by Cohort Grid
+    render_airguard_solutions_grid()
 
     # 8.1 Aero's Eco & Clean Air Adventure Quest Hub (Games, Puzzles, & Quizzes)
     render_eco_quest_hub(
@@ -358,8 +358,8 @@ def render_simple_home(active_city: str) -> None:
     # 10. Required Safety Disclaimer
     render_simple_disclaimer()
 
-    # 11. ensur.ai Executive 5-Column Footer
-    render_ensur_executive_footer()
+    # 11. AirGuard Executive 5-Column Footer
+    render_airguard_executive_footer()
 
 
 # ==============================================================================
@@ -376,7 +376,7 @@ def render_simple_safe_plan(active_city: str) -> None:
         """
         <div style="margin-bottom: 24px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
-                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span class="ag-pulse-dot" style="width: 6px; height: 6px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
                     INDIVIDUALIZED SAFETY CLEARANCE
                 </span>
@@ -554,7 +554,7 @@ def render_simple_safe_plan(active_city: str) -> None:
 
     # Disclaimer & Footer
     render_simple_disclaimer()
-    render_ensur_executive_footer()
+    render_airguard_executive_footer()
 
 
 # ==============================================================================
@@ -641,13 +641,13 @@ def render_simple_live_tracking(active_city: str) -> None:
         <div style="margin-bottom: 24px;">
             <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
                 <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px;">
-                    <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
+                    <span class="ag-pulse-dot" style="width: 7px; height: 7px;"></span>
                     <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
                         LIVE GROUND SYNCHRONIZATION
                     </span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.76rem; color: #FF6845; background: rgba(255, 104, 69, 0.08); border: 1px solid rgba(255, 104, 69, 0.25); padding: 5px 14px; border-radius: 9999px;">
-                    <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
+                    <span class="ag-pulse-dot" style="width: 7px; height: 7px;"></span>
                     <span>ACTUAL TIME: <strong>{actual_time}</strong> ({actual_date})</span>
                 </div>
             </div>
@@ -905,7 +905,7 @@ def render_simple_live_tracking(active_city: str) -> None:
 
     # 3. Disclaimer & Footer
     render_simple_disclaimer()
-    render_ensur_executive_footer()
+    render_airguard_executive_footer()
 
 
 
@@ -921,7 +921,7 @@ def render_simple_trends(active_city: str) -> None:
         """
         <div style="margin-bottom: 24px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
-                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span class="ag-pulse-dot" style="width: 6px; height: 6px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
                     ATMOSPHERIC CYCLES & TIMING
                 </span>
@@ -1024,7 +1024,7 @@ def render_simple_trends(active_city: str) -> None:
     )
 
     render_simple_disclaimer()
-    render_ensur_executive_footer()
+    render_airguard_executive_footer()
 
 
 # ==============================================================================
@@ -1041,7 +1041,7 @@ def render_simple_model_insights() -> None:
         """
         <div style="margin-bottom: 24px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
-                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span class="ag-pulse-dot" style="width: 6px; height: 6px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
                     PREDICTIVE MACHINE LEARNING
                 </span>
@@ -1132,7 +1132,7 @@ def render_simple_model_insights() -> None:
         """, unsafe_allow_html=True)
 
     render_simple_disclaimer()
-    render_ensur_executive_footer()
+    render_airguard_executive_footer()
 
 
 # ==============================================================================
@@ -1147,7 +1147,7 @@ def render_simple_about_safety() -> None:
         """
         <div style="margin-bottom: 24px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
-                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span class="ag-pulse-dot" style="width: 6px; height: 6px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
                     ENVIRONMENTAL HEALTH PROTOCOLS
                 </span>
@@ -1257,7 +1257,7 @@ def render_simple_about_safety() -> None:
     )
 
     render_simple_disclaimer()
-    render_ensur_executive_footer()
+    render_airguard_executive_footer()
 
 
 # ==============================================================================
@@ -1272,7 +1272,7 @@ def render_simple_city_comparison(active_city: str) -> None:
         """
         <div style="margin-bottom: 24px;">
             <div style="display: inline-flex; align-items: center; gap: 8px; background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 9999px; padding: 4px 14px; margin-bottom: 12px;">
-                <span class="ensur-pulse-dot" style="width: 6px; height: 6px;"></span>
+                <span class="ag-pulse-dot" style="width: 6px; height: 6px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
                     REGIONAL COMPARISON
                 </span>
@@ -1391,4 +1391,4 @@ def render_simple_city_comparison(active_city: str) -> None:
         """)
 
     render_simple_disclaimer()
-    render_ensur_executive_footer()
+    render_airguard_executive_footer()

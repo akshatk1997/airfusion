@@ -1,6 +1,6 @@
 """
 AirGuard Platform Introduction & Interactive Architecture Tour.
-Modeled faithfully after ensur.ai's signature platform intro experience, tailored specifically
+AirGuard Platform Architecture & Autonomous Operating System Experience,
 for autonomous ambient air intelligence, predictive machine learning, and outdoor safety.
 Includes interactive airguardOS decision simulation, animated 3D cartoon mascots, and real-life photography.
 """
@@ -36,7 +36,7 @@ from app.components.design_system import (
 )
 from app.components.simple_cards import (
     get_mascot_base64,
-    render_ensur_executive_footer
+    render_airguard_executive_footer
 )
 
 st.set_page_config(
@@ -51,18 +51,18 @@ active_city = render_global_navbar("Platform Intro")
 render_mode_banner()
 
 # ==============================================================================
-# 1. BESPOKE ENSUR.AI STYLE HERO: THE AUTONOMOUS ENVIRONMENTAL OPERATING SYSTEM
+# 1. FLAGSHIP AIRGUARD HERO: THE AUTONOMOUS ENVIRONMENTAL OPERATING SYSTEM
 # ==============================================================================
 safe_markdown("""
-<section class="ensur-hero" style="text-align: center; margin-bottom: var(--space-8);">
+<section class="ag-hero" style="text-align: center; margin-bottom: var(--space-8);">
     <div style="display: flex; justify-content: center; margin-bottom: var(--space-3);">
-        <div class="ensur-pulse-badge">
-            <span class="ensur-pulse-dot"></span>
+        <div class="ag-pulse-badge">
+            <span class="ag-pulse-dot"></span>
             <span>AUTONOMOUS ENVIRONMENTAL OPERATING SYSTEM • 99.8% SENSOR CONSENSUS</span>
         </div>
     </div>
     <h1 style="font-family: var(--font-heading); font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; color: #1F344C; line-height: 1.15; letter-spacing: -0.035em; max-width: 960px; margin: 0 auto var(--space-4) auto;">
-        Making outdoor safety <span class="ensur-coral-gradient">deterministic, predictive,</span> and personal.
+        Making outdoor safety <span class="ag-coral-gradient">deterministic, predictive,</span> and personal.
     </h1>
     <p style="font-family: var(--font-sans); font-size: 1.12rem; color: #5A6E85; max-width: 780px; margin: 0 auto var(--space-6) auto; line-height: 1.65;">
         Traditional weather apps only report static history from delayed airport stations. AirGuard continuously evaluates ambient ground telemetry, forecasts pollution spikes up to 72 hours ahead with machine learning, and calculates personalized physiological lung intake so you know the exact window to step outside safely.
@@ -91,11 +91,11 @@ st.markdown("<div style='height: 36px;'></div>", unsafe_allow_html=True)
 
 
 # ==============================================================================
-# 2. THE FLAGSHIP ENSUR-STYLE AIRGUARD ENGINE: VERIFY. DECIDE. PROTECT.
+# 2. THE FLAGSHIP AIRGUARD ENGINE: VERIFY. DECIDE. PROTECT.
 # ==============================================================================
 render_section_header(
     title="The Core Decision Cycle: Verify. Decide. Protect.",
-    subtitle="Modeled on ensurOS conditional architecture — translating real-world atmospheric chemistry into verified human safety clearance.",
+    subtitle="Built on AirGuardOS conditional architecture — translating real-world atmospheric chemistry into verified human safety clearance.",
     badge="DECISION INFRASTRUCTURE"
 )
 
@@ -484,7 +484,7 @@ render_section_header(
 safe_markdown("""
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; margin-bottom: var(--space-8);">
     <!-- Static Legacy Way -->
-    <div class="ensur-compare-card ensur-compare-once" style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 20px; padding: 32px 30px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.05);">
+    <div class="ag-compare-card ag-compare-once" style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 20px; padding: 32px 30px; box-shadow: 0 4px 16px rgba(31, 52, 76, 0.05);">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
             <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #8896A6;">
                 THE OLD WAY
@@ -530,7 +530,7 @@ safe_markdown("""
     </div>
 
     <!-- AirGuard Continuous Autonomous Sentry -->
-    <div class="ensur-compare-card ensur-compare-ongoing" style="background: linear-gradient(145deg, #1F344C 0%, #162638 100%); border: 1px solid rgba(255, 104, 69, 0.35); border-radius: 20px; padding: 32px 30px; box-shadow: 0 16px 36px rgba(31, 52, 76, 0.25);">
+    <div class="ag-compare-card ag-compare-ongoing" style="background: linear-gradient(145deg, #1F344C 0%, #162638 100%); border: 1px solid rgba(255, 104, 69, 0.35); border-radius: 20px; padding: 32px 30px; box-shadow: 0 16px 36px rgba(31, 52, 76, 0.25);">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
             <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #FF8665;">
                 THE AIRGUARD WAY
@@ -804,6 +804,6 @@ st.markdown("<div style='height: 48px;'></div>", unsafe_allow_html=True)
 
 
 # ==============================================================================
-# 9. EXECUTIVE ENSUR-STYLE FOOTER
+# 9. EXECUTIVE AIRGUARD FOOTER
 # ==============================================================================
-render_ensur_executive_footer()
+render_airguard_executive_footer()

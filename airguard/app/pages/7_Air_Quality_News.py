@@ -97,7 +97,7 @@ with header_col1:
                 <span class="ag-badge ag-badge-nothing" style="font-size: 0.72rem; padding: 4px 12px; background: rgba(255, 104, 69, 0.1); border-color: rgba(255, 104, 69, 0.3); color: #FF6845; font-weight: 700;">
                     ● VERIFIED ENVIRONMENTAL NEWS WIRE
                 </span>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ensur-text-secondary);">
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ag-text-secondary);">
                     CADENCE: 6-HOUR AUTOMATED CYCLE
                 </span>
             </div>
@@ -120,8 +120,8 @@ with header_col2:
             <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #8B95A5; font-weight: 700;">CYCLE STATUS</span>
-                    <span class="ensur-top-pill" style="padding: 2px 8px; font-size: 0.68rem; margin: 0;">
-                        <span class="ensur-pulse-dot"></span>
+                    <span class="ag-top-pill" style="padding: 2px 8px; font-size: 0.68rem; margin: 0;">
+                        <span class="ag-pulse-dot"></span>
                         SYNCHRONIZED
                     </span>
                 </div>

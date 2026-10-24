@@ -98,17 +98,17 @@ def render_global_navbar(page_title: str = "") -> str:
         else f"""<span class="ag-badge ag-badge-neutral" style="font-size: 0.68rem; padding: 3px 10px; border-color: #38BDF8; color: #38BDF8;">⚙️ {current_mode.upper()}</span>"""
     )
 
-    # Top brand and status bar with ensur.ai decision pill
+    # Top brand and status bar with AirGuard decision pill
     navbar_html = f"""
     <div style="text-align: center; margin-bottom: 8px;">
-        <div class="ensur-top-pill">
-            <span class="ensur-pulse-dot"></span>
+        <div class="ag-top-pill">
+            <span class="ag-pulse-dot"></span>
             <span><strong>28,453</strong> air safety decisions authorized today <span style="color: #8B95A5; font-size: 0.75rem;">ⓘ</span></span>
         </div>
     </div>
     <header class="ag-navbar" role="banner">
         <div class="ag-brand">
-            <span style="display: flex; align-items: center;">{ICONS['ensur_star']}</span>
+            <span style="display: flex; align-items: center;">{ICONS['ag_star']}</span>
             <div>
                 <div class="ag-brand-name">AIRGUARD</div>
                 <div class="ag-brand-tagline">Real-Time Air Quality Intelligence &amp; Environmental Safety</div>
@@ -117,7 +117,7 @@ def render_global_navbar(page_title: str = "") -> str:
         <div style="display: flex; align-items: center; gap: 10px;">
             {mode_badge}
             <div class="ag-badge ag-badge-nothing">
-                <span class="ensur-pulse-dot" style="margin-right: 2px;"></span>
+                <span class="ag-pulse-dot" style="margin-right: 2px;"></span>
                 <span>TELEMETRY ACTIVE</span>
             </div>
         </div>

@@ -340,7 +340,7 @@ def render_aero_chatbot(
                     </div>
                 </div>
                 <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 9999px; padding: 3px 12px;">
-                    <span class="ensur-pulse-dot" style="width: 6px; height: 6px; background: #10B981;"></span>
+                    <span class="ag-pulse-dot" style="width: 6px; height: 6px; background: #10B981;"></span>
                     <span style="font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800; color: #059669; text-transform: uppercase;">
                         Aero is Listening & Ready!
                     </span>

@@ -56,7 +56,7 @@ def render_eco_quest_hub(
                     <span style="font-size: 2.2rem;">🎮</span>
                     <div>
                         <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 9999px; padding: 3px 12px; margin-bottom: 6px;">
-                            <span class="ensur-pulse-dot" style="width: 6px; height: 6px; background: #10B981;"></span>
+                            <span class="ag-pulse-dot" style="width: 6px; height: 6px; background: #10B981;"></span>
                             <span style="font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800; color: #059669; text-transform: uppercase;">
                                 ADVENTURE & LEARNING HUB
                             </span>

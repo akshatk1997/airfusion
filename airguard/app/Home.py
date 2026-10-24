@@ -28,7 +28,7 @@ from app.components.mode_switcher import (
     TECHNICAL_MODE
 )
 from app.components.simple_views import render_simple_home
-from app.components.simple_cards import render_ensur_executive_footer
+from app.components.simple_cards import render_airguard_executive_footer
 from app.components.cards import render_aqi_hero_card, render_technical_weather_station
 from app.components.design_system import (
     render_section_header,
@@ -841,8 +841,8 @@ def render_technical_home(active_city: str) -> None:
     except Exception as e:
         pass
 
-    # ensur.ai Executive Footer
-    render_ensur_executive_footer()
+    # AirGuard Executive Footer
+    render_airguard_executive_footer()
 
 
 # ==============================================================================

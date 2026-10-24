@@ -141,7 +141,7 @@ def render_mode_banner() -> None:
         except Exception:
             pass
 
-    # Clean ensur.ai style status hint
+    # Clean AirGuard professional status hint
     if mode == TECHNICAL_MODE:
         banner_html = """
         <div style="

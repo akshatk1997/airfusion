@@ -124,7 +124,7 @@ safe_markdown(f"""
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
         <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="ensur-pulse-dot" style="width: 7px; height: 7px;"></span>
+                <span class="ag-pulse-dot" style="width: 7px; height: 7px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.06em;">
                     ACTUAL ON-TIME TELEMETRY:
                 </span>
