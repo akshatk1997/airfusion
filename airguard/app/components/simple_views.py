@@ -40,6 +40,9 @@ from app.components.simple_cards import (
     render_ensur_solutions_grid,
     render_ensur_executive_footer
 )
+from app.components.simple_chatbot import render_aero_chatbot
+from app.components.outdoor_kit import render_outdoor_departure_kit
+from app.components.simple_games import render_eco_quest_hub
 from src.config import PRESET_CITIES
 from src.database import fetch_historical_records, fetch_all_locations
 
@@ -186,6 +189,37 @@ def render_simple_home(active_city: str) -> None:
     # 4. 24-Hour Timeline
     render_simple_timeline(hourly_timeline)
 
+    # 4.1 Child-Friendly & Non-Tech AI Chatbot: Ask Aero
+    render_aero_chatbot(
+        city_name=city_display,
+        pm25=pm25_val,
+        aqi=aqi_val,
+        temp=temp_val,
+        wind=wind_val,
+        humidity=humidity_val,
+        user_profile={
+            "health_sensitivity": sensitivity,
+            "age_group": age_group,
+            "usual_activities": usual_activity
+        },
+        container_key="home_aero_chat"
+    )
+
+    # 4.2 What to Carry Outside & Outdoor Safety Departure Kit
+    render_outdoor_departure_kit(
+        city_name=city_display,
+        pm25=pm25_val,
+        aqi=aqi_val,
+        temp=temp_val,
+        wind=wind_val,
+        humidity=humidity_val,
+        user_profile={
+            "health_sensitivity": sensitivity,
+            "age_group": age_group,
+            "usual_activities": usual_activity
+        }
+    )
+
     # 5. ensur.ai Signature Section: The Bottleneck Comparison (Once vs Ongoing)
     render_ensur_comparison_section()
 
@@ -197,6 +231,16 @@ def render_simple_home(active_city: str) -> None:
 
     # 8. ensur.ai Solutions by Cohort Grid
     render_ensur_solutions_grid()
+
+    # 8.1 Aero's Eco & Clean Air Adventure Quest Hub (Games, Puzzles, & Quizzes)
+    render_eco_quest_hub(
+        city_name=city_display,
+        pm25=pm25_val,
+        aqi=aqi_val,
+        temp=temp_val,
+        wind=wind_val,
+        best_time=best_win
+    )
 
     # 9. Two-Column Operational Row: Today's Tip + Simple Alert Setup
     col_tip, col_alert = st.columns([1.1, 1.0])
@@ -415,6 +459,21 @@ def render_simple_safe_plan(active_city: str) -> None:
         indoor_advice=advice.get("indoor_guidance", "Keep regular ventilation.")
     )
 
+    # What to Carry Outside & Outdoor Safety Departure Kit
+    render_outdoor_departure_kit(
+        city_name=format_location_label(loc),
+        pm25=pm25_val,
+        aqi=aqi_val,
+        temp=temp_val,
+        wind=wind_val,
+        humidity=humidity_val,
+        user_profile={
+            "health_sensitivity": sel_sens,
+            "age_group": sel_age,
+            "usual_activities": sel_act
+        }
+    )
+
     # Disclaimer & Footer
     render_simple_disclaimer()
     render_ensur_executive_footer()
@@ -539,13 +598,15 @@ def render_simple_live_tracking(active_city: str) -> None:
     )
 
     # --------------------------------------------------------------------------
-    # 2. THE 3-PHASE INTERACTIVE TEMPORAL EXPLORER (Right Now, Past 24h, Future 48h)
+    # 2. THE 5-PHASE INTERACTIVE TEMPORAL EXPLORER (Right Now, What to Carry, History, Future, Ask Aero)
     # --------------------------------------------------------------------------
     st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
-    tab_now, tab_history, tab_future = st.tabs([
+    tab_now, tab_pack, tab_history, tab_future, tab_chat = st.tabs([
         "⏱️ Right Now (On-Time Telemetry)",
+        "🎒 What to Carry Outside",
         "🔙 Past 24h History (What Happened)",
-        "🔮 Next 48h Future (Predictive Forecast)"
+        "🔮 Next 48h Future (Predictive Forecast)",
+        "💬 Ask Aero Chatbot"
     ])
 
     with tab_now:
@@ -564,6 +625,17 @@ def render_simple_live_tracking(active_city: str) -> None:
         render_simple_indoor_mask_cards(
             mask_advice="Wear a snug N95 mask during peak commute hours." if pm25_val > 35 else "No mask needed for casual outdoor activities today.",
             indoor_advice="Keep windows closed during afternoon dust hours." if pm25_val > 35 else "Safe to open windows for clean indoor ventilation."
+        )
+
+    with tab_pack:
+        render_outdoor_departure_kit(
+            city_name=format_location_label(loc),
+            pm25=pm25_val,
+            aqi=aqi_val,
+            temp=temp_val,
+            wind=wind_val,
+            humidity=humidity_val,
+            user_profile=user_prof
         )
 
     with tab_history:
@@ -734,6 +806,18 @@ def render_simple_live_tracking(active_city: str) -> None:
 
         render_simple_alert_setup(current_threshold=threshold, on_save_callback=_save_alert)
 
+    with tab_chat:
+        render_aero_chatbot(
+            city_name=format_location_label(loc),
+            pm25=pm25_val,
+            aqi=aqi_val,
+            temp=temp_val,
+            wind=wind_val,
+            humidity=humidity_val,
+            user_profile=user_prof,
+            container_key="live_aero_chat"
+        )
+
     # 3. Disclaimer & Footer
     render_simple_disclaimer()
     render_ensur_executive_footer()
@@ -843,6 +927,16 @@ def render_simple_trends(active_city: str) -> None:
         </p>
     </div>
     """)
+
+    # Eco & Clean Air Adventure Quest Hub in About Safety
+    render_eco_quest_hub(
+        city_name="Your Neighborhood",
+        pm25=25.0,
+        aqi=75,
+        temp=22.0,
+        wind=8.0,
+        best_time="07:00 AM"
+    )
 
     render_simple_disclaimer()
     render_ensur_executive_footer()
@@ -1066,6 +1160,16 @@ def render_simple_about_safety() -> None:
         </div>
     </div>
     """)
+
+    # Eco & Clean Air Adventure Quest Hub in About Safety
+    render_eco_quest_hub(
+        city_name="Your Neighborhood",
+        pm25=25.0,
+        aqi=75,
+        temp=22.0,
+        wind=8.0,
+        best_time="07:00 AM"
+    )
 
     render_simple_disclaimer()
     render_ensur_executive_footer()

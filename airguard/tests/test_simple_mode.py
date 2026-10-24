@@ -125,3 +125,56 @@ def test_render_simple_views_execution():
         assert "N95 / KN95 / FFP2 Masks" in html
         assert "Keeping Your Home Air Clean" in html
 
+
+def test_aero_chatbot_responses():
+    from app.components.simple_chatbot import generate_aero_response
+
+    # Test outdoor question
+    resp_play = generate_aero_response(
+        user_query="Can I play soccer outside right now?",
+        city_name="Chandigarh",
+        pm25=12.0,
+        aqi=45,
+        temp=22.0,
+        wind=8.0,
+        humidity=50.0
+    )
+    assert "clean" in resp_play["answer"].lower() or "fresh" in resp_play["answer"].lower()
+    assert "Tip:" in resp_play["tip"]
+
+    # Test packing question
+    resp_pack = generate_aero_response(
+        user_query="What should I pack in my schoolbag today?",
+        city_name="Chandigarh",
+        pm25=65.0,
+        aqi=150,
+        temp=24.0,
+        wind=4.0,
+        humidity=55.0
+    )
+    assert "water" in resp_pack["answer"].lower()
+    assert "mask" in resp_pack["answer"].lower()
+
+    # Test symptom relief question
+    resp_sym = generate_aero_response(
+        user_query="My throat tickles and my eyes burn",
+        city_name="Chandigarh",
+        pm25=70.0,
+        aqi=155,
+        temp=25.0,
+        wind=3.0,
+        humidity=60.0
+    )
+    assert "water" in resp_sym["answer"].lower() or "honey" in resp_sym["answer"].lower()
+    assert "never rub" in resp_sym["answer"].lower() or "cool" in resp_sym["answer"].lower()
+
+
+def test_outdoor_kit_and_game_state():
+    from app.components.simple_games import get_game_state
+    import streamlit as st
+
+    state = get_game_state()
+    assert "badges_unlocked" in state
+    assert isinstance(state["badges_unlocked"], set)
+
+
