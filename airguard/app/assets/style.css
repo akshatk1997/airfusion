@@ -1454,12 +1454,39 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
    AIRGUARD 3D CARTOON PROJECT VISUALIZATION SHOWCASE
    ========================================================================== */
 @keyframes ag-cinematic-breathe {
-    0%, 100% {
-        transform: scale(1) translateY(0);
+    0% {
+        transform: scale(1.08) translate(0px, 0px);
+    }
+    25% {
+        transform: scale(1.12) translate(-16px, -10px);
     }
     50% {
-        transform: scale(1.008) translateY(-4px);
+        transform: scale(1.09) translate(14px, -6px);
     }
+    75% {
+        transform: scale(1.14) translate(8px, 8px);
+    }
+    100% {
+        transform: scale(1.08) translate(0px, 0px);
+    }
+}
+
+@keyframes ag-radar-expand {
+    0% { transform: scale(0.3); opacity: 0.95; }
+    70% { transform: scale(2.2); opacity: 0.15; }
+    100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes ag-shield-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
+    50% { transform: scale(1.08); opacity: 0.95; box-shadow: 0 0 45px rgba(59, 130, 246, 0.75); }
+}
+
+@keyframes ag-sunbeam-drift {
+    0% { transform: translateX(-120%) rotate(-15deg); opacity: 0; }
+    20% { opacity: 0.6; }
+    60% { opacity: 0.8; }
+    100% { transform: translateX(220%) rotate(-15deg); opacity: 0; }
 }
 
 @keyframes ag-sparkle-spin {
@@ -1517,26 +1544,80 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
 
 .ag-3d-panoramic-box {
     position: relative;
-    border-radius: 20px;
+    border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 16px 40px rgba(31, 52, 76, 0.10);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 18px 48px rgba(31, 52, 76, 0.08), 0 4px 14px rgba(31, 52, 76, 0.03);
+    border: 3px solid rgba(255, 255, 255, 0.95);
     margin-bottom: 24px;
-    background: #000;
+    background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 45%, #F0FDF4 100%) !important;
+    min-height: 440px;
+    perspective: 1200px;
 }
 
 .ag-3d-panoramic-img {
-    width: 100%;
-    height: auto;
-    max-height: 460px;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 440px;
+    max-height: 520px;
+    object-fit: cover !important;
     display: block;
-    animation: ag-cinematic-breathe 7s ease-in-out infinite;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: ag-cinematic-breathe 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    transform-origin: center center;
+    will-change: transform;
 }
 
-.ag-3d-panoramic-img:hover {
-    transform: scale(1.02);
+.ag-3d-live-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ag-3d-sunbeam {
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 60%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-sunbeam-drift 9s ease-in-out infinite;
+}
+
+.ag-3d-radar-pulse {
+    position: absolute;
+    top: 14%;
+    left: 12%;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 2px solid rgba(16, 185, 129, 0.8);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.08) 55%, transparent 75%);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-radar-expand 3.2s ease-out infinite;
+}
+
+.ag-3d-dome-shield {
+    position: absolute;
+    top: 22%;
+    right: 13%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2px dashed rgba(59, 130, 246, 0.7);
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(147, 197, 253, 0.1) 60%, transparent 80%);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-shield-breathe 4s ease-in-out infinite;
+}
+
+.ag-3d-panoramic-box:hover .ag-3d-panoramic-img {
+    filter: brightness(1.03);
 }
 
 .ag-3d-overlay-badge {
@@ -1691,4 +1772,41 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
     0% { transform: translateY(0px) scale(0.8); opacity: 0.3; }
     50% { transform: translateY(-25px) scale(1.2); opacity: 0.8; }
     100% { transform: translateY(0px) scale(0.8); opacity: 0.3; }
+}
+
+/* Live 3D Breeze and Clean Air Streams */
+.ag-3d-breeze-stream {
+    position: absolute;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+    border-radius: 9999px;
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-breeze-flow 4.2s linear infinite;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes ag-breeze-flow {
+    0% { transform: translateX(-160px); opacity: 0; }
+    20% { opacity: 0.85; }
+    80% { opacity: 0.85; }
+    100% { transform: translateX(1200px); opacity: 0; }
+}
+
+/* Floating Clean Air Sparkle Orbs */
+.ag-sparkle-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFFFFF 0%, rgba(255, 215, 0, 0.85) 45%, rgba(16, 185, 129, 0.4) 75%, transparent 100%);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-float-orb 5s infinite ease-in-out;
+}
+
+@keyframes ag-float-orb {
+    0% { transform: translateY(0px) scale(0.6); opacity: 0; }
+    25% { opacity: 0.95; }
+    75% { opacity: 0.95; }
+    100% { transform: translateY(-160px) scale(1.25); opacity: 0; }
 }

@@ -168,7 +168,7 @@ def render_simple_home(active_city: str) -> None:
     # 0. Animated 3D Pixar Cartoon Project Showcase (bridges mode banner and hero section)
     render_simple_3d_cartoon_showcase(
         city_name=city_display,
-        pm25_val=pm25,
+        pm25_val=pm25_val,
         aqi_val=aqi_val,
         status_level=status_level
     )

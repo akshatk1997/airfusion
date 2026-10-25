@@ -1147,10 +1147,27 @@ def render_simple_3d_cartoon_showcase(
             </div>
         </div>
 
-        <!-- Panoramic 3D Scene with Floating Interactive Badges & Live Telemetry -->
-        <div class="ag-3d-panoramic-box">
+                <!-- Panoramic 3D Scene with Floating Interactive Badges & Live Telemetry -->
+        <div class="ag-3d-panoramic-box" id="ag3dPanoramicContainer">
             <img src="{panoramic_b64}" alt="AirGuard 3D Pixar Diorama" class="ag-3d-panoramic-img" />
             
+            <!-- Live Active Animated Atmosphere Overlays (No Black Frame) -->
+            <div class="ag-3d-sunbeam"></div>
+            <div class="ag-3d-radar-pulse" title="Aero Telemetry Scanner"></div>
+            <div class="ag-3d-dome-shield" title="Haven Pure Sanctuary Dome"></div>
+
+            <!-- Flowing Wind Breeze Streamlines -->
+            <div class="ag-3d-breeze-stream" style="top: 22%; left: 0; width: 160px; animation-duration: 4.0s; animation-delay: 0s;"></div>
+            <div class="ag-3d-breeze-stream" style="top: 48%; left: 0; width: 240px; animation-duration: 4.8s; animation-delay: 1.4s;"></div>
+            <div class="ag-3d-breeze-stream" style="top: 74%; left: 0; width: 190px; animation-duration: 3.6s; animation-delay: 2.6s;"></div>
+
+            <!-- Floating Clean Air Sparkle Orbs -->
+            <div class="ag-sparkle-orb" style="top: 78%; left: 16%; width: 9px; height: 9px; animation-delay: 0s; animation-duration: 4.6s;"></div>
+            <div class="ag-sparkle-orb" style="top: 84%; left: 34%; width: 13px; height: 13px; animation-delay: 1.2s; animation-duration: 5.4s;"></div>
+            <div class="ag-sparkle-orb" style="top: 72%; left: 56%; width: 8px; height: 8px; animation-delay: 2.5s; animation-duration: 4.2s;"></div>
+            <div class="ag-sparkle-orb" style="top: 80%; left: 76%; width: 11px; height: 11px; animation-delay: 0.9s; animation-duration: 5.0s;"></div>
+            <div class="ag-sparkle-orb" style="top: 88%; left: 44%; width: 15px; height: 15px; animation-delay: 3.1s; animation-duration: 6.0s;"></div>
+
             <!-- Pinned Badge 1: Aero Cloud Scanner -->
             <div class="ag-3d-overlay-badge" style="top: 18px; left: 20px;">
                 <span style="font-size: 1.1rem;">☁️</span>
