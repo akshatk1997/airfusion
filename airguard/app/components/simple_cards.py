@@ -1075,11 +1075,17 @@ def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> Non
 # SIGNATURE AIRGUARD ARCHITECTURAL COMPONENTS
 # ==============================================================================
 
-def render_simple_3d_cartoon_showcase() -> None:
+def render_simple_3d_cartoon_showcase(
+    city_name: str = "Active Sector",
+    pm25_val: float = 38.0,
+    aqi_val: int = 107,
+    status_level: str = "moderate"
+) -> None:
     """
     Renders an animated 3D Pixar-style cartoon showcase diorama of the AirGuard project.
     Bridges the Simple Mode banner and the core intelligence section with an engaging visual
-    story featuring the 4 guardians: Aero, Flash, Nova, and Haven.
+    story featuring the 4 clean-air guardians: Aero, Flash, Nova, and Haven.
+    Includes natural human voice greetings and real-time live telemetry integration.
     """
     panoramic_b64 = get_mascot_base64("airguard_3d_cartoon_panoramic.jpg")
     aero_b64 = get_mascot_base64("mascot_clean_air.jpg")
@@ -1087,9 +1093,37 @@ def render_simple_3d_cartoon_showcase() -> None:
     mask_b64 = get_mascot_base64("mascot_caution_mask.jpg")
     sanctuary_b64 = get_mascot_base64("mascot_indoor_sanctuary.jpg")
 
+    clean_city = str(city_name).strip() or "Active Sector"
+    status_color = "#10B981" if status_level == "good" else ("#F59E0B" if status_level == "moderate" else "#EF4444")
+
     html = f"""
+    <!-- Guardian Human Voice Speech Engine -->
+    <script>
+    function speakGuardianVoice(name, quoteText, pitchVal, rateVal) {{
+        if (!('speechSynthesis' in window)) {{
+            console.log("Speech synthesis not supported.");
+            return;
+        }}
+        window.speechSynthesis.cancel();
+        let u = new SpeechSynthesisUtterance(quoteText);
+        let voices = window.speechSynthesis.getVoices();
+        let selVoice = voices.find(v => (
+            v.name.includes('Natural') ||
+            v.name.includes('Google') ||
+            v.name.includes('Jenny') ||
+            v.name.includes('Samantha') ||
+            v.name.includes('Zira') ||
+            v.lang.startsWith('en')
+        ));
+        if (selVoice) u.voice = selVoice;
+        u.pitch = pitchVal || 1.05;
+        u.rate = rateVal || 0.95;
+        window.speechSynthesis.speak(u);
+    }}
+    </script>
+
     <div class="ag-3d-stage">
-        <!-- Header with animated ticker -->
+        <!-- Header with animated ticker and live status badge -->
         <div class="ag-3d-stage-header">
             <div>
                 <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 104, 69, 0.10); border: 1px solid rgba(255, 104, 69, 0.3); border-radius: 9999px; padding: 4px 14px; margin-bottom: 8px;">
@@ -1113,13 +1147,13 @@ def render_simple_3d_cartoon_showcase() -> None:
             </div>
         </div>
 
-        <!-- Panoramic 3D Scene with Floating Interactive Badges -->
+        <!-- Panoramic 3D Scene with Floating Interactive Badges & Live Telemetry -->
         <div class="ag-3d-panoramic-box">
             <img src="{panoramic_b64}" alt="AirGuard 3D Pixar Diorama" class="ag-3d-panoramic-img" />
             
             <!-- Pinned Badge 1: Aero Cloud Scanner -->
             <div class="ag-3d-overlay-badge" style="top: 18px; left: 20px;">
-                <span style="font-size: 1rem;">☁️</span>
+                <span style="font-size: 1.1rem;">☁️</span>
                 <div>
                     <div style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #1F344C; line-height: 1.1;">Aero: Cloud Scanner</div>
                     <div style="font-family: var(--font-mono); font-size: 0.65rem; color: #059669; font-weight: 700;">PM₂.₅ Telemetry Active</div>
@@ -1127,8 +1161,8 @@ def render_simple_3d_cartoon_showcase() -> None:
             </div>
 
             <!-- Pinned Badge 2: Safe Outdoor Window Runner & Child -->
-            <div class="ag-3d-overlay-badge" style="bottom: 20px; left: 50%; transform: translateX(-50%); animation: ag-badge-levitate-alt 3.8s ease-in-out infinite;">
-                <span style="font-size: 1rem;">🏃‍♀️</span>
+            <div class="ag-3d-overlay-badge" style="bottom: 70px; left: 50%; transform: translateX(-50%); animation: ag-badge-levitate-alt 3.8s ease-in-out infinite;">
+                <span style="font-size: 1.1rem;">🏃‍♀️</span>
                 <div>
                     <div style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #1F344C; line-height: 1.1;">Clear Outdoor Window</div>
                     <div style="font-family: var(--font-mono); font-size: 0.65rem; color: #FF6845; font-weight: 700;">100% Safe For Running & Play</div>
@@ -1137,15 +1171,23 @@ def render_simple_3d_cartoon_showcase() -> None:
 
             <!-- Pinned Badge 3: Indoor Sanctuary Dome -->
             <div class="ag-3d-overlay-badge" style="top: 18px; right: 20px;">
-                <span style="font-size: 1rem;">🏡</span>
+                <span style="font-size: 1.1rem;">🏡</span>
                 <div>
                     <div style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #1F344C; line-height: 1.1;">Pure Air Sanctuary</div>
                     <div style="font-family: var(--font-mono); font-size: 0.65rem; color: #2563EB; font-weight: 700;">Micro-Filtered Dome Shield</div>
                 </div>
             </div>
+
+            <!-- Bottom Live Telemetry Pill -->
+            <div class="ag-3d-telemetry-badge">
+                <span class="ag-pulse-dot" style="background: {status_color};"></span>
+                <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #FFFFFF; letter-spacing: 0.05em; text-transform: uppercase;">
+                    TELEMETRY FOR {clean_city.upper()}: PM₂.₅ {pm25_val:.1f} µg/m³ • AQI {aqi_val} ({status_level.upper()})
+                </span>
+            </div>
         </div>
 
-        <!-- 4-Guardian Mission Character Cards -->
+        <!-- 4-Guardian Mission Character Cards with Voice Audio & Speech Bubbles -->
         <div class="ag-3d-cast-grid">
             <!-- 1. Aero -->
             <div class="ag-3d-cast-card">
@@ -1153,10 +1195,16 @@ def render_simple_3d_cartoon_showcase() -> None:
                 <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; margin-bottom: 2px;">
                     Aero
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #FF6845; text-transform: uppercase; margin-bottom: 8px;">
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #FF6845; text-transform: uppercase; margin-bottom: 6px;">
                     Atmospheric Scout
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 12px 0;">
+                <div class="ag-3d-speech-bubble">
+                    "I sniff out fine invisible dust across the skies so you always know when the air is crystal clean!"
+                </div>
+                <button class="ag-3d-voice-btn" onclick="speakGuardianVoice('Aero', 'Hi! I am Aero, your atmospheric cloud scout! I continuously sniff out fine invisible dust across ground sensors so your family breathes safe, crystal clean air!', 1.14, 0.94);" type="button">
+                    🔊 Meet Aero (Voice)
+                </button>
+                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 10px 0;">
                     Sniffs micro-particulates (PM₂.₅, PM₁₀, NO₂) continuously across ground stations.
                 </p>
                 <span style="margin-top: auto; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: #059669; background: rgba(16, 185, 129, 0.10); padding: 3px 10px; border-radius: 9999px;">
@@ -1170,10 +1218,16 @@ def render_simple_3d_cartoon_showcase() -> None:
                 <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; margin-bottom: 2px;">
                     Flash
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #3B82F6; text-transform: uppercase; margin-bottom: 8px;">
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #3B82F6; text-transform: uppercase; margin-bottom: 6px;">
                     Safe Window Navigator
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 12px 0;">
+                <div class="ag-3d-speech-bubble">
+                    "Your morning jog and outdoor play windows are fully calculated and 100% verified!"
+                </div>
+                <button class="ag-3d-voice-btn" onclick="speakGuardianVoice('Flash', 'Hey runner! I am Flash, your safe window navigator! I predict optimal hours of low pollution so you can exercise, jog, and play outside with zero respiratory strain!', 1.02, 0.98);" type="button">
+                    🔊 Meet Flash (Voice)
+                </button>
+                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 10px 0;">
                     Predicts optimal hours of low pollution so joggers, cyclists, and children exercise with zero lung strain.
                 </p>
                 <span style="margin-top: auto; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: #2563EB; background: rgba(37, 99, 235, 0.10); padding: 3px 10px; border-radius: 9999px;">
@@ -1187,10 +1241,16 @@ def render_simple_3d_cartoon_showcase() -> None:
                 <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; margin-bottom: 2px;">
                     Nova
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #8B5CF6; text-transform: uppercase; margin-bottom: 8px;">
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #8B5CF6; text-transform: uppercase; margin-bottom: 6px;">
                     Personalized Lung Shield
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 12px 0;">
+                <div class="ag-3d-speech-bubble">
+                    "I protect sensitive airways, kids, and asthmatics with targeted pulmonary shield guidance!"
+                </div>
+                <button class="ag-3d-voice-btn" onclick="speakGuardianVoice('Nova', 'Hello! I am Nova, your personalized lung shield! I tailor safety thresholds for asthmatic airways, sensitive lungs, and children with instant mask and air barrier advice!', 1.08, 0.94);" type="button">
+                    🔊 Meet Nova (Voice)
+                </button>
+                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 10px 0;">
                     Tailors safety thresholds for asthmatic airways, sensitive lungs, and children with instant mask guidance.
                 </p>
                 <span style="margin-top: auto; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: #7C3AED; background: rgba(124, 58, 237, 0.10); padding: 3px 10px; border-radius: 9999px;">
@@ -1204,10 +1264,16 @@ def render_simple_3d_cartoon_showcase() -> None:
                 <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; margin-bottom: 2px;">
                     Haven
                 </div>
-                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #EA580C; text-transform: uppercase; margin-bottom: 8px;">
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; color: #EA580C; text-transform: uppercase; margin-bottom: 6px;">
                     Clean Air Sanctuary
                 </div>
-                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 12px 0;">
+                <div class="ag-3d-speech-bubble">
+                    "I defend your indoor rooms against smog infiltration, keeping home air 99.4% purified!"
+                </div>
+                <button class="ag-3d-voice-btn" onclick="speakGuardianVoice('Haven', 'Welcome! I am Haven, your clean air sanctuary guardian! I monitor outdoor smog infiltration to guide window closure and air filtration, keeping your home pure!', 0.96, 0.93);" type="button">
+                    🔊 Meet Haven (Voice)
+                </button>
+                <p style="font-family: var(--font-sans); font-size: 0.78rem; color: #5A6E85; line-height: 1.45; margin: 0 0 10px 0;">
                     Monitors outdoor smog infiltration to guide window closure and air filtration, keeping indoor spaces pure.
                 </p>
                 <span style="margin-top: auto; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: #EA580C; background: rgba(234, 88, 12, 0.10); padding: 3px 10px; border-radius: 9999px;">

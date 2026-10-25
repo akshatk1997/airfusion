@@ -166,7 +166,12 @@ def render_simple_home(active_city: str) -> None:
         timestamp_display = raw_ts or "Live Ground Tracking"
 
     # 0. Animated 3D Pixar Cartoon Project Showcase (bridges mode banner and hero section)
-    render_simple_3d_cartoon_showcase()
+    render_simple_3d_cartoon_showcase(
+        city_name=city_display,
+        pm25_val=pm25,
+        aqi_val=aqi_val,
+        status_level=status_level
+    )
 
     # 1. Flagship AirGuard Hero Section
     render_airguard_hero_section()
