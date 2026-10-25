@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
+import base64
 import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -87,6 +88,35 @@ TRUSTED_SOURCES_REGISTRY = {
 }
 
 
+_NEWS_IMAGE_CACHE: Dict[str, str] = {}
+
+def get_news_image_base64(filename: str) -> str:
+    """
+    Reads and base64-encodes local high-resolution editorial photography for news items.
+    Cached in memory for instantaneous zero-latency rendering.
+    """
+    if not filename:
+        filename = "real_city_skyline_telemetry.jpg"
+    if filename in _NEWS_IMAGE_CACHE:
+        return _NEWS_IMAGE_CACHE[filename]
+
+    img_path = Path(__file__).resolve().parent.parent / "app" / "assets" / "images" / filename
+    if not img_path.exists():
+        img_path = Path(__file__).resolve().parent / "app" / "assets" / "images" / filename
+
+    if img_path.exists():
+        try:
+            with open(img_path, "rb") as f:
+                encoded = base64.b64encode(f.read()).decode("utf-8")
+                mime = "image/png" if filename.endswith(".png") else "image/jpeg"
+                data_uri = f"data:{mime};base64,{encoded}"
+                _NEWS_IMAGE_CACHE[filename] = data_uri
+                return data_uri
+        except Exception:
+            return ""
+    return ""
+
+
 def init_news_db(conn: Optional[sqlite3.Connection] = None) -> None:
     """
     Initializes SQLite tables for environmental news storage and 6-hour sync metadata.
@@ -118,7 +148,8 @@ def init_news_db(conn: Optional[sqlite3.Connection] = None) -> None:
             technical_analysis TEXT NOT NULL, -- Quantitative atmospheric & regulatory analysis
             action_items TEXT NOT NULL,       -- JSON array of clear actionable steps
             read_time_mins INTEGER DEFAULT 3,
-            badge_label TEXT NOT NULL         -- e.g. 'GOVERNMENT DIRECTIVE', 'SATELLITE TELEMETRY'
+            badge_label TEXT NOT NULL,        -- e.g. 'GOVERNMENT DIRECTIVE', 'SATELLITE TELEMETRY'
+            image_asset TEXT DEFAULT ''
         );
     """)
 
@@ -131,6 +162,11 @@ def init_news_db(conn: Optional[sqlite3.Connection] = None) -> None:
         );
     """)
 
+        # Migration: add image_asset column if missing
+    try:
+        cursor.execute("ALTER TABLE environmental_news ADD COLUMN image_asset TEXT DEFAULT '';")
+    except Exception:
+        pass
     conn.commit()
     if close_conn:
         conn.close()
@@ -239,6 +275,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         # =========================================================================
         {
             "id": "news_local_chd_wind_dispersion",
+            "image_asset": "real_city_skyline_telemetry.jpg",
             "category": "local",
             "city_scope": "Chandigarh",
             "region": "Tricity & Northern Plains",
@@ -262,6 +299,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_local_chd_sukhna_canopy",
+            "image_asset": "real_family_outdoor_walk.jpg",
             "category": "local",
             "city_scope": "Chandigarh",
             "region": "Tricity (Chandigarh, Mohali, Panchkula)",
@@ -284,6 +322,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_local_chd_fog_morning_advisory",
+            "image_asset": "real_traffic_smog_contrast.jpg",
             "category": "local",
             "city_scope": "Chandigarh",
             "region": "Tricity & Punjab-Haryana Border",
@@ -311,6 +350,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         # =========================================================================
         {
             "id": "news_local_delhi_grap3_enforcement",
+            "image_asset": "news_industrial_emission_curbs.jpg",
             "category": "local",
             "city_scope": "Delhi",
             "region": "Delhi-NCR & National Capital Region",
@@ -404,6 +444,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_local_mumbai_sea_breeze",
+            "image_asset": "real_morning_runner_park.jpg",
             "category": "local",
             "city_scope": "Mumbai",
             "region": "Konkan Coast & Mumbai Metropolitan",
@@ -593,6 +634,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_intl_bbc_superblocks_europe",
+            "image_asset": "news_clean_corridor_mobility.jpg",
             "category": "international",
             "city_scope": "GLOBAL",
             "region": "Europe / Urban Planning",
@@ -655,8 +697,9 @@ def refresh_news_feed(
                     id, category, city_scope, region, title, summary,
                     source_name, source_credibility, source_url, published_at,
                     last_synced_at, severity, pollutants_involved, simple_summary,
-                    technical_analysis, action_items, read_time_mins, badge_label
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    technical_analysis, action_items, read_time_mins, badge_label,
+                    image_asset
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(id) DO UPDATE SET
                     title=excluded.title,
                     summary=excluded.summary,
@@ -671,7 +714,8 @@ def refresh_news_feed(
                     technical_analysis=excluded.technical_analysis,
                     action_items=excluded.action_items,
                     read_time_mins=excluded.read_time_mins,
-                    badge_label=excluded.badge_label;
+                    badge_label=excluded.badge_label,
+                    image_asset=excluded.image_asset;
             """, (
                 item["id"],
                 item["category"],
@@ -690,7 +734,8 @@ def refresh_news_feed(
                 item["technical_analysis"],
                 item["action_items"],
                 item.get("read_time_mins", 3),
-                item.get("badge_label", "OFFICIAL BULLETIN")
+                item.get("badge_label", "OFFICIAL BULLETIN"),
+                item.get("image_asset", "real_city_skyline_telemetry.jpg")
             ))
 
         # 2. Record synchronization timestamp in metadata
@@ -777,8 +822,9 @@ def _inject_situational_bulletin(
             id, category, city_scope, region, title, summary,
             source_name, source_credibility, source_url, published_at,
             last_synced_at, severity, pollutants_involved, simple_summary,
-            technical_analysis, action_items, read_time_mins, badge_label
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            technical_analysis, action_items, read_time_mins, badge_label,
+            image_asset
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET
             title=excluded.title,
             summary=excluded.summary,
@@ -791,7 +837,8 @@ def _inject_situational_bulletin(
             simple_summary=excluded.simple_summary,
             technical_analysis=excluded.technical_analysis,
             action_items=excluded.action_items,
-            badge_label=excluded.badge_label;
+            badge_label=excluded.badge_label,
+            image_asset=excluded.image_asset;
     """, (
         bulletin_id,
         "local",
@@ -810,7 +857,8 @@ def _inject_situational_bulletin(
         technical_analysis,
         json.dumps(actions),
         2,
-        badge_label
+        badge_label,
+        "real_traffic_smog_contrast.jpg" if severity in ["CRITICAL", "HIGH"] else "real_morning_runner_park.jpg"
     ))
     conn.commit()
 
@@ -879,6 +927,9 @@ def get_news_feed(
             art["time_ago"] = _format_time_ago(pub_dt)
         except Exception:
             art["time_ago"] = "Recently"
+
+        # Populate base64 image data URI for offline instant rendering
+        art["image_base64"] = get_news_image_base64(art.get("image_asset", "real_city_skyline_telemetry.jpg"))
 
     # Separate Local vs International
     # Local news matches active_city, or 'ALL_LOCAL', or regional cluster

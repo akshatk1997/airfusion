@@ -759,11 +759,14 @@ def render_technical_home(active_city: str) -> None:
 
         with ncol1:
             if top_local:
+                loc_img = top_local.get('image_base64', '')
+                loc_img_html = f'<img src="{loc_img}" style="width: 100%; height: 110px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" />' if loc_img else ''
                 with st.container(border=True):
                     st.markdown(
                         f"""
                         <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
                             <div>
+                                {loc_img_html}
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                                     <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
                                         📍 LOCAL • {top_local['source_name'].split('(')[0].strip()}
@@ -788,11 +791,14 @@ def render_technical_home(active_city: str) -> None:
 
         with ncol2:
             if top_intl:
+                intl_img = top_intl.get('image_base64', '')
+                intl_img_html = f'<img src="{intl_img}" style="width: 100%; height: 110px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" />' if intl_img else ''
                 with st.container(border=True):
                     st.markdown(
                         f"""
                         <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
                             <div>
+                                {intl_img_html}
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                                     <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
                                         🌍 GLOBAL • {top_intl['source_name'].split('(')[0].strip()}

@@ -287,7 +287,8 @@ def render_floating_ai_popup(active_city: str) -> None:
 
     # Mode-Specific Branding & Personas
     if simple_active:
-        popover_label = "☁️ Ask Aero (Clean Air Buddy)"
+        popover_label = "☁️"
+        tooltip_label = "Ask Aero (Clean Air Buddy) ☁️"
         hero_title = "Aero — Your Clean Air Buddy ☁️"
         hero_subtitle = "Warm, child-friendly storytelling guide with simple outdoor & packing tips."
         hero_badge = "● SIMPLE MODE • 3D MASCOT ONLINE"
@@ -300,7 +301,8 @@ def render_floating_ai_popup(active_city: str) -> None:
         body_bg = "background: #FAF6F1 !important;"
         body_border = "border: 2px solid #FFC3B3 !important;"
     else:
-        popover_label = "⚙️ Sentry AI (Systems Analyst)"
+        popover_label = "⚙️"
+        tooltip_label = "Sentry AI (Systems Analyst) ⚙️"
         hero_title = "AirGuard Atmospheric Analyst 🔬"
         hero_subtitle = "Boundary layer thermodynamics, minute ventilation dosimetry & XGBoost ML."
         hero_badge = "● TECHNICAL MODE • XGBoost v2.4"
@@ -324,30 +326,73 @@ def render_floating_ai_popup(active_city: str) -> None:
         bottom: 24px !important;
         right: 24px !important;
         left: auto !important;
-        width: auto !important;
-        max-width: fit-content !important;
+        width: 60px !important;
+        height: 60px !important;
         z-index: 999999 !important;
     }}
     div[data-testid="stPopover"] > button {{
-        width: auto !important;
-        border-radius: 9999px !important;
-        padding: 12px 24px !important;
-        font-family: var(--font-heading) !important;
-        font-weight: 800 !important;
-        font-size: 0.88rem !important;
-        letter-spacing: -0.01em !important;
-        box-shadow: 0 10px 32px rgba(31, 52, 76, 0.35) !important;
+        width: 58px !important;
+        height: 58px !important;
+        min-width: 58px !important;
+        min-height: 58px !important;
+        max-width: 58px !important;
+        max-height: 58px !important;
+        border-radius: 18px !important; /* Square but roundish squircle */
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 1.65rem !important;
+        line-height: 1 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-shadow: 0 10px 28px rgba(31, 52, 76, 0.32) !important;
         {btn_border}
         {btn_bg}
         color: #FFFFFF !important;
-        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 8px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.25s ease !important;
     }}
-    div[data-testid="stPopover"] > button:hover {{
-        transform: translateY(-3px) scale(1.02) !important;
+    div[data-testid="stPopover"] > button svg {{
+        display: none !important; /* Hide chevron dropdown arrow */
+    }}
+    /* PERMANENT HOVER INVISIBILITY REMOVAL FIX */
+    div[data-testid="stPopover"] > button:hover,
+    div[data-testid="stPopover"] > button:focus,
+    div[data-testid="stPopover"] > button:active {{
+        {btn_bg}
+        {btn_border}
+        color: #FFFFFF !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(-4px) scale(1.08) !important;
         {btn_hover_shadow}
+    }}
+    /* Floating Tooltip Pill */
+    div[data-testid="stPopover"]::after {{
+        content: "{tooltip_label}";
+        position: absolute;
+        bottom: 72px;
+        right: 0;
+        background: #1F344C;
+        color: #FFFFFF;
+        font-family: var(--font-heading);
+        font-size: 0.74rem;
+        font-weight: 700;
+        padding: 5px 14px;
+        border-radius: 9999px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        transform: translateY(4px);
+        box-shadow: 0 6px 20px rgba(31, 52, 76, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }}
+    div[data-testid="stPopover"]:hover::after {{
+        opacity: 1;
+        transform: translateY(0);
     }}
     div[data-testid="stPopoverBody"] {{
         max-height: 84vh !important;
@@ -362,7 +407,7 @@ def render_floating_ai_popup(active_city: str) -> None:
     </style>
     """)
 
-    # Render Streamlit Popover Widget
+        # Render Streamlit Popover Widget
     with st.popover(popover_label, use_container_width=False):
         # 1. Header Banner
         header_avatar_html = (
@@ -396,6 +441,112 @@ def render_floating_ai_popup(active_city: str) -> None:
         </div>
         """
         safe_markdown(header_html)
+        safe_markdown(r'''
+    <!-- AirGuard Natural Human Voice & Microphone Speech Engine -->
+    <script>
+    function speakHumanVoice(rawText, isFriendly) {
+        if (!('speechSynthesis' in window)) {
+            console.log("Speech synthesis not supported in browser.");
+            return;
+        }
+        window.speechSynthesis.cancel();
+        
+        let text = rawText.replace(/[*_#`~]/g, ' ')
+                          .replace(/https?:\/\/\S+/g, '')
+                          .replace(/µg\/m³/g, 'micrograms per cubic meter')
+                          .replace(/PM2\.5/g, 'P M 2.5')
+                          .replace(/PM10/g, 'P M 10')
+                          .replace(/NO2/g, 'Nitrogen Dioxide')
+                          .replace(/SO2/g, 'Sulfur Dioxide')
+                          .replace(/O3/g, 'Ozone')
+                          .replace(/AQI/g, 'Air Quality Index')
+                          .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}]/gu, '')
+                          .trim();
+                          
+        const utterance = new SpeechSynthesisUtterance(text);
+        const voices = window.speechSynthesis.getVoices();
+        
+        // Priority order for ultra-natural, human-sounding voices
+        const naturalKeywords = [
+            'Microsoft Jenny Online (Natural)',
+            'Microsoft Guy Online (Natural)',
+            'Microsoft Aria Online (Natural)',
+            'Google US English',
+            'Google UK English Female',
+            'Samantha',
+            'Natural',
+            'Karen',
+            'Daniel',
+            'Victoria'
+        ];
+        
+        let chosenVoice = null;
+        for (const kw of naturalKeywords) {
+            chosenVoice = voices.find(v => v.name.includes(kw));
+            if (chosenVoice) break;
+        }
+        if (!chosenVoice) {
+            chosenVoice = voices.find(v => v.lang.startsWith('en-US') || v.lang.startsWith('en'));
+        }
+        if (chosenVoice) utterance.voice = chosenVoice;
+        
+        // Human vocal prosody: natural breathing cadence and warm tone
+        utterance.rate = isFriendly ? 0.94 : 0.96;
+        utterance.pitch = isFriendly ? 1.03 : 0.98;
+        utterance.volume = 1.0;
+        
+        window.speechSynthesis.speak(utterance);
+    }
+    
+    function stopHumanVoice() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+    
+    function startSpeechRecognition(mode) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const statusEl = document.getElementById('ag-mic-status-' + mode);
+        const micBtn = document.getElementById('ag-mic-btn-' + mode);
+        
+        if (!SpeechRecognition) {
+            if (statusEl) statusEl.innerHTML = "<span style='color: #EF4444;'>Microphone not supported in this browser. Please type.</span>";
+            return;
+        }
+        
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        
+        if (statusEl) statusEl.innerHTML = "<span style='color: #EF4444; font-weight: 800;'>🔴 Listening to your voice... Speak now!</span>";
+        if (micBtn) micBtn.style.transform = "scale(1.18)";
+        
+        recognition.onresult = function(event) {
+            const transcript = event.results[0][0].transcript;
+            if (statusEl) statusEl.innerHTML = "✅ Heard: <em>" + transcript + "</em>";
+            if (micBtn) micBtn.style.transform = "scale(1)";
+            
+            // Populate input
+            const doc = window.parent.document || document;
+            const input = doc.querySelector('input[aria-label="Type your query:"]') || doc.querySelector('input[placeholder*="Ask Aero"]') || doc.querySelector('input[placeholder*="technical telemetry"]');
+            if (input) {
+                input.value = transcript;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+        };
+        recognition.onerror = function(event) {
+            if (statusEl) statusEl.innerText = "Mic error (" + event.error + "). Click to try again.";
+            if (micBtn) micBtn.style.transform = "scale(1)";
+        };
+        recognition.onend = function() {
+            if (micBtn) micBtn.style.transform = "scale(1)";
+        };
+        recognition.start();
+    }
+    </script>
+''')
 
         # 2. Real-time Telemetry Pill
         telemetry_html = f"""
@@ -496,6 +647,17 @@ def render_floating_ai_popup(active_city: str) -> None:
 
                 tip_part = f'<div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(0,0,0,0.06); font-family: var(--font-mono); font-size: 0.70rem; color: #1F344C; font-weight: 600;">{item["tip"]}</div>' if item.get("tip") else ""
 
+                # Clean text for speech synthesis
+                clean_speech_text = (
+                    item['answer']
+                    .replace('"', '&quot;')
+                    .replace("'", "\\'")
+                    .replace('\n', ' ')
+                )
+                voice_btn_color = "#FF6845" if simple_active else "#0284C7"
+                voice_btn_bg = "rgba(255, 104, 69, 0.10)" if simple_active else "rgba(2, 132, 199, 0.10)"
+                voice_btn_border = "rgba(255, 104, 69, 0.3)" if simple_active else "rgba(2, 132, 199, 0.3)"
+
                 ai_bubble = f"""
                 <div style="display: flex; justify-content: flex-start; margin-bottom: 12px;">
                     <div style="background: #FFFFFF; border: 1px solid #EBE6DF; color: #1F344C; border-radius: 14px 14px 14px 2px; padding: 10px 12px; font-size: 0.80rem; font-family: var(--font-sans); max-width: 90%; box-shadow: 0 2px 8px rgba(31,52,76,0.04); line-height: 1.45;">
@@ -508,10 +670,41 @@ def render_floating_ai_popup(active_city: str) -> None:
                         </div>
                         {item['answer']}
                         {tip_part}
+                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 6px; border-top: 1px solid #F1ECE4;">
+                            <button onclick="speakHumanVoice('{clean_speech_text}', {'true' if simple_active else 'false'});" type="button" style="cursor: pointer; background: {voice_btn_bg}; border: 1px solid {voice_btn_border}; border-radius: 9999px; padding: 3px 10px; font-size: 0.70rem; font-weight: 700; color: {voice_btn_color}; display: inline-flex; align-items: center; gap: 4px;">
+                                🔊 Listen in Human Voice
+                            </button>
+                            <button onclick="stopHumanVoice();" type="button" style="cursor: pointer; background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 9999px; padding: 3px 8px; font-size: 0.68rem; color: #64748B;">
+                                ⏹️ Stop
+                            </button>
+                        </div>
                     </div>
                 </div>
                 """
                 safe_markdown(ai_bubble)
+
+        # Voice Microphone Input Bar
+        mic_bar_html = f"""
+        <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 12px; padding: 10px 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 2px 8px rgba(31,52,76,0.03);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button id="ag-mic-btn-{view_mode}" onclick="startSpeechRecognition('{view_mode}');" type="button" style="cursor: pointer; width: 38px; height: 38px; border-radius: 50%; background: {'linear-gradient(135deg, #FF6845 0%, #FF8665 100%)' if simple_active else 'linear-gradient(135deg, #0284C7 0%, #38BDF8 100%)'}; border: none; color: #FFFFFF; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(31,52,76,0.18); transition: transform 0.2s ease;">
+                    🎙️
+                </button>
+                <div>
+                    <div id="ag-mic-status-{view_mode}" style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: #1F344C;">
+                        Click to Speak Query (Microphone)
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.68rem; color: #8896A6;">
+                        Ask via mic &bull; Answers in natural human voice
+                    </div>
+                </div>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.64rem; font-weight: 700; color: #059669; background: rgba(16, 185, 129, 0.1); padding: 3px 8px; border-radius: 9999px;">
+                VOICE ACTIVE
+            </span>
+        </div>
+        """
+        safe_markdown(mic_bar_html)
 
         # 5. User Input Form
         with st.form(f"popup_ai_form_{view_mode}", clear_on_submit=True):

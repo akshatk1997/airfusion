@@ -33,6 +33,7 @@ from app.components.simple_cards import (
     render_simple_weather_cards,
     render_simple_pollutant_cards,
     render_simple_indoor_mask_cards,
+    render_simple_3d_cartoon_showcase,
     render_airguard_hero_section,
     render_airguard_comparison_section,
     render_airguard_engine_section,
@@ -163,6 +164,9 @@ def render_simple_home(active_city: str) -> None:
         timestamp_display = dt_obj.strftime("%I:%M %p Today (Live)")
     except Exception:
         timestamp_display = raw_ts or "Live Ground Tracking"
+
+    # 0. Animated 3D Pixar Cartoon Project Showcase (bridges mode banner and hero section)
+    render_simple_3d_cartoon_showcase()
 
     # 1. Flagship AirGuard Hero Section
     render_airguard_hero_section()
