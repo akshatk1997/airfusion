@@ -44,6 +44,10 @@ from app.components.simple_cards import (
 from app.components.simple_chatbot import render_aero_chatbot
 from app.components.outdoor_kit import render_outdoor_departure_kit
 from app.components.simple_games import render_eco_quest_hub
+from app.components.simple_storytelling import (
+    render_simple_storytelling_section,
+    render_simple_terminology_decoder
+)
 from src.config import PRESET_CITIES
 from src.database import fetch_historical_records, fetch_all_locations
 from src.news_service import get_news_feed
@@ -253,6 +257,16 @@ def render_simple_home(active_city: str) -> None:
         wind=wind_val,
         best_time=best_win
     )
+
+    # 8.2 The Clean Air Storybook (4 Illustrated Lessons for Families & Children)
+    render_simple_storytelling_section(
+        city_name=city_display,
+        aqi_val=aqi_val,
+        pm25_val=pm25_val
+    )
+
+    # 8.3 The Everyday Air Decoder (Plain-English Terminology Catalog with Real-Life Analogies)
+    render_simple_terminology_decoder()
 
     # 9. Two-Column Operational Row: Today's Tip + Simple Alert Setup
     col_tip, col_alert = st.columns([1.1, 1.0])
