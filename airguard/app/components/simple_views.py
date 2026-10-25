@@ -294,75 +294,93 @@ def render_simple_home(active_city: str) -> None:
         )
 
     # 9.1 Today's Clean Air News & Story Updates (6-Hour Cycle)
-    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    safe_markdown("<div style='height: 20px;'></div>")
     try:
         s_feed = get_news_feed(active_city=active_city, current_pm25=pm25_val, current_aqi=aqi_val)
         s_local = s_feed["local_news"][0] if s_feed["local_news"] else None
         s_intl = s_feed["international_news"][0] if s_feed["international_news"] else None
 
         with st.container(border=True):
-            st.markdown(
-                f"""
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
-                    <div>
-                        <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; display: flex; align-items: center; gap: 8px;">
-                            <span>📰 Today's Clean Air News for Your Family</span>
-                            <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px; color: #FF6845; background: rgba(255,104,69,0.1);">
-                                UPDATED EVERY 6 HOURS
-                            </span>
-                        </div>
-                        <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85;">
-                            Stories from doctors, scientists, and city air protectors in plain, friendly language.
-                        </div>
+            header_html = """
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+                <div>
+                    <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C; display: flex; align-items: center; gap: 8px;">
+                        <span>📰 Today's Clean Air News for Your Family</span>
+                        <span class="ag-badge ag-badge-nothing" style="font-size: 0.65rem; padding: 2px 8px; color: #FF6845; background: rgba(255,104,69,0.1);">
+                            UPDATED EVERY 6 HOURS
+                        </span>
+                    </div>
+                    <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85;">
+                        Real, verified dispatches from doctors, scientists, and environmental regulators with actual source photography.
                     </div>
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
+            </div>
+            """
+            safe_markdown(header_html)
 
             sn_col1, sn_col2 = st.columns(2)
             with sn_col1:
                 if s_local:
-                    st.markdown(
-                        f"""
-                        <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 14px 16px; min-height: 140px;">
-                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #FF6845; font-weight: 700; margin-bottom: 4px;">
-                                📍 LOCAL: {s_local['source_name'].split('(')[0].strip()} • {s_local['time_ago']}
-                            </div>
-                            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
-                                {s_local['title'][:75]}...
-                            </div>
-                            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #9A3412; font-weight: 500;">
-                                🧒 {s_local['simple_summary'][:110]}...
-                            </div>
+                    loc_img = s_local.get('image_base64', '')
+                    loc_img_html = f'''
+                    <div style="position: relative; border-radius: 10px; overflow: hidden; margin-bottom: 10px; height: 140px; background: #E2E8F0;">
+                        <img src="{loc_img}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="{s_local['title']}" />
+                        <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(31,52,76,0.85); backdrop-filter: blur(4px); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px;">
+                            📸 ACTUAL SOURCE PHOTO
                         </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
+                    </div>
+                    ''' if loc_img else ''
+
+                    card_local = f"""
+                    <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 14px 16px; min-height: 230px;">
+                        {loc_img_html}
+                        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #FF6845; font-weight: 700; margin-bottom: 4px;">
+                            📍 LOCAL: {s_local['source_name'].split('(')[0].strip()} • {s_local['time_ago']}
+                        </div>
+                        <div style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                            {s_local['title'][:80]}...
+                        </div>
+                        <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #9A3412; font-weight: 500; line-height: 1.45;">
+                            🧒 {s_local['simple_summary'][:120]}...
+                        </div>
+                    </div>
+                    """
+                    safe_markdown(card_local)
+
             with sn_col2:
                 if s_intl:
-                    st.markdown(
-                        f"""
-                        <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 14px 16px; min-height: 140px;">
-                            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #0284C7; font-weight: 700; margin-bottom: 4px;">
-                                🌍 GLOBAL: {s_intl['source_name'].split('(')[0].strip()} • {s_intl['time_ago']}
-                            </div>
-                            <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
-                                {s_intl['title'][:75]}...
-                            </div>
-                            <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #0369A1; font-weight: 500;">
-                                🧒 {s_intl['simple_summary'][:110]}...
-                            </div>
+                    intl_img = s_intl.get('image_base64', '')
+                    intl_img_html = f'''
+                    <div style="position: relative; border-radius: 10px; overflow: hidden; margin-bottom: 10px; height: 140px; background: #E2E8F0;">
+                        <img src="{intl_img}" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="{s_intl['title']}" />
+                        <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(31,52,76,0.85); backdrop-filter: blur(4px); color: #FFFFFF; font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; padding: 2px 8px; border-radius: 9999px;">
+                            📸 ACTUAL SOURCE PHOTO
                         </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
+                    </div>
+                    ''' if intl_img else ''
 
-            st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+                    card_intl = f"""
+                    <div style="background: #FAF6F1; border: 1px solid #EBE6DF; border-radius: 12px; padding: 14px 16px; min-height: 230px;">
+                        {intl_img_html}
+                        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: #0284C7; font-weight: 700; margin-bottom: 4px;">
+                            🌍 GLOBAL: {s_intl['source_name'].split('(')[0].strip()} • {s_intl['time_ago']}
+                        </div>
+                        <div style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                            {s_intl['title'][:80]}...
+                        </div>
+                        <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #0369A1; font-weight: 500; line-height: 1.45;">
+                            🧒 {s_intl['simple_summary'][:120]}...
+                        </div>
+                    </div>
+                    """
+                    safe_markdown(card_intl)
+
+            safe_markdown("<div style='height: 10px;'></div>")
             if st.button("📰 Explore All Local & International Air News →", key="btn_simple_news_all", use_container_width=True):
                 st.switch_page("pages/7_Air_Quality_News.py")
     except Exception as e:
-        pass
+        import logging
+        logging.getLogger("airguard.news").warning(f"Simple Mode news rendering skipped: {e}")
 
     # 10. Required Safety Disclaimer
     render_simple_disclaimer()

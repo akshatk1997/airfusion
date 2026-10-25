@@ -762,30 +762,27 @@ def render_technical_home(active_city: str) -> None:
                 loc_img = top_local.get('image_base64', '')
                 loc_img_html = f'<img src="{loc_img}" style="width: 100%; height: 110px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" />' if loc_img else ''
                 with st.container(border=True):
-                    st.markdown(
-                        f"""
-                        <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
-                            <div>
-                                {loc_img_html}
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                    <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
-                                        📍 LOCAL • {top_local['source_name'].split('(')[0].strip()}
-                                    </span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #8B95A5;">
-                                        {top_local['time_ago']}
-                                    </span>
-                                </div>
-                                <div style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
-                                    {top_local['title'][:85]}...
-                                </div>
-                                <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; line-height: 1.45; margin: 0;">
-                                    {top_local['summary'][:130]}...
-                                </p>
+                    safe_markdown(f"""
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
+                        <div>
+                            {loc_img_html}
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
+                                    📍 LOCAL • {top_local['source_name'].split('(')[0].strip()}
+                                </span>
+                                <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #8B95A5;">
+                                    {top_local['time_ago']}
+                                </span>
                             </div>
+                            <div style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                                {top_local['title'][:85]}...
+                            </div>
+                            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; line-height: 1.45; margin: 0;">
+                                {top_local['summary'][:130]}...
+                            </p>
                         </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
+                    </div>
+                    """)
             else:
                 st.info("Local news feed synchronizing...")
 
@@ -794,54 +791,48 @@ def render_technical_home(active_city: str) -> None:
                 intl_img = top_intl.get('image_base64', '')
                 intl_img_html = f'<img src="{intl_img}" style="width: 100%; height: 110px; object-fit: cover; border-radius: 8px; margin-bottom: 8px;" />' if intl_img else ''
                 with st.container(border=True):
-                    st.markdown(
-                        f"""
-                        <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
-                            <div>
-                                {intl_img_html}
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                    <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
-                                        🌍 GLOBAL • {top_intl['source_name'].split('(')[0].strip()}
-                                    </span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #8B95A5;">
-                                        {top_intl['time_ago']}
-                                    </span>
-                                </div>
-                                <div style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
-                                    {top_intl['title'][:85]}...
-                                </div>
-                                <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; line-height: 1.45; margin: 0;">
-                                    {top_intl['summary'][:130]}...
-                                </p>
+                    safe_markdown(f"""
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
+                        <div>
+                            {intl_img_html}
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <span class="ag-news-source-tag" style="font-size: 0.68rem; padding: 2px 6px;">
+                                    🌍 GLOBAL • {top_intl['source_name'].split('(')[0].strip()}
+                                </span>
+                                <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #8B95A5;">
+                                    {top_intl['time_ago']}
+                                </span>
                             </div>
+                            <div style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                                {top_intl['title'][:85]}...
+                            </div>
+                            <p style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85; line-height: 1.45; margin: 0;">
+                                {top_intl['summary'][:130]}...
+                            </p>
                         </div>
-                        """,
-                        unsafe_allow_html=True
-                    )
+                    </div>
+                    """)
             else:
                 st.info("International news feed synchronizing...")
 
         with ncol3:
             with st.container(border=True):
-                st.markdown(
-                    f"""
-                    <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
-                        <div>
-                            <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: #FF6845; margin-bottom: 4px;">
-                                ⚡ NEWSROOM DISPATCH
-                            </div>
-                            <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
-                                Environmental Wire
-                            </div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #5A6578; margin-bottom: 8px;">
-                                Next sync: <strong style="color: #FF6845;">{sync_meta['next_sync_in_str']}</strong><br/>
-                                Sources: CPCB, WHO, Copernicus, EPA
-                            </div>
+                safe_markdown(f"""
+                <div style="display: flex; flex-direction: column; justify-content: space-between; min-height: 165px;">
+                    <div>
+                        <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: #FF6845; margin-bottom: 4px;">
+                            ⚡ NEWSROOM DISPATCH
+                        </div>
+                        <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C; margin-bottom: 6px;">
+                            Environmental Wire
+                        </div>
+                        <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #5A6578; margin-bottom: 8px;">
+                            Next sync: <strong style="color: #FF6845;">{sync_meta['next_sync_in_str']}</strong><br/>
+                            Sources: CPCB, WHO, Copernicus, EPA
                         </div>
                     </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                </div>
+                """)
                 if st.button("Explore Full Newsroom →", key="btn_home_newsroom", use_container_width=True):
                     st.switch_page("pages/7_Air_Quality_News.py")
     except Exception as e:

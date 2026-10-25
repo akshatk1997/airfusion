@@ -90,8 +90,7 @@ trusted_sources = feed_data["trusted_sources"]
 header_col1, header_col2 = st.columns([2.2, 1.0])
 
 with header_col1:
-    st.markdown(
-        f"""
+    safe_markdown(f"""
         <div style="margin-top: 4px; margin-bottom: 12px;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                 <span class="ag-badge ag-badge-nothing" style="font-size: 0.72rem; padding: 4px 12px; background: rgba(255, 104, 69, 0.1); border-color: rgba(255, 104, 69, 0.3); color: #FF6845; font-weight: 700;">
@@ -108,15 +107,12 @@ with header_col1:
                 Real-time area-specific advisories for <strong>{active_city}</strong> and global atmospheric directives from verified regulatory authorities (CPCB, WHO, Copernicus, NASA, EPA).
             </p>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        """)
 
 with header_col2:
     st.markdown("<div style='height: 18px;'></div>", unsafe_allow_html=True)
     with st.container(border=True):
-        st.markdown(
-            f"""
+        safe_markdown(f"""
             <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #8B95A5; font-weight: 700;">CYCLE STATUS</span>
@@ -132,9 +128,7 @@ with header_col2:
                     Last: {sync_status['last_synced_formatted']}
                 </div>
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+            """)
         if st.button("🔄 Sync News Now", key="btn_force_sync", use_container_width=True, help="Force an instant refresh from all verified environmental news feeds"):
             st.session_state["trigger_news_force_refresh"] = True
             st.rerun()
@@ -148,8 +142,7 @@ st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
 severity_color = "#10B981" if pm25_val < 35 else ("#F59E0B" if pm25_val < 60 else "#EF4444")
 status_label = "Clean Air Window" if pm25_val < 35 else ("Moderate Haze Notice" if pm25_val < 60 else "Air Quality Alert Active")
 
-st.markdown(
-    f"""
+safe_markdown(f"""
     <div style="background: linear-gradient(135deg, #FAF6F1 0%, #FFFFFF 100%); border: 1.5px solid {severity_color}44; border-left: 6px solid {severity_color}; border-radius: 14px; padding: 14px 20px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: 0 4px 14px rgba(31,52,76,0.04);">
         <div style="display: flex; align-items: center; gap: 12px;">
             <div style="background: {severity_color}18; color: {severity_color}; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800;">
@@ -170,9 +163,7 @@ st.markdown(
             </span>
         </div>
     </div>
-    """,
-    unsafe_allow_html=True
-)
+    """)
 
 # ==============================================================================
 # SEARCH & FILTER TOOLBAR
@@ -204,14 +195,11 @@ with fcol_sev:
 
 with fcol_count:
     total_count = len(local_articles) + len(intl_articles)
-    st.markdown(
-        f"""
+    safe_markdown(f"""
         <div style="display: flex; align-items: center; justify-content: flex-end; height: 38px; font-family: var(--font-mono); font-size: 0.75rem; color: #8B95A5;">
             <span>Showing <strong>{total_count}</strong> Dispatches</span>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        """)
 
 # Filter helper
 def filter_articles(articles_list):
@@ -358,8 +346,7 @@ def render_news_article_card(art: dict, mode: str, index_key: str) -> None:
         """ if img_b64 else ""
 
         with st.container():
-            st.markdown(
-                f"""
+            safe_markdown(f"""
                 <div class="ag-news-card {sev_badge_class}">
                     {image_banner_html}
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
@@ -390,12 +377,10 @@ def render_news_article_card(art: dict, mode: str, index_key: str) -> None:
                         </div>
                     </div>
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
+                """)
             with st.expander(f"📖 Hatch & Read Full Verified Dispatch & Outdoor Precaution Guide", expanded=False):
                 if img_b64:
-                    st.markdown(f"""
+                    safe_markdown(f"""
                     <div style="border-radius: 12px; overflow: hidden; margin-bottom: 14px; border: 1px solid #E2E8F0;">
                         <img src="{img_b64}" style="width: 100%; max-height: 320px; object-fit: cover; display: block;" />
                         <div style="padding: 8px 14px; background: #F8FAFC; font-family: var(--font-mono); font-size: 0.72rem; color: #64748B; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; flex-wrap: wrap;">
@@ -403,7 +388,7 @@ def render_news_article_card(art: dict, mode: str, index_key: str) -> None:
                             <span>Authority: <strong>{source_name}</strong></span>
                         </div>
                     </div>
-                    """, unsafe_allow_html=True)
+                    """)
                 st.markdown("**Family & Outdoor Precautions:**")
                 for tip in art.get("action_items_list", []):
                     st.markdown(f"- 🌿 {tip}")
@@ -418,9 +403,18 @@ def render_news_article_card(art: dict, mode: str, index_key: str) -> None:
         actions = art.get("action_items_list", [])
 
         with st.container():
-            st.markdown(
-                f"""
+            tech_img_html = f'''
+            <div style="position: relative; border-radius: 12px; overflow: hidden; margin-bottom: 14px; max-height: 200px; border: 1px solid #E2E8F0;">
+                <img src="{img_b64}" style="width: 100%; height: 190px; object-fit: cover; display: block;" alt="{art['title']}" />
+                <div style="position: absolute; bottom: 8px; left: 10px; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(4px); color: #38BDF8; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; padding: 2px 10px; border-radius: 4px;">
+                    TELEMETRY CITATION ARCHIVE &bull; {source_name}
+                </div>
+            </div>
+            ''' if img_b64 else ''
+
+            safe_markdown(f"""
                 <div class="ag-news-card {sev_badge_class}" style="background: #FFFFFF;">
+                    {tech_img_html}
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <span class="ag-news-source-tag" style="background: #1E293B; color: #38BDF8; border-color: #334155;">
@@ -464,15 +458,12 @@ def render_news_article_card(art: dict, mode: str, index_key: str) -> None:
                         </div>
                     </div>
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
+                """)
             with st.expander(f"📋 Operational Action Protocol & Official Citation", expanded=False):
                 st.markdown("**Mandated Facility & Operational Mitigation Steps:**")
                 for act in actions:
                     st.markdown(f"- ⚙️ `{act}`")
-                st.markdown(
-                    f"""
+                safe_markdown(f"""
                     <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #EBE6DF; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                         <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #64748B;">
                             Authority: <strong>{source_name}</strong> • Verification Level: Tier-1 Regulatory
@@ -481,9 +472,7 @@ def render_news_article_card(art: dict, mode: str, index_key: str) -> None:
                             ↗ Read Full Regulatory Dispatch at Official Domain
                         </a>
                     </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                    """)
 
 # ==============================================================================
 # SEGMENTED TABS (LOCAL VS INTERNATIONAL AS REQUESTED BY USER)

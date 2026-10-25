@@ -276,6 +276,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         {
             "id": "news_local_chd_wind_dispersion",
             "image_asset": "real_city_skyline_telemetry.jpg",
+            "image_asset": "real_city_skyline_telemetry.jpg",
             "category": "local",
             "city_scope": "Chandigarh",
             "region": "Tricity & Northern Plains",
@@ -300,6 +301,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         {
             "id": "news_local_chd_sukhna_canopy",
             "image_asset": "real_family_outdoor_walk.jpg",
+            "image_asset": "real_family_outdoor_walk.jpg",
             "category": "local",
             "city_scope": "Chandigarh",
             "region": "Tricity (Chandigarh, Mohali, Panchkula)",
@@ -322,6 +324,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_local_chd_fog_morning_advisory",
+            "image_asset": "real_traffic_smog_contrast.jpg",
             "image_asset": "real_traffic_smog_contrast.jpg",
             "category": "local",
             "city_scope": "Chandigarh",
@@ -351,6 +354,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         {
             "id": "news_local_delhi_grap3_enforcement",
             "image_asset": "news_industrial_emission_curbs.jpg",
+            "image_asset": "news_industrial_emission_curbs.jpg",
             "category": "local",
             "city_scope": "Delhi",
             "region": "Delhi-NCR & National Capital Region",
@@ -374,6 +378,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_local_delhi_metro_60_trips",
+            "image_asset": "news_delhi_metro_electric.jpg",
             "category": "local",
             "city_scope": "Delhi",
             "region": "Delhi-NCR",
@@ -396,6 +401,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_local_delhi_stubble_biodecomposer",
+            "image_asset": "news_stubble_biodecomposer.jpg",
             "category": "local",
             "city_scope": "Delhi",
             "region": "Northern Agricultural Belt (Punjab, Haryana, UP)",
@@ -422,6 +428,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         # =========================================================================
         {
             "id": "news_local_mumbai_cems_stacks",
+            "image_asset": "news_industrial_cems_monitoring.jpg",
             "category": "local",
             "city_scope": "Mumbai",
             "region": "Western Coastal Hub",
@@ -444,6 +451,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_local_mumbai_sea_breeze",
+            "image_asset": "real_morning_runner_park.jpg",
             "image_asset": "real_morning_runner_park.jpg",
             "category": "local",
             "city_scope": "Mumbai",
@@ -471,6 +479,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         # =========================================================================
         {
             "id": "news_local_blr_aerosol_speciation",
+            "image_asset": "news_aerosol_lab_sensor.jpg",
             "category": "local",
             "city_scope": "Bengaluru",
             "region": "Southern Deccan Plateau",
@@ -497,6 +506,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         # =========================================================================
         {
             "id": "news_local_national_ncap_audit",
+            "image_asset": "news_aerosol_lab_sensor.jpg",
             "category": "local",
             "city_scope": "ALL_LOCAL",
             "region": "Pan-India National Clean Air Mission",
@@ -523,6 +533,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         # =========================================================================
         {
             "id": "news_intl_who_clean_air_2026",
+            "image_asset": "news_who_clean_air_research.jpg",
             "category": "international",
             "city_scope": "GLOBAL",
             "region": "Global / Geneva (UN)",
@@ -546,6 +557,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_intl_copernicus_dust_wildfire_satellite",
+            "image_asset": "news_satellite_atmosphere.jpg",
             "category": "international",
             "city_scope": "GLOBAL",
             "region": "Europe, Mediterranean & Transboundary",
@@ -568,6 +580,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_intl_nasa_earth_plumes",
+            "image_asset": "news_nasa_satellite_earth.jpg",
             "category": "international",
             "city_scope": "GLOBAL",
             "region": "Global Satellite Telemetry / Washington D.C.",
@@ -590,6 +603,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_intl_epa_naaqs_standards",
+            "image_asset": "news_industrial_emission_curbs.jpg",
             "category": "international",
             "city_scope": "GLOBAL",
             "region": "United States & International Regulatory Benchmark",
@@ -612,6 +626,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_intl_reuters_cleantech_investment",
+            "image_asset": "news_clean_corridor_mobility.jpg",
             "category": "international",
             "city_scope": "GLOBAL",
             "region": "Global Markets & Clean Technology",
@@ -634,6 +649,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
         {
             "id": "news_intl_bbc_superblocks_europe",
+            "image_asset": "news_clean_corridor_mobility.jpg",
             "image_asset": "news_clean_corridor_mobility.jpg",
             "category": "international",
             "city_scope": "GLOBAL",
