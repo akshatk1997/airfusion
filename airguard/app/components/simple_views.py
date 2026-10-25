@@ -174,7 +174,11 @@ def render_simple_home(active_city: str) -> None:
         city_name=city_display,
         pm25_val=pm25_val,
         aqi_val=aqi_val,
-        status_level=status_level
+        status_level=status_level,
+        temp_val=temp_val,
+        humidity_val=humidity_val,
+        wind_val=wind_val,
+        weather_data=curr
     )
 
     # 1. Flagship AirGuard Hero Section

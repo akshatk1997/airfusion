@@ -1162,6 +1162,30 @@ def compute_guardian_mood_state(
     elif "paris" in city_lower:
         regional_lore = "Île-de-France Basin Airshed • Airparif Telemetry Network • Seine River Thermal Boundary"
         regional_tag = "SEINE BASIN AIRSHED"
+    elif any(k in city_lower for k in ["amritsar", "ludhiana", "jalandhar", "patiala", "bathinda"]):
+        regional_lore = "Punjab Agricultural Plains • Crop Residue Bio-Management Watch • Sub-Himalayan Transboundary Drift"
+        regional_tag = "PUNJAB AGRO-PLAINS AIRSHED"
+    elif any(k in city_lower for k in ["ahmedabad", "surat", "vadodara", "rajkot"]):
+        regional_lore = "Gujarat Industrial & Maritime Corridor • Sabarmati Air Basin • Gulf of Khambhat Marine Lift"
+        regional_tag = "GUJARAT GULF AIRSHED"
+    elif any(k in city_lower for k in ["patna", "varanasi", "agra", "prayagraj", "meerut"]):
+        regional_lore = "Indo-Gangetic Heartland Basin • Deep Alluvial Valley • Heavy Micro-Particulate Trap Sentry"
+        regional_tag = "GANGETIC HEARTLAND BASIN"
+    elif any(k in city_lower for k in ["shimla", "manali", "dehradun", "srinagar", "dharamshala"]):
+        regional_lore = "Himalayan Montane Valley Basin • Pine Forest Bio-Aerosol • Katabatic Clean Mountain Drainage"
+        regional_tag = "HIMALAYAN MONTANE BASIN"
+    elif "singapore" in city_lower:
+        regional_lore = "Equatorial Maritime Corridor • Malacca Straits Marine Inflow • NEA Transboundary Haze Array"
+        regional_tag = "EQUATORIAL MARITIME BASIN"
+    elif any(k in city_lower for k in ["sydney", "melbourne", "brisbane"]):
+        regional_lore = "Austral Pacific Air Corridor • Tasman Oceanic Boundary • EPA AirWatch Sentry Array"
+        regional_tag = "AUSTRAL OCEANIC BASIN"
+    elif any(k in city_lower for k in ["dubai", "abu dhabi", "sharjah", "doha", "riyadh"]):
+        regional_lore = "Arabian Desert Marine Perimeter • Persian Gulf Aerosol Lift • Mineral Aerosol Filter Watch"
+        regional_tag = "ARABIAN GULF DESERT BASIN"
+    elif any(k in city_lower for k in ["los angeles", "san francisco", "seattle"]) or "la" == city_lower:
+        regional_lore = "Pacific Coastal Marine Layer • California Air Resources Board (CARB) • Coastal Inversion Watch"
+        regional_tag = "CALIFORNIA PACIFIC AIRSHED"
     else:
         regional_lore = f"{clean_city} Regional Microclimate Basin • Ground CAAQMS Array • Autonomous Air Tracking"
         regional_tag = f"{clean_city.upper()} REGIONAL SENTRY"
@@ -1284,6 +1308,20 @@ def compute_guardian_mood_state(
         haven_quote = "Sanctuary dome at 100% airtight hermetic seal! Multi-stage HEPA scrubbers running full speed for zero smog infiltration!"
         haven_voice = "Haven sanctuary fortress active! All exterior openings sealed airtight. Multi-stage filtration active to guarantee clean breathing inside!"
         haven_tag = "● HERMETIC PURIFICATION"
+
+    # Contextual Real-Time Weather Reactivity in Guardian Speech
+    if is_rain:
+        aero_quote += f" Plus, cleansing rain in {clean_city} is actively washing particulates from the sky!"
+        aero_voice += f" Also, falling rain is actively scrubbing soot particles out of the atmosphere right now!"
+    elif is_windy:
+        flash_quote += f" Brisk {wind:.0f} km/h winds across {clean_city} are actively blowing pollution away!"
+        flash_voice += f" Rapid winds are currently ventilating the streets and dispersing ground exhaust!"
+    elif is_cold_inversion:
+        nova_quote += f" Take caution: cold morning air has trapped exhaust near street level in {clean_city}!"
+        nova_voice += f" Be aware that a nocturnal thermal inversion cap is trapping exhaust close to the ground this morning!"
+    elif is_hot_solar:
+        haven_quote += f" Strong afternoon sun is baking car fumes into ozone—stay sheltered in clean air!"
+        haven_voice += f" Strong sunlight is reacting with vehicle exhaust to create photochemical ozone, so stay sheltered indoors!"
 
     return {
         "mood_id": mood_id,

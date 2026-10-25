@@ -1549,7 +1549,7 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
     box-shadow: 0 18px 48px rgba(31, 52, 76, 0.08), 0 4px 14px rgba(31, 52, 76, 0.03);
     border: 3px solid rgba(255, 255, 255, 0.95);
     margin-bottom: 24px;
-    background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 45%, #F0FDF4 100%) !important;
+    background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 45%, #F0FDF4 100%);
     min-height: 440px;
     perspective: 1200px;
 }
