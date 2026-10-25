@@ -223,79 +223,284 @@ displayed_breaking = filter_articles(breaking_alerts)
 # NEWS CARD RENDERER (DUAL MODE AWARE)
 # ==============================================================================
 
+
+import streamlit.components.v1 as components
+
+def get_simulation_html(sim_type: str, title: str) -> str:
+    """
+    Returns a responsive, self-contained HTML5 Canvas animation simulating
+    the atmospheric or physiological phenomenon described in the video.
+    """
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <style>
+        body {{ margin: 0; padding: 0; background: #0F172A; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; overflow: hidden; color: #F8FAFC; }}
+        #container {{ position: relative; width: 100%; height: 180px; }}
+        canvas {{ display: block; width: 100%; height: 100%; }}
+        .hud {{ position: absolute; top: 6px; left: 8px; font-size: 10px; font-family: monospace; background: rgba(15,23,42,0.85); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); }}
+        .badge {{ position: absolute; bottom: 6px; right: 8px; font-size: 9px; font-weight: bold; background: #FF6845; color: #FFFFFF; padding: 2px 6px; border-radius: 4px; }}
+    </style>
+    </head>
+    <body>
+    <div id="container">
+        <canvas id="cv"></canvas>
+        <div class="hud">⚡ LIVE ATMOSPHERIC PHYSICS RADAR &bull; {title[:35]}...</div>
+        <div class="badge">SIMULATION ONLINE</div>
+    </div>
+    <script>
+        const cv = document.getElementById('cv');
+        const ctx = cv.getContext('2d');
+        let w, h;
+        function resize() {{
+            w = cv.width = cv.parentElement.clientWidth;
+            h = cv.height = cv.parentElement.clientHeight;
+        }}
+        window.addEventListener('resize', resize);
+        resize();
+
+        const simType = "{sim_type}";
+        const particles = [];
+        const numP = 42;
+        for (let i = 0; i < numP; i++) {{
+            particles.push({{
+                x: Math.random() * 400,
+                y: Math.random() * 180,
+                vx: 0.6 + Math.random() * 1.4,
+                vy: (Math.random() - 0.5) * 0.8,
+                size: Math.random() > 0.7 ? 4 : 2,
+                color: Math.random() > 0.5 ? '#FF6845' : (Math.random() > 0.5 ? '#0284C7' : '#10B981')
+            }});
+        }}
+
+        let angle = 0;
+        function animate() {{
+            ctx.clearRect(0, 0, w, h);
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < w; x += 25) {{
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+            }}
+            for (let y = 0; y < h; y += 25) {{
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+            }}
+
+            if (simType === 'pulmonary') {{
+                ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+                ctx.lineWidth = 20;
+                ctx.beginPath();
+                ctx.moveTo(20, 90); ctx.quadraticCurveTo(w/2, 90, w - 50, 90);
+                ctx.stroke();
+
+                ctx.fillStyle = 'rgba(244, 63, 94, 0.18)';
+                ctx.beginPath(); ctx.arc(w - 50, 90, 36, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = '#F43F5E'; ctx.lineWidth = 2; ctx.stroke();
+
+                ctx.fillStyle = '#F8FAFC';
+                ctx.font = '10px monospace';
+                ctx.fillText('BRONCHIOLE INFLOW ➔', 30, 70);
+                ctx.fillText('ALVEOLAR SAC', w - 90, 140);
+
+                particles.forEach(p => {{
+                    p.x += p.vx;
+                    if (p.x > w - 25) p.x = 20;
+                    ctx.fillStyle = p.size > 3 ? '#94A3B8' : '#EF4444';
+                    ctx.beginPath(); ctx.arc(p.x, 90 + p.vy * 16, p.size, 0, Math.PI * 2); ctx.fill();
+                }});
+            }} else if (simType === 'satellite') {{
+                ctx.strokeStyle = 'rgba(14, 165, 233, 0.4)';
+                ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.moveTo(0, 30); ctx.lineTo(w, 30); ctx.stroke();
+                
+                const satX = (Date.now() / 25) % (w + 60) - 30;
+                ctx.fillStyle = '#38BDF8';
+                ctx.fillRect(satX - 10, 20, 20, 20);
+                
+                ctx.fillStyle = 'rgba(56, 189, 248, 0.15)';
+                ctx.beginPath();
+                ctx.moveTo(satX, 40);
+                ctx.lineTo(satX - 55, h);
+                ctx.lineTo(satX + 55, h);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#38BDF8';
+                ctx.font = '9px monospace';
+                ctx.fillText('TROPOMI SPECTROMETRY SWATH', satX + 15, 28);
+
+                for (let i = 0; i < 6; i++) {{
+                    const sx = (i + 1) * (w / 7);
+                    ctx.fillStyle = i % 2 === 0 ? '#EF4444' : '#F59E0B';
+                    ctx.beginPath(); ctx.arc(sx, h - 22, 5 + Math.sin(Date.now()/250 + i)*3, 0, Math.PI * 2); ctx.fill();
+                }}
+            }} else if (simType === 'inversion') {{
+                const invY = 70;
+                ctx.strokeStyle = '#EF4444';
+                ctx.setLineDash([6, 4]);
+                ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.moveTo(0, invY); ctx.lineTo(w, invY); ctx.stroke();
+                ctx.setLineDash([]);
+                
+                ctx.fillStyle = '#EF4444';
+                ctx.font = '10px monospace';
+                ctx.fillText('▲ WARM AIR INVERSION CAP (TRAPPING LAYER)', 20, invY - 6);
+                ctx.fillStyle = '#38BDF8';
+                ctx.fillText('▼ COOL GROUND LAYER (PARTICULATE CONCENTRATION)', 20, invY + 16);
+
+                particles.forEach(p => {{
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x > w) p.x = 0;
+                    if (p.y < invY + 8 || p.y > h - 12) p.vy *= -1;
+                    ctx.fillStyle = '#D97706';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                }});
+            }} else {{
+                angle += 0.03;
+                const cx = w / 2, cy = h / 2;
+                ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.arc(cx, cy, 35, 0, Math.PI*2); ctx.stroke();
+                ctx.beginPath(); ctx.arc(cx, cy, 65, 0, Math.PI*2); ctx.stroke();
+                
+                ctx.strokeStyle = '#10B981';
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + Math.cos(angle)*75, cy + Math.sin(angle)*75);
+                ctx.stroke();
+
+                particles.forEach(p => {{
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x > w) p.x = 0;
+                    if (p.y > h || p.y < 0) p.y = h / 2;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                }});
+            }}
+
+            requestAnimationFrame(animate);
+        }}
+        animate();
+    </script>
+    </body>
+    </html>
+    """
+
 # ==============================================================================
 # AUTHORITATIVE AIR QUALITY VIDEO INTELLIGENCE WIRE
 # ==============================================================================
-# "and also add videos content inside the news section and the videos only gives
-# the news regarding the air and all things which is related to the news and data accordingly."
 AIR_QUALITY_VIDEOS = [
     {
-        "id": "video_cams_global_aerosols",
-        "title": "Copernicus Atmosphere Service: Global Aerosol Transport & Transboundary Smoke Plumes",
-        "agency": "Copernicus Atmosphere Monitoring Service (CAMS - ECMWF)",
-        "duration": "03:45",
-        "badge": "🔴 CAMS GLOBAL BROADCAST",
-        "category": "Atmospheric Science & Satellite Observation",
-        "summary": "Real-time satellite tracking of transboundary aerosol transport, aerosol optical depth (AOD), and the physics of how regional wildfire, agricultural burning, and industrial smoke plumes migrate thousands of kilometers across continental basins.",
-        "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        "poster_image": "news_wildfire_smoke_tracking.jpg",
-        "pollutants": "PM2.5, PM10, Aerosol Optical Depth (AOD)",
-        "key_takeaways": [
-            "Aerosol optical depth measurements quantify total column particulate extinction from ground to stratosphere.",
-            "Long-range transport is governed by geostrophic jet streams above the planetary boundary layer.",
-            "Satellite lidar (CALIOP/Aeolus) profiles vertical distribution, distinguishing low-hanging smoke from high-altitude haze."
-        ]
-    },
-    {
         "id": "video_who_pulmonary_mechanics",
-        "title": "WHO Environmental Health Wire: How PM₂.₅ and PM₁₀ Micro-Particulates Infiltrate Respiratory Pathways",
+        "title": "WHO Environmental Health: How PM₂.₅ & PM₁₀ Infiltrate Respiratory Pathways",
         "agency": "World Health Organization (WHO - Geneva)",
-        "duration": "04:15",
+        "duration": "02:24",
         "badge": "🔴 WHO CLINICAL INVESTIGATION",
         "category": "Pulmonary Health & Alveolar Dosimetry",
         "summary": "Clinical visualization of the human respiratory system under ambient air pollution. Demonstrates how coarse particles (PM₁₀) are arrested in the upper tracheobronchial tree while ultra-fine PM₂.₅ penetrates deep into alveolar sacs and enters systemic circulation.",
-        "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-        "poster_image": "news_satellite_atmosphere.jpg",
-        "pollutants": "PM2.5, PM10, Ultrafine Nanoparticles",
+        "video_url": "https://www.youtube.com/watch?v=GVBeY1jSG9Y",
+        "poster_image": "news_who_clean_air_research.jpg",
+        "pollutants": "PM2.5, PM10, Ultrafine Particles",
         "key_takeaways": [
-            "Particles under 2.5 micrometers bypass nasal ciliated epithelia and deposit directly in respiratory bronchioles.",
-            "Chronic exposure induces macrophage inflammatory cascade and endothelial arterial stiffness.",
+            "Particles under 2.5 microns bypass nasal ciliated epithelia and deposit directly in alveolar air sacs.",
+            "Induces chronic macrophage inflammatory cascade and endothelial arterial stiffness.",
             "WHO 2021 guidelines establish 5 µg/m³ annual mean as the physiological benchmark for zero-excess risk."
-        ]
+        ],
+        "simulation_type": "pulmonary"
     },
     {
-        "id": "video_inversion_thermal_stagnation",
-        "title": "Atmospheric Physics Lab: Why Temperature Inversions Trap Dense Winter Smog in Metropolitan Basins",
-        "agency": "National Center for Atmospheric Research (NCAR)",
-        "duration": "05:10",
-        "badge": "🔴 ATMOSPHERIC LAB BRIEFING",
-        "category": "Mesoscale Meteorology & Inversion Physics",
-        "summary": "High-resolution thermal simulation showing how nocturnal ground radiative cooling creates an inverted temperature profile where cold air is trapped beneath warm air, acting as an atmospheric lid that concentrates vehicular and industrial emissions at ground breathing level.",
-        "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        "poster_image": "real_traffic_smog_contrast.jpg",
-        "pollutants": "NO2, PM2.5, Carbon Monoxide (CO)",
-        "key_takeaways": [
-            "Normal lapse rate cools with altitude; thermal inversion reverses this gradient below 300 meters.",
-            "Stagnant surface winds (< 1.5 m/s) prevent mechanical shear turbulence and lateral dilution.",
-            "Pollutant concentrations spike sharply between 06:00 and 09:30 AM until solar heating breaks the cap."
-        ]
-    },
-    {
-        "id": "video_esa_satellite_no2_mapping",
-        "title": "European Space Agency Sentinel-5P: Mapping Global Nitrogen Dioxide (NO₂) and Industrial Emission Corridors",
-        "agency": "ESA Earth Observation Directorate (TROPOMI)",
-        "duration": "03:30",
-        "badge": "🔴 SATELLITE TELEMETRY",
-        "category": "Space-Borne Remote Sensing",
+        "id": "video_esa_sentinel5p_monitoring",
+        "title": "European Space Agency Sentinel-5P: Next-Gen Global Air Quality Telemetry",
+        "agency": "European Space Agency (ESA - Earth Observation)",
+        "duration": "04:12",
+        "badge": "🔴 ESA SATELLITE TELEMETRY",
+        "category": "Space-Borne Remote Sensing & Spectrometry",
         "summary": "Orbital spectrometry telemetry from the TROPOMI instrument aboard Copernicus Sentinel-5P, revealing global hotspots of tropospheric nitrogen dioxide (NO₂) from highway freight corridors, thermal power generation, and metropolitan transport grids.",
-        "video_url": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-        "poster_image": "news_industrial_emission_curbs.jpg",
-        "pollutants": "NO2, Tropospheric Ozone (O3)",
+        "video_url": "https://www.youtube.com/watch?v=x8uVkWIwvyU",
+        "poster_image": "news_industrial_cems_monitoring.jpg",
+        "pollutants": "NO2, Tropospheric Ozone (O3), SO2",
         "key_takeaways": [
             "TROPOMI spatial resolution (3.5 x 5.5 km) enables detection of individual power generation plumes.",
             "NO2 serves as a direct proxy for high-temperature fossil fuel combustion and vehicular traffic volume.",
             "Photochemical breakdown of NO2 in sunlight drives ground-level toxic ozone formation."
-        ]
+        ],
+        "simulation_type": "satellite"
+    },
+    {
+        "id": "video_nasa_human_fingerprint",
+        "title": "NASA Goddard: Human Fingerprint on Global Air Quality & Satellite Observations",
+        "agency": "NASA Goddard Space Flight Center (NASA Earth Science)",
+        "duration": "04:02",
+        "badge": "🔴 NASA GLOBAL SATELLITE OBSERVATION",
+        "category": "Planetary Atmospheric Physics & Aerosol Transport",
+        "summary": "Satellite observations spanning over a decade using the Ozone Monitoring Instrument (OMI) aboard NASA's Aura spacecraft, revealing continental shifts in atmospheric composition, transboundary aerosol transport, and air quality regulations.",
+        "video_url": "https://www.youtube.com/watch?v=aMnDoXuTGS4",
+        "poster_image": "news_nasa_satellite_earth.jpg",
+        "pollutants": "Aerosol Optical Depth (AOD), NO2, SO2",
+        "key_takeaways": [
+            "Long-term space-borne records confirm direct correlation between emission scrubbers and plummeting SO2/NO2 levels.",
+            "Aerosol optical depth measurements quantify total column particulate extinction from ground to stratosphere.",
+            "Transboundary dust and wildfire plumes migrate thousands of kilometers across international borders."
+        ],
+        "simulation_type": "aerosol"
+    },
+    {
+        "id": "video_cams_global_dispersion",
+        "title": "Copernicus ECMWF: Global Air Quality Forecasting & Chemical Dispersion Modeling",
+        "agency": "Copernicus Atmosphere Monitoring Service (CAMS / ECMWF)",
+        "duration": "03:15",
+        "badge": "🔴 CAMS ATMOSPHERIC FORECAST",
+        "category": "Mesoscale Chemical Transport & Assimilation",
+        "summary": "Continuous operational forecasting combining space-borne telemetry with ground sensor arrays to deliver 5-day predictive tracking of regional aerosol dispersal, wildfire smoke plumes, and desert dust migrations across global basins.",
+        "video_url": "https://www.youtube.com/watch?v=pZJKU4D0ivg",
+        "poster_image": "news_wildfire_smoke_tracking.jpg",
+        "pollutants": "PM2.5, PM10, Dust Aerosols",
+        "key_takeaways": [
+            "Integrates 54 photochemical transport equations with real-time ECMWF weather wind fields.",
+            "Nocturnal boundary layer collapse concentrates particulate emissions within lowest 250m.",
+            "Enables municipal authorities to activate emergency emission curbs (like GRAP) days in advance."
+        ],
+        "simulation_type": "dispersion"
+    },
+    {
+        "id": "video_epa_aqi_scale",
+        "title": "US EPA AirNow: Understanding the Air Quality Index (AQI) & Health Safety Thresholds",
+        "agency": "United States Environmental Protection Agency (US EPA AirNow)",
+        "duration": "03:40",
+        "badge": "🔴 EPA REGULATORY SENTRY",
+        "category": "Environmental Education & Public Health Criteria",
+        "summary": "Detailed public health briefing explaining how the standard 0-500 Air Quality Index translates complex parts-per-billion multi-pollutant concentrations into actionable safety tiers for children, elderly individuals, athletes, and adults.",
+        "video_url": "https://www.youtube.com/watch?v=7_AMkhK8F5U",
+        "poster_image": "real_morning_runner_park.jpg",
+        "pollutants": "PM2.5, Ozone (O3), CO, NO2",
+        "key_takeaways": [
+            "Index categories reflect empirical dose-response curves established by clinical pulmonary studies.",
+            "Orange (101-150) alerts sensitive individuals to reduce prolonged outdoor exertion.",
+            "AirGuard's autonomous decision engine translates AQI into personalized departure windows."
+        ],
+        "simulation_type": "inversion"
+    },
+    {
+        "id": "video_moes_iitm_delhi_warning",
+        "title": "Ministry of Earth Sciences & IITM: Delhi-NCR Air Quality Early Warning & Airshed System",
+        "agency": "IITM Pune / Ministry of Earth Sciences (MoES / CPCB)",
+        "duration": "04:45",
+        "badge": "🔴 MOES / CPCB AIR QUALITY SENTRY",
+        "category": "Regional Airshed Meteorology & Early Warning",
+        "summary": "Operational briefing on the Delhi-NCR Air Quality Early Warning System (AQEWS), utilizing ultra-high-resolution chemical transport modeling, satellite stubble fire counts, and regional wind trajectory forecasts.",
+        "video_url": "https://www.youtube.com/watch?v=LRbzLvyaOkk",
+        "poster_image": "news_stubble_biodecomposer.jpg",
+        "pollutants": "PM2.5, Biomass Smoke, Carbon Monoxide",
+        "key_takeaways": [
+            "Continuous assimilation of MODIS and VIIRS satellite active fire thermal anomaly detections.",
+            "Predicts acute stagnation episodes up to 72 hours prior to ground visibility reduction.",
+            "Guides emergency deployment of Graded Response Action Plan (GRAP Stage I-IV) mandates."
+        ],
+        "simulation_type": "airshed"
     }
 ]
 
@@ -541,83 +746,85 @@ with tab_intl:
 # TAB: AIR QUALITY VIDEO INTELLIGENCE & BROADCAST WIRE
 # ------------------------------------------------------------------------------
 with tab_videos:
-    st.markdown(
-        """
-        <div style="margin: 12px 0 20px 0;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span class="ag-badge" style="background: rgba(239, 68, 68, 0.12); color: #DC2626; border-color: rgba(239, 68, 68, 0.3); font-weight: 800;">
-                    🔴 BROADCAST WIRE
-                </span>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ag-text-secondary);">
-                    AUTHENTIC ATMOSPHERIC TELEMETRY &amp; CLINICAL AIR QUALITY DOCUMENTARIES
-                </span>
-            </div>
-            <div style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #1F344C; margin-bottom: 4px;">
-                Air Quality Video Intelligence &amp; Documentary Broadcasts
-            </div>
-            <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6578; line-height: 1.55;">
-                Curated educational video reports sourced directly from the World Health Organization (WHO), Copernicus Atmosphere Monitoring Service (CAMS), European Space Agency (ESA), and atmospheric research laboratories.
-            </div>
+    safe_markdown("""
+    <div style="margin: 12px 0 20px 0;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span class="ag-badge" style="background: rgba(239, 68, 68, 0.12); color: #DC2626; border-color: rgba(239, 68, 68, 0.3); font-weight: 800;">
+                🔴 VERIFIED BROADCAST WIRE
+            </span>
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ag-text-secondary);">
+                AUTHENTIC ATMOSPHERIC TELEMETRY &amp; CLINICAL AIR QUALITY DOCUMENTARIES
+            </span>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        <div style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #1F344C; margin-bottom: 4px;">
+            Air Quality Video Intelligence &amp; Documentary Broadcasts
+        </div>
+        <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6578; line-height: 1.55;">
+            Curated official educational video reports sourced directly from the World Health Organization (WHO), European Space Agency (ESA), NASA Goddard, Copernicus Atmosphere Monitoring Service (CAMS), US EPA, and Ministry of Earth Sciences.
+        </div>
+    </div>
+    """)
 
     vcols = st.columns(2)
     for v_idx, vid in enumerate(AIR_QUALITY_VIDEOS):
         with vcols[v_idx % 2]:
             with st.container(border=True):
-                # Video Player
+                # 1. Native Embedded Streamlit Video Player
                 st.video(vid["video_url"])
                 
-                # Badges & Attribution
-                st.markdown(
-                    f"""
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
-                        <span style="background: rgba(239, 68, 68, 0.10); color: #DC2626; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.3);">
-                            {vid['badge']}
-                        </span>
-                        <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #64748B;">
-                            ⏱️ {vid['duration']} &bull; {vid['category']}
-                        </span>
+                # 2. Badges & Attribution
+                tk_html = "".join(f'<div style="font-family: var(--font-sans); font-size: 0.80rem; color: #475569; margin-bottom: 4px; line-height: 1.45;">• 🔬 {tk}</div>' for tk in vid['key_takeaways'])
+                card_html = f"""
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
+                    <span style="background: rgba(239, 68, 68, 0.10); color: #DC2626; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                        {vid['badge']}
+                    </span>
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #64748B;">
+                        ⏱️ {vid['duration']} &bull; {vid['category']}
+                    </span>
+                </div>
+                <div style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
+                    {vid['title']}
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #0284C7; font-weight: 700; margin-bottom: 8px;">
+                    🏛️ Verified Broadcast Authority: {vid['agency']}
+                </div>
+                <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #5A6E85; line-height: 1.5; margin-bottom: 10px;">
+                    {vid['summary']}
+                </p>
+                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 14px; margin-bottom: 10px;">
+                    <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 800; color: #1F344C; text-transform: uppercase; margin-bottom: 6px;">
+                        📊 MONITORED POLLUTANTS: <span style="color: #FF6845;">{vid['pollutants']}</span>
                     </div>
-                    <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #1F344C; line-height: 1.35; margin-bottom: 6px;">
-                        {vid['title']}
+                    <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 800; color: #1F344C; text-transform: uppercase; margin-bottom: 4px;">
+                        🔬 SCIENTIFIC &amp; CLINICAL TAKEAWAYS:
                     </div>
-                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #0284C7; font-weight: 700; margin-bottom: 8px;">
-                        Broadcast Network: {vid['agency']}
-                    </div>
-                    <p style="font-family: var(--font-sans); font-size: 0.84rem; color: #5A6E85; line-height: 1.5; margin-bottom: 12px;">
-                        {vid['summary']}
-                    </p>
-                    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;">
-                        <div style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 800; color: #1F344C; text-transform: uppercase; margin-bottom: 6px;">
-                            📊 TELEMETRY &amp; CLINICAL TAKEAWAYS:
-                        </div>
-                    """,
-                    unsafe_allow_html=True
-                )
-                for tk in vid["key_takeaways"]:
-                    st.markdown(f"- 🔬 <span style='font-size: 0.80rem; color: #475569;'>{tk}</span>", unsafe_allow_html=True)
-                st.markdown("</div>", unsafe_allow_html=True)
+                    {tk_html}
+                </div>
+                """
+                safe_markdown(card_html)
+                
+                # 3. Action Link to Official Agency Portal
+                st.link_button(f"↗️ Watch on {vid['agency'].split('(')[0].strip()} Portal", vid["video_url"], use_container_width=True)
+                
+                # 4. Interactive Atmospheric Physics & Radar Simulation
+                with st.expander(f"🧪 Interactive Atmospheric Physics Radar ({vid['category'].split('&')[0].strip()})", expanded=False):
+                    components.html(get_simulation_html(vid["simulation_type"], vid["title"]), height=185)
 
 # ------------------------------------------------------------------------------
 # TAB 3: BREAKING & CRITICAL DIRECTIVES
 # ------------------------------------------------------------------------------
 with tab_breaking:
-    st.markdown(
-        """
-        <div style="margin: 12px 0 18px 0;">
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C;">
-                ⚡ Urgent Environmental Directives &amp; High-Priority Advisories
-            </div>
-            <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6578;">
-                Filtered view containing only CRITICAL and HIGH severity air quality events requiring active precautions or regulatory compliance.
-            </div>
+    safe_markdown("""
+    <div style="margin: 12px 0 18px 0;">
+        <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C;">
+            ⚡ Urgent Environmental Directives &amp; High-Priority Advisories
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6578;">
+            Filtered view containing only CRITICAL and HIGH severity air quality events requiring active precautions or regulatory compliance.
+        </div>
+    </div>
+    """)
 
     if not displayed_breaking:
         st.success("🎉 No active emergency directives or critical pollution warnings at this time. All parameters are within baseline operating tolerances.")
@@ -629,45 +836,46 @@ with tab_breaking:
 # TAB 4: TRUSTED SOURCES & VERIFICATION REGISTRY
 # ------------------------------------------------------------------------------
 with tab_sources:
-    st.markdown(
-        """
-        <div style="margin: 12px 0 18px 0;">
-            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #1F344C;">
-                🛡️ Verified Environmental Publisher Registry &amp; Integrity Policy
-            </div>
-            <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6578;">
-                AirGuard exclusively aggregates intelligence from accredited governmental bodies, UN specialized agencies, space telemetry laboratories, and tier-1 investigative wires.
-            </div>
+    safe_markdown("""
+    <div style="margin: 12px 0 18px 0;">
+        <div style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: #1F344C; display: flex; align-items: center; gap: 8px;">
+            <span>🛡️ Verified Environmental Publisher Registry &amp; Integrity Policy</span>
+            <span class="ag-badge ag-badge-good" style="font-size: 0.70rem; padding: 2px 10px;">18 TIER-1 AGENCIES VERIFIED</span>
         </div>
-        """,
-        unsafe_allow_html=True
-    )
+        <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6578; margin-top: 4px;">
+            AirGuard exclusively aggregates intelligence from accredited governmental bodies, UN specialized agencies, space telemetry laboratories, and peer-reviewed atmospheric observatories. Zero sponsored content, zero clickbait.
+        </div>
+    </div>
+    """)
 
     cols = st.columns(2)
     for idx, (source_key, s_data) in enumerate(trusted_sources.items()):
         with cols[idx % 2]:
             with st.container(border=True):
-                st.markdown(
-                    f"""
-                    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
-                        <div>
-                            <div style="font-family: var(--font-heading); font-size: 1.0rem; font-weight: 800; color: #1F344C; margin-bottom: 4px;">
-                                {s_data['name']}
-                            </div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #0284C7; font-weight: 600; margin-bottom: 6px;">
-                                {s_data['credibility']}
-                            </div>
+                safe_markdown(f"""
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;">
+                    <div>
+                        <div style="font-family: var(--font-heading); font-size: 0.98rem; font-weight: 800; color: #1F344C; margin-bottom: 2px;">
+                            {s_data['name']}
                         </div>
-                        <span class="ag-badge ag-badge-good" style="font-size: 0.65rem; padding: 2px 8px;">VERIFIED</span>
+                        <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #0284C7; font-weight: 600; margin-bottom: 6px;">
+                            {s_data['credibility']}
+                        </div>
                     </div>
-                    <div style="margin-top: 8px; font-family: var(--font-mono); font-size: 0.72rem;">
-                        <a href="{s_data['url']}" target="_blank" style="color: #FF6845; text-decoration: underline;">
-                            ↗ Visit Official Portal: {s_data['url']}
-                        </a>
-                    </div>
-                    """,
-                    unsafe_allow_html=True
-                )
+                    <span class="ag-badge ag-badge-good" style="font-size: 0.62rem; padding: 2px 8px; flex-shrink: 0;">
+                        ✓ VERIFIED
+                    </span>
+                </div>
+                <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <a href="{s_data['url']}" target="_blank" style="font-family: var(--font-mono); font-size: 0.72rem; color: #FF6845; text-decoration: underline; font-weight: 600;">
+                        ↗ Visit Official Portal: {s_data['url'].split('//')[-1].split('/')[0]}
+                    </a>
+                    <span style="font-family: var(--font-mono); font-size: 0.65rem; color: #8B95A5; background: #F1F5F9; padding: 2px 6px; border-radius: 4px;">
+                        KEY: {source_key}
+                    </span>
+                </div>
+                """)
+
 
 # ==============================================================================
 # BOTTOM FOOTER

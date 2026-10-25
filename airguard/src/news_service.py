@@ -84,6 +84,54 @@ TRUSTED_SOURCES_REGISTRY = {
         "credibility": "BBC International Environmental Bureau",
         "url": "https://www.bbc.com/future/planet",
         "badge_color": "#A855F7"
+    },
+    "ESA": {
+        "name": "European Space Agency (ESA - Earth Observation)",
+        "credibility": "Intergovernmental Space Agency & Sentinel Satellite Operator",
+        "url": "https://www.esa.int/Applications/Observing_the_Earth",
+        "badge_color": "#0284C7"
+    },
+    "NOAA": {
+        "name": "National Oceanic and Atmospheric Administration (NOAA ARL)",
+        "credibility": "US Federal Scientific Agency / Atmospheric Dispersion Modeling",
+        "url": "https://www.arl.noaa.gov",
+        "badge_color": "#2563EB"
+    },
+    "EEA": {
+        "name": "European Environment Agency (EEA - Copenhagen)",
+        "credibility": "European Union Environmental Regulatory Agency",
+        "url": "https://www.eea.europa.eu/themes/air",
+        "badge_color": "#059669"
+    },
+    "IMD": {
+        "name": "India Meteorological Department (IMD - MoES)",
+        "credibility": "National Meteorological Sentry & Early Warning System",
+        "url": "https://mausam.imd.gov.in",
+        "badge_color": "#D97706"
+    },
+    "IITM": {
+        "name": "Indian Institute of Tropical Meteorology (IITM Pune)",
+        "credibility": "Ministry of Earth Sciences Air Quality Early Warning System (SAFAR)",
+        "url": "https://safar.tropmet.res.in",
+        "badge_color": "#7C3AED"
+    },
+    "CARB": {
+        "name": "California Air Resources Board (CARB)",
+        "credibility": "State Environmental Protection Authority / Zero-Emission Standards",
+        "url": "https://ww2.arb.ca.gov",
+        "badge_color": "#10B981"
+    },
+    "DEFRA": {
+        "name": "UK Department for Environment, Food & Rural Affairs (DEFRA / UK-AIR)",
+        "credibility": "UK Government National Atmospheric Telemetry Network",
+        "url": "https://uk-air.defra.gov.uk",
+        "badge_color": "#0D9488"
+    },
+    "ICMR": {
+        "name": "Indian Council of Medical Research (ICMR - NIOH)",
+        "credibility": "Apex Biomedical Research Body for Environmental Pulmonary Health",
+        "url": "https://main.icmr.nic.in",
+        "badge_color": "#E11D48"
     }
 }
 
@@ -670,6 +718,75 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
             ]),
             "read_time_mins": 3,
             "badge_label": "URBAN TRANSFORMATION"
+        },
+        {
+            "id": "news_local_delhi_iitm_early_warning",
+            "image_asset": "news_aerosol_lab_sensor.jpg",
+            "category": "local",
+            "city_scope": "Delhi",
+            "region": "Delhi-NCR & Indo-Gangetic Plains",
+            "title": "IITM & IMD Deploy Advanced Mesoscale Aerosol Early Warning System: 72-Hour Smog Inversion Trajectory Models Operational",
+            "summary": "The Indian Institute of Tropical Meteorology (IITM Pune) in collaboration with IMD and CPCB has operationalized a high-resolution 400m chemical transport model forecasting boundary layer stagnation and particulate accumulation across the NCR airshed 72 hours in advance.",
+            "source_name": TRUSTED_SOURCES_REGISTRY["IITM"]["name"],
+            "source_credibility": TRUSTED_SOURCES_REGISTRY["IITM"]["credibility"],
+            "source_url": "https://safar.tropmet.res.in",
+            "published_at": ts(2.8),
+            "severity": "MODERATE",
+            "pollutants_involved": "PM2.5, PM10, Aerosol Optical Depth (AOD)",
+            "simple_summary": "Top weather scientists set up a super-smart computer radar that predicts foggy smog three whole days ahead, helping families plan the safest outdoor hours in advance!",
+            "technical_analysis": "WRF-Chem mesoscale atmospheric modeling couples planetary boundary layer height calculations with continuous continuous-emission telemetry to forecast surface aerosol trapping index.",
+            "action_items": json.dumps([
+                "Check AirGuard's 72-hour forecast timeline before scheduling morning school athletic meets.",
+                "Review daily SAFAR bulletin alerts for regional stagnation advisories."
+            ]),
+            "read_time_mins": 3,
+            "badge_label": "EARLY WARNING TELEMETRY"
+        },
+        {
+            "id": "news_intl_eea_european_clean_air_report",
+            "image_asset": "news_who_clean_air_research.jpg",
+            "category": "international",
+            "city_scope": "GLOBAL",
+            "region": "European Union / Copenhagen",
+            "title": "European Environment Agency (EEA) Directive: Stricter 2030 Particulate Thresholds Adopted Across 27 Member States",
+            "summary": "The European Environment Agency has formally codified binding air quality standards reducing allowable annual PM2.5 concentrations from 25 µg/m³ to 10 µg/m³, aligning European legislation closer to WHO 2021 guidelines to protect vulnerable pulmonary populations.",
+            "source_name": TRUSTED_SOURCES_REGISTRY["EEA"]["name"],
+            "source_credibility": TRUSTED_SOURCES_REGISTRY["EEA"]["credibility"],
+            "source_url": "https://www.eea.europa.eu/themes/air",
+            "published_at": ts(4.1),
+            "severity": "INFO",
+            "pollutants_involved": "PM2.5, NO2, Benzo[a]pyrene",
+            "simple_summary": "Europe passed strict new clean-air rules making cities cut smoke and vehicle exhaust by more than half, helping kids and seniors breathe much cleaner, healthier air!",
+            "technical_analysis": "Epidemiological impact assessment estimates the directive will prevent over 150,000 premature respiratory and cardiovascular hospitalizations annually across the European continent.",
+            "action_items": json.dumps([
+                "Public health authorities recommending adoption of WHO 2021 air quality metrics globally.",
+                "Promotes continuous expansion of low-emission zones and urban micro-mobility."
+            ]),
+            "read_time_mins": 3,
+            "badge_label": "INTERNATIONAL DIRECTIVE"
+        },
+        {
+            "id": "news_intl_noaa_boundary_layer_inversion",
+            "image_asset": "news_satellite_atmosphere.jpg",
+            "category": "international",
+            "city_scope": "GLOBAL",
+            "region": "Atmospheric Physics / Boulder, Colorado",
+            "title": "NOAA Air Resources Laboratory Publishes Landmark Study on Boundary Layer Dynamics and Urban Smog Trapping",
+            "summary": "NOAA researchers utilizing airborne lidar and high-frequency acoustic sounders demonstrate how nocturnal thermal inversions beneath 250 meters suppress turbulent kinetic energy by up to 90%, trapping aerosol particles at surface level until sunrise breaks the thermal cap.",
+            "source_name": TRUSTED_SOURCES_REGISTRY["NOAA"]["name"],
+            "source_credibility": TRUSTED_SOURCES_REGISTRY["NOAA"]["credibility"],
+            "source_url": "https://www.arl.noaa.gov",
+            "published_at": ts(6.5),
+            "severity": "INFO",
+            "pollutants_involved": "PM2.5, NO2, Boundary Layer Inversion",
+            "simple_summary": "Top atmospheric scientists showed how cool nighttime air forms an invisible lid over cities, keeping dust down low until the morning sun gently lifts the lid away!",
+            "technical_analysis": "HYSPLIT trajectory modeling demonstrates that surface particulate accumulation correlates inversely with turbulent Richardson number (Ri_b > 0.25 indicating laminar stagnation).",
+            "action_items": json.dumps([
+                "Schedule vigorous cardiovascular workouts after 9:30 AM once daytime convective mixing breaks the nocturnal inversion.",
+                "AirGuard automatic window algorithm leverages boundary layer calculations to recommend optimal ventilation periods."
+            ]),
+            "read_time_mins": 4,
+            "badge_label": "ATMOSPHERIC RESEARCH"
         }
     ]
 
