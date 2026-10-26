@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirGuard — Autonomous Environmental Intelligence</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-warm: #FAF6F1;
+      --surface-white: #FFFFFF;
+      --text-navy: #1F344C;
+      --text-muted: #5A6E85;
+      --border-warm: #EBE6DF;
+      --coral-brand: #FF6845;
+      --emerald-safe: #10B981;
+      --amber-caution: #F59E0B;
+      --font-heading: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-warm);
+      color: var(--text-navy);
+      font-family: var(--font-heading);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 980px;
+      width: 100%;
+      background: var(--surface-white);
+      border: 1px solid var(--border-warm);
+      border-radius: 28px;
+      padding: 48px;
+      box-shadow: 0 16px 40px rgba(31, 52, 76, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #FF6845 0%, #FFA48C 50%, #10B981 100%);
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 104, 69, 0.08);
+      border: 1px solid rgba(255, 104, 69, 0.25);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: var(--coral-brand);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--coral-brand);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #FF6845 0%, #FF8665 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 760px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .feature-card {
+      background: #FAF6F1;
+      border: 1px solid var(--border-warm);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--coral-brand);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(255, 104, 69, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: #E55735;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 104, 69, 0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      color: var(--text-navy);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 24px;
+      border: 1px solid var(--border-warm);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #FAF6F1;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 0.78rem;
+      color: #8896A6;
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge-pill">
+      <span class="pulse-dot"></span>
+      Autonomous Environmental Intelligence &bull; Live Gateway
+    </div>
+
+    <h1>Making outdoor safety <span>smart.</span></h1>
+    <p class="subtitle">
+      AirGuard provides real-time multi-pollutant telemetry, localized machine learning projections, personalized health authorizations, and 3D cartoon storytelling for families and sensitive lungs.
+    </p>
+
+    <div class="grid">
+      <div class="feature-card">
+        <h3><span>☁️</span> 3D Guardians</h3>
+        <p>Aero, Flash, Nova, and Haven dynamically react to air quality and weather with live human voice guidance.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span>📖</span> Clean Air Storybook</h3>
+        <p>4 illustrated chapters translating atmospheric physics and smog into warm, family-friendly lessons.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span>💡</span> Everyday Decoder</h3>
+        <p>14 decoded environmental terms (PM2.5, AQI, Inversion) with plain-English real-life analogies.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span>⚡</span> Safe Windows</h3>
+        <p>Predictive ML clearances showing exact hours when outdoor exercise is 100% safe for your lungs.</p>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <a href="http://localhost:8501" class="btn-primary" id="launchBtn">
+        🚀 Launch AirGuard Intelligence Engine &rarr;
+      </a>
+      <a href="https://github.com" target="_blank" class="btn-secondary" id="githubBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repository
+      </a>
+    </div>
+
+    <div class="footer">
+      Engine Version: airguardOS v2.4 &bull; WCAG AAA Certified &bull; Open-Meteo & CAAQMS Array &bull; Zero Personal Tracking
+    </div>
+  </div>
+
+  <script>
+    // Detect custom target URL if provided via query param ?app=https://...
+    const urlParams = new URLSearchParams(window.location.search);
+    const customApp = urlParams.get('app');
+    if (customApp) {
+      document.getElementById('launchBtn').href = customApp;
+    }
+  </script>
+</body>
+</html>
