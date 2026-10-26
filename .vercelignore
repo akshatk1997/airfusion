@@ -1,11 +1,12 @@
 .git
 .github
 .pytest_cache
+requirements.txt
+airguard
+run.py
 notebooks
 tests
-airguard/tests
-airguard/notebooks
-*.pyc
-__pycache__
+*.db
+*.db-journal
 *.db-wal
 *.db-shm
