@@ -1387,6 +1387,282 @@
         margin-top: 6px;
       }
     }
+
+    /* ==========================================================================
+       TECHNICAL INSTRUMENT SUITE & ANALYTICAL WORKBENCH STYLING
+       ========================================================================== */
+    .ag-tech-suite {
+      background: #FFFFFF;
+      border: 1px solid var(--border-warm);
+      border-radius: 20px;
+      padding: 24px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 24px rgba(31, 52, 76, 0.05);
+    }
+
+    .ag-tech-suite-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-warm);
+    }
+
+    .tech-tab-nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 22px;
+      scrollbar-width: thin;
+    }
+
+    .tech-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FAF6F1;
+      border: 1px solid var(--border-warm);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-navy);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .tech-tab-btn:hover {
+      background: #F0E9DF;
+      border-color: #D1D5DB;
+    }
+
+    .tech-tab-btn.active {
+      background: var(--text-navy);
+      color: #FFFFFF;
+      border-color: var(--coral-brand);
+      box-shadow: 0 4px 12px rgba(31, 52, 76, 0.15);
+    }
+
+    .tech-tab-btn .badge-pill {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      background: rgba(255, 104, 69, 0.15);
+      color: var(--coral-brand);
+    }
+
+    .tech-tab-btn.active .badge-pill {
+      background: rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+    }
+
+    .tech-tool-pane {
+      animation: agFadeIn 0.25s ease;
+    }
+
+    .tech-split-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 22px;
+    }
+
+    @media (max-width: 900px) {
+      .tech-split-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tech-controls-panel {
+      background: #FAF6F1;
+      border: 1px solid var(--border-warm);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .tech-display-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tech-slider-group {
+      margin-bottom: 16px;
+    }
+
+    .tech-slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .tech-val-badge {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--coral-brand);
+      background: #FFFFFF;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border-warm);
+    }
+
+    .tech-range-input {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #E5E7EB;
+      outline: none;
+      accent-color: var(--coral-brand);
+      cursor: pointer;
+    }
+
+    .tech-pills-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .tech-pill-choice {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-warm);
+      background: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-navy);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tech-pill-choice:hover {
+      border-color: var(--coral-brand);
+    }
+
+    .tech-pill-choice.active {
+      background: var(--coral-brand);
+      color: #FFFFFF;
+      border-color: var(--coral-brand);
+    }
+
+    .tech-stat-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-warm);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(31, 52, 76, 0.03);
+    }
+
+    .tech-stat-card.dark {
+      background: #0E1A29;
+      color: #FFFFFF;
+      border-color: #1E293B;
+    }
+
+    .tech-formula-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-left: 4px solid var(--coral-brand);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.80rem;
+      line-height: 1.6;
+      color: var(--text-navy);
+    }
+
+    .tech-code-container {
+      background: #0D1520;
+      border-radius: 14px;
+      padding: 16px;
+      color: #F8FAFC;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      position: relative;
+      overflow-x: auto;
+    }
+
+    .tech-code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #1E293B;
+    }
+
+    .tech-code-copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #E2E8F0;
+      font-family: var(--font-mono);
+      font-size: 0.70rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tech-code-copy-btn:hover {
+      background: var(--coral-brand);
+      color: #FFFFFF;
+      border-color: var(--coral-brand);
+    }
+
+    .tech-json-viewer {
+      background: #070B11;
+      border: 1px solid #1E293B;
+      border-radius: 10px;
+      padding: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #38BDF8;
+      line-height: 1.5;
+    }
+
+    .tech-checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-warm);
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      color: var(--text-navy);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .tech-checklist-item:hover {
+      background: #FAF6F1;
+    }
+
+    .tech-checklist-item input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: var(--coral-brand);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -1502,6 +1778,50 @@
           </button>
         </li>
       </ul>
+
+      <!-- Technical Instruments Submenu (Toggled in Technical Mode) -->
+      <div id="sidebarTechToolsSection" style="display: none; margin-top: 14px;">
+        <div class="sidebar-section-title">
+          <span>🛠️ Technical Instruments</span>
+        </div>
+        <ul class="st-nav-menu">
+          <li class="st-nav-item">
+            <button id="tech-nav-dispersion" onclick="selectTechTool('dispersion')">
+              <span class="nav-icon">🌬️</span> Plume Dispersion
+            </button>
+          </li>
+          <li class="st-nav-item">
+            <button id="tech-nav-subindex" onclick="selectTechTool('subindex')">
+              <span class="nav-icon">📐</span> EPA Sub-Index Resolver
+            </button>
+          </li>
+          <li class="st-nav-item">
+            <button id="tech-nav-thermo" onclick="selectTechTool('thermo')">
+              <span class="nav-icon">🌡️</span> Sounding &amp; Thermo
+            </button>
+          </li>
+          <li class="st-nav-item">
+            <button id="tech-nav-aod" onclick="selectTechTool('aod')">
+              <span class="nav-icon">🛰️</span> Satellite AOD &amp; Ångström
+            </button>
+          </li>
+          <li class="st-nav-item">
+            <button id="tech-nav-sensor" onclick="selectTechTool('sensor')">
+              <span class="nav-icon">⚙️</span> Sensor Metrology Bench
+            </button>
+          </li>
+          <li class="st-nav-item">
+            <button id="tech-nav-grap" onclick="selectTechTool('grap')">
+              <span class="nav-icon">🏛️</span> CAQM GRAP Matrix
+            </button>
+          </li>
+          <li class="st-nav-item">
+            <button id="tech-nav-api" onclick="selectTechTool('api')">
+              <span class="nav-icon">💻</span> REST API &amp; Code
+            </button>
+          </li>
+        </ul>
+      </div>
 
       <!-- Sidebar Status Card -->
       <div class="sidebar-footer">
@@ -1637,6 +1957,49 @@
         activity: 'walk',
         duration: 30,
         period: 'now'
+      },
+      // Technical Instrument Suite & Analytical Workbench State
+      techTools: {
+        activeTab: 'dispersion', // 'dispersion' | 'subindex' | 'thermo' | 'aod' | 'sensor' | 'grap' | 'api'
+        dispersion: {
+          q: 120, // g/s
+          h: 65,  // m
+          u: 4.5, // m/s
+          stability: 'D', // 'A' | 'B' | 'C' | 'D' | 'E' | 'F'
+          x: 1200, // m
+          y: 0    // m
+        },
+        subindex: {
+          pollutant: 'pm25',
+          customVal: 58.4
+        },
+        thermo: {
+          temp: 24.5,
+          pressure: 1014,
+          humidity: 58,
+          wind: 3.5,
+          deltaT: 3.2
+        },
+        aod: {
+          tau440: 0.85,
+          tau870: 0.42,
+          omega0: 0.88
+        },
+        sensor: {
+          raw: 78.5,
+          rh: 68,
+          a: 0.25,
+          b: 0.90,
+          zero: 2.0,
+          span: 1.05
+        },
+        grap: {
+          simAqi: null // null uses live telemetry, number overrides
+        },
+        api: {
+          endpoint: 'telemetry',
+          lang: 'curl'
+        }
       },
       // Real telemetry initialized with high-fidelity defaults, updated live via Open-Meteo API
       telemetry: {
@@ -2117,6 +2480,11 @@
         : 'Deep atmospheric physics, 6 EPA criteria pollutants telemetry, boundary layer flux, and ML model diagnostics.';
       document.getElementById('modeBannerBtn').textContent = isSimple ? 'Switch to Technical Mode →' : 'Switch to Simple Mode →';
 
+      const sidebarTech = document.getElementById('sidebarTechToolsSection');
+      if (sidebarTech) {
+        sidebarTech.style.display = isSimple ? 'none' : 'block';
+      }
+
       renderPlaceReportDossier();
       renderCurrentPage();
     }
@@ -2357,6 +2725,1184 @@
         default:
           mount.innerHTML = isSimple ? renderHomeSimple() : renderHomeTechnical();
       }
+    }
+
+    // =========================================================================
+    // 4B. TECHNICAL INSTRUMENT SUITE & ANALYTICAL WORKBENCH KERNEL
+    // =========================================================================
+    const EPA_BREAKPOINTS = {
+      pm25: [
+        { cLo: 0.0, cHi: 12.0, iLo: 0, iHi: 50, cat: 'Good', col: '#10B981' },
+        { cLo: 12.1, cHi: 35.4, iLo: 51, iHi: 100, cat: 'Moderate', col: '#F59E0B' },
+        { cLo: 35.5, cHi: 55.4, iLo: 101, iHi: 150, cat: 'Unhealthy for Sensitive Groups', col: '#F97316' },
+        { cLo: 55.5, cHi: 150.4, iLo: 151, iHi: 200, cat: 'Unhealthy', col: '#EF4444' },
+        { cLo: 150.5, cHi: 250.4, iLo: 201, iHi: 300, cat: 'Very Unhealthy', col: '#8B5CF6' },
+        { cLo: 250.5, cHi: 500.4, iLo: 301, iHi: 500, cat: 'Hazardous', col: '#7F1D1D' }
+      ],
+      pm10: [
+        { cLo: 0, cHi: 54, iLo: 0, iHi: 50, cat: 'Good', col: '#10B981' },
+        { cLo: 55, cHi: 154, iLo: 51, iHi: 100, cat: 'Moderate', col: '#F59E0B' },
+        { cLo: 155, cHi: 254, iLo: 101, iHi: 150, cat: 'Unhealthy for Sensitive Groups', col: '#F97316' },
+        { cLo: 255, cHi: 354, iLo: 151, iHi: 200, cat: 'Unhealthy', col: '#EF4444' },
+        { cLo: 355, cHi: 424, iLo: 201, iHi: 300, cat: 'Very Unhealthy', col: '#8B5CF6' },
+        { cLo: 425, cHi: 604, iLo: 301, iHi: 500, cat: 'Hazardous', col: '#7F1D1D' }
+      ],
+      no2: [
+        { cLo: 0, cHi: 53, iLo: 0, iHi: 50, cat: 'Good', col: '#10B981' },
+        { cLo: 54, cHi: 100, iLo: 51, iHi: 100, cat: 'Moderate', col: '#F59E0B' },
+        { cLo: 101, cHi: 360, iLo: 101, iHi: 150, cat: 'Unhealthy for Sensitive Groups', col: '#F97316' },
+        { cLo: 361, cHi: 649, iLo: 151, iHi: 200, cat: 'Unhealthy', col: '#EF4444' },
+        { cLo: 650, cHi: 1249, iLo: 201, iHi: 300, cat: 'Very Unhealthy', col: '#8B5CF6' },
+        { cLo: 1250, cHi: 2049, iLo: 301, iHi: 500, cat: 'Hazardous', col: '#7F1D1D' }
+      ],
+      so2: [
+        { cLo: 0, cHi: 35, iLo: 0, iHi: 50, cat: 'Good', col: '#10B981' },
+        { cLo: 36, cHi: 75, iLo: 51, iHi: 100, cat: 'Moderate', col: '#F59E0B' },
+        { cLo: 76, cHi: 185, iLo: 101, iHi: 150, cat: 'Unhealthy for Sensitive Groups', col: '#F97316' },
+        { cLo: 186, cHi: 304, iLo: 151, iHi: 200, cat: 'Unhealthy', col: '#EF4444' },
+        { cLo: 305, cHi: 604, iLo: 201, iHi: 300, cat: 'Very Unhealthy', col: '#8B5CF6' },
+        { cLo: 605, cHi: 1004, iLo: 301, iHi: 500, cat: 'Hazardous', col: '#7F1D1D' }
+      ],
+      o3: [
+        { cLo: 0, cHi: 54, iLo: 0, iHi: 50, cat: 'Good', col: '#10B981' },
+        { cLo: 55, cHi: 70, iLo: 51, iHi: 100, cat: 'Moderate', col: '#F59E0B' },
+        { cLo: 71, cHi: 85, iLo: 101, iHi: 150, cat: 'Unhealthy for Sensitive Groups', col: '#F97316' },
+        { cLo: 86, cHi: 105, iLo: 151, iHi: 200, cat: 'Unhealthy', col: '#EF4444' },
+        { cLo: 106, cHi: 200, iLo: 201, iHi: 300, cat: 'Very Unhealthy', col: '#8B5CF6' },
+        { cLo: 201, cHi: 600, iLo: 301, iHi: 500, cat: 'Hazardous', col: '#7F1D1D' }
+      ],
+      co: [
+        { cLo: 0.0, cHi: 4.4, iLo: 0, iHi: 50, cat: 'Good', col: '#10B981' },
+        { cLo: 4.5, cHi: 9.4, iLo: 51, iHi: 100, cat: 'Moderate', col: '#F59E0B' },
+        { cLo: 9.5, cHi: 12.4, iLo: 101, iHi: 150, cat: 'Unhealthy for Sensitive Groups', col: '#F97316' },
+        { cLo: 12.5, cHi: 15.4, iLo: 151, iHi: 200, cat: 'Unhealthy', col: '#EF4444' },
+        { cLo: 15.5, cHi: 30.4, iLo: 201, iHi: 300, cat: 'Very Unhealthy', col: '#8B5CF6' },
+        { cLo: 30.5, cHi: 50.4, iLo: 301, iHi: 500, cat: 'Hazardous', col: '#7F1D1D' }
+      ]
+    };
+
+    function calcGaussianSigmas(st, x) {
+      let sy = 0, sz = 0;
+      switch (st) {
+        case 'A':
+          sy = 0.22 * x * Math.pow(1 + 0.0001 * x, -0.5);
+          sz = 0.20 * x;
+          break;
+        case 'B':
+          sy = 0.16 * x * Math.pow(1 + 0.0001 * x, -0.5);
+          sz = 0.12 * x;
+          break;
+        case 'C':
+          sy = 0.11 * x * Math.pow(1 + 0.0001 * x, -0.5);
+          sz = 0.08 * x * Math.pow(1 + 0.0002 * x, -0.5);
+          break;
+        case 'D':
+          sy = 0.08 * x * Math.pow(1 + 0.0001 * x, -0.5);
+          sz = 0.06 * x * Math.pow(1 + 0.0015 * x, -0.5);
+          break;
+        case 'E':
+          sy = 0.06 * x * Math.pow(1 + 0.0001 * x, -0.5);
+          sz = 0.03 * x * Math.pow(1 + 0.0003 * x, -1.0);
+          break;
+        case 'F':
+        default:
+          sy = 0.04 * x * Math.pow(1 + 0.0001 * x, -0.5);
+          sz = 0.016 * x * Math.pow(1 + 0.0003 * x, -1.0);
+          break;
+      }
+      return { sy: Math.max(0.1, sy), sz: Math.max(0.1, sz) };
+    }
+
+    function calcGroundConcentration(q, h, u, st, x, y) {
+      const { sy, sz } = calcGaussianSigmas(st, x);
+      const u_safe = Math.max(0.5, u);
+      const expY = Math.exp(-Math.min(50, (y * y) / (2 * sy * sy)));
+      const expZ = Math.exp(-Math.min(50, (h * h) / (2 * sz * sz)));
+      return (q / (Math.PI * u_safe * sy * sz)) * expY * expZ * 1e6;
+    }
+
+    function calcSubindexForPollutant(pollutant, conc) {
+      const bps = EPA_BREAKPOINTS[pollutant] || EPA_BREAKPOINTS['pm25'];
+      const c = Math.max(0, parseFloat(conc) || 0);
+      for (let i = 0; i < bps.length; i++) {
+        const bp = bps[i];
+        if (c >= bp.cLo && c <= bp.cHi) {
+          const aqi = Math.round(((bp.iHi - bp.iLo) / (bp.cHi - bp.cLo)) * (c - bp.cLo) + bp.iLo);
+          return { aqi: Math.min(500, Math.max(0, aqi)), bp, slope: ((bp.iHi - bp.iLo) / (bp.cHi - bp.cLo)).toFixed(2) };
+        }
+      }
+      const last = bps[bps.length - 1];
+      const aqi = Math.round(((last.iHi - last.iLo) / (last.cHi - last.cLo)) * (c - last.cLo) + last.iLo);
+      return { aqi: Math.min(500, Math.max(300, aqi)), bp: last, slope: ((last.iHi - last.iLo) / (last.cHi - last.cLo)).toFixed(2) };
+    }
+
+    function generateApiCodeSnippet(lang, endpoint) {
+      const city = state.telemetry.city || 'Delhi';
+      const lat = state.telemetry.lat || 28.6139;
+      const lon = state.telemetry.lon || 77.2090;
+
+      if (lang === 'curl') {
+        if (endpoint === 'telemetry') {
+          return `curl -X GET "https://airgd.vercel.app/api/v1/telemetry?city=${encodeURIComponent(city)}" \\\n  -H "Accept: application/json" \\\n  -H "User-Agent: AirGuard-Research-Client/2.4"`;
+        } else if (endpoint === 'forecast') {
+          return `curl -X GET "https://airgd.vercel.app/api/v1/forecast/72h?lat=${lat}&lon=${lon}" \\\n  -H "Accept: application/json"`;
+        } else if (endpoint === 'dispersion') {
+          return `curl -X POST "https://airgd.vercel.app/api/v1/dispersion/gaussian" \\\n  -H "Content-Type: application/json" \\\n  -d '{"emission_rate": 120.0, "stack_height": 65.0, "wind_speed": 4.5, "stability_class": "D", "downwind_m": 1200}'`;
+        } else {
+          return `curl -X GET "https://airgd.vercel.app/api/v1/regulatory/grap?aqi=${state.telemetry.aqi}" \\\n  -H "Accept: application/json"`;
+        }
+      } else if (lang === 'python') {
+        if (endpoint === 'telemetry') {
+          return `import requests\n\nurl = "https://airgd.vercel.app/api/v1/telemetry"\nparams = {"city": "${city}"}\nheaders = {"Accept": "application/json", "User-Agent": "AirGuard-Python/2.4"}\n\nres = requests.get(url, params=params, headers=headers, timeout=10)\nres.raise_for_status()\ntelemetry = res.json()\nprint(f"Station: {telemetry['airshed']['city']} | AQI: {telemetry['air_quality']['aqi']}")\nprint(f"PM2.5: {telemetry['pollutants_ug_m3']['pm25']} ug/m3")`;
+        } else if (endpoint === 'forecast') {
+          return `import requests\nimport pandas as pd\n\nurl = "https://airgd.vercel.app/api/v1/forecast/72h"\nparams = {"lat": ${lat}, "lon": ${lon}}\n\nres = requests.get(url, params=params)\ndf_forecast = pd.DataFrame(res.json()["sample_next_6h"])\nprint(df_forecast)`;
+        } else if (endpoint === 'dispersion') {
+          return `import requests\n\npayload = {\n    "emission_rate": 120.0,\n    "stack_height": 65.0,\n    "wind_speed": 4.5,\n    "stability_class": "D",\n    "downwind_m": 1200\n}\nres = requests.post("https://airgd.vercel.app/api/v1/dispersion/gaussian", json=payload)\nprint("Ground Concentration:", res.json()["ground_level_concentration_ug_m3"])`;
+        } else {
+          return `import requests\n\nres = requests.get("https://airgd.vercel.app/api/v1/regulatory/grap", params={"aqi": ${state.telemetry.aqi}})\ngrap = res.json()\nprint("Active Statutory Tier:", grap["stage_name"])\nprint("Enforcement Mandates Required:", grap["immediate_enforcement_required"])`;
+        }
+      } else if (lang === 'javascript') {
+        return `async function queryAirGuard() {\n  const url = 'https://airgd.vercel.app/api/v1/telemetry?city=${encodeURIComponent(city)}';\n  const res = await fetch(url, { headers: { 'Accept': 'application/json' } });\n  const data = await res.json();\n  console.log('AirGuard Telemetry:', data);\n}\nqueryAirGuard();`;
+      } else if (lang === 'node') {
+        return `const axios = require('axios');\n\nasync function getAirGuardSentry() {\n  const response = await axios.get('https://airgd.vercel.app/api/v1/telemetry', {\n    params: { city: '${city}' },\n    timeout: 8000\n  });\n  console.log('AQI:', response.data.air_quality.aqi);\n}\ngetAirGuardSentry();`;
+      } else {
+        return `# R (httr & jsonlite)\nlibrary(httr)\nlibrary(jsonlite)\n\nres <- GET("https://airgd.vercel.app/api/v1/telemetry", query = list(city = "${city}"))\ntelemetry <- fromJSON(content(res, as = "text", encoding = "UTF-8"))\nprint(paste("AQI in ${city}:", telemetry$air_quality$aqi))`;
+      }
+    }
+
+    function generateApiJsonPayload(endpoint) {
+      const t = state.telemetry;
+      if (endpoint === 'telemetry') {
+        return JSON.stringify({
+          status: "SUCCESS",
+          timestamp: new Date().toISOString(),
+          airshed: {
+            city: t.city,
+            country: t.country,
+            coordinates: { lat: t.lat, lon: t.lon, elevation_m: t.elevation || 216 },
+            basin_type: CITIES_DB[t.city]?.lore || "Mesoscale Airshed"
+          },
+          air_quality: {
+            aqi: t.aqi,
+            category: t.category,
+            critical_pollutant: "PM2.5",
+            epa_standard: "40 CFR Part 58"
+          },
+          pollutants_ug_m3: {
+            pm25: t.pm25,
+            pm10: t.pm10,
+            no2: t.no2,
+            so2: t.so2,
+            o3: t.o3,
+            co: t.co
+          },
+          meteorology: {
+            temp_c: t.temp,
+            rh_pct: t.humidity,
+            wind_mps: Number((t.wind / 3.6).toFixed(1)),
+            wind_dir_deg: t.wind_dir || 290,
+            pressure_hpa: t.pressure || 1014
+          },
+          source_station: {
+            network: "CPCB / Open-Meteo Edge Telemetry",
+            quality_assurance: "Level-2 Validated"
+          }
+        }, null, 2);
+      } else if (endpoint === 'forecast') {
+        return JSON.stringify({
+          status: "SUCCESS",
+          forecast_generated_at: new Date().toISOString(),
+          horizon_hours: 72,
+          model_ensemble: ["LightGBM-Huber", "XGBoost-Regressor", "Copernicus-CAMS"],
+          r2_validation_score: 0.941,
+          sample_next_6h: [
+            { hour_offset: 1, predicted_aqi: t.aqi + 2, pm25: Number((t.pm25 * 1.02).toFixed(1)) },
+            { hour_offset: 2, predicted_aqi: t.aqi + 5, pm25: Number((t.pm25 * 1.05).toFixed(1)) },
+            { hour_offset: 3, predicted_aqi: t.aqi + 3, pm25: Number((t.pm25 * 1.03).toFixed(1)) },
+            { hour_offset: 4, predicted_aqi: Math.max(25, t.aqi - 8), pm25: Number((t.pm25 * 0.91).toFixed(1)) },
+            { hour_offset: 5, predicted_aqi: Math.max(25, t.aqi - 15), pm25: Number((t.pm25 * 0.85).toFixed(1)) },
+            { hour_offset: 6, predicted_aqi: Math.max(25, t.aqi - 20), pm25: Number((t.pm25 * 0.80).toFixed(1)) }
+          ]
+        }, null, 2);
+      } else if (endpoint === 'dispersion') {
+        const d = state.techTools.dispersion;
+        const { sy, sz } = calcGaussianSigmas(d.stability, d.x);
+        const conc = calcGroundConcentration(d.q, d.h, d.u, d.stability, d.x, d.y);
+        return JSON.stringify({
+          status: "SUCCESS",
+          model: "Gaussian Steady-State Plume (Briggs rural)",
+          input_parameters: {
+            emission_rate_g_s: d.q,
+            effective_stack_height_m: d.h,
+            wind_speed_m_s: d.u,
+            stability_class: d.stability,
+            receptor_downwind_x_m: d.x,
+            receptor_crosswind_y_m: d.y
+          },
+          dispersion_coefficients_m: {
+            sigma_y: Number(sy.toFixed(2)),
+            sigma_z: Number(sz.toFixed(2))
+          },
+          ground_level_concentration_ug_m3: Number(conc.toFixed(2)),
+          ground_reflection_factor: 2.0
+        }, null, 2);
+      } else {
+        const aqi = state.techTools.grap.simAqi !== null ? state.techTools.grap.simAqi : state.telemetry.aqi;
+        let stage = 0, name = "Baseline Preventive";
+        if (aqi > 450) { stage = 4; name = "Stage IV (Severe+)"; }
+        else if (aqi >= 401) { stage = 3; name = "Stage III (Severe)"; }
+        else if (aqi >= 301) { stage = 2; name = "Stage II (Very Poor)"; }
+        else if (aqi >= 201) { stage = 1; name = "Stage I (Poor)"; }
+
+        return JSON.stringify({
+          status: "SUCCESS",
+          statutory_authority: "Commission for Air Quality Management (CAQM)",
+          evaluated_aqi: aqi,
+          active_stage: stage,
+          stage_name: name,
+          legal_ground: "Section 12, CAQM Act 2021 & 40 CFR 58.50",
+          immediate_enforcement_required: stage > 0
+        }, null, 2);
+      }
+    }
+
+    function selectTechTool(toolId) {
+      state.techTools.activeTab = toolId;
+      if (state.currentPage !== 'home') {
+        state.currentPage = 'home';
+        const activeNavBtn = document.getElementById('nav-home');
+        document.querySelectorAll('.st-nav-item button').forEach(b => b.classList.remove('active'));
+        if (activeNavBtn) activeNavBtn.classList.add('active');
+        renderCurrentPage();
+      } else {
+        updateTechWorkbenchUI();
+      }
+      setTimeout(() => {
+        const suiteEl = document.getElementById('techInstrumentSuite');
+        if (suiteEl) {
+          suiteEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
+    }
+
+    function updateDispersionParam(param, val) {
+      state.techTools.dispersion[param] = (param === 'stability') ? val : parseFloat(val);
+      updateTechWorkbenchUI();
+    }
+
+    function updateSubindexParam(param, val) {
+      state.techTools.subindex[param] = (param === 'pollutant') ? val : parseFloat(val);
+      updateTechWorkbenchUI();
+    }
+
+    function updateThermoParam(param, val) {
+      state.techTools.thermo[param] = parseFloat(val);
+      updateTechWorkbenchUI();
+    }
+
+    function updateAodParam(param, val) {
+      state.techTools.aod[param] = parseFloat(val);
+      updateTechWorkbenchUI();
+    }
+
+    function updateSensorParam(param, val) {
+      state.techTools.sensor[param] = parseFloat(val);
+      updateTechWorkbenchUI();
+    }
+
+    function updateGrapParam(param, val) {
+      state.techTools.grap[param] = val === 'live' ? null : parseInt(val);
+      updateTechWorkbenchUI();
+    }
+
+    function updateApiParam(param, val) {
+      state.techTools.api[param] = val;
+      updateTechWorkbenchUI();
+    }
+
+    function copyCodeSnippet(btnId, codeText) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(codeText).then(() => {
+          const btn = document.getElementById(btnId);
+          if (btn) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '✅ Copied!';
+            setTimeout(() => { btn.innerHTML = orig; }, 1800);
+          }
+        }).catch(() => {});
+      }
+    }
+
+    function copyJsonPayload(btnId, jsonText) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(jsonText).then(() => {
+          const btn = document.getElementById(btnId);
+          if (btn) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '✅ Copied JSON!';
+            setTimeout(() => { btn.innerHTML = orig; }, 1800);
+          }
+        }).catch(() => {});
+      }
+    }
+
+    function updateTechWorkbenchUI() {
+      const mount = document.getElementById('techToolPaneMount');
+      if (mount) {
+        mount.innerHTML = renderActiveTechToolPane();
+      }
+      const tabButtons = document.querySelectorAll('.tech-tab-btn');
+      tabButtons.forEach(btn => {
+        const isAct = btn.getAttribute('onclick')?.includes(`'${state.techTools.activeTab}'`);
+        btn.classList.toggle('active', !!isAct);
+      });
+      const sidebarButtons = document.querySelectorAll('#sidebarTechToolsSection button');
+      sidebarButtons.forEach(btn => {
+        const isAct = btn.id === `tech-nav-${state.techTools.activeTab}`;
+        btn.classList.toggle('active', !!isAct);
+      });
+    }
+
+    function renderActiveTechToolPane() {
+      switch (state.techTools.activeTab) {
+        case 'dispersion':
+          return renderTechDispersionPane();
+        case 'subindex':
+          return renderTechSubindexPane();
+        case 'thermo':
+          return renderTechThermoPane();
+        case 'aod':
+          return renderTechAodPane();
+        case 'sensor':
+          return renderTechSensorPane();
+        case 'grap':
+          return renderTechGrapPane();
+        case 'api':
+          return renderTechApiPane();
+        default:
+          return renderTechDispersionPane();
+      }
+    }
+
+    function renderTechDispersionPane() {
+      const d = state.techTools.dispersion;
+      const { sy, sz } = calcGaussianSigmas(d.stability, d.x);
+      const concAtReceptor = calcGroundConcentration(d.q, d.h, d.u, d.stability, d.x, d.y);
+      const concCenterline = calcGroundConcentration(d.q, d.h, d.u, d.stability, d.x, 0);
+
+      const points = [];
+      let peakX = 100, peakC = 0;
+      for (let xi = 100; xi <= 10000; xi += 150) {
+        const ci = calcGroundConcentration(d.q, d.h, d.u, d.stability, xi, 0);
+        points.push({ x: xi, c: ci });
+        if (ci > peakC) {
+          peakC = ci;
+          peakX = xi;
+        }
+      }
+
+      const svgW = 600, svgH = 200, padLeft = 45, padBot = 25, padTop = 15, padRight = 20;
+      const plotW = svgW - padLeft - padRight;
+      const plotH = svgH - padTop - padBot;
+      const maxC = Math.max(10, peakC * 1.15);
+
+      const getSvgX = (x) => padLeft + (x / 10000) * plotW;
+      const getSvgY = (c) => padTop + plotH - (Math.min(c, maxC) / maxC) * plotH;
+
+      const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${getSvgX(p.x).toFixed(1)} ${getSvgY(p.c).toFixed(1)}`).join(' ');
+      const areaD = `${pathD} L ${getSvgX(10000).toFixed(1)} ${(padTop + plotH).toFixed(1)} L ${getSvgX(100).toFixed(1)} ${(padTop + plotH).toFixed(1)} Z`;
+
+      const recSvgX = getSvgX(d.x).toFixed(1);
+      const recSvgY = getSvgY(concCenterline).toFixed(1);
+      const peakSvgX = getSvgX(peakX).toFixed(1);
+      const peakSvgY = getSvgY(peakC).toFixed(1);
+
+      return `
+        <div class="tech-tool-pane">
+          <div class="tech-split-grid">
+            <div class="tech-controls-panel">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <span class="ag-badge ag-badge-coral" style="margin: 0;">PASQUILL-GIFFORD ENGINE</span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">BRIGGS RURAL</span>
+              </div>
+
+              <div style="margin-bottom: 14px;">
+                <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-navy); margin-bottom: 6px;">Atmospheric Stability Class (Pasquill):</div>
+                <div class="tech-pills-row">
+                  ${['A', 'B', 'C', 'D', 'E', 'F'].map(cls => `
+                    <button class="tech-pill-choice ${d.stability === cls ? 'active' : ''}" onclick="updateDispersionParam('stability', '${cls}')">
+                      ${cls}
+                    </button>
+                  `).join('')}
+                </div>
+                <div style="font-size: 0.70rem; color: var(--text-muted); margin-top: 4px;">
+                  ${d.stability === 'A' ? 'A: Extremely Unstable (Intense convective thermals)' :
+                    (d.stability === 'B' ? 'B: Moderately Unstable (Moderate daytime solar heating)' :
+                    (d.stability === 'C' ? 'C: Slightly Unstable (Light daytime convection)' :
+                    (d.stability === 'D' ? 'D: Neutral (Overcast sky or strong mechanical wind shear)' :
+                    (d.stability === 'E' ? 'E: Slightly Stable (Early nocturnal radiative cooling)' :
+                    'F: Moderately Stable (Severe nocturnal surface inversion trap)'))))}
+                </div>
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Emission Mass Rate (Q)</span>
+                  <span class="tech-val-badge">${d.q} g/s</span>
+                </div>
+                <input type="range" class="tech-range-input" min="10" max="500" step="5" value="${d.q}" oninput="updateDispersionParam('q', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Effective Release Height (H)</span>
+                  <span class="tech-val-badge">${d.h} m</span>
+                </div>
+                <input type="range" class="tech-range-input" min="10" max="250" step="5" value="${d.h}" oninput="updateDispersionParam('h', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Stack Wind Speed (u)</span>
+                  <span class="tech-val-badge">${d.u} m/s</span>
+                </div>
+                <input type="range" class="tech-range-input" min="1.0" max="20.0" step="0.5" value="${d.u}" oninput="updateDispersionParam('u', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Receptor Downwind Distance (x)</span>
+                  <span class="tech-val-badge">${d.x} m (${(d.x/1000).toFixed(2)} km)</span>
+                </div>
+                <input type="range" class="tech-range-input" min="100" max="10000" step="50" value="${d.x}" oninput="updateDispersionParam('x', this.value)">
+              </div>
+
+              <div class="tech-slider-group" style="margin-bottom: 0;">
+                <div class="tech-slider-header">
+                  <span>Crosswind Lateral Offset (y)</span>
+                  <span class="tech-val-badge">${d.y} m</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0" max="500" step="10" value="${d.y}" oninput="updateDispersionParam('y', this.value)">
+              </div>
+            </div>
+
+            <div class="tech-display-panel">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="tech-stat-card" style="border-top: 4px solid var(--coral-brand);">
+                  <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Receptor Ground Concentration</div>
+                  <div style="display: flex; align-items: baseline; gap: 6px; margin: 6px 0;">
+                    <span style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: var(--text-navy);">${concAtReceptor.toFixed(1)}</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">µg/m³</span>
+                  </div>
+                  <div style="font-size: 0.70rem; color: var(--text-secondary);">Centerline: ${concCenterline.toFixed(1)} µg/m³</div>
+                </div>
+
+                <div class="tech-stat-card" style="border-top: 4px solid #0284C7;">
+                  <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Peak Plume Touchdown</div>
+                  <div style="display: flex; align-items: baseline; gap: 6px; margin: 6px 0;">
+                    <span style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #0284C7;">${peakC.toFixed(1)}</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">µg/m³</span>
+                  </div>
+                  <div style="font-size: 0.70rem; color: var(--text-secondary);">Peak Distance: ${(peakX/1000).toFixed(2)} km (${peakX} m)</div>
+                </div>
+              </div>
+
+              <div class="tech-stat-card dark">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; color: #38BDF8;">GROUND-LEVEL CONCENTRATION PROFILE C(x, 0, 0)</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94A3B8;">0 to 10 km</span>
+                </div>
+                <svg viewBox="0 0 ${svgW} ${svgH}" style="width: 100%; height: 180px; overflow: visible;">
+                  <defs>
+                    <linearGradient id="plumeGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#FF6845" stop-opacity="0.35"/>
+                      <stop offset="100%" stop-color="#FF6845" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  <line x1="${padLeft}" y1="${padTop}" x2="${padLeft}" y2="${padTop + plotH}" stroke="#334155" stroke-width="1"/>
+                  <line x1="${padLeft}" y1="${padTop + plotH}" x2="${svgW - padRight}" y2="${padTop + plotH}" stroke="#334155" stroke-width="1"/>
+                  <line x1="${padLeft}" y1="${padTop + plotH / 2}" x2="${svgW - padRight}" y2="${padTop + plotH / 2}" stroke="#1E293B" stroke-dasharray="3"/>
+                  
+                  <path d="${areaD}" fill="url(#plumeGrad)"/>
+                  <path d="${pathD}" fill="none" stroke="#FF6845" stroke-width="2.5"/>
+
+                  <circle cx="${peakSvgX}" cy="${peakSvgY}" r="4" fill="#EF4444"/>
+                  <text x="${peakSvgX}" y="${Math.max(12, peakSvgY - 8)}" fill="#F87171" font-size="9" font-family="monospace" text-anchor="middle">Cmax: ${peakC.toFixed(0)}</text>
+
+                  <line x1="${recSvgX}" y1="${padTop}" x2="${recSvgX}" y2="${padTop + plotH}" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="3"/>
+                  <circle cx="${recSvgX}" cy="${recSvgY}" r="4.5" fill="#38BDF8"/>
+                  <text x="${recSvgX}" y="${padTop + plotH + 16}" fill="#38BDF8" font-size="9" font-family="monospace" text-anchor="middle">x=${(d.x/1000).toFixed(1)}k</text>
+
+                  <text x="${padLeft}" y="${padTop - 4}" fill="#64748B" font-size="9" font-family="monospace">${maxC.toFixed(0)} µg/m³</text>
+                  <text x="${svgW - padRight}" y="${padTop + plotH + 16}" fill="#64748B" font-size="9" font-family="monospace" text-anchor="end">10 km</text>
+                </svg>
+              </div>
+
+              <div class="tech-formula-card">
+                <div style="font-weight: 700; margin-bottom: 4px; color: var(--coral-brand);">Mathematical Formulation:</div>
+                <div>C(x, y, 0) = [ Q / (π · u · σ_y · σ_z) ] · exp[ -y² / (2σ_y²) ] · exp[ -H² / (2σ_z²) ]</div>
+                <div style="font-size: 0.72rem; color: #64748B; margin-top: 6px;">
+                  At x=${d.x}m: σ_y = <strong>${sy.toFixed(1)}m</strong>, σ_z = <strong>${sz.toFixed(1)}m</strong> &bull; Total reflection ground factor = 2.0
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTechSubindexPane() {
+      const t = state.telemetry;
+      const s = state.techTools.subindex;
+
+      const pollutants = [
+        { key: 'pm25', name: 'PM₂.₅ Fine Particulate', val: t.pm25, unit: 'µg/m³' },
+        { key: 'pm10', name: 'PM₁₀ Coarse Particulate', val: t.pm10, unit: 'µg/m³' },
+        { key: 'no2', name: 'NO₂ Nitrogen Dioxide', val: t.no2, unit: 'µg/m³' },
+        { key: 'so2', name: 'SO₂ Sulfur Dioxide', val: t.so2, unit: 'µg/m³' },
+        { key: 'o3', name: 'O₃ Ground Ozone', val: t.o3, unit: 'µg/m³' },
+        { key: 'co', name: 'CO Carbon Monoxide', val: (t.co / 1000).toFixed(2), unit: 'mg/m³' }
+      ];
+
+      let maxAqi = 0;
+      let criticalKey = 'pm25';
+      const resolved = pollutants.map(p => {
+        const res = calcSubindexForPollutant(p.key, p.val);
+        if (res.aqi > maxAqi) {
+          maxAqi = res.aqi;
+          criticalKey = p.key;
+        }
+        return { ...p, res };
+      });
+
+      const customRes = calcSubindexForPollutant(s.pollutant, s.customVal);
+
+      return `
+        <div class="tech-tool-pane">
+          <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 22px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div>
+                  <span class="ag-badge ag-badge-coral" style="margin: 0;">CRITERIA SUB-INDEX MATRIX</span>
+                  <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--text-navy); margin-top: 4px;">EPA Piecewise Interpolation Resolver</h4>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted);">CRITICAL DRIVER:</span>
+                  <div style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: var(--coral-brand);">${criticalKey.toUpperCase()} (AQI ${maxAqi})</div>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="ag-table" style="font-size: 0.78rem;">
+                  <thead>
+                    <tr>
+                      <th>Pollutant</th>
+                      <th>Observed</th>
+                      <th>Breakpoint Range</th>
+                      <th>Sub-Index Interval</th>
+                      <th>Calculated AQI</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${resolved.map(item => {
+                      const isCrit = item.key === criticalKey;
+                      return `
+                        <tr style="${isCrit ? 'background: rgba(255,104,69,0.06); font-weight: 700;' : ''}">
+                          <td>
+                            <strong>${item.name}</strong>
+                            ${isCrit ? '<span class="ag-badge ag-badge-coral" style="font-size: 0.55rem; padding: 1px 5px; margin-left: 4px;">CRITICAL</span>' : ''}
+                          </td>
+                          <td>${item.val} ${item.unit}</td>
+                          <td>[${item.res.bp.cLo} &ndash; ${item.res.bp.cHi}]</td>
+                          <td>[${item.res.bp.iLo} &ndash; ${item.res.bp.iHi}]</td>
+                          <td><strong style="color: ${item.res.bp.col}; font-family: var(--font-mono); font-size: 0.95rem;">${item.res.aqi}</strong></td>
+                          <td><span class="metric-pill" style="background: ${item.res.bp.col}18; color: ${item.res.bp.col}; font-size: 0.65rem;">${item.res.bp.cat}</span></td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="tech-formula-card" style="margin-top: 14px;">
+                <div style="font-weight: 700; color: var(--coral-brand); margin-bottom: 4px;">EPA Piecewise Formula (40 CFR Part 58):</div>
+                <div>I_p = [ (I_Hi - I_Lo) / (BP_Hi - BP_Lo) ] · (C_p - BP_Lo) + I_Lo</div>
+                <div style="font-size: 0.72rem; color: #64748B; margin-top: 4px;">
+                  The overall Air Quality Index is mathematically bounded by the supremum: AQI = max(I_1, I_2, ..., I_6).
+                </div>
+              </div>
+            </div>
+
+            <div class="tech-controls-panel">
+              <div class="ag-badge ag-badge-blue" style="margin: 0 0 10px 0;">INTERACTIVE BREAKPOINT BENCH</div>
+              <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-navy); margin-bottom: 12px;">Evaluate Custom Concentration</h4>
+
+              <div style="margin-bottom: 14px;">
+                <label style="font-size: 0.74rem; font-weight: 700; color: var(--text-secondary);">Select Target Pollutant:</label>
+                <select class="st-select" style="margin-top: 4px;" onchange="updateSubindexParam('pollutant', this.value)">
+                  <option value="pm25" ${s.pollutant === 'pm25' ? 'selected' : ''}>PM2.5 Fine (µg/m³)</option>
+                  <option value="pm10" ${s.pollutant === 'pm10' ? 'selected' : ''}>PM10 Coarse (µg/m³)</option>
+                  <option value="no2" ${s.pollutant === 'no2' ? 'selected' : ''}>NO2 Dioxide (µg/m³)</option>
+                  <option value="so2" ${s.pollutant === 'so2' ? 'selected' : ''}>SO2 Dioxide (µg/m³)</option>
+                  <option value="o3" ${s.pollutant === 'o3' ? 'selected' : ''}>O3 Ground Ozone (µg/m³)</option>
+                  <option value="co" ${s.pollutant === 'co' ? 'selected' : ''}>CO Monoxide (mg/m³)</option>
+                </select>
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Arbitrary Concentration (C_p)</span>
+                  <span class="tech-val-badge">${s.customVal}</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0" max="${s.pollutant === 'co' ? 50 : 500}" step="${s.pollutant === 'co' ? 0.2 : 1}" value="${s.customVal}" oninput="updateSubindexParam('customVal', this.value)">
+              </div>
+
+              <div class="tech-stat-card" style="border-left: 4px solid ${customRes.bp.col}; margin-top: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">RESULTING SUB-INDEX</span>
+                  <span class="metric-pill" style="background: ${customRes.bp.col}18; color: ${customRes.bp.col};">${customRes.bp.cat}</span>
+                </div>
+                <div style="display: flex; align-items: baseline; gap: 8px; margin: 8px 0;">
+                  <span style="font-family: var(--font-mono); font-size: 2.4rem; font-weight: 800; color: var(--text-navy); line-height: 1;">${customRes.aqi}</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted);">AQI Points</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 0.70rem; color: var(--text-secondary); line-height: 1.5; border-top: 1px solid var(--border-warm); padding-top: 8px;">
+                  <div>Interval: [${customRes.bp.cLo} - ${customRes.bp.cHi}] &rarr; [${customRes.bp.iLo} - ${customRes.bp.iHi}]</div>
+                  <div>Slope m = ${customRes.slope} &bull; Offset = ${(s.customVal - customRes.bp.cLo).toFixed(1)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTechThermoPane() {
+      const p = state.techTools.thermo;
+
+      const theta = (p.temp + 273.15) * Math.pow(1000.0 / p.pressure, 0.286) - 273.15;
+      const es = 6.112 * Math.exp((17.67 * p.temp) / (p.temp + 243.5));
+      const e = es * (p.humidity / 100.0);
+      const q = (0.622 * e) / (p.pressure - 0.378 * e);
+      const tv = (p.temp + 273.15) * (1 + 0.61 * q) - 273.15;
+      const pblHeight = Math.max(150, Math.round(1200 * (1.0 - (p.humidity / 100)) + 38 * p.wind - 70 * Math.max(0, p.deltaT)));
+      const u_safe = Math.max(0.6, p.wind);
+      const theta_v_k = tv + 273.15;
+      const rib = ((9.81 / theta_v_k) * (p.deltaT * (pblHeight / 2.0)) / (u_safe * u_safe)).toFixed(2);
+      const ventCoeff = Math.round(pblHeight * p.wind);
+
+      let stabilityBadge = "CONVECTIVELY UNSTABLE";
+      let stabilityCol = "#059669";
+      let stabilityDesc = "Active vertical buoyancy; rapid thermal flushing of particulate matter.";
+      if (rib > 0.25) {
+        stabilityBadge = "CRITICAL THERMAL INVERSION";
+        stabilityCol = "#DC2626";
+        stabilityDesc = "Richardson number > 0.25 suppresses turbulent mixing. Stagnant capping layer traps smoke near ground.";
+      } else if (rib >= 0) {
+        stabilityBadge = "NEUTRAL / SHEAR-CONTROLLED";
+        stabilityCol = "#D97706";
+        stabilityDesc = "Mechanical wind shear dominates; transitional dispersion capacity.";
+      }
+
+      return `
+        <div class="tech-tool-pane">
+          <div class="tech-split-grid">
+            <div class="tech-controls-panel">
+              <div class="ag-badge ag-badge-coral" style="margin: 0 0 12px 0;">MESOSCALE SOUNDING PARAMETERS</div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Surface Temperature (T₀)</span>
+                  <span class="tech-val-badge">${p.temp} °C</span>
+                </div>
+                <input type="range" class="tech-range-input" min="-5" max="45" step="0.5" value="${p.temp}" oninput="updateThermoParam('temp', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Barometric Surface Pressure (P₀)</span>
+                  <span class="tech-val-badge">${p.pressure} hPa</span>
+                </div>
+                <input type="range" class="tech-range-input" min="950" max="1040" step="1" value="${p.pressure}" oninput="updateThermoParam('pressure', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Ambient Relative Humidity (RH)</span>
+                  <span class="tech-val-badge">${p.humidity} %</span>
+                </div>
+                <input type="range" class="tech-range-input" min="10" max="100" step="1" value="${p.humidity}" oninput="updateThermoParam('humidity', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>10m Wind Velocity (U₁₀)</span>
+                  <span class="tech-val-badge">${p.wind} m/s</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0.5" max="18.0" step="0.5" value="${p.wind}" oninput="updateThermoParam('wind', this.value)">
+              </div>
+
+              <div class="tech-slider-group" style="margin-bottom: 0;">
+                <div class="tech-slider-header">
+                  <span>Inversion Thermal Delta (ΔT)</span>
+                  <span class="tech-val-badge">${p.deltaT > 0 ? '+' : ''}${p.deltaT} °C</span>
+                </div>
+                <input type="range" class="tech-range-input" min="-4.0" max="10.0" step="0.5" value="${p.deltaT}" oninput="updateThermoParam('deltaT', this.value)">
+                <div style="font-size: 0.70rem; color: var(--text-muted); margin-top: 4px;">Positive ΔT indicates temperature increasing with altitude (thermal inversion).</div>
+              </div>
+            </div>
+
+            <div class="tech-display-panel">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="tech-stat-card">
+                  <div style="font-size: 0.70rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Potential Temp (θ)</div>
+                  <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: var(--text-navy);">${theta.toFixed(1)} <span style="font-size: 0.8rem;">°C</span></div>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);">Virtual Tv: ${tv.toFixed(1)} °C</div>
+                </div>
+
+                <div class="tech-stat-card">
+                  <div style="font-size: 0.70rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Ventilation Coeff (Vc)</div>
+                  <div style="font-family: var(--font-mono); font-size: 1.8rem; font-weight: 800; color: #0284C7;">${ventCoeff} <span style="font-size: 0.8rem;">m²/s</span></div>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);">${ventCoeff < 2000 ? '⚠️ High Stagnation' : '✅ Dispersive'}</div>
+                </div>
+              </div>
+
+              <div class="tech-stat-card" style="border-left: 4px solid ${stabilityCol};">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">BULK RICHARDSON NUMBER (Ri_b)</span>
+                  <span class="metric-pill" style="background: ${stabilityCol}18; color: ${stabilityCol};">${stabilityBadge}</span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 2.2rem; font-weight: 800; color: var(--text-navy); margin: 6px 0;">
+                  ${rib}
+                </div>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                  ${stabilityDesc}
+                </p>
+              </div>
+
+              <div class="tech-stat-card dark">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; color: #38BDF8;">ATMOSPHERIC THERMAL LAPSE SOUNDING (T vs z)</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #94A3B8;">Ceiling: ${pblHeight}m</span>
+                </div>
+                <svg viewBox="0 0 500 160" style="width: 100%; height: 150px; overflow: visible;">
+                  <line x1="40" y1="135" x2="480" y2="135" stroke="#334155" stroke-width="1"/>
+                  <line x1="40" y1="15" x2="40" y2="135" stroke="#334155" stroke-width="1"/>
+                  
+                  <line x1="40" y1="65" x2="480" y2="65" stroke="#EF4444" stroke-width="1" stroke-dasharray="4"/>
+                  <text x="475" y="60" fill="#F87171" font-size="9" font-family="monospace" text-anchor="end">Inversion Lid: ${pblHeight}m</text>
+
+                  <line x1="120" y1="135" x2="300" y2="15" stroke="#64748B" stroke-dasharray="2" stroke-width="1.2"/>
+                  <text x="305" y="22" fill="#64748B" font-size="8" font-family="monospace">DALR (9.8°C/km)</text>
+
+                  <path d="M 120 135 Q ${p.deltaT > 0 ? '160 85' : '180 85'} ${p.deltaT > 0 ? '90 65' : '230 65'} T ${p.deltaT > 0 ? '250 15' : '340 15'}" fill="none" stroke="#38BDF8" stroke-width="2.5"/>
+                  <circle cx="120" cy="135" r="4" fill="#38BDF8"/>
+                  <text x="120" y="150" fill="#94A3B8" font-size="9" font-family="monospace" text-anchor="middle">T₀=${p.temp}°C</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTechAodPane() {
+      const a = state.techTools.aod;
+      const alpha = Math.max(-0.5, Math.min(3.0, (Math.log(a.tau440) - Math.log(a.tau870)) / 0.6817));
+      const tau550 = a.tau440 * Math.pow(550.0 / 440.0, -alpha);
+      const aai = Math.max(0, (1 - a.omega0) * tau550 * 14.0).toFixed(1);
+
+      let particleMode = "FINE-MODE COMBUSTION SOOT";
+      let modeColor = "#DC2626";
+      let modeDesc = "Sub-micron particles originating from fossil fuel combustion, vehicular exhaust, and agricultural biomass stubble burning. Deep alveolar deposition potential.";
+      if (alpha < 0.8) {
+        particleMode = "COARSE CRUSTAL DUST";
+        modeColor = "#D97706";
+        modeDesc = "Super-micron particles generated by mechanical crustal friction, desert dust storms (Thar/Sahara), and unpaved road dust.";
+      } else if (alpha < 1.5) {
+        particleMode = "MIXED URBAN-INDUSTRIAL POLYDISPERSE";
+        modeColor = "#0284C7";
+        modeDesc = "Complex mixture of aged urban secondary aerosols (sulfates, nitrates) and fine soot particulates.";
+      }
+
+      let forcingState = "ATMOSPHERIC ABSORPTIVE WARMING";
+      let forcingCol = "#DC2626";
+      if (a.omega0 > 0.95) {
+        forcingState = "SURFACE RADIATIVE COOLING";
+        forcingCol = "#059669";
+      } else if (a.omega0 >= 0.85) {
+        forcingState = "MODERATE RADIATIVE BALANCE";
+        forcingCol = "#D97706";
+      }
+
+      return `
+        <div class="tech-tool-pane">
+          <div class="tech-split-grid">
+            <div class="tech-controls-panel">
+              <div class="ag-badge ag-badge-coral" style="margin: 0 0 12px 0;">SPECTROMETRIC OPTICAL CHANNELS</div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>AOD 440nm (Blue-Violet Band)</span>
+                  <span class="tech-val-badge">${a.tau440.toFixed(2)}</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0.10" max="2.50" step="0.05" value="${a.tau440}" oninput="updateAodParam('tau440', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>AOD 870nm (Near-Infrared Band)</span>
+                  <span class="tech-val-badge">${a.tau870.toFixed(2)}</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0.05" max="2.00" step="0.05" value="${a.tau870}" oninput="updateAodParam('tau870', this.value)">
+              </div>
+
+              <div class="tech-slider-group" style="margin-bottom: 0;">
+                <div class="tech-slider-header">
+                  <span>Single Scattering Albedo (ω₀)</span>
+                  <span class="tech-val-badge">${a.omega0.toFixed(2)}</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0.70" max="1.00" step="0.02" value="${a.omega0}" oninput="updateAodParam('omega0', this.value)">
+                <div style="font-size: 0.70rem; color: var(--text-muted); margin-top: 4px;">Ratio of scattering to total extinction. Dark black carbon: ~0.75-0.85; pure sulfate: ~0.99.</div>
+              </div>
+            </div>
+
+            <div class="tech-display-panel">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="tech-stat-card" style="border-top: 4px solid var(--coral-brand);">
+                  <div style="font-size: 0.70rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Ångström Exponent (α)</div>
+                  <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: var(--text-navy); margin: 4px 0;">${alpha.toFixed(2)}</div>
+                  <div style="font-size: 0.70rem; color: var(--text-muted);">Turbidity spectral slope</div>
+                </div>
+
+                <div class="tech-stat-card" style="border-top: 4px solid #0284C7;">
+                  <div style="font-size: 0.70rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Extrapolated AOD (550nm)</div>
+                  <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #0284C7; margin: 4px 0;">${tau550.toFixed(2)}</div>
+                  <div style="font-size: 0.70rem; color: var(--text-muted);">AAI Absorption Index: ${aai}</div>
+                </div>
+              </div>
+
+              <div class="tech-stat-card" style="border-left: 4px solid ${modeColor};">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">MICROPHYSICAL REGIME</span>
+                  <span class="metric-pill" style="background: ${modeColor}18; color: ${modeColor}; font-size: 0.65rem;">${particleMode}</span>
+                </div>
+                <p style="font-size: 0.80rem; color: var(--text-secondary); line-height: 1.55; margin: 8px 0 0 0;">
+                  ${modeDesc}
+                </p>
+              </div>
+
+              <div class="tech-formula-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <strong style="color: var(--coral-brand);">Radiative Forcing State:</strong>
+                  <span style="font-weight: 800; color: ${forcingCol};">${forcingState}</span>
+                </div>
+                <div>α = - [ ln(τ₄₄₀ / τ₈₇₀) / ln(440 / 870) ] &bull; τ(550) = τ(440) · (550/440)^(-α)</div>
+                <div style="font-size: 0.70rem; color: #64748B; margin-top: 4px;">Copernicus Sentinel-5P TROPOMI &amp; NASA Terra/Aqua MODIS Level-2 calibrated.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTechSensorPane() {
+      const sen = state.techTools.sensor;
+      const safeRH = Math.min(98.5, Math.max(0, sen.rh));
+      const fRH = 1.0 + sen.a * Math.pow(safeRH / (100.0 - safeRH), sen.b);
+      const corrected = Math.max(0.1, (sen.raw - sen.zero) / (sen.span * fRH));
+      const waterMass = Math.max(0, sen.raw - corrected);
+      const inflationPct = Math.round(((sen.raw / corrected) - 1.0) * 100);
+
+      return `
+        <div class="tech-tool-pane">
+          <div class="tech-split-grid">
+            <div class="tech-controls-panel">
+              <div class="ag-badge ag-badge-coral" style="margin: 0 0 12px 0;">OPTICAL SENSOR METROLOGY BENCH</div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Raw Optical Sensor Signal (C_raw)</span>
+                  <span class="tech-val-badge">${sen.raw} µg/m³</span>
+                </div>
+                <input type="range" class="tech-range-input" min="5" max="400" step="2" value="${sen.raw}" oninput="updateSensorParam('raw', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Ambient Relative Humidity (RH)</span>
+                  <span class="tech-val-badge">${sen.rh} %</span>
+                </div>
+                <input type="range" class="tech-range-input" min="15" max="98" step="1" value="${sen.rh}" oninput="updateSensorParam('rh', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Hygroscopic Coefficient (a)</span>
+                  <span class="tech-val-badge">${sen.a.toFixed(2)}</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0.10" max="0.50" step="0.05" value="${sen.a}" oninput="updateSensorParam('a', this.value)">
+              </div>
+
+              <div class="tech-slider-group">
+                <div class="tech-slider-header">
+                  <span>Hygroscopic Exponent (b)</span>
+                  <span class="tech-val-badge">${sen.b.toFixed(2)}</span>
+                </div>
+                <input type="range" class="tech-range-input" min="0.50" max="1.50" step="0.05" value="${sen.b}" oninput="updateSensorParam('b', this.value)">
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="tech-slider-group" style="margin-bottom: 0;">
+                  <div class="tech-slider-header">
+                    <span>Zero Drift (ΔZ₀)</span>
+                    <span class="tech-val-badge">${sen.zero} µg</span>
+                  </div>
+                  <input type="range" class="tech-range-input" min="-10" max="10" step="0.5" value="${sen.zero}" oninput="updateSensorParam('zero', this.value)">
+                </div>
+
+                <div class="tech-slider-group" style="margin-bottom: 0;">
+                  <div class="tech-slider-header">
+                    <span>Span Factor (S_f)</span>
+                    <span class="tech-val-badge">${sen.span}</span>
+                  </div>
+                  <input type="range" class="tech-range-input" min="0.80" max="1.30" step="0.02" value="${sen.span}" oninput="updateSensorParam('span', this.value)">
+                </div>
+              </div>
+            </div>
+
+            <div class="tech-display-panel">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="tech-stat-card" style="border-top: 4px solid #EF4444;">
+                  <div style="font-size: 0.70rem; font-weight: 700; color: #EF4444; text-transform: uppercase;">Raw OPC Reading</div>
+                  <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: var(--text-navy); margin: 4px 0;">${sen.raw} <span style="font-size: 0.8rem;">µg/m³</span></div>
+                  <div style="font-size: 0.70rem; color: #DC2626;">Moisture Inflated (+${inflationPct}%)</div>
+                </div>
+
+                <div class="tech-stat-card" style="border-top: 4px solid #10B981;">
+                  <div style="font-size: 0.70rem; font-weight: 700; color: #059669; text-transform: uppercase;">Calibrated Gravimetric</div>
+                  <div style="font-family: var(--font-mono); font-size: 2.1rem; font-weight: 800; color: #059669; margin: 4px 0;">${corrected.toFixed(1)} <span style="font-size: 0.8rem;">µg/m³</span></div>
+                  <div style="font-size: 0.70rem; color: var(--text-muted);">True Dry Aerosol Mass</div>
+                </div>
+              </div>
+
+              <div class="tech-stat-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">KÖHLER DELIQUESCENT GROWTH FACTOR</span>
+                  <span class="tech-val-badge">f(RH) = ${fRH.toFixed(3)}</span>
+                </div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+                  Liquid water accretion accounts for <strong>${waterMass.toFixed(1)} µg/m³</strong> of apparent particulate scatter. Without Köhler correction, optical sensors severely overestimate human toxicological burden at high humidity.
+                </div>
+              </div>
+
+              <div class="tech-formula-card">
+                <div style="font-weight: 700; color: var(--coral-brand); margin-bottom: 4px;">Köhler Swelling Equation:</div>
+                <div>f(RH) = 1 + a · [ RH / (100 - RH) ]^b &bull; C_true = (C_raw - ΔZ₀) / [ S_f · f(RH) ]</div>
+                <div style="font-size: 0.70rem; color: #64748B; margin-top: 4px;">
+                  Compatible with Plantower PMS5003/7003, Sensirion SPS30, and Alphasense OPC-N3 metrological standards.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTechGrapPane() {
+      const g = state.techTools.grap;
+      const currentCityAqi = state.telemetry.aqi;
+      const evaluatedAqi = g.simAqi !== null ? g.simAqi : currentCityAqi;
+
+      let stage = 0;
+      let stageName = "Baseline Preventive Vigilance";
+      let stageBadgeColor = "#059669";
+      let mandates = [];
+
+      if (evaluatedAqi > 450) {
+        stage = 4;
+        stageName = "Stage IV: 'Severe+' Air Emergency";
+        stageBadgeColor = "#7F1D1D";
+        mandates = [
+          "Ban entry of non-essential heavy commercial diesel trucks into urban perimeter (except essential commodities/medicines).",
+          "Halt all civil infrastructure construction projects (flyovers, highways, bridges, pipeline conduits, power lines).",
+          "Mandate 50% public and private corporate office capacity to work from home (WFH).",
+          "Order closure of schools for all grade levels; shift entire curriculum to virtual online classes.",
+          "Empower statutory odd-even registration number vehicle rationing."
+        ];
+      } else if (evaluatedAqi >= 401) {
+        stage = 3;
+        stageName = "Stage III: 'Severe' Airflow Stress";
+        stageBadgeColor = "#EF4444";
+        mandates = [
+          "Strict ban on all non-essential Construction & Demolition (C&D) operations across municipal limits.",
+          "Strict prohibition on plying BS-III Petrol and BS-IV Diesel Light Motor 4-Wheel Vehicles.",
+          "Shift primary school classes (up to Grade 5) to virtual/online hybrid mode.",
+          "Intensify public bus transit and metro rail frequencies with dynamic non-peak fare discounts."
+        ];
+      } else if (evaluatedAqi >= 301) {
+        stage = 2;
+        stageName = "Stage II: 'Very Poor' Air Quality";
+        stageBadgeColor = "#D97706";
+        mandates = [
+          "Strict ban on use of Diesel Generator (DG) sets (exempt only emergency healthcare facilities and rail transport).",
+          "Hike municipal vehicle parking fees by 2x-4x to disincentivize private combustion commutes.",
+          "Mandate uninterrupted municipal power supply to eliminate localized diesel backup usage.",
+          "Deploy localized anti-smog water mist canons at high-density traffic intersections."
+        ];
+      } else if (evaluatedAqi >= 201) {
+        stage = 1;
+        stageName = "Stage I: 'Poor' Ambient Conditions";
+        stageBadgeColor = "#F97316";
+        mandates = [
+          "Deploy mechanized vacuum road sweepers and daily water sprinkling on primary transit corridors.",
+          "Mandate anti-smog water mist guns at all civil construction sites exceeding 500 m².",
+          "Strict enforcement of Pollution Under Control (PUC) vehicle emission certifications."
+        ];
+      } else {
+        mandates = [
+          "Standard ambient surveillance and routine industrial stack monitoring.",
+          "Regular municipal green waste composting (strict ban on open biomass leaf burning)."
+        ];
+      }
+
+      return `
+        <div class="tech-tool-pane">
+          <div class="tech-split-grid">
+            <div class="tech-controls-panel">
+              <div class="ag-badge ag-badge-coral" style="margin: 0 0 12px 0;">CAQM STATUTORY REGULATORY ENGINE</div>
+
+              <div style="font-size: 0.84rem; font-weight: 700; color: var(--text-navy); margin-bottom: 6px;">
+                Airshed Source: <strong>${state.telemetry.city}</strong> (Live AQI: ${currentCityAqi})
+              </div>
+
+              <div style="margin: 14px 0 10px 0;">
+                <div style="font-size: 0.74rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px;">Simulate Scenario Tier:</div>
+                <div class="tech-pills-row">
+                  <button class="tech-pill-choice ${g.simAqi === null ? 'active' : ''}" onclick="updateGrapParam('simAqi', 'live')">Live Feed (${currentCityAqi})</button>
+                  <button class="tech-pill-choice ${g.simAqi === 145 ? 'active' : ''}" onclick="updateGrapParam('simAqi', 145)">Moderate (145)</button>
+                  <button class="tech-pill-choice ${g.simAqi === 265 ? 'active' : ''}" onclick="updateGrapParam('simAqi', 265)">Stage I (265)</button>
+                  <button class="tech-pill-choice ${g.simAqi === 360 ? 'active' : ''}" onclick="updateGrapParam('simAqi', 360)">Stage II (360)</button>
+                  <button class="tech-pill-choice ${g.simAqi === 430 ? 'active' : ''}" onclick="updateGrapParam('simAqi', 430)">Stage III (430)</button>
+                  <button class="tech-pill-choice ${g.simAqi === 485 ? 'active' : ''}" onclick="updateGrapParam('simAqi', 485)">Stage IV (485)</button>
+                </div>
+              </div>
+
+              <div class="tech-slider-group" style="margin-top: 14px;">
+                <div class="tech-slider-header">
+                  <span>Arbitrary AQI Level</span>
+                  <span class="tech-val-badge">${evaluatedAqi} AQI</span>
+                </div>
+                <input type="range" class="tech-range-input" min="20" max="500" step="5" value="${evaluatedAqi}" oninput="updateGrapParam('simAqi', this.value)">
+              </div>
+
+              <div class="tech-stat-card" style="margin-top: 18px; border-left: 4px solid var(--text-navy);">
+                <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Statutory Enabling Authority</div>
+                <div style="font-family: var(--font-heading); font-size: 0.90rem; font-weight: 800; color: var(--text-navy); margin-top: 4px;">
+                  Commission for Air Quality Management (CAQM) Act 2021 &bull; Sec. 12
+                </div>
+                <p style="font-size: 0.74rem; color: var(--text-secondary); line-height: 1.5; margin-top: 4px;">
+                  Directives carry legal weight under Environmental Protection Act 1986 and EPA 40 CFR Part 58 emergency protocols.
+                </p>
+              </div>
+            </div>
+
+            <div class="tech-display-panel">
+              <div class="tech-stat-card" style="border-top: 5px solid ${stageBadgeColor};">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted);">ACTIVE STATUTORY TIER</span>
+                  <span class="metric-pill" style="background: ${stageBadgeColor}18; color: ${stageBadgeColor}; font-weight: 800;">
+                    ${stage > 0 ? `GRAP STAGE ${stage}` : 'BASELINE'}
+                  </span>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: var(--text-navy); margin: 6px 0;">
+                  ${stageName}
+                </h3>
+                <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted);">
+                  Threshold: ${stage === 4 ? 'AQI > 450' : (stage === 3 ? 'AQI 401 - 450' : (stage === 2 ? 'AQI 301 - 400' : (stage === 1 ? 'AQI 201 - 300' : 'AQI ≤ 200')))}
+                </div>
+              </div>
+
+              <div class="tech-stat-card">
+                <div style="font-size: 0.76rem; font-weight: 800; color: var(--text-navy); text-transform: uppercase; margin-bottom: 10px;">
+                  Mandatory Enforcement Directives (${mandates.length} Items)
+                </div>
+                <div>
+                  ${mandates.map((m, idx) => `
+                    <label class="tech-checklist-item">
+                      <input type="checkbox" id="grap_chk_${idx}">
+                      <span>${m}</span>
+                    </label>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTechApiPane() {
+      const a = state.techTools.api;
+      const code = generateApiCodeSnippet(a.lang, a.endpoint);
+      const jsonPayload = generateApiJsonPayload(a.endpoint);
+
+      return `
+        <div class="tech-tool-pane">
+          <div class="tech-split-grid">
+            <div class="tech-controls-panel" style="padding: 16px;">
+              <div class="ag-badge ag-badge-coral" style="margin: 0 0 10px 0;">REST API &amp; SDK CODE GENERATOR</div>
+
+              <div style="margin-bottom: 12px;">
+                <label style="font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Select API Endpoint:</label>
+                <div class="tech-pills-row" style="margin-top: 4px;">
+                  <button class="tech-pill-choice ${a.endpoint === 'telemetry' ? 'active' : ''}" onclick="updateApiParam('endpoint', 'telemetry')">/telemetry</button>
+                  <button class="tech-pill-choice ${a.endpoint === 'forecast' ? 'active' : ''}" onclick="updateApiParam('endpoint', 'forecast')">/forecast/72h</button>
+                  <button class="tech-pill-choice ${a.endpoint === 'dispersion' ? 'active' : ''}" onclick="updateApiParam('endpoint', 'dispersion')">/dispersion</button>
+                  <button class="tech-pill-choice ${a.endpoint === 'grap' ? 'active' : ''}" onclick="updateApiParam('endpoint', 'grap')">/regulatory/grap</button>
+                </div>
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <label style="font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase;">Programming Language:</label>
+                <div class="tech-pills-row" style="margin-top: 4px;">
+                  <button class="tech-pill-choice ${a.lang === 'curl' ? 'active' : ''}" onclick="updateApiParam('lang', 'curl')">cURL</button>
+                  <button class="tech-pill-choice ${a.lang === 'python' ? 'active' : ''}" onclick="updateApiParam('lang', 'python')">Python</button>
+                  <button class="tech-pill-choice ${a.lang === 'javascript' ? 'active' : ''}" onclick="updateApiParam('lang', 'javascript')">JavaScript</button>
+                  <button class="tech-pill-choice ${a.lang === 'node' ? 'active' : ''}" onclick="updateApiParam('lang', 'node')">Node.js</button>
+                  <button class="tech-pill-choice ${a.lang === 'r' ? 'active' : ''}" onclick="updateApiParam('lang', 'r')">R</button>
+                </div>
+              </div>
+
+              <div class="tech-code-container">
+                <div class="tech-code-header">
+                  <span style="color: #94A3B8; font-size: 0.70rem;">${a.lang.toUpperCase()} SNIPPET</span>
+                  <button class="tech-code-copy-btn" id="btnCopyApiCode" onclick="copyCodeSnippet('btnCopyApiCode', document.getElementById('apiCodeBlock').innerText)">
+                    📋 Copy Code
+                  </button>
+                </div>
+                <pre style="margin: 0; white-space: pre-wrap; font-family: inherit; font-size: inherit; color: #E2E8F0;"><code id="apiCodeBlock">${code}</code></pre>
+              </div>
+            </div>
+
+            <div class="tech-display-panel">
+              <div class="tech-code-container" style="background: #0B131E; border: 1px solid #1E293B; height: 100%;">
+                <div class="tech-code-header">
+                  <div>
+                    <span style="color: #38BDF8; font-weight: 700; font-size: 0.74rem;">LIVE JSON RESPONSE PAYLOAD</span>
+                    <span style="font-size: 0.68rem; color: #64748B; margin-left: 6px;">HTTP 200 OK</span>
+                  </div>
+                  <button class="tech-code-copy-btn" id="btnCopyApiJson" onclick="copyJsonPayload('btnCopyApiJson', document.getElementById('apiJsonBlock').innerText)">
+                    📋 Copy JSON
+                  </button>
+                </div>
+                <pre class="tech-json-viewer" style="margin: 0; max-height: 430px;"><code id="apiJsonBlock">${jsonPayload}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
     }
 
     // =========================================================================
@@ -2919,6 +4465,56 @@
             </div>
           </div>
         </section>
+        <!-- 🛠️ TECHNICAL INSTRUMENT SUITE & ANALYTICAL WORKBENCH -->
+        <section class="ag-tech-suite" id="techInstrumentSuite">
+          <div class="ag-tech-suite-header">
+            <div>
+              <div class="ag-badge ag-badge-coral">🛠️ INSTRUMENT SUITE &bull; ANALYTICAL WORKBENCH</div>
+              <h3 class="ag-section-title" style="margin-bottom: 2px;">Advanced Atmospheric Engineering &amp; Metrology Workbench</h3>
+              <p class="ag-section-subtitle" style="margin-bottom: 0;">7 quantitative instruments: Gaussian dispersion modeling, EPA sub-index resolver, thermodynamic soundings, satellite spectrometry, sensor hygroscopy, CAQM GRAP regulation, and live REST API code.</p>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #059669; font-weight: 700; background: #ECFDF5; border: 1px solid rgba(16,185,129,0.3); padding: 5px 12px; border-radius: 9999px;">
+              ● REAL-TIME KERNEL ACTIVE
+            </span>
+          </div>
+
+          <!-- Tool Navigation Tabs -->
+          <div class="tech-tab-nav" id="techTabNav">
+            <button class="tech-tab-btn ${state.techTools.activeTab === 'dispersion' ? 'active' : ''}" onclick="selectTechTool('dispersion')">
+              <span>🌬️ Plume Dispersion</span>
+              <span class="badge-pill">GAUSSIAN</span>
+            </button>
+            <button class="tech-tab-btn ${state.techTools.activeTab === 'subindex' ? 'active' : ''}" onclick="selectTechTool('subindex')">
+              <span>📐 AQI Sub-Index Resolver</span>
+              <span class="badge-pill">EPA 40 CFR</span>
+            </button>
+            <button class="tech-tab-btn ${state.techTools.activeTab === 'thermo' ? 'active' : ''}" onclick="selectTechTool('thermo')">
+              <span>🌡️ Sounding &amp; Thermodynamics</span>
+              <span class="badge-pill">RICHARDSON</span>
+            </button>
+            <button class="tech-tab-btn ${state.techTools.activeTab === 'aod' ? 'active' : ''}" onclick="selectTechTool('aod')">
+              <span>🛰️ Satellite AOD &amp; Ångström</span>
+              <span class="badge-pill">TROPOMI</span>
+            </button>
+            <button class="tech-tab-btn ${state.techTools.activeTab === 'sensor' ? 'active' : ''}" onclick="selectTechTool('sensor')">
+              <span>⚙️ Sensor Metrology</span>
+              <span class="badge-pill">KÖHLER</span>
+            </button>
+            <button class="tech-tab-btn ${state.techTools.activeTab === 'grap' ? 'active' : ''}" onclick="selectTechTool('grap')">
+              <span>🏛️ CAQM GRAP Matrix</span>
+              <span class="badge-pill">STATUTORY</span>
+            </button>
+            <button class="tech-tab-btn ${state.techTools.activeTab === 'api' ? 'active' : ''}" onclick="selectTechTool('api')">
+              <span>💻 REST API &amp; Code</span>
+              <span class="badge-pill">JSON / CURL</span>
+            </button>
+          </div>
+
+          <!-- Active Tool Workspace Pane -->
+          <div id="techToolPaneMount">
+            ${renderActiveTechToolPane()}
+          </div>
+        </section>
       `;
     }
 
@@ -3059,6 +4655,8 @@
       const respRate = plan.activity === 'run' ? 32 : (plan.activity === 'cycle' ? 24 : 15);
       const minuteVentilation = (vt * respRate).toFixed(1);
       const totalInhaledMass = ((minuteVentilation * plan.duration * (t.pm25 / 1000))).toFixed(2);
+      const alveolarMass = (totalInhaledMass * 0.352).toFixed(2);
+      const cigaretteEquiv = (totalInhaledMass / 22.0).toFixed(2);
 
       return `
         <section class="ag-card">
@@ -3204,6 +4802,30 @@
               </tbody>
             </table>
           </div>
+
+          <!-- Sensor Metrology & QA/QC Benchmark -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 20px;">
+            <div class="decision-info-box">
+              <h4>Laser Diode Status</h4>
+              <p style="font-family: var(--font-mono); font-size: 1.15rem; color: #059669; font-weight: 800;">650 nm (Nominal)</p>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Optical scattering cell SNR: 52 dB.</div>
+            </div>
+            <div class="decision-info-box">
+              <h4>Sample Flow Velocity</h4>
+              <p style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--text-navy); font-weight: 800;">0.10 L/min</p>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Continuous micro-fan aspiration.</div>
+            </div>
+            <div class="decision-info-box">
+              <h4>Zero Baseline Offset</h4>
+              <p style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--text-navy); font-weight: 800;">&plusmn;1.4 &micro;g/m&sup3;</p>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">24-hour baseline autozero calibration.</div>
+            </div>
+            <div class="decision-info-box">
+              <h4>Telemetry Latency</h4>
+              <p style="font-family: var(--font-mono); font-size: 1.15rem; color: #0284C7; font-weight: 800;">11.8 ms</p>
+              <div style="font-size: 0.72rem; color: var(--text-muted);">Vercel Edge WebSocket streaming.</div>
+            </div>
+          </div>
         </section>
       `;
     }
@@ -3325,15 +4947,16 @@
         <section class="ag-card">
           <div class="ag-badge ag-badge-coral">🔍 MODEL DIAGNOSTICS &bull; TECHNICAL MODE</div>
           <h2 class="ag-section-title">Ensemble Validation Metrics &amp; SHAP Explainability</h2>
-          <p class="ag-section-subtitle">Cross-validated loss profiles, feature attribution weights, and residual diagnostics.</p>
+          <p class="ag-section-subtitle">Cross-validated loss profiles, hyperparameter specifications, and residual diagnostics.</p>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
             <div class="decision-info-box">
               <h4>Ensemble Regression Performance</h4>
               <p style="font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.8;">
-                RMSE: <strong>8.42 µg/m³</strong><br>
-                MAE: <strong>5.61 µg/m³</strong><br>
-                R² Coefficient: <strong>0.941</strong><br>
+                RMSE: <strong>8.42 &micro;g/m&sup3;</strong><br>
+                MAE: <strong>5.61 &micro;g/m&sup3;</strong><br>
+                R&sup2; Coefficient: <strong>0.941</strong><br>
+                Huber Loss Delta (&delta;): <strong>1.35</strong><br>
                 Inference Latency: <strong>14.2 ms</strong>
               </p>
             </div>
@@ -3343,10 +4966,62 @@
               <div style="font-size: 0.78rem; font-family: var(--font-mono); line-height: 1.8;">
                 <div>1. PM2.5 Lag 1-Hour: <strong>34.2%</strong></div>
                 <div>2. Planetary Boundary Layer Depth: <strong>22.8%</strong></div>
-                <div>3. Wind Velocity Vector ($U_{10}$): <strong>18.5%</strong></div>
+                <div>3. Wind Velocity Vector (U₁₀): <strong>18.5%</strong></div>
                 <div>4. Relative Ambient Humidity: <strong>12.1%</strong></div>
                 <div>5. Surface Solar Irradiance: <strong>8.4%</strong></div>
+                <div>6. Dew Point Condensation Delta: <strong>4.0%</strong></div>
               </div>
+            </div>
+          </div>
+
+          <!-- Hyperparameter Specifications Table -->
+          <div style="margin-top: 20px;">
+            <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--text-navy); margin-bottom: 10px;">
+              Ensemble Sub-Model Hyperparameter Matrix
+            </h4>
+            <div class="table-responsive">
+              <table class="ag-table" style="font-size: 0.78rem;">
+                <thead>
+                  <tr>
+                    <th>Architecture</th>
+                    <th>Objective Function</th>
+                    <th>Max Depth</th>
+                    <th>Learning Rate (&eta;)</th>
+                    <th>L1 / L2 Penalty</th>
+                    <th>Subsample Ratio</th>
+                    <th>Cross-Val R&sup2;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>LightGBM</strong></td>
+                    <td>Huber Loss (&delta;=1.35)</td>
+                    <td>8</td>
+                    <td>0.045</td>
+                    <td>&alpha;=0.1, &lambda;=1.5</td>
+                    <td>0.85</td>
+                    <td><strong style="color: #059669;">0.941</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>XGBoost</strong></td>
+                    <td>reg:pseudohubererror</td>
+                    <td>7</td>
+                    <td>0.038</td>
+                    <td>&alpha;=0.2, &lambda;=2.0</td>
+                    <td>0.80</td>
+                    <td><strong style="color: #059669;">0.938</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>CatBoost</strong></td>
+                    <td>RMSE / MAE</td>
+                    <td>6</td>
+                    <td>0.050</td>
+                    <td>l2_leaf_reg=3.0</td>
+                    <td>0.90</td>
+                    <td><strong style="color: #059669;">0.932</strong></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
