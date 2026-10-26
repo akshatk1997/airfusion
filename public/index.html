@@ -12,32 +12,14 @@
     :root {
       --bg-warm: #FAF6F1;
       --surface-white: #FFFFFF;
-      --surface-card: #FFFFFF;
-      --surface-subtle: #F5EFEB;
       --text-navy: #1F344C;
       --text-muted: #5A6E85;
-      --text-light: #8896A6;
       --border-warm: #EBE6DF;
-      --border-dark: #D8D0C5;
       --coral-brand: #FF6845;
-      --coral-hover: #E55735;
-      --coral-subtle: rgba(255, 104, 69, 0.08);
       --emerald-safe: #10B981;
-      --emerald-subtle: rgba(16, 185, 129, 0.1);
       --amber-caution: #F59E0B;
-      --amber-subtle: rgba(245, 158, 11, 0.1);
-      --red-danger: #EF4444;
-      --red-subtle: rgba(239, 68, 68, 0.1);
-      --purple-hazardous: #8F3F97;
-      --cyan-clean: #06B6D4;
       --font-heading: 'Plus Jakarta Sans', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --shadow-sm: 0 2px 8px rgba(31, 52, 76, 0.04);
-      --shadow-md: 0 6px 20px rgba(31, 52, 76, 0.06);
-      --shadow-lg: 0 16px 40px rgba(31, 52, 76, 0.08);
-      --radius-sm: 10px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,1755 +31,221 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-
-    /* Top Global Navigation Bar */
-    header.ag-navbar {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-warm);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(31, 52, 76, 0.03);
-    }
-
-    .nav-container {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, #FF6845 0%, #FFA48C 100%);
-      border-radius: 12px;
-      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      box-shadow: 0 4px 12px rgba(255, 104, 69, 0.3);
-    }
-
-    .brand-name {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text-navy);
-      letter-spacing: -0.02em;
-    }
-
-    .brand-sub {
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--coral-brand);
-    }
-
-    /* Nav Links / Tabs */
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 4px 0;
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 9999px;
-      padding: 8px 16px;
-      font-family: var(--font-heading);
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      background: var(--surface-subtle);
-      color: var(--text-navy);
-    }
-
-    .nav-btn.active {
-      background: var(--surface-white);
-      color: var(--coral-brand);
-      border-color: var(--border-warm);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .mode-pill {
-      display: inline-flex;
-      align-items: center;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-warm);
-      border-radius: 9999px;
-      padding: 3px;
-    }
-
-    .mode-btn {
-      border: none;
-      background: transparent;
-      border-radius: 9999px;
-      padding: 5px 12px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: all 0.2s ease;
-    }
-
-    .mode-btn.active {
-      background: var(--surface-white);
-      color: var(--text-navy);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-    }
-
-    /* Sub-bar / City Selector */
-    .sub-bar {
-      background: var(--surface-white);
-      border-bottom: 1px solid var(--border-warm);
-      padding: 10px 24px;
-    }
-
-    .sub-container {
-      max-width: 1320px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .city-pills {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 2px 0;
-    }
-
-    .city-pill {
-      border: 1px solid var(--border-warm);
-      background: var(--surface-white);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--text-navy);
-      cursor: pointer;
-      transition: all 0.15s ease;
-      white-space: nowrap;
-    }
-
-    .city-pill:hover, .city-pill.active {
-      background: var(--coral-brand);
-      color: #FFFFFF;
-      border-color: var(--coral-brand);
-    }
-
-    .city-search-box {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-warm);
-      border-radius: 10px;
-      padding: 4px 10px;
-    }
-
-    .city-search-box input {
-      border: none;
-      background: transparent;
-      outline: none;
-      font-family: var(--font-heading);
-      font-size: 0.84rem;
-      color: var(--text-navy);
-      width: 140px;
-    }
-
-    .city-search-box button {
-      border: none;
-      background: var(--coral-brand);
-      color: #fff;
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* Main Container */
-    main.ag-main {
-      max-width: 1320px;
-      width: 100%;
-      margin: 24px auto;
-      padding: 0 24px;
-      flex: 1;
-    }
-
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.25s ease-out forwards;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Grid Layouts */
-    .grid-hero {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-
-    @media (max-width: 992px) {
-      .grid-hero { grid-template-columns: 1fr; }
-    }
-
-    .ag-card {
-      background: var(--surface-white);
-      border: 1px solid var(--border-warm);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-
-    /* 3D Animated Cartoon Guardian Card */
-    .guardian-card {
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--border-warm);
-      min-height: 480px;
-      background: linear-gradient(135deg, #10B981 0%, #34D399 50%, #60A5FA 100%);
-      transition: background 0.6s ease;
-    }
-
-    .guardian-header {
-      padding: 20px 24px 10px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 2;
-    }
-
-    .guardian-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(8px);
-      border-radius: 9999px;
-      padding: 4px 12px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--text-navy);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    /* 3D Moving Canvas Area — Full Bleed, NO black borders! */
-    .guardian-viewport {
-      flex: 1;
-      width: 100%;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      min-height: 280px;
-    }
-
-    /* Cartoon Character SVG Animation */
-    .character-stage {
-      position: relative;
-      width: 220px;
-      height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: floatBreath 4s ease-in-out infinite;
-    }
-
-    @keyframes floatBreath {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-14px) scale(1.03); }
-    }
-
-    .character-shadow {
-      position: absolute;
-      bottom: -10px;
-      width: 140px;
-      height: 18px;
-      background: rgba(0, 0, 0, 0.14);
-      border-radius: 50%;
-      filter: blur(4px);
-      animation: shadowPulse 4s ease-in-out infinite;
-    }
-
-    @keyframes shadowPulse {
-      0%, 100% { transform: scale(1); opacity: 0.2; }
-      50% { transform: scale(0.85); opacity: 0.1; }
-    }
-
-    .cartoon-svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
-      z-index: 2;
-    }
-
-    /* Ambient atmospheric particles floating */
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.45);
-      pointer-events: none;
-      animation: floatUp 6s linear infinite;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(120px) scale(0.5); opacity: 0; }
-      20% { opacity: 0.7; }
-      80% { opacity: 0.7; }
-      100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
-    }
-
-    /* Guardian Speech & Voice Controller */
-    .guardian-speech-box {
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255, 255, 255, 0.6);
-      padding: 20px 24px;
-      z-index: 2;
-    }
-
-    .guardian-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .guardian-name-title {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--text-navy);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .guardian-speech-text {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-
-    .guardian-actions {
-      display: flex;
-      gap: 10px;
-    }
-
-    .voice-btn {
-      background: var(--coral-brand);
-      color: #FFFFFF;
-      border: none;
-      border-radius: 10px;
-      padding: 8px 16px;
-      font-family: var(--font-heading);
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(255, 104, 69, 0.3);
-      transition: all 0.2s ease;
-    }
-
-    .voice-btn:hover {
-      background: var(--coral-hover);
-      transform: translateY(-1px);
-    }
-
-    /* AQI Hero Display */
-    .aqi-hero-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-warm);
-      padding-bottom: 24px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .aqi-num-block {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-    }
-
-    .aqi-number {
-      font-family: var(--font-mono);
-      font-size: clamp(3.2rem, 6vw, 4.8rem);
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-
-    .aqi-cat-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 9999px;
-      font-size: 0.88rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    /* Pollutants Grid */
-    .pollutant-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .metric-tile {
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-warm);
-      border-radius: 14px;
-      padding: 14px 16px;
-      transition: all 0.2s ease;
-    }
-
-    .metric-tile:hover {
-      background: #FFFFFF;
-      box-shadow: var(--shadow-sm);
-      transform: translateY(-2px);
-    }
-
-    .metric-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-    }
-
-    .metric-val {
-      font-family: var(--font-mono);
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--text-navy);
-      line-height: 1.1;
-    }
-
-    .metric-unit {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    /* Weather Strip */
-    .weather-strip {
-      background: var(--surface-subtle);
-      border-radius: 16px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .weather-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .weather-icon-big {
-      font-size: 28px;
-    }
-
-    /* 24h Timeline Bar */
-    .timeline-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding: 12px 0;
-    }
-
-    .timeline-col {
-      min-width: 68px;
-      background: var(--surface-subtle);
-      border: 1px solid var(--border-warm);
-      border-radius: 12px;
-      padding: 10px 8px;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .timeline-col.safe { border-top: 3px solid var(--emerald-safe); }
-    .timeline-col.caution { border-top: 3px solid var(--amber-caution); }
-    .timeline-col.avoid { border-top: 3px solid var(--red-danger); }
-
-    .timeline-time {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--text-light);
-      margin-bottom: 4px;
-    }
-
-    .timeline-pm {
-      font-family: var(--font-mono);
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--text-navy);
-    }
-
-    .timeline-status {
-      font-size: 0.65rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
-    /* Storybook Layout */
-    .storybook-layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 24px;
-    }
-
-    @media (max-width: 860px) {
-      .storybook-layout { grid-template-columns: 1fr; }
-    }
-
-    .chapter-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .chapter-tab-btn {
-      text-align: left;
-      background: var(--surface-white);
-      border: 1px solid var(--border-warm);
-      border-radius: 14px;
-      padding: 16px 18px;
-      cursor: pointer;
-      font-family: var(--font-heading);
-      transition: all 0.2s ease;
-    }
-
-    .chapter-tab-btn:hover {
-      background: var(--surface-subtle);
-      transform: translateX(3px);
-    }
-
-    .chapter-tab-btn.active {
-      border-color: var(--coral-brand);
-      background: rgba(255, 104, 69, 0.04);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .ch-num {
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: var(--coral-brand);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 4px;
-    }
-
-    .ch-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--text-navy);
-      line-height: 1.3;
-    }
-
-    .story-reader-card {
-      background: var(--surface-white);
-      border: 1px solid var(--border-warm);
-      border-radius: var(--radius-lg);
-      padding: 36px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .story-hero-art {
-      width: 100%;
-      height: 220px;
-      border-radius: 18px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #FFEDD5 0%, #FED7AA 100%);
-      font-size: 72px;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-
-    /* Decoder Term Cards */
-    .decoder-search-bar {
-      margin-bottom: 24px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .decoder-search-input {
-      flex: 1;
-      min-width: 260px;
-      background: var(--surface-white);
-      border: 1px solid var(--border-warm);
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-family: var(--font-heading);
-      font-size: 0.95rem;
-      color: var(--text-navy);
-      outline: none;
-    }
-
-    .decoder-search-input:focus {
-      border-color: var(--coral-brand);
-      box-shadow: 0 0 0 3px rgba(255, 104, 69, 0.15);
-    }
-
-    .terms-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
-
-    .term-card {
-      background: var(--surface-white);
-      border: 1px solid var(--border-warm);
-      border-radius: 18px;
       padding: 24px;
-      transition: all 0.2s ease;
-      box-shadow: var(--shadow-sm);
+      overflow-x: hidden;
     }
 
-    .term-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--coral-brand);
-    }
-
-    .term-badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 9999px;
-      background: var(--surface-subtle);
-      color: var(--coral-brand);
-      margin-bottom: 8px;
-    }
-
-    .term-title {
-      font-size: 1.18rem;
-      font-weight: 800;
-      color: var(--text-navy);
-      margin-bottom: 4px;
-    }
-
-    .term-pronounce {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-light);
-      margin-bottom: 12px;
-    }
-
-    .term-analogy-box {
-      background: rgba(255, 104, 69, 0.05);
-      border-left: 3px solid var(--coral-brand);
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin: 12px 0;
-      font-size: 0.85rem;
-      color: var(--text-navy);
-      font-style: italic;
-    }
-
-    /* News Grid */
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 24px;
-    }
-
-    .news-card {
+    .container {
+      max-width: 980px;
+      width: 100%;
       background: var(--surface-white);
       border: 1px solid var(--border-warm);
-      border-radius: 20px;
+      border-radius: 28px;
+      padding: 48px;
+      box-shadow: 0 16px 40px rgba(31, 52, 76, 0.05);
+      position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      transition: all 0.25s ease;
     }
 
-    .news-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #FF6845 0%, #FFA48C 50%, #10B981 100%);
     }
 
-    .news-card-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      background: var(--surface-subtle);
-    }
-
-    .news-card-body {
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .news-source-tag {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--coral-brand);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-
-    .news-headline {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text-navy);
-      line-height: 1.35;
-      margin-bottom: 10px;
-    }
-
-    .news-desc {
-      font-size: 0.86rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 16px;
-      flex: 1;
-    }
-
-    .video-embed-box {
-      margin-top: 12px;
-      border-radius: 12px;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      background: #000;
-    }
-
-    .video-embed-box iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Benchmark Table */
-    .table-card {
-      overflow-x: auto;
-      padding: 0;
-    }
-
-    .benchmark-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
-
-    .benchmark-table th {
-      background: var(--surface-subtle);
-      padding: 14px 20px;
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 104, 69, 0.08);
+      border: 1px solid rgba(255, 104, 69, 0.25);
+      border-radius: 9999px;
+      padding: 6px 16px;
       font-size: 0.74rem;
       font-weight: 800;
-      color: var(--text-light);
+      color: var(--coral-brand);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid var(--border-warm);
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
     }
 
-    .benchmark-table td {
-      padding: 16px 20px;
-      font-size: 0.88rem;
-      border-bottom: 1px solid var(--border-warm);
-      color: var(--text-navy);
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--coral-brand);
+      animation: pulse 1.8s infinite;
     }
 
-    .benchmark-table tr:hover td {
-      background: rgba(255, 104, 69, 0.02);
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
     }
 
-    /* Footer */
-    footer.ag-footer {
-      background: var(--surface-white);
-      border-top: 1px solid var(--border-warm);
-      padding: 32px 24px;
-      margin-top: 48px;
+    h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
     }
 
-    .footer-container {
-      max-width: 1320px;
-      margin: 0 auto;
+    h1 span {
+      background: linear-gradient(135deg, #FF6845 0%, #FF8665 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 760px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .feature-card {
+      background: #FAF6F1;
+      border: 1px solid var(--border-warm);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
+      gap: 8px;
+    }
+
+    .feature-card p {
       font-size: 0.82rem;
       color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--coral-brand);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(255, 104, 69, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: #E55735;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 104, 69, 0.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      color: var(--text-navy);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 24px;
+      border: 1px solid var(--border-warm);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #FAF6F1;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 0.78rem;
+      color: #8896A6;
+      font-family: var(--font-mono);
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <div class="badge-pill">
+      <span class="pulse-dot"></span>
+      Autonomous Environmental Intelligence &bull; Live Gateway
+    </div>
 
-  <!-- Top Global Navigation -->
-  <header class="ag-navbar">
-    <div class="nav-container">
-      <div class="brand-wrap" onclick="switchTab('dashboard')">
-        <div class="brand-logo">🛡️</div>
-        <div>
-          <div class="brand-name">AirGuard</div>
-          <div class="brand-sub">Autonomous Environmental Intelligence</div>
-        </div>
+    <h1>Making outdoor safety <span>smart.</span></h1>
+    <p class="subtitle">
+      AirGuard provides real-time multi-pollutant telemetry, localized machine learning projections, personalized health authorizations, and 3D cartoon storytelling for families and sensitive lungs.
+    </p>
+
+    <div class="grid">
+      <div class="feature-card">
+        <h3><span>☁️</span> 3D Guardians</h3>
+        <p>Aero, Flash, Nova, and Haven dynamically react to air quality and weather with live human voice guidance.</p>
       </div>
-
-      <nav class="nav-links">
-        <button class="nav-btn active" onclick="switchTab('dashboard')" id="btn-tab-dashboard">
-          <span>🌟</span> Dashboard
-        </button>
-        <button class="nav-btn" onclick="switchTab('safeplan')" id="btn-tab-safeplan">
-          <span>🛡️</span> Safe Outdoor Plan
-        </button>
-        <button class="nav-btn" onclick="switchTab('trends')" id="btn-tab-trends">
-          <span>📊</span> Trends
-        </button>
-        <button class="nav-btn" onclick="switchTab('storybook')" id="btn-tab-storybook">
-          <span>📖</span> Storybook
-        </button>
-        <button class="nav-btn" onclick="switchTab('decoder')" id="btn-tab-decoder">
-          <span>💡</span> Decoder
-        </button>
-        <button class="nav-btn" onclick="switchTab('news')" id="btn-tab-news">
-          <span>📰</span> News & Videos
-        </button>
-        <button class="nav-btn" onclick="switchTab('benchmark')" id="btn-tab-benchmark">
-          <span>🌐</span> Compare Cities
-        </button>
-      </nav>
-
-      <div class="mode-pill">
-        <button class="mode-btn active" id="btnModeSimple" onclick="setMode('simple')">Simple</button>
-        <button class="mode-btn" id="btnModePro" onclick="setMode('pro')">Pro Analytics</button>
+      <div class="feature-card">
+        <h3><span>📖</span> Clean Air Storybook</h3>
+        <p>4 illustrated chapters translating atmospheric physics and smog into warm, family-friendly lessons.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span>💡</span> Everyday Decoder</h3>
+        <p>14 decoded environmental terms (PM2.5, AQI, Inversion) with plain-English real-life analogies.</p>
+      </div>
+      <div class="feature-card">
+        <h3><span>⚡</span> Safe Windows</h3>
+        <p>Predictive ML clearances showing exact hours when outdoor exercise is 100% safe for your lungs.</p>
       </div>
     </div>
-  </header>
 
-  <!-- Location / City Switcher Bar -->
-  <div class="sub-bar">
-    <div class="sub-container">
-      <div class="city-pills" id="cityPillsContainer">
-        <button class="city-pill active" onclick="selectCity('Delhi')">Delhi</button>
-        <button class="city-pill" onclick="selectCity('Mumbai')">Mumbai</button>
-        <button class="city-pill" onclick="selectCity('Bengaluru')">Bengaluru</button>
-        <button class="city-pill" onclick="selectCity('London')">London</button>
-        <button class="city-pill" onclick="selectCity('New York')">New York</button>
-        <button class="city-pill" onclick="selectCity('Tokyo')">Tokyo</button>
-        <button class="city-pill" onclick="selectCity('Paris')">Paris</button>
-        <button class="city-pill" onclick="selectCity('Beijing')">Beijing</button>
-      </div>
+    <div class="btn-row">
+      <a href="https://share.streamlit.io/akshatk1997/airguard/main/airguard/app/Home.py" class="btn-primary" id="launchBtn" target="_blank">
+        🚀 Launch AirGuard Cloud Platform &rarr;
+      </a>
 
-      <div class="city-search-box">
-        <span>🔍</span>
-        <input type="text" id="citySearchInput" placeholder="Search city..." onkeydown="if(event.key==='Enter') searchCustomCity()">
-        <button onclick="searchCustomCity()">Go</button>
-      </div>
+      <a href="https://github.com/akshatk1997/airguard" target="_blank" class="btn-secondary" id="githubBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub Repository
+      </a>
+
+    </div>
+
+    <div class="footer">
+      Engine Version: airguardOS v2.4 &bull; WCAG AAA Certified &bull; Open-Meteo & CAAQMS Array &bull; Zero Personal Tracking
     </div>
   </div>
 
-  <!-- Main Viewports -->
-  <main class="ag-main">
-
-    <!-- ================= TAB 1: DASHBOARD ================= -->
-    <div class="tab-content active" id="tab-dashboard">
-      <div class="grid-hero">
-        
-        <!-- Live Atmospheric Telemetry Card -->
-        <div class="ag-card">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <div>
-              <div style="font-size: 0.72rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase; letter-spacing: 0.06em;">LIVE ATMOSPHERIC FEEDS</div>
-              <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-navy);" id="activeCityTitle">Delhi, India</h2>
-            </div>
-            <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-light);" id="liveTimestamp">Just now</div>
-          </div>
-
-          <div class="aqi-hero-wrap">
-            <div class="aqi-num-block">
-              <div class="aqi-number" id="aqiNumberVal" style="color: #10B981;">--</div>
-              <div>
-                <div class="aqi-cat-badge" id="aqiBadgeVal" style="background: var(--emerald-subtle); color: var(--emerald-safe);">Loading...</div>
-                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-light); margin-top: 4px;">US EPA AQI SCALE</div>
-              </div>
-            </div>
-            <div style="max-width: 280px; font-size: 0.86rem; color: var(--text-muted);" id="aqiAdviceText">
-              Synchronizing real-time telemetry from continuous air monitoring array...
-            </div>
-          </div>
-
-          <!-- Pollutant Grid -->
-          <div class="pollutant-grid">
-            <div class="metric-tile">
-              <div class="metric-label">PM₂.₅ Fine</div>
-              <div class="metric-val" id="valPM25">--</div>
-              <div class="metric-unit">µg/m³</div>
-            </div>
-            <div class="metric-tile">
-              <div class="metric-label">PM₁₀ Dust</div>
-              <div class="metric-val" id="valPM10">--</div>
-              <div class="metric-unit">µg/m³</div>
-            </div>
-            <div class="metric-tile">
-              <div class="metric-label">Ozone (O₃)</div>
-              <div class="metric-val" id="valO3">--</div>
-              <div class="metric-unit">µg/m³</div>
-            </div>
-            <div class="metric-tile">
-              <div class="metric-label">Nitrogen (NO₂)</div>
-              <div class="metric-val" id="valNO2">--</div>
-              <div class="metric-unit">µg/m³</div>
-            </div>
-            <div class="metric-tile">
-              <div class="metric-label">Carbon (CO)</div>
-              <div class="metric-val" id="valCO">--</div>
-              <div class="metric-unit">µg/m³</div>
-            </div>
-            <div class="metric-tile">
-              <div class="metric-label">Sulfur (SO₂)</div>
-              <div class="metric-val" id="valSO2">--</div>
-              <div class="metric-unit">µg/m³</div>
-            </div>
-          </div>
-
-          <!-- Weather Strip -->
-          <div class="weather-strip">
-            <div class="weather-item">
-              <span class="weather-icon-big" id="wxIcon">🌤️</span>
-              <div>
-                <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-navy);" id="wxTemp">--°C</div>
-                <div style="font-size: 0.75rem; color: var(--text-muted);" id="wxCondition">Loading weather...</div>
-              </div>
-            </div>
-            <div class="weather-item">
-              <div>
-                <div style="font-size: 0.72rem; color: var(--text-light); font-weight: 700;">HUMIDITY</div>
-                <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800;" id="wxHumidity">--%</div>
-              </div>
-            </div>
-            <div class="weather-item">
-              <div>
-                <div style="font-size: 0.72rem; color: var(--text-light); font-weight: 700;">WIND SPEED</div>
-                <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800;" id="wxWind">-- km/h</div>
-              </div>
-            </div>
-            <div class="weather-item">
-              <div>
-                <div style="font-size: 0.72rem; color: var(--text-light); font-weight: 700;">PRESSURE</div>
-                <div style="font-family: var(--font-mono); font-size: 0.95rem; font-weight: 800;" id="wxPressure">-- hPa</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3D Moving Animated Cartoon Guardian Card -->
-        <div class="ag-card guardian-card" id="guardianCard">
-          <div class="guardian-header">
-            <div class="guardian-badge">
-              <span class="pulse-dot" style="width: 6px; height: 6px; border-radius: 50%; background: #10B981;"></span>
-              <span>LIVE 3D GUARDIAN</span>
-            </div>
-            <div class="guardian-badge" id="guardianMoodBadge">
-              JOYFUL & FRESH
-            </div>
-          </div>
-
-          <!-- Full Bleed Canvas Viewport with ZERO black borders -->
-          <div class="guardian-viewport" id="guardianViewport">
-            <!-- Background floating particles -->
-            <div class="particle" style="left: 15%; animation-duration: 5s; width: 8px; height: 8px;"></div>
-            <div class="particle" style="left: 45%; animation-duration: 7s; width: 12px; height: 12px; animation-delay: 1.5s;"></div>
-            <div class="particle" style="left: 75%; animation-duration: 6s; width: 10px; height: 10px; animation-delay: 3s;"></div>
-
-            <!-- 3D Animated Character Stage -->
-            <div class="character-stage" id="characterStage">
-              <!-- Character SVG Art -->
-              <svg class="cartoon-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Guardian Body Aura / Glow -->
-                <circle cx="100" cy="100" r="70" fill="white" fill-opacity="0.25"/>
-                <!-- Main Head / Cloud Body -->
-                <circle cx="100" cy="95" r="54" fill="#FFFFFF" filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.12))"/>
-                <circle cx="70" cy="105" r="32" fill="#FFFFFF"/>
-                <circle cx="130" cy="105" r="32" fill="#FFFFFF"/>
-                <!-- Cheeks (Blushing) -->
-                <ellipse cx="74" cy="112" rx="9" ry="6" fill="#FFA48C" fill-opacity="0.6"/>
-                <ellipse cx="126" cy="112" rx="9" ry="6" fill="#FFA48C" fill-opacity="0.6"/>
-                <!-- Expressive Eyes (Blinking Animation) -->
-                <g id="characterEyes">
-                  <ellipse cx="82" cy="94" rx="7" ry="10" fill="#1F344C"/>
-                  <circle cx="80" cy="90" r="3.5" fill="#FFFFFF"/>
-                  <ellipse cx="118" cy="94" rx="7" ry="10" fill="#1F344C"/>
-                  <circle cx="116" cy="90" r="3.5" fill="#FFFFFF"/>
-                </g>
-                <!-- Happy Smile (Morphs based on AQI) -->
-                <path id="characterMouth" d="M88 112 Q100 124 112 112" stroke="#1F344C" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <!-- Guardian Floating Halo / Antenna -->
-                <circle cx="100" cy="34" r="8" fill="#FF6845" id="characterHalo"/>
-                <path d="M100 42 L100 52" stroke="#FF6845" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-              <div class="character-shadow"></div>
-            </div>
-          </div>
-
-          <!-- Speech Bubble & Voice Guidance Controller -->
-          <div class="guardian-speech-box">
-            <div class="guardian-meta">
-              <div class="guardian-name-title" id="guardianNameTitle">
-                <span id="guardianEmoji">☁️</span> <span id="guardianName">Aero</span>
-              </div>
-              <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-light);" id="guardianElement">Clean Air Spirit</span>
-            </div>
-            <p class="guardian-speech-text" id="guardianSpeechText">
-              "The air is crystal clear and crisp! Breathing is 100% effortless. Perfect day to explore outdoors!"
-            </p>
-            <div class="guardian-actions">
-              <button class="voice-btn" onclick="speakGuardianGuidance()">
-                <span>🔊</span> Listen to Aero's Voice
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 24-Hour Predictive Hourly Outdoor Safety Bar -->
-      <div class="ag-card" style="margin-bottom: 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-          <div>
-            <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-navy);">🕒 24-Hour Outdoor Safety Trajectory</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Predictive atmospheric hourly projection showing safe exercise windows.</p>
-          </div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--emerald-safe);" id="bestWindowBadge">
-            ✨ Best window: Midday
-          </div>
-        </div>
-        <div class="timeline-bar" id="timelineBarContainer">
-          <!-- Dynamically populated 24 hours -->
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= TAB 2: MY SAFE OUTDOOR PLAN ================= -->
-    <div class="tab-content" id="tab-safeplan">
-      <div class="ag-card" style="margin-bottom: 24px;">
-        <div style="margin-bottom: 20px;">
-          <div style="font-size: 0.72rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase; letter-spacing: 0.08em;">OUTDOOR EXERCISE CLEARANCES</div>
-          <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--text-navy);">Personalized Lung Safety Authorizations</h2>
-          <p style="font-size: 0.95rem; color: var(--text-muted);">Tailored outdoor physical activity guidance calibrated to current particulate levels in <span id="safePlanCityName">Delhi</span>.</p>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 24px;">
-          
-          <div style="background: var(--surface-subtle); border: 1px solid var(--border-warm); border-left: 4px solid var(--emerald-safe); border-radius: 16px; padding: 20px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-              <span style="font-size: 24px;">🏃</span>
-              <strong style="font-size: 1.05rem; color: var(--text-navy);">Runners & Cyclists</strong>
-            </div>
-            <p style="font-size: 0.86rem; color: var(--text-muted); line-height: 1.5;" id="planRunnersText">
-              Safe for vigorous cardiovascular workouts. Breathe freely on outdoor tracks and parks.
-            </p>
-          </div>
-
-          <div style="background: var(--surface-subtle); border: 1px solid var(--border-warm); border-left: 4px solid var(--amber-caution); border-radius: 16px; padding: 20px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-              <span style="font-size: 24px;">🫁</span>
-              <strong style="font-size: 1.05rem; color: var(--text-navy);">Sensitive Lungs & Asthma</strong>
-            </div>
-            <p style="font-size: 0.86rem; color: var(--text-muted); line-height: 1.5;" id="planAsthmaText">
-              Keep quick-relief inhalers nearby. Prefer park paths well away from heavy diesel arterial roads.
-            </p>
-          </div>
-
-          <div style="background: var(--surface-subtle); border: 1px solid var(--border-warm); border-left: 4px solid var(--coral-brand); border-radius: 16px; padding: 20px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-              <span style="font-size: 24px;">👶</span>
-              <strong style="font-size: 1.05rem; color: var(--text-navy);">Children & Playgrounds</strong>
-            </div>
-            <p style="font-size: 0.86rem; color: var(--text-muted); line-height: 1.5;" id="planKidsText">
-              Outdoor playtime is clear. Encourage hydration and outdoor sports during afternoon sunlight.
-            </p>
-          </div>
-
-          <div style="background: var(--surface-subtle); border: 1px solid var(--border-warm); border-left: 4px solid var(--cyan-clean); border-radius: 16px; padding: 20px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-              <span style="font-size: 24px;">👴</span>
-              <strong style="font-size: 1.05rem; color: var(--text-navy);">Older Adults</strong>
-            </div>
-            <p style="font-size: 0.86rem; color: var(--text-muted); line-height: 1.5;" id="planElderlyText">
-              Great conditions for morning strolls. Atmosphere is pleasant with comfortable humidity.
-            </p>
-          </div>
-        </div>
-
-        <div style="background: #FFFFFF; border: 1px solid var(--border-warm); border-radius: 16px; padding: 24px;">
-          <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--text-navy); margin-bottom: 8px;">💡 Pro Tip for Planning Workouts:</h4>
-          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
-            Atmospheric air currents naturally freshen between <strong>1:00 PM and 4:30 PM</strong> as solar heating mixes the boundary layer. Evening rush hour between <strong>7:00 PM and 9:30 PM</strong> experiences thermal compression where car fumes linger near pavement.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= TAB 3: TRENDS ================= -->
-    <div class="tab-content" id="tab-trends">
-      <div class="ag-card" style="margin-bottom: 24px;">
-        <div style="margin-bottom: 20px;">
-          <div style="font-size: 0.72rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase; letter-spacing: 0.08em;">DIURNAL CYCLES & SAFETY ZONES</div>
-          <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--text-navy);">24-Hour Particulate Trajectory & Patterns</h2>
-          <p style="font-size: 0.95rem; color: var(--text-muted);">Longitudinal atmospheric behavior with EPA safety boundaries.</p>
-        </div>
-
-        <!-- Safe / Caution / Avoid Legend -->
-        <div style="display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-weight: 700; color: var(--emerald-safe);">
-            <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--emerald-safe);"></span>
-            Safe Zone (≤ 35.4 µg/m³)
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-weight: 700; color: var(--amber-caution);">
-            <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--amber-caution);"></span>
-            Caution Zone (35.5 – 55.4 µg/m³)
-          </div>
-          <div style="display: flex; align-items: center; gap: 8px; font-size: 0.84rem; font-weight: 700; color: var(--red-danger);">
-            <span style="width: 12px; height: 12px; border-radius: 50%; background: var(--red-danger);"></span>
-            Unhealthy / Avoid (> 55.4 µg/m³)
-          </div>
-        </div>
-
-        <div style="height: 260px; width: 100%; position: relative; background: var(--surface-subtle); border-radius: 16px; padding: 20px; display: flex; align-items: flex-end; gap: 8px; overflow-x: auto;" id="trendsBarChart">
-          <!-- Populated dynamically with bar graph -->
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= TAB 4: CLEAN AIR STORYBOOK ================= -->
-    <div class="tab-content" id="tab-storybook">
-      <div style="margin-bottom: 24px;">
-        <div style="font-size: 0.72rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase; letter-spacing: 0.08em;">FAMILY & COMMUNITY LEARNING</div>
-        <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--text-navy);">The Clean Air Storybook</h2>
-        <p style="font-size: 0.95rem; color: var(--text-muted);">Warm, illustrated chapters explaining atmospheric science and smog to families in plain English.</p>
-      </div>
-
-      <div class="storybook-layout">
-        <!-- Chapter Selector List -->
-        <div class="chapter-nav">
-          <div class="chapter-tab-btn active" onclick="loadStoryChapter(1)" id="chBtn1">
-            <div class="ch-num">Chapter 1</div>
-            <div class="ch-title">The Whispering Breeze</div>
-          </div>
-          <div class="chapter-tab-btn" onclick="loadStoryChapter(2)" id="chBtn2">
-            <div class="ch-num">Chapter 2</div>
-            <div class="ch-title">The Tiny Invisible Travelers</div>
-          </div>
-          <div class="chapter-tab-btn" onclick="loadStoryChapter(3)" id="chBtn3">
-            <div class="ch-num">Chapter 3</div>
-            <div class="ch-title">The Atmospheric Blanket</div>
-          </div>
-          <div class="chapter-tab-btn" onclick="loadStoryChapter(4)" id="chBtn4">
-            <div class="ch-num">Chapter 4</div>
-            <div class="ch-title">Becoming a Clean Air Hero</div>
-          </div>
-        </div>
-
-        <!-- Chapter Reader Display -->
-        <div class="story-reader-card">
-          <div class="story-hero-art" id="storyArt">
-            🍃
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <div>
-              <span style="font-size: 0.75rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase;" id="storyChapterNum">CHAPTER 1 &bull; 4 MIN READ</span>
-              <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-navy); margin-top: 4px;" id="storyChapterTitle">The Whispering Breeze</h3>
-            </div>
-            <button class="voice-btn" onclick="readStoryAloud()">
-              <span>🔊</span> Read Aloud
-            </button>
-          </div>
-          
-          <div style="font-size: 1rem; color: var(--text-navy); line-height: 1.8;" id="storyChapterBody">
-            <p style="margin-bottom: 16px;">
-              Every morning when the sun peeks over the horizon, a gentle invisible wave begins to move across our planet. This wave is the wind — nature's breath. It travels thousands of miles from deep blue oceans, rushing across snowy mountain ridges and rustling through emerald pine forests.
-            </p>
-            <p style="margin-bottom: 16px;">
-              When the air is fresh, it carries tiny oxygen molecules that fill our lungs effortlessly. You cannot see oxygen, but your body knows it immediately: you feel energized, your mind feels bright, and running outside feels like flying.
-            </p>
-            <p>
-              Air is not empty space; it is a lively ocean that we all swim in together. Every breath connects us to the trees, the clouds, and every living creature across our world.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ================= TAB 5: EVERYDAY DECODER ================= -->
-    <div class="tab-content" id="tab-decoder">
-      <div style="margin-bottom: 24px;">
-        <div style="font-size: 0.72rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase; letter-spacing: 0.08em;">ATMOSPHERIC TERMS TRANSLATED</div>
-        <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--text-navy);">Everyday Air Quality Decoder</h2>
-        <p style="font-size: 0.95rem; color: var(--text-muted);">Complex scientific phrases explained with simple real-world analogies anyone can understand.</p>
-      </div>
-
-      <div class="decoder-search-bar">
-        <input type="text" class="decoder-search-input" id="decoderSearchInput" placeholder="🔍 Search any term (e.g. Inversion, PM2.5, Ozone, AQI)..." oninput="filterDecoderTerms()">
-      </div>
-
-      <div class="terms-grid" id="termsGridContainer">
-        <!-- Populated dynamically with 14 terms -->
-      </div>
-    </div>
-
-    <!-- ================= TAB 6: NEWS & VIDEOS ================= -->
-    <div class="tab-content" id="tab-news">
-      <div style="margin-bottom: 24px;">
-        <div style="font-size: 0.72rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase; letter-spacing: 0.08em;">18 VERIFIED TRUSTED SOURCES</div>
-        <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--text-navy);">Verified Air Quality News & Video Radars</h2>
-        <p style="font-size: 0.95rem; color: var(--text-muted);">Real photos, accredited publications, and verified educational atmospheric simulations.</p>
-      </div>
-
-      <div class="news-grid" id="newsGridContainer">
-        <!-- Populated dynamically -->
-      </div>
-    </div>
-
-    <!-- ================= TAB 7: BENCHMARK ================= -->
-    <div class="tab-content" id="tab-benchmark">
-      <div class="ag-card table-card">
-        <div style="padding: 24px 28px 16px 28px;">
-          <div style="font-size: 0.72rem; font-weight: 800; color: var(--coral-brand); text-transform: uppercase; letter-spacing: 0.08em;">SYNCHRONIZED BENCHMARK</div>
-          <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--text-navy);">Global & Regional City Air Comparison</h2>
-          <p style="font-size: 0.95rem; color: var(--text-muted);">Live side-by-side particulate rankings across major metropolitan regions.</p>
-        </div>
-
-        <table class="benchmark-table">
-          <thead>
-            <tr>
-              <th>Location</th>
-              <th>Status</th>
-              <th>US AQI</th>
-              <th>PM₂.₅ (µg/m³)</th>
-              <th>PM₁₀ (µg/m³)</th>
-              <th>Weather</th>
-              <th>Temp</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="benchmarkTableBody">
-            <!-- Dynamically populated rows -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Global Footer -->
-  <footer class="ag-footer">
-    <div class="footer-container">
-      <div>
-        <strong>AirGuard Environmental Intelligence</strong> &bull; Version 2.4.0 (Vercel Serverless Production)
-      </div>
-      <div>
-        Live Sensors: Open-Meteo & CAAQMS Array &bull; Zero Personal Tracking &bull; <a href="https://github.com/akshatk1997/airguard" target="_blank" style="color: var(--coral-brand); text-decoration: none; font-weight: 700;">GitHub Repository &rarr;</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Core Web Application Script -->
   <script>
-    // State Store
-    let currentCity = "Delhi";
-    let currentMode = "simple";
-    let activeTelemetry = null;
-    let allTerms = [];
-    let allNews = [];
-
-    // Tab Navigation
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-
-      const targetTab = document.getElementById('tab-' + tabId);
-      const targetBtn = document.getElementById('btn-tab-' + tabId);
-      if (targetTab) targetTab.classList.add('active');
-      if (targetBtn) targetBtn.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Detect custom target URL if provided via query param ?app=https://...
+    const urlParams = new URLSearchParams(window.location.search);
+    const customApp = urlParams.get('app');
+    if (customApp) {
+      document.getElementById('launchBtn').href = customApp;
     }
-
-    function setMode(mode) {
-      currentMode = mode;
-      document.getElementById('btnModeSimple').classList.toggle('active', mode === 'simple');
-      document.getElementById('btnModePro').classList.toggle('active', mode === 'pro');
-      // Update UI adjustments
-      document.querySelectorAll('.metric-tile').forEach(tile => {
-        tile.style.display = (mode === 'simple' && tile.innerText.includes('CO')) ? 'none' : 'block';
-      });
-    }
-
-    // Select city from pills
-    function selectCity(city) {
-      currentCity = city;
-      document.querySelectorAll('.city-pill').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.toLowerCase() === city.toLowerCase());
-      });
-      loadCityTelemetry(city);
-    }
-
-    function searchCustomCity() {
-      const q = document.getElementById('citySearchInput').value.trim();
-      if (q) {
-        selectCity(q);
-      }
-    }
-
-    // Load Telemetry from Vercel Serverless API (with client fallback)
-    async function loadCityTelemetry(city) {
-      document.getElementById('activeCityTitle').innerText = city;
-      document.getElementById('safePlanCityName').innerText = city;
-      document.getElementById('aqiBadgeVal').innerText = "Syncing...";
-
-      try {
-        // 1. Call Vercel Serverless Function /api?city=...
-        const res = await fetch(`/api?city=${encodeURIComponent(city)}`);
-        if (!res.ok) throw new Error("API call failed");
-        const json = await res.json();
-        if (json.telemetry) {
-          renderTelemetry(json.city, json.telemetry);
-          return;
-        }
-      } catch (err) {
-        console.warn("Backend API timeout, switching to direct Open-Meteo fallback:", err);
-      }
-
-      // 2. Client-side Fallback directly to Open-Meteo
-      try {
-        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`);
-        const geoData = await geoRes.json();
-        const best = geoData.results ? geoData.results[0] : { name: city, latitude: 28.6139, longitude: 77.2090 };
-
-        const [aqRes, wxRes] = await Promise.all([
-          fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${best.latitude}&longitude=${best.longitude}&timezone=auto&current=pm2_5,pm10,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone,us_aqi&hourly=pm2_5,us_aqi&past_days=1&forecast_days=2`),
-          fetch(`https://api.open-meteo.com/v1/forecast?latitude=${best.latitude}&longitude=${best.longitude}&timezone=auto&current=temperature_2m,relative_humidity_2m,surface_pressure,wind_speed_10m,wind_direction_10m,weather_code&hourly=temperature_2m&past_days=1&forecast_days=2`)
-        ]);
-
-        const aq = await aqRes.json();
-        const wx = await wxRes.json();
-        const mockTel = buildClientTelemetry(aq, wx);
-        renderTelemetry(best.name, mockTel);
-      } catch (e) {
-        console.error("All fetch fallbacks failed:", e);
-      }
-    }
-
-    function buildClientTelemetry(aq, wx) {
-      const curAq = aq.current || {};
-      const curWx = wx.current || {};
-      const pm = curAq.pm2_5 || 25.0;
-      let aqi = curAq.us_aqi || Math.round(pm * 3.1);
-      let cat = "Good", col = "#10B981", adv = "Air is clean and healthy.";
-      if (pm > 12) { cat = "Moderate"; col = "#F59E0B"; adv = "Air quality is acceptable."; }
-      if (pm > 35.4) { cat = "Unhealthy for Sensitive"; col = "#F97316"; adv = "Sensitive groups reduce prolonged outdoor exertion."; }
-      if (pm > 55.4) { cat = "Unhealthy"; col = "#EF4444"; adv = "Wear protective masks outdoors."; }
-
-      const timeline = [];
-      const times = (aq.hourly && aq.hourly.time) || [];
-      const pms = (aq.hourly && aq.hourly.pm2_5) || [];
-      for (let i = 0; i < Math.min(24, times.length); i++) {
-        const val = pms[i] || pm;
-        timeline.push({
-          time: times[i].slice(11, 16),
-          pm2_5: Math.round(val),
-          status: val <= 35.4 ? "Safe" : (val <= 55.4 ? "Caution" : "Avoid")
-        });
-      }
-
-      return {
-        aqi: aqi,
-        category: cat,
-        color: col,
-        advice: adv,
-        pollutants: {
-          pm2_5: Math.round(pm * 10) / 10,
-          pm10: Math.round((curAq.pm10 || 45) * 10) / 10,
-          o3: Math.round((curAq.ozone || 50) * 10) / 10,
-          no2: Math.round((curAq.nitrogen_dioxide || 20) * 10) / 10,
-          co: Math.round((curAq.carbon_monoxide || 400) * 10) / 10,
-          so2: Math.round((curAq.sulphur_dioxide || 10) * 10) / 10,
-        },
-        weather: {
-          temperature: Math.round((curWx.temperature_2m || 22) * 10) / 10,
-          humidity: Math.round(curWx.relative_humidity_2m || 55),
-          wind_speed: Math.round((curWx.wind_speed_10m || 5) * 10) / 10,
-          pressure: Math.round(curWx.surface_pressure || 1013),
-          weather_desc: "Clear Skies",
-          weather_icon: "☀️"
-        },
-        guardian: {
-          name: aqi <= 50 ? "Aero" : (aqi <= 100 ? "Haven" : "Nova"),
-          speech: adv,
-          element: "Atmospheric Guardian",
-          icon: aqi <= 50 ? "☁️" : (aqi <= 100 ? "🛡️" : "⚠️"),
-          mood: cat,
-          theme_gradient: aqi <= 50 ? "linear-gradient(135deg, #10B981 0%, #34D399 50%, #60A5FA 100%)" : "linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #38BDF8 100%)"
-        },
-        timeline_24h: timeline,
-        best_window: "1:00 PM – 4:30 PM"
-      };
-    }
-
-    // Render telemetry onto the DOM
-    function renderTelemetry(cityName, t) {
-      activeTelemetry = t;
-      document.getElementById('activeCityTitle').innerText = cityName;
-      document.getElementById('liveTimestamp').innerText = "Live Synchronized";
-
-      // AQI
-      const aqiEl = document.getElementById('aqiNumberVal');
-      aqiEl.innerText = t.aqi;
-      aqiEl.style.color = t.color;
-
-      const badgeEl = document.getElementById('aqiBadgeVal');
-      badgeEl.innerText = t.category;
-      badgeEl.style.color = t.color;
-      badgeEl.style.background = t.color + "1A";
-
-      document.getElementById('aqiAdviceText').innerText = t.advice;
-
-      // Pollutants
-      document.getElementById('valPM25').innerText = t.pollutants.pm2_5;
-      document.getElementById('valPM10').innerText = t.pollutants.pm10;
-      document.getElementById('valO3').innerText = t.pollutants.o3;
-      document.getElementById('valNO2').innerText = t.pollutants.no2;
-      document.getElementById('valCO').innerText = t.pollutants.co;
-      document.getElementById('valSO2').innerText = t.pollutants.so2;
-
-      // Weather
-      document.getElementById('wxTemp').innerText = t.weather.temperature + "°C";
-      document.getElementById('wxCondition').innerText = t.weather.weather_desc;
-      document.getElementById('wxIcon').innerText = t.weather.weather_icon;
-      document.getElementById('wxHumidity').innerText = t.weather.humidity + "%";
-      document.getElementById('wxWind').innerText = t.weather.wind_speed + " km/h";
-      document.getElementById('wxPressure').innerText = t.weather.pressure + " hPa";
-
-      // 3D Cartoon Guardian State & Mood
-      if (t.guardian) {
-        document.getElementById('guardianCard').style.background = t.guardian.theme_gradient || "linear-gradient(135deg, #10B981 0%, #34D399 50%, #60A5FA 100%)";
-        document.getElementById('guardianMoodBadge').innerText = t.guardian.mood.toUpperCase();
-        document.getElementById('guardianNameTitle').innerHTML = `<span>${t.guardian.icon || '☁️'}</span> <span>${t.guardian.name}</span>`;
-        document.getElementById('guardianElement').innerText = t.guardian.element;
-        document.getElementById('guardianSpeechText').innerText = `"${t.guardian.speech}"`;
-
-        // Morph character eyes & smile according to air quality
-        const mouth = document.getElementById('characterMouth');
-        if (mouth) {
-          if (t.aqi <= 50) {
-            mouth.setAttribute("d", "M85 110 Q100 126 115 110"); // Happy broad smile
-          } else if (t.aqi <= 100) {
-            mouth.setAttribute("d", "M88 114 Q100 120 112 114"); // Gentle pleasant smile
-          } else if (t.aqi <= 150) {
-            mouth.setAttribute("d", "M88 118 L112 118"); // Straight cautious line
-          } else {
-            mouth.setAttribute("d", "M88 122 Q100 112 112 122"); // Protective concerned frown
-          }
-        }
-      }
-
-      // 24h Timeline
-      if (t.timeline_24h) {
-        const bar = document.getElementById('timelineBarContainer');
-        bar.innerHTML = "";
-        t.timeline_24h.forEach(item => {
-          const col = document.createElement('div');
-          const statusClass = (item.status || "Safe").toLowerCase();
-          col.className = `timeline-col ${statusClass}`;
-          col.innerHTML = `
-            <div class="timeline-time">${item.time}</div>
-            <div class="timeline-pm">${item.pm2_5}</div>
-            <div class="timeline-status" style="color: ${item.status === 'Safe' ? '#10B981' : (item.status === 'Caution' ? '#F59E0B' : '#EF4444')}">${item.status}</div>
-          `;
-          bar.appendChild(col);
-        });
-
-        // Also update Trends Bar Graph
-        const trendsChart = document.getElementById('trendsBarChart');
-        if (trendsChart) {
-          trendsChart.innerHTML = "";
-          t.timeline_24h.forEach(item => {
-            const barCol = document.createElement('div');
-            const h = Math.min(200, Math.max(16, item.pm2_5 * 2.4));
-            const bg = item.pm2_5 <= 35.4 ? '#10B981' : (item.pm2_5 <= 55.4 ? '#F59E0B' : '#EF4444');
-            barCol.style.cssText = `flex: 1; height: ${h}px; background: ${bg}; border-radius: 6px 6px 0 0; min-width: 14px; position: relative; transition: height 0.4s ease;`;
-            barCol.title = `${item.time}: ${item.pm2_5} µg/m³ (${item.status})`;
-            trendsChart.appendChild(barCol);
-          });
-        }
-      }
-
-      if (t.best_window) {
-        document.getElementById('bestWindowBadge').innerText = `✨ Best window: ${t.best_window}`;
-      }
-    }
-
-    // Web Speech API Readout
-    function speakGuardianGuidance() {
-      if (!('speechSynthesis' in window)) {
-        alert("Speech synthesis is not supported in your browser.");
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const text = document.getElementById('guardianSpeechText').innerText;
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.rate = 1.0;
-      utter.pitch = 1.15;
-      window.speechSynthesis.speak(utter);
-    }
-
-    // Storybook Chapters
-    const STORY_CHAPTERS = {
-      1: {
-        title: "The Whispering Breeze",
-        time: "4 MIN READ",
-        art: "🍃",
-        body: `
-          <p style="margin-bottom: 16px;">Every morning when the sun peeks over the horizon, a gentle invisible wave begins to move across our planet. This wave is the wind — nature's breath. It travels thousands of miles from deep blue oceans, rushing across snowy mountain ridges and rustling through emerald pine forests.</p>
-          <p style="margin-bottom: 16px;">When the air is fresh, it carries tiny oxygen molecules that fill our lungs effortlessly. You cannot see oxygen, but your body knows it immediately: you feel energized, your mind feels bright, and running outside feels like flying.</p>
-          <p>Air is not empty space; it is a lively ocean that we all swim in together. Every breath connects us to the trees, the clouds, and every living creature across our world.</p>
-        `
-      },
-      2: {
-        title: "The Tiny Invisible Travelers",
-        time: "5 MIN READ",
-        art: "🔬",
-        body: `
-          <p style="margin-bottom: 16px;">Have you ever plucked a single hair from your head? It looks remarkably thin, doesn't it? Now imagine taking that single strand of hair and slicing it lengthwise into thirty microscopic slivers. Just one of those slivers is the size of PM2.5!</p>
-          <p style="margin-bottom: 16px;">Because these particles are so microscopic, your nose and throat cannot catch them like they catch normal dust. They float past your natural filters, traveling deep into the tiny air sacs of your lungs and sneaking into your bloodstream.</p>
-          <p>That is why AirGuard keeps watch over these tiny travelers: when they crowd together in our sky, we know it is time to put on our shields and protect our lungs.</p>
-        `
-      },
-      3: {
-        title: "The Atmospheric Blanket & Winter Fog",
-        time: "5 MIN READ",
-        art: "🌫️",
-        body: `
-          <p style="margin-bottom: 16px;">During cold winter nights, something curious happens in our skies. Usually, warm air near the ground rises up into the cold sky like a hot air balloon, carrying away campfire smoke and car exhaust.</p>
-          <p style="margin-bottom: 16px;">But sometimes, a layer of warm air slides in high above the city, acting like a heavy lid on a steaming pot of soup! Underneath this lid, cold air stays trapped right near the ground. Smoke and exhaust cannot escape, creating thick winter smog.</p>
-          <p>Meteorologists call this a <em>thermal inversion</em>. When the midday sun warms the earth, the lid breaks open, and the fresh breeze blows the trapped smoke away.</p>
-        `
-      },
-      4: {
-        title: "Becoming a Clean Air Hero",
-        time: "4 MIN READ",
-        art: "🌱",
-        body: `
-          <p style="margin-bottom: 16px;">You don't need a cape to be a clean air hero. Everyday heroes are all around us: planting trees on neighborhood corners, riding bicycles to school, and reminding parents not to let car engines idle in school parking lots.</p>
-          <p style="margin-bottom: 16px;">When you check AirGuard before soccer practice, you are making smart choices for your health and setting an example for your friends.</p>
-          <p>The sky belongs to all of us. When we care for the air today, we ensure that every child tomorrow wakes up to a clean, blue, beautiful world.</p>
-        `
-      }
-    };
-
-    function loadStoryChapter(chNum) {
-      document.querySelectorAll('.chapter-tab-btn').forEach((btn, idx) => {
-        btn.classList.toggle('active', (idx + 1) === chNum);
-      });
-      const ch = STORY_CHAPTERS[chNum];
-      if (ch) {
-        document.getElementById('storyArt').innerText = ch.art;
-        document.getElementById('storyChapterNum').innerText = `CHAPTER ${chNum} &bull; ${ch.time}`;
-        document.getElementById('storyChapterTitle').innerText = ch.title;
-        document.getElementById('storyChapterBody').innerHTML = ch.body;
-      }
-    }
-
-    function readStoryAloud() {
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const title = document.getElementById('storyChapterTitle').innerText;
-      const body = document.getElementById('storyChapterBody').innerText;
-      const utter = new SpeechSynthesisUtterance(`${title}. ${body}`);
-      utter.rate = 0.95;
-      window.speechSynthesis.speak(utter);
-    }
-
-    // Load Decoder Terms
-    async function loadTerms() {
-      try {
-        const res = await fetch('/api?action=terms');
-        const json = await res.json();
-        allTerms = json.terms || [];
-      } catch (e) {
-        allTerms = [];
-      }
-      renderTerms(allTerms);
-    }
-
-    function renderTerms(terms) {
-      const container = document.getElementById('termsGridContainer');
-      container.innerHTML = "";
-      terms.forEach(t => {
-        const card = document.createElement('div');
-        card.className = "term-card";
-        card.innerHTML = `
-          <div class="term-badge">${t.category}</div>
-          <div class="term-title">${t.term}</div>
-          <div class="term-pronounce">Pronounced: ${t.pronunciation}</div>
-          <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 8px;">${t.definition}</p>
-          <div class="term-analogy-box">💡 <strong>Real-Life Analogy:</strong> ${t.analogy}</div>
-          <div style="font-size: 0.8rem; font-weight: 700; color: var(--emerald-safe); margin-top: 8px;">🛡️ Actionable Tip: ${t.advice}</div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filterDecoderTerms() {
-      const q = document.getElementById('decoderSearchInput').value.toLowerCase().trim();
-      if (!q) {
-        renderTerms(allTerms);
-        return;
-      }
-      const filtered = allTerms.filter(t => 
-        t.term.toLowerCase().includes(q) || 
-        t.definition.toLowerCase().includes(q) || 
-        t.analogy.toLowerCase().includes(q)
-      );
-      renderTerms(filtered);
-    }
-
-    // Load News & Videos
-    async function loadNews() {
-      try {
-        const res = await fetch('/api?action=news');
-        const json = await res.json();
-        allNews = json.articles || [];
-      } catch (e) {
-        allNews = [];
-      }
-      renderNews(allNews);
-    }
-
-    function renderNews(articles) {
-      const container = document.getElementById('newsGridContainer');
-      container.innerHTML = "";
-      articles.forEach(a => {
-        const card = document.createElement('div');
-        card.className = "news-card";
-        card.innerHTML = `
-          <img src="${a.image}" alt="${a.title}" class="news-card-img" loading="lazy">
-          <div class="news-card-body">
-            <div class="news-source-tag">${a.source_badge || a.source}</div>
-            <div class="news-headline">${a.title}</div>
-            <div class="news-desc">${a.summary}</div>
-            ${a.video_url ? `
-              <div style="font-size: 0.76rem; font-weight: 800; color: var(--text-navy); margin-top: 10px;">▶️ ${a.video_title}</div>
-              <div class="video-embed-box">
-                <iframe src="${a.video_url}" allowfullscreen loading="lazy" title="${a.video_title}"></iframe>
-              </div>
-            ` : ''}
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    // Load City Benchmarks
-    const BENCHMARK_CITIES = [
-      { name: "Sydney, Australia", aqi: 24, cat: "Good", pm25: 5.8, pm10: 14.2, wx: "Sunny", temp: "21°C", col: "#10B981" },
-      { name: "Tokyo, Japan", aqi: 36, cat: "Good", pm25: 8.6, pm10: 19.5, wx: "Clear", temp: "18°C", col: "#10B981" },
-      { name: "London, UK", aqi: 48, cat: "Good", pm25: 11.4, pm10: 22.0, wx: "Partly Cloudy", temp: "14°C", col: "#10B981" },
-      { name: "Paris, France", aqi: 52, cat: "Moderate", pm25: 13.1, pm10: 25.4, wx: "Mild", temp: "16°C", col: "#F59E0B" },
-      { name: "New York, USA", aqi: 58, cat: "Moderate", pm25: 15.6, pm10: 31.2, wx: "Breezy", temp: "17°C", col: "#F59E0B" },
-      { name: "Bengaluru, India", aqi: 74, cat: "Moderate", pm25: 23.0, pm10: 48.0, wx: "Overcast", temp: "26°C", col: "#F59E0B" },
-      { name: "Mumbai, India", aqi: 112, cat: "Unhealthy Sensitive", pm25: 39.5, pm10: 76.0, wx: "Hazy", temp: "30°C", col: "#F97316" },
-      { name: "Delhi, India", aqi: 168, cat: "Unhealthy", pm25: 88.0, pm10: 165.0, wx: "Smoggy", temp: "27°C", col: "#EF4444" },
-    ];
-
-    function renderBenchmarks() {
-      const tbody = document.getElementById('benchmarkTableBody');
-      tbody.innerHTML = "";
-      BENCHMARK_CITIES.forEach(c => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><strong>${c.name}</strong></td>
-          <td><span style="display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 0.72rem; font-weight: 800; background: ${c.col}18; color: ${c.col};">${c.cat}</span></td>
-          <td><strong style="font-family: var(--font-mono); color: ${c.col}; font-size: 1.05rem;">${c.aqi}</strong></td>
-          <td style="font-family: var(--font-mono);">${c.pm25}</td>
-          <td style="font-family: var(--font-mono);">${c.pm10}</td>
-          <td>${c.wx}</td>
-          <td>${c.temp}</td>
-          <td><button onclick="selectCity('${c.name.split(',')[0]}'); switchTab('dashboard');" style="border: 1px solid var(--border-warm); background: #fff; border-radius: 6px; padding: 4px 10px; font-size: 0.78rem; font-weight: 700; cursor: pointer;">Inspect</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Init
-    window.addEventListener('DOMContentLoaded', () => {
-      loadCityTelemetry("Delhi");
-      loadTerms();
-      loadNews();
-      renderBenchmarks();
-    });
   </script>
 </body>
 </html>
