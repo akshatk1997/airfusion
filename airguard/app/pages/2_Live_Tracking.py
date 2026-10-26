@@ -112,7 +112,7 @@ actual_iso = continuum["actual_iso"]
 history_df = continuum["history_df"]
 forecast_df = continuum["forecast_df"]
 
-curr_pm = float(curr_data.get("pm2_5", 0.0))
+curr_pm = float(curr_data.get("pm2_5") or 25.0) if pd.notnull(curr_data.get("pm2_5")) else 25.0
 curr_aqi = int(curr_data.get("aqi", 0))
 category = curr_data.get("aqi_category", "Moderate")
 color = curr_data.get("aqi_color", "#10B981")
@@ -467,7 +467,7 @@ with st.expander("📥 Unified Temporal Continuum Data Export (CSV & Raw JSON)",
             export_rows.append({
                 "Timestamp": row["timestamp"].strftime("%Y-%m-%d %H:%M"),
                 "Temporal Phase": "Observed History",
-                "PM2.5 (µg/m³)": f"{float(row.get('pm2_5', 0.0)):.1f}",
+                "PM2.5 (µg/m³)": f"{float(row.get('pm2_5') or 0.0):.1f}",
                 "PM10 (µg/m³)": f"{float(row.get('pm10', 0.0)):.1f}" if pd.notna(row.get('pm10')) else "--",
                 "AQI": int(row.get("aqi", 0)),
                 "Temperature (°C)": f"{float(row.get('temperature', 0.0)):.1f}" if pd.notna(row.get('temperature')) else "--",
@@ -491,7 +491,7 @@ with st.expander("📥 Unified Temporal Continuum Data Export (CSV & Raw JSON)",
             export_rows.append({
                 "Timestamp": row["target_time"],
                 "Temporal Phase": "🔮 Model Forecast",
-                "PM2.5 (µg/m³)": f"{float(row.get('predicted_pm2_5', 0.0)):.1f}",
+                "PM2.5 (µg/m³)": f"{float(row.get('predicted_pm2_5') or 0.0):.1f}",
                 "PM10 (µg/m³)": "--",
                 "AQI": int(row.get("predicted_aqi", 0)),
                 "Temperature (°C)": "--",

@@ -55,6 +55,8 @@ def create_lag_features(
     Creates historical autoregressive lag features for the target pollutant.
     """
     data = df.copy()
+    if target_col not in data.columns:
+        data[target_col] = 25.0
     if lags is None:
         lags = LAG_HOURS
 
@@ -84,6 +86,8 @@ def create_rolling_features(
     Uses closed='left' by shifting by 1 to prevent data leakage from the current timestamp.
     """
     data = df.copy()
+    if target_col not in data.columns:
+        data[target_col] = 25.0
     if windows is None:
         windows = ROLLING_WINDOWS
 
@@ -140,6 +144,10 @@ def build_feature_pipeline(
     """
     if horizons is None:
         horizons = [24, 72]
+
+    if target_col not in df.columns:
+        df = df.copy()
+        df[target_col] = 25.0
 
     # Apply transformations
     data = create_time_features(df)

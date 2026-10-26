@@ -165,7 +165,7 @@ if not loc:
 
 # 1. Fetch live telemetry
 curr = fetch_current_air_quality(loc["latitude"], loc["longitude"])
-pm25_val = float(curr.get("pm2_5", 0.0))
+pm25_val = float(curr.get("pm2_5") or 25.0) if pd.notnull(curr.get("pm2_5")) else 25.0
 aqi_val = int(curr.get("aqi", 0))
 category = curr.get("aqi_category", "Unknown")
 color = curr.get("aqi_color", "#10B981")

@@ -496,7 +496,7 @@ def render_technical_home(active_city: str) -> None:
                         "label": label,
                         "aqi": int(c.get("aqi", 0)),
                         "category": str(c.get("aqi_category", "Unknown")),
-                        "pm2_5": float(c.get("pm2_5", 0.0)),
+                        "pm2_5": float(c.get("pm2_5") or 25.0) if pd.notnull(c.get("pm2_5")) else 25.0,
                         "temp": c.get("temperature", "--"),
                         "humidity": c.get("humidity", "--")
                     }
@@ -511,7 +511,7 @@ def render_technical_home(active_city: str) -> None:
                 "label": label,
                 "aqi": int(latest.get("aqi", 0)),
                 "category": str(latest.get("aqi_category", "Unknown")),
-                "pm2_5": float(latest.get("pm2_5", 0.0)),
+                "pm2_5": float(latest.get("pm2_5") or 25.0) if pd.notnull(latest.get("pm2_5")) else 25.0,
                 "temp": latest.get("temperature", "--"),
                 "humidity": latest.get("humidity", "--")
             }

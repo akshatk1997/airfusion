@@ -103,6 +103,19 @@ def get_city_temporal_continuum(
         logger.warning(f"Empty hourly data for {clean_name}")
         return None
 
+    # Defensive guarantee: Ensure raw_hourly has pm2_5 and aqi columns populated
+    curr_pm_def = float(curr_live.get("pm2_5", 25.0) or 25.0)
+    if "pm2_5" not in raw_hourly.columns:
+        raw_hourly["pm2_5"] = curr_pm_def
+    else:
+        raw_hourly["pm2_5"] = pd.to_numeric(raw_hourly["pm2_5"], errors="coerce").ffill().bfill().fillna(curr_pm_def)
+
+    curr_aqi_def = int(curr_live.get("aqi", 70) or 70)
+    if "aqi" not in raw_hourly.columns:
+        raw_hourly["aqi"] = curr_aqi_def
+    else:
+        raw_hourly["aqi"] = pd.to_numeric(raw_hourly["aqi"], errors="coerce").ffill().bfill().fillna(curr_aqi_def)
+
     # Parse timestamps
     raw_hourly["timestamp"] = pd.to_datetime(raw_hourly["timestamp"])
     anchor_time = pd.to_datetime(live_timestamp_str).tz_localize(None) if hasattr(pd.to_datetime(live_timestamp_str), "tz") and pd.to_datetime(live_timestamp_str).tz else pd.to_datetime(live_timestamp_str)
@@ -132,22 +145,24 @@ def get_city_temporal_continuum(
     if forecast_df is None or forecast_df.empty:
         future_slice = raw_hourly[raw_hourly["ts_naive"] > anchor_time].head(48).copy()
         if not future_slice.empty:
+            pm_series = future_slice["pm2_5"] if "pm2_5" in future_slice.columns else pd.Series([curr_pm_def] * len(future_slice), index=future_slice.index)
+            aqi_series = future_slice["aqi"] if "aqi" in future_slice.columns else pd.Series([curr_aqi_def] * len(future_slice), index=future_slice.index)
             forecast_df = pd.DataFrame({
                 "target_time": future_slice["timestamp"].dt.strftime("%Y-%m-%d %H:%M"),
-                "predicted_pm2_5": future_slice["pm2_5"],
-                "predicted_aqi": future_slice["aqi"],
-                "lower_ci": (future_slice["pm2_5"] * 0.85).clip(lower=2.0),
-                "upper_ci": future_slice["pm2_5"] * 1.25,
+                "predicted_pm2_5": pm_series,
+                "predicted_aqi": aqi_series,
+                "lower_ci": (pm_series * 0.85).clip(lower=2.0),
+                "upper_ci": pm_series * 1.25,
                 "horizon_hours": list(range(1, len(future_slice) + 1))
             })
         else:
             # Synthetic continuation
-            curr_pm = float(curr_live.get("pm2_5", 25.0))
+            curr_pm = float(curr_live.get("pm2_5", 25.0) or 25.0)
             hours = [anchor_time + timedelta(hours=i) for i in range(1, 49)]
             forecast_df = pd.DataFrame({
                 "target_time": [h.strftime("%Y-%m-%d %H:%M") for h in hours],
                 "predicted_pm2_5": [max(5.0, curr_pm * (1.0 + 0.18 * np.sin(i / 3.8))) for i in range(len(hours))],
-                "predicted_aqi": [int(curr_live.get("aqi", 50)) for _ in hours],
+                "predicted_aqi": [int(curr_live.get("aqi", 50) or 50) for _ in hours],
                 "lower_ci": [max(2.0, curr_pm * 0.8) for _ in hours],
                 "upper_ci": [curr_pm * 1.25 for _ in hours],
                 "horizon_hours": list(range(1, 49))
@@ -159,14 +174,12 @@ def get_city_temporal_continuum(
     forecast_df["ts_dt"] = pd.to_datetime(forecast_df["target_time"])
 
     # 5. Compute Statistical Metrics across History, Now, and Future
-    past_pm = history_df["pm2_5"].dropna()
-    past_24h_slice = history_df.tail(24)
-    past_24h_avg = float(past_24h_slice["pm2_5"].mean()) if not past_24h_slice.empty else float(curr_live.get("pm2_5", 0.0))
-    past_24h_min = float(past_24h_slice["pm2_5"].min()) if not past_24h_slice.empty else past_24h_avg
-    past_24h_max = float(past_24h_slice["pm2_5"].max()) if not past_24h_slice.empty else past_24h_avg
-
-    # Find cleanest past hour
-    if not past_24h_slice.empty:
+    past_pm = history_df["pm2_5"].dropna() if "pm2_5" in history_df.columns else pd.Series([curr_pm_def])
+    past_24h_slice = history_df.tail(24) if not history_df.empty else pd.DataFrame()
+    if not past_24h_slice.empty and "pm2_5" in past_24h_slice.columns and not past_24h_slice["pm2_5"].dropna().empty:
+        past_24h_avg = float(past_24h_slice["pm2_5"].mean())
+        past_24h_min = float(past_24h_slice["pm2_5"].min())
+        past_24h_max = float(past_24h_slice["pm2_5"].max())
         idx_min = past_24h_slice["pm2_5"].idxmin()
         cleanest_past_time = past_24h_slice.loc[idx_min, "timestamp"].strftime("%I:%M %p")
         cleanest_past_val = float(past_24h_slice.loc[idx_min, "pm2_5"])
@@ -174,6 +187,9 @@ def get_city_temporal_continuum(
         dirtiest_past_time = past_24h_slice.loc[idx_max, "timestamp"].strftime("%I:%M %p")
         dirtiest_past_val = float(past_24h_slice.loc[idx_max, "pm2_5"])
     else:
+        past_24h_avg = float(curr_live.get("pm2_5", 25.0) or 25.0)
+        past_24h_min = past_24h_avg
+        past_24h_max = past_24h_avg
         cleanest_past_time = "Earlier"
         cleanest_past_val = past_24h_avg
         dirtiest_past_time = "Earlier"

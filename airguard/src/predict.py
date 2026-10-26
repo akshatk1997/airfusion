@@ -129,12 +129,17 @@ def generate_forecast(
     live_timestamp_str = curr_live.get("timestamp") if curr_live else None
 
     if live_timestamp_str:
-        current_time = pd.to_datetime(live_timestamp_str).floor("h")
+        raw_cur_dt = pd.to_datetime(live_timestamp_str)
+        if hasattr(raw_cur_dt, "tz") and raw_cur_dt.tz is not None:
+            raw_cur_dt = raw_cur_dt.tz_localize(None)
+        current_time = raw_cur_dt.floor("h")
     else:
         current_time = pd.Timestamp.now().floor("h")
 
     # Anchor to the current real-time observation row
     featured_df["ts_dt"] = pd.to_datetime(featured_df["timestamp"], format="mixed")
+    if hasattr(featured_df["ts_dt"].dt, "tz") and featured_df["ts_dt"].dt.tz is not None:
+        featured_df["ts_dt"] = featured_df["ts_dt"].dt.tz_localize(None)
     past_mask = featured_df["ts_dt"] <= current_time
     if past_mask.any():
         latest_row = featured_df[past_mask].iloc[-1:].copy()
@@ -142,7 +147,16 @@ def generate_forecast(
         latest_row = featured_df.iloc[-1:].copy()
 
     base_time = current_time
-    current_pm25 = float(live_pm25) if (live_pm25 is not None and live_pm25 > 0) else float(latest_row["pm2_5"].values[0])
+
+    # Safe fallback extraction for baseline PM2.5
+    if live_pm25 is not None and not pd.isna(live_pm25) and float(live_pm25) > 0:
+        current_pm25 = float(live_pm25)
+    elif "pm2_5" in latest_row.columns and not latest_row["pm2_5"].empty and pd.notnull(latest_row["pm2_5"].values[0]):
+        current_pm25 = float(latest_row["pm2_5"].values[0])
+    elif TARGET_VARIABLE in latest_row.columns and not latest_row[TARGET_VARIABLE].empty and pd.notnull(latest_row[TARGET_VARIABLE].values[0]):
+        current_pm25 = float(latest_row[TARGET_VARIABLE].values[0])
+    else:
+        current_pm25 = 25.0
 
     # Inject real-time measurements into base observation
     if TARGET_VARIABLE in latest_row.columns:

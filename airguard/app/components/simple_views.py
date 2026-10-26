@@ -988,7 +988,7 @@ def render_simple_trends(active_city: str) -> None:
 
     # Build insights
     clean_pct = 70.0
-    if not df_hist.empty and "pm2_5" in df_hist:
+    if not df_hist.empty and "pm2_5" in df_hist.columns and not df_hist["pm2_5"].dropna().empty:
         clean_hrs = len(df_hist[df_hist["pm2_5"] <= 35.4])
         clean_pct = (clean_hrs / len(df_hist) * 100) if len(df_hist) > 0 else 70.0
 

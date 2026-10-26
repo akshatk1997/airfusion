@@ -57,7 +57,7 @@ if loc:
     city_display = format_location_label(loc)
     try:
         curr = fetch_current_air_quality(loc["latitude"], loc["longitude"])
-        pm25_val = float(curr.get("pm2_5", 38.0))
+        pm25_val = float(curr.get("pm2_5") or 38.0) if pd.notnull(curr.get("pm2_5")) else 38.0
         aqi_val = int(curr.get("aqi", 107))
     except Exception:
         pass

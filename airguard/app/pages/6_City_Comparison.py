@@ -184,7 +184,10 @@ def get_multi_city_telemetry(cities_list: list[str]) -> list[dict]:
 
         # Fetch historical average from local DB
         df_hist = fetch_historical_records(city=city)
-        hist_avg = df_hist["pm2_5"].mean() if not df_hist.empty else curr.get("pm2_5", 0.0)
+        if not df_hist.empty and "pm2_5" in df_hist.columns and not df_hist["pm2_5"].dropna().empty:
+            hist_avg = float(df_hist["pm2_5"].mean())
+        else:
+            hist_avg = float(curr.get("pm2_5", 0.0) or 0.0)
 
         # Generate +24h ML forecast
         fc_val = None
@@ -202,11 +205,11 @@ def get_multi_city_telemetry(cities_list: list[str]) -> list[dict]:
             "location_label": loc_label,
             "current_aqi": int(curr.get("aqi", 0)),
             "current_category": curr.get("aqi_category", "Moderate"),
-            "current_pm2_5": float(curr.get("pm2_5", 0.0)),
-            "current_pm10": float(curr.get("pm10", 0.0)),
-            "current_no2": float(curr.get("no2", 0.0)),
-            "current_o3": float(curr.get("o3", 0.0)),
-            "forecast_24h_pm2_5": round(float(fc_val or curr.get("pm2_5", 0.0)), 1),
+            "current_pm2_5": float(curr.get("pm2_5", 0.0) or 0.0),
+            "current_pm10": float(curr.get("pm10", 0.0) or 0.0),
+            "current_no2": float(curr.get("no2", 0.0) or 0.0),
+            "current_o3": float(curr.get("o3", 0.0) or 0.0),
+            "forecast_24h_pm2_5": round(float(fc_val or curr.get("pm2_5", 0.0) or 0.0), 1),
             "historical_mean_pm2_5": round(float(hist_avg), 1),
             "temperature": curr.get("temperature", "--"),
             "humidity": curr.get("humidity", "--"),

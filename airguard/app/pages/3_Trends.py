@@ -165,7 +165,7 @@ if is_model_trained():
 fig_timeline = go.Figure()
 
 # Historical past 24h trace
-if not last_24h.empty:
+if not last_24h.empty and "pm2_5" in last_24h.columns:
     fig_timeline.add_trace(go.Scatter(
         x=last_24h["timestamp"],
         y=last_24h["pm2_5"],

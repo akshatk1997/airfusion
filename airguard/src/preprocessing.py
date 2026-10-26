@@ -71,16 +71,25 @@ def clean_air_quality_dataframe(
         df_clean[col] = df_clean[col].ffill().bfill()
 
     # 4. Re-calculate AQI if missing or PM2.5 was updated
-    if "pm2_5" in df_clean.columns and "aqi" in df_clean.columns:
-        from src.data_collection import calculate_pm25_aqi
-        aqis = []
-        categories = []
-        for v in df_clean["pm2_5"]:
-            aq, cat, _ = calculate_pm25_aqi(v)
-            aqis.append(aq)
-            categories.append(cat)
-        df_clean["aqi"] = aqis
-        df_clean["aqi_category"] = categories
+    if "pm2_5" not in df_clean.columns:
+        df_clean["pm2_5"] = 25.0
+    else:
+        df_clean["pm2_5"] = pd.to_numeric(df_clean["pm2_5"], errors="coerce").ffill().bfill().fillna(25.0)
+
+    if "aqi" not in df_clean.columns:
+        df_clean["aqi"] = 75
+    else:
+        df_clean["aqi"] = pd.to_numeric(df_clean["aqi"], errors="coerce").ffill().bfill().fillna(75)
+
+    from src.data_collection import calculate_pm25_aqi
+    aqis = []
+    categories = []
+    for v in df_clean["pm2_5"]:
+        aq, cat, _ = calculate_pm25_aqi(v)
+        aqis.append(aq)
+        categories.append(cat)
+    df_clean["aqi"] = aqis
+    df_clean["aqi_category"] = categories
 
     df_clean.reset_index(drop=True, inplace=True)
     return df_clean

@@ -331,8 +331,17 @@ def fetch_historical_records(
     df = pd.read_sql_query(query, conn, params=params)
     conn.close()
 
-    if not df.empty and "timestamp" in df.columns:
-        df["timestamp"] = pd.to_datetime(df["timestamp"], format="mixed")
+    if not df.empty:
+        if "timestamp" in df.columns:
+            df["timestamp"] = pd.to_datetime(df["timestamp"], format="mixed")
+        if "pm2_5" not in df.columns:
+            df["pm2_5"] = 25.0
+        else:
+            df["pm2_5"] = pd.to_numeric(df["pm2_5"], errors="coerce").ffill().bfill().fillna(25.0)
+        if "aqi" not in df.columns:
+            df["aqi"] = 75
+        else:
+            df["aqi"] = pd.to_numeric(df["aqi"], errors="coerce").ffill().bfill().fillna(75)
     return df
 
 
