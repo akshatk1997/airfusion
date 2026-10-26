@@ -34,3 +34,5 @@ Desktop.ini
 scratch/
 chrome_tmp/
 selenium_*.png
+
+.vercel
