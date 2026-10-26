@@ -1,0 +1,11 @@
+.git
+.github
+.pytest_cache
+notebooks
+tests
+airguard/tests
+airguard/notebooks
+*.pyc
+__pycache__
+*.db-wal
+*.db-shm
