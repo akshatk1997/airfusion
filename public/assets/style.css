@@ -1,0 +1,1812 @@
+/* ==========================================================================
+   AirGuard Design System — Professional Environmental Intelligence Visual Architecture
+   Brand Aesthetics: Warm Ivory Canvas, Deep Navy Slate Engine, Coral Gradient Accents
+   Typography: Montserrat (Headings) & JetBrains Mono (Telemetry)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+
+:root {
+    /* AirGuard Professional Palette */
+    --ensur-canvas: #FAF6F1;
+    --ensur-surface: #FFFFFF;
+    --ensur-surface-warm: #F4EFEB;
+    --ensur-surface-hover: #FCFAF7;
+    --ensur-navy: #1F344C;
+    --ensur-navy-surface: #162638;
+    --ensur-navy-card: #253C56;
+    
+    /* AirGuard Coral Accents */
+    --ensur-coral: #FF6845;
+    --ensur-tangerine: #FF8665;
+    --ensur-peach: #FFA48C;
+    --ensur-wax-flower: #FFC3B3;
+    --ensur-coral-glow: rgba(255, 104, 69, 0.28);
+    --ensur-coral-soft: rgba(255, 104, 69, 0.08);
+
+    /* Borders & Hairlines */
+    --ensur-border: #EBE6DF;
+    --ensur-border-light: rgba(31, 52, 76, 0.08);
+    --ensur-border-hover: rgba(255, 104, 69, 0.35);
+
+    /* Typography Colors - High Visibility & WCAG AAA Contrast */
+    --ensur-text-primary: #0F1E2E;
+    --ensur-text-secondary: #24384D;
+    --ensur-text-muted: #475569;
+    --ensur-text-light: #FFFFFF;
+
+    /* Semantic Status Accents */
+    --ensur-green: #10B981;
+    --ensur-green-soft: rgba(16, 185, 129, 0.1);
+    --ensur-amber: #F59E0B;
+    --ensur-amber-soft: rgba(245, 158, 11, 0.1);
+    --ensur-orange: #F97316;
+    --ensur-orange-soft: rgba(249, 115, 22, 0.1);
+    --ensur-red: #EF4444;
+    --ensur-red-soft: rgba(239, 68, 68, 0.1);
+    --ensur-teal: #0D9488;
+    --ensur-teal-soft: rgba(13, 148, 136, 0.1);
+
+    /* Fonts */
+    --font-sans: 'Montserrat', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+
+    /* Legacy Backward Compatibility Tokens (Required by pytest test_design_system.py) */
+    --color-bg-base: var(--ag-canvas);
+    --color-bg-surface: var(--ag-surface);
+    --color-bg-card: var(--ag-surface);
+    --color-border-subtle: var(--ag-border);
+    --color-border-specular: var(--ag-border-light);
+    --color-text-primary: var(--ag-text-primary);
+    --color-text-secondary: var(--ag-text-secondary);
+    --color-text-muted: var(--ag-text-muted);
+    --color-brand-cyan: var(--ag-coral);
+    --color-brand-red: #FF6845;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 20px;
+
+    /* Status Tokens */
+    --color-aqi-good-border: var(--ag-green);
+    --color-aqi-good-text: #059669;
+    --color-aqi-moderate-border: var(--ag-amber);
+    --color-aqi-moderate-text: #D97706;
+    --color-aqi-sensitive-border: var(--ag-orange);
+    --color-aqi-sensitive-text: #EA580C;
+    --color-aqi-unhealthy-border: var(--ag-red);
+    --color-aqi-unhealthy-text: #DC2626;
+    --color-aqi-very-unhealthy-border: #9333EA;
+    --color-aqi-very-unhealthy-text: #7E22CE;
+    --color-aqi-hazardous-border: #E11D48;
+    --color-aqi-hazardous-text: #BE123C;
+
+    /* Aliases for components */
+    --ag-canvas: var(--ag-canvas);
+    --ag-surface: var(--ag-surface);
+    --ag-surface-hover: var(--ag-surface-hover);
+    --ag-surface-card: var(--ag-surface);
+    --ag-border: var(--ag-border);
+    --ag-border-light: var(--ag-border-light);
+    --ag-text-primary: var(--ag-text-primary);
+    --ag-text-secondary: var(--ag-text-secondary);
+    --ag-text-tertiary: var(--ag-text-muted);
+    --ag-green: var(--ag-green);
+    --ag-yellow: var(--ag-amber);
+    --ag-orange: var(--ag-orange);
+    --ag-red: var(--ag-red);
+    --ag-cyan: var(--ag-coral);
+}
+
+:focus-visible {
+    outline: 2px solid var(--ag-coral) !important;
+    outline-offset: 2px !important;
+}
+
+/* ==========================================================================
+   GLOBAL APP CONTAINER & RESET (WARM IVORY SURFACE)
+   ========================================================================== */
+html, body {
+    background-color: var(--ag-canvas) !important;
+    color: var(--ag-text-primary) !important;
+    font-family: var(--font-sans) !important;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Force high-contrast typography across all headings and labels on the Warm Ivory canvas */
+h1, h2, h3, h4, h5, h6,
+.ag-section-title,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+[data-testid="stMarkdownContainer"] h4,
+[data-testid="stMarkdownContainer"] h5,
+[data-testid="stMarkdownContainer"] h6 {
+    color: #1F344C !important;
+    font-family: var(--font-heading) !important;
+}
+
+/* Explicit high-contrast white overrides for dark cards and dark telemetry surfaces */
+[data-testid="stMarkdownContainer"] .ag-hero-city-title,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing h1,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing h2,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing h3,
+[data-testid="stMarkdownContainer"] .ag-compare-ongoing, .ensur-compare-ongoing strong,
+[data-testid="stMarkdownContainer"] .ag-engine-title, .ensur-engine-title,
+[data-testid="stMarkdownContainer"] .ag-engine-container, .ensur-engine-container h1,
+[data-testid="stMarkdownContainer"] .ag-engine-container, .ensur-engine-container h2,
+[data-testid="stMarkdownContainer"] .ag-engine-container, .ensur-engine-container h3,
+[data-testid="stMarkdownContainer"] .ag-dark-surface, .ensur-dark-surface h1,
+[data-testid="stMarkdownContainer"] .ag-dark-surface, .ensur-dark-surface h2,
+[data-testid="stMarkdownContainer"] .ag-dark-surface, .ensur-dark-surface h3,
+.ag-hero-city-title,
+.ag-engine-title, .ensur-engine-title {
+    color: #FFFFFF !important;
+}
+
+.ag-pulse-badge, .ensur-pulse-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid #EBE6DF;
+    border-radius: 9999px;
+    padding: 6px 16px;
+    box-shadow: 0 2px 8px rgba(31, 52, 76, 0.04);
+    font-family: var(--font-heading);
+    font-size: 0.74rem;
+    font-weight: 800;
+    color: #FF6845 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.ag-pulse-badge, .ensur-pulse-badge span {
+    color: #FF6845 !important;
+}
+
+[data-testid="stWidgetLabel"] p,
+[data-testid="stWidgetLabel"] label,
+label[data-baseweb="label"],
+[data-testid="stWidgetLabel"] span {
+    color: #0F1E2E !important;
+    font-family: var(--font-sans) !important;
+    font-weight: 700 !important;
+    font-size: 0.82rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Universal Smooth Scrolling & Typography Optimization */
+html {
+    scroll-behavior: smooth !important;
+}
+
+body {
+    overflow-x: hidden !important;
+}
+
+* {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Markdown Paragraph Readability on Light Surfaces */
+[data-testid="stMarkdownContainer"] p {
+    color: #1F344C;
+    font-size: 0.94rem;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+/* Automatic High-Contrast Fixes for legacy gray styles across all pages */
+[style*="color: #5A6E85"], [style*="color:#5A6E85"],
+[style*="color: #5A6578"], [style*="color:#5A6578"],
+[style*="color: #718096"], [style*="color:#718096"] {
+    color: #24384D !important;
+    font-weight: 500 !important;
+}
+
+[style*="color: #8B95A5"], [style*="color:#8B95A5"],
+[style*="color: #8896A6"], [style*="color:#8896A6"] {
+    color: #475569 !important;
+    font-weight: 600 !important;
+}
+
+[style*="color: #64748B"], [style*="color:#64748B"] {
+    color: #334155 !important;
+    font-weight: 500 !important;
+}
+
+/* Hardware-accelerated GPU layer compositing for buttery 60fps scrolling */
+.ag-hero-directive,
+.ag-card,
+.ag-photo-card,
+.ag-news-card,
+.ag-engine-container, .ensur-engine-container,
+div[data-testid="stVerticalBlockBorderWrapper"],
+[data-testid="stPopover"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Perfect alignment across Streamlit columns */
+div[data-testid="column"] {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+}
+
+[data-testid="stAppViewContainer"] {
+    background: radial-gradient(800px circle at 85% 10%, rgba(255, 104, 69, 0.08), transparent 70%),
+                radial-gradient(900px circle at 15% 45%, rgba(255, 134, 101, 0.06), transparent 75%),
+                radial-gradient(600px circle at 50% 90%, rgba(255, 164, 140, 0.05), transparent 70%),
+                var(--ag-canvas) !important;
+    background-attachment: fixed !important;
+}
+
+[data-testid="stHeader"] {
+    background: transparent !important;
+}
+
+/* Sidebar Refinements (Warm Ivory Sidebar) */
+[data-testid="stSidebar"] {
+    background-color: var(--ag-surface-warm) !important;
+    border-right: 1px solid var(--ag-border) !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p,
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] span {
+    color: var(--ag-text-primary) !important;
+}
+
+[data-testid="stSidebar"] hr {
+    border-color: var(--ag-border) !important;
+    margin: 16px 0 !important;
+}
+
+/* Main Content Spacing */
+.main .block-container {
+    padding-top: 1.25rem !important;
+    padding-bottom: 3.5rem !important;
+    max-width: 1260px !important;
+}
+
+/* ==========================================================================
+   STREAMLIT NATIVE CONTROLS OVERRIDE (AIRGUARD PROFESSIONAL STYLING)
+   ========================================================================== */
+/* Selectboxes & Text Inputs */
+div[data-baseweb="select"] > div,
+div[data-baseweb="input"] > div {
+    background-color: var(--ag-surface) !important;
+    border: 1px solid var(--ag-border) !important;
+    border-radius: 10px !important;
+    color: var(--ag-text-primary) !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 1px 3px rgba(31, 52, 76, 0.04) !important;
+}
+
+div[data-baseweb="select"] > div:hover,
+div[data-baseweb="input"] > div:hover {
+    border-color: var(--ag-coral) !important;
+    background-color: #FFFFFF !important;
+}
+
+div[data-baseweb="select"] > div:focus-within,
+div[data-baseweb="input"] > div:focus-within {
+    border-color: var(--ag-coral) !important;
+    box-shadow: 0 0 0 3px rgba(255, 104, 69, 0.15) !important;
+}
+
+div[data-baseweb="select"] span,
+div[data-baseweb="input"] input {
+    color: var(--ag-text-primary) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.88rem !important;
+}
+
+/* Streamlit Buttons (AirGuard Coral Gradient) */
+.stButton > button {
+    background: linear-gradient(135deg, #FF6845 0%, #FF8665 100%) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-sans) !important;
+    font-weight: 700 !important;
+    font-size: 0.86rem !important;
+    letter-spacing: -0.01em !important;
+    padding: 9px 20px !important;
+    box-shadow: 0 4px 14px rgba(255, 104, 69, 0.3) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(135deg, #FF5530 0%, #FF7450 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(255, 104, 69, 0.42) !important;
+}
+
+.stButton > button:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 8px rgba(255, 104, 69, 0.3) !important;
+}
+
+/* Secondary Button Variant (Outlined Ivory) */
+.stButton > button[kind="secondary"] {
+    background: #FFFFFF !important;
+    border: 1px solid var(--ag-border) !important;
+    color: var(--ag-text-primary) !important;
+    box-shadow: 0 1px 3px rgba(31, 52, 76, 0.05) !important;
+}
+
+.stButton > button[kind="secondary"]:hover {
+    border-color: var(--ag-coral) !important;
+    color: var(--ag-coral) !important;
+    box-shadow: 0 4px 12px rgba(31, 52, 76, 0.08) !important;
+}
+
+/* Protect all Material Symbols and Streamlit Material Icons from font overrides */
+[data-testid="stIconMaterial"],
+[data-testid="stExpanderToggleIcon"],
+.material-icons,
+.material-symbols-rounded,
+.material-symbols-outlined {
+    font-family: "Material Symbols Rounded", "Material Icons", sans-serif !important;
+}
+
+/* Expanders */
+div[data-testid="stExpander"] {
+    background: var(--ag-surface) !important;
+    border: 1px solid var(--ag-border) !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 8px rgba(31, 52, 76, 0.04) !important;
+}
+
+div[data-testid="stExpander"] details summary {
+    background: #FFFFFF !important;
+    padding: 14px 20px !important;
+    border-bottom: 1px solid var(--ag-border) !important;
+    transition: background 0.15s ease, color 0.15s ease !important;
+}
+
+div[data-testid="stExpander"] details summary [data-testid="stMarkdownContainer"] p {
+    font-family: var(--font-sans) !important;
+    font-weight: 800 !important;
+    font-size: 0.94rem !important;
+    color: var(--ag-text-primary) !important;
+    margin: 0 !important;
+}
+
+div[data-testid="stExpander"] details summary:hover {
+    color: var(--ag-coral) !important;
+    background: var(--ag-surface-hover) !important;
+}
+
+div[data-testid="stExpander"] details summary:hover [data-testid="stMarkdownContainer"] p {
+    color: var(--ag-coral) !important;
+}
+
+/* Radio Mode Switcher (Clean Pill Segmented) */
+div[data-testid="stRadio"] > div {
+    background: #FFFFFF !important;
+    border: 1px solid var(--ag-border) !important;
+    border-radius: 12px !important;
+    padding: 4px !important;
+    gap: 4px !important;
+    box-shadow: 0 1px 4px rgba(31, 52, 76, 0.04) !important;
+}
+
+div[data-testid="stRadio"] label {
+    background: transparent !important;
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: var(--ag-text-secondary) !important;
+    transition: all 0.15s ease !important;
+}
+
+div[data-testid="stRadio"] label:hover {
+    color: var(--ag-coral) !important;
+    background: rgba(255, 104, 69, 0.06) !important;
+}
+
+/* Tabs */
+div[data-baseweb="tab-list"] {
+    gap: 8px !important;
+    border-bottom: 1px solid var(--ag-border) !important;
+    margin-bottom: 20px !important;
+}
+
+div[data-baseweb="tab"] {
+    background: transparent !important;
+    border-radius: 8px 8px 0 0 !important;
+    font-family: var(--font-sans) !important;
+    font-weight: 700 !important;
+    font-size: 0.86rem !important;
+    color: var(--ag-text-secondary) !important;
+    padding: 10px 18px !important;
+}
+
+div[data-baseweb="tab"][aria-selected="true"] {
+    color: var(--ag-coral) !important;
+    border-bottom: 2px solid var(--ag-coral) !important;
+}
+
+/* Container Border Wrapper (Streamlit st.container(border=True)) */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--ag-surface) !important;
+    border: 1px solid var(--ag-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04) !important;
+    transition: all 0.2s ease !important;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    border-color: rgba(255, 104, 69, 0.25) !important;
+    box-shadow: 0 8px 24px rgba(31, 52, 76, 0.07) !important;
+}
+
+/* ==========================================================================
+   AIRGUARD KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes ag-pulse-ring {
+    0% { transform: scale(0.85); opacity: 1; }
+    100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes ag-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(12px, -16px) scale(1.04); }
+}
+
+@keyframes ag-orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes ag-flow {
+    0% { stroke-dashoffset: 100; }
+    100% { stroke-dashoffset: 0; }
+}
+
+.ag-pulse-dot, .ensur-pulse-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--ag-coral);
+    display: inline-block;
+}
+
+.ag-pulse-dot, .ensur-pulse-dot::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    border: 2px solid var(--ag-coral);
+    animation: ag-pulse-ring 2s cubic-bezier(0.2, 0, 0, 1) infinite;
+}
+
+/* ==========================================================================
+   AIRGUARD FLOATING PILL (DECISION AUTHORIZATION BADGE)
+   ========================================================================== */
+.ag-top-pill, .ensur-top-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1px solid rgba(255, 104, 69, 0.25);
+    border-radius: 9999px;
+    padding: 6px 18px;
+    box-shadow: 0 4px 16px rgba(255, 104, 69, 0.08);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ag-text-primary);
+    margin: 0 auto 16px auto;
+    text-align: center;
+}
+
+.ag-top-pill, .ensur-top-pill strong {
+    color: var(--ag-coral);
+    font-weight: 800;
+    font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   AIRGUARD EXECUTIVE NAVBAR & BRAND
+   ========================================================================== */
+.ag-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid var(--ag-border);
+    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(31, 52, 76, 0.05);
+    margin-bottom: 14px;
+}
+
+.ag-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ag-brand-name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--ag-navy);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ag-brand-tagline {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ag-text-muted);
+    letter-spacing: 0.01em;
+}
+
+.ag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.ag-badge-good {
+    background: var(--ag-green-soft);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.ag-badge-moderate {
+    background: var(--ag-amber-soft);
+    color: #D97706;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.ag-badge-caution {
+    background: var(--ag-orange-soft);
+    color: #EA580C;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.ag-badge-avoid, .ag-badge-unhealthy {
+    background: var(--ag-red-soft);
+    color: #DC2626;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.ag-badge-neutral, .ag-badge-nothing {
+    background: rgba(31, 52, 76, 0.05);
+    color: var(--ag-navy);
+    border: 1px solid var(--ag-border);
+}
+
+.ag-badge-cyan {
+    background: var(--ag-coral-soft);
+    color: var(--ag-coral);
+    border: 1px solid rgba(255, 104, 69, 0.3);
+}
+
+/* ==========================================================================
+   AIRGUARD HERO DIRECTIVE CARD
+   ========================================================================== */
+.ag-hero-directive {
+    background: #FFFFFF;
+    border: 1px solid var(--ag-border);
+    border-radius: 20px;
+    padding: 32px 36px;
+    box-shadow: 0 12px 36px -4px rgba(31, 52, 76, 0.07);
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ag-hero-directive::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF6845 0%, #FF8665 30%, #FFA48C 60%, #10B981 100%);
+}
+
+.ag-hero-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ag-hero-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ag-text-secondary);
+}
+
+.ag-hero-timestamp {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--ag-coral);
+    background: rgba(255, 104, 69, 0.08);
+    border: 1px solid rgba(255, 104, 69, 0.2);
+    padding: 4px 12px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ag-hero-headline {
+    font-family: var(--font-heading);
+    font-size: 2.15rem;
+    font-weight: 800;
+    color: var(--ag-navy);
+    letter-spacing: -0.03em;
+    line-height: 1.25;
+    margin-bottom: 10px;
+}
+
+.ag-hero-summary {
+    font-family: var(--font-sans);
+    font-size: 1.0rem;
+    color: var(--ag-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 26px;
+    max-width: 820px;
+}
+
+/* ==========================================================================
+   DECISION TICKETS: BEST WINDOW & HOURS TO AVOID
+   ========================================================================== */
+.ag-ticket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.ag-ticket {
+    background: var(--ag-canvas);
+    border: 1px solid var(--ag-border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    transition: all 0.2s ease;
+}
+
+.ag-ticket:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(31, 52, 76, 0.06);
+}
+
+.ag-ticket-safe {
+    border-color: rgba(16, 185, 129, 0.35);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, #FFFFFF 100%);
+}
+
+.ag-ticket-avoid {
+    border-color: rgba(255, 104, 69, 0.35);
+    background: linear-gradient(135deg, rgba(255, 104, 69, 0.05) 0%, #FFFFFF 100%);
+}
+
+.ag-ticket-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+}
+
+.ag-ticket-time {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ag-navy);
+    margin-bottom: 6px;
+}
+
+.ag-ticket-note {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--ag-text-secondary);
+    line-height: 1.45;
+}
+
+/* ==========================================================================
+   WEATHER VITALS BAR (CLEAN WHITE CARDS)
+   ========================================================================== */
+.ag-vitals-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.ag-vital-tile {
+    background: #FFFFFF;
+    border: 1px solid var(--ag-border);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.03);
+    transition: all 0.2s ease;
+}
+
+.ag-vital-tile:hover {
+    border-color: var(--ag-coral);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(31, 52, 76, 0.06);
+}
+
+.ag-vital-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ag-text-muted);
+    margin-bottom: 8px;
+}
+
+.ag-vital-value {
+    font-family: var(--font-mono);
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: var(--ag-navy);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.ag-vital-desc {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--ag-text-secondary);
+    line-height: 1.35;
+}
+
+/* ==========================================================================
+   24-HOUR HORIZON TIMELINE (AIRGUARD CONTINUUM STYLE)
+   ========================================================================== */
+.ag-timeline-container {
+    background: #FFFFFF;
+    border: 1px solid var(--ag-border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.03);
+}
+
+.ag-timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ag-timeline-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--ag-navy);
+}
+
+.ag-timeline-legend {
+    display: flex;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.ag-timeline-track {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ag-border) transparent;
+}
+
+.ag-hour-card {
+    flex: 0 0 76px;
+    background: var(--ag-canvas);
+    border: 1px solid var(--ag-border);
+    border-radius: 12px;
+    padding: 12px 6px;
+    text-align: center;
+    transition: all 0.18s ease;
+}
+
+.ag-hour-card:hover {
+    border-color: var(--ag-coral);
+    background: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(31, 52, 76, 0.08);
+}
+
+.ag-hour-time {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--ag-text-secondary);
+    margin-bottom: 8px;
+}
+
+.ag-hour-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 auto 8px auto;
+}
+
+.ag-hour-pm25 {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ag-navy);
+    margin-bottom: 4px;
+}
+
+.ag-hour-status {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   METRIC TILES (CENTRALIZED DESIGN SYSTEM)
+   ========================================================================== */
+.ag-metric-card {
+    background: #FFFFFF;
+    border: 1px solid var(--ag-border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+}
+
+.ag-metric-card:hover {
+    border-color: var(--ag-coral);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(31, 52, 76, 0.08);
+}
+
+.ag-metric-label {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ag-text-muted);
+}
+
+.ag-metric-val {
+    font-family: var(--font-mono);
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: var(--ag-navy);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+}
+
+.ag-metric-unit {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ag-text-muted);
+    margin-left: 6px;
+}
+
+.ag-metric-footer {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--ag-text-secondary);
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--ag-border);
+}
+
+/* ==========================================================================
+   AIRGUARD ENGINE SECTION (DEEP NAVY WITH DIAMOND LATTICE)
+   ========================================================================== */
+.ag-engine-container, .ensur-engine-container {
+    background-color: var(--ag-navy);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 36px 40px;
+    margin: 28px 0;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 50px -10px rgba(10, 20, 35, 0.5);
+}
+
+.ag-engine-eyebrow, .ensur-engine-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ag-coral);
+    margin-bottom: 8px;
+}
+
+.ag-engine-title, .ensur-engine-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+.ag-engine-title, .ensur-engine-title span {
+    color: var(--ag-coral);
+}
+
+.ag-engine-subtitle, .ensur-engine-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: #A0B0C4;
+    line-height: 1.6;
+    margin-bottom: 28px;
+    max-width: 720px;
+}
+
+/* ==========================================================================
+   CALLOUTS & NOTIFICATION TOKENS
+   ========================================================================== */
+.ag-callout {
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+}
+
+.ag-callout-info {
+    background: rgba(255, 104, 69, 0.06);
+    border: 1px solid rgba(255, 104, 69, 0.25);
+    color: var(--ag-navy);
+}
+
+.ag-callout-warning {
+    background: var(--ag-amber-soft);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: #92400E;
+}
+
+.ag-callout-danger {
+    background: var(--ag-red-soft);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #991B1B;
+}
+
+.ag-callout-success {
+    background: var(--ag-green-soft);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #065F46;
+}
+
+/* Section Header Typography */
+.ag-section-header {
+    margin-bottom: 20px;
+}
+
+.ag-section-title {
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--ag-navy);
+    letter-spacing: -0.02em;
+    margin: 0 0 4px 0;
+}
+
+.ag-section-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--ag-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   3D CARTOON MASCOT ANIMATIONS (SIMPLE MODE ONLY)
+   ========================================================================== */
+@keyframes float3d {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-9px) rotate(1.2deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes gentleBob {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes breezeDrift {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(3px, -4px) rotate(1deg);
+    }
+    50% {
+        transform: translate(0px, -7px) rotate(0deg);
+    }
+    75% {
+        transform: translate(-3px, -4px) rotate(-1deg);
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+}
+
+@keyframes softPulseGlow {
+    0% {
+        box-shadow: 0 10px 24px -4px rgba(255, 104, 69, 0.22);
+    }
+    50% {
+        box-shadow: 0 16px 36px -2px rgba(255, 104, 69, 0.38);
+    }
+    100% {
+        box-shadow: 0 10px 24px -4px rgba(255, 104, 69, 0.22);
+    }
+}
+
+@keyframes greenPulseGlow {
+    0% {
+        box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.22);
+    }
+    50% {
+        box-shadow: 0 16px 36px -2px rgba(16, 185, 129, 0.38);
+    }
+    100% {
+        box-shadow: 0 10px 24px -4px rgba(16, 185, 129, 0.22);
+    }
+}
+
+.ag-cartoon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+}
+
+.ag-cartoon-float {
+    animation: float3d 3.8s ease-in-out infinite;
+    will-change: transform;
+}
+
+.ag-cartoon-bob {
+    animation: gentleBob 3.2s ease-in-out infinite;
+    will-change: transform;
+}
+
+.ag-cartoon-drift {
+    animation: breezeDrift 5s ease-in-out infinite;
+    will-change: transform;
+}
+
+.ag-cartoon-glow-coral {
+    animation: softPulseGlow 3.5s ease-in-out infinite;
+}
+
+.ag-cartoon-glow-green {
+    animation: greenPulseGlow 3.5s ease-in-out infinite;
+}
+
+.ag-cartoon-mascot-img {
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 12px 28px -6px rgba(31, 52, 76, 0.16);
+    border: 3px solid #FFFFFF;
+    transition: transform 0.3s ease;
+}
+
+.ag-cartoon-mascot-img:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+/* ==========================================================================
+   AIRGUARD REAL-LIFE PHOTOGRAPHY & INTERACTIVE SIMULATOR STYLES
+   ========================================================================== */
+/* Universal Streamlit Image Styling & Alignment */
+div[data-testid="stImage"] {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 8px 0 !important;
+}
+
+div[data-testid="stImage"] img {
+    border-radius: 16px !important;
+    border: 1px solid var(--ag-border) !important;
+    box-shadow: 0 4px 20px rgba(31, 52, 76, 0.08) !important;
+    object-fit: cover !important;
+    max-width: 100% !important;
+    height: auto !important;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+}
+
+div[data-testid="stImage"] img:hover {
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 10px 28px rgba(31, 52, 76, 0.12) !important;
+}
+
+div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
+    color: #0F1E2E !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+    line-height: 1.45 !important;
+}
+
+.ag-photo-card {
+    background: #FFFFFF;
+    border: 1px solid var(--ag-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(31, 52, 76, 0.06);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.ag-photo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(31, 52, 76, 0.12);
+    border-color: rgba(255, 104, 69, 0.4);
+}
+
+.ag-photo-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #1F344C;
+}
+
+.ag-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ag-photo-card:hover .ag-photo-img {
+    transform: scale(1.05);
+}
+
+.ag-photo-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(31, 52, 76, 0.85);
+    backdrop-filter: blur(8px);
+    color: #FFFFFF;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ag-photo-content {
+    padding: 18px 18px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.ag-photo-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--ag-navy);
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.ag-photo-desc {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--ag-text-secondary);
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* Certificate of Safety */
+.ag-cert-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FAF6F1 100%);
+    border: 2px solid #FF6845;
+    border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0 12px 36px rgba(255, 104, 69, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.ag-cert-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 104, 69, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.ag-cert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.12);
+    color: #065F46;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 9999px;
+    padding: 4px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ag-cert-token {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: #8896A6;
+    letter-spacing: 0.04em;
+}
+
+/* ==========================================================================
+   AirGuard Environmental Newsroom & 6-Hour Intelligence Feed Styles
+   ========================================================================== */
+
+.ag-news-sync-banner {
+    background: linear-gradient(135deg, #1F344C 0%, #162638 100%);
+    border: 1px solid rgba(255, 104, 69, 0.35);
+    border-radius: 16px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(22, 38, 56, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.ag-news-sync-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 104, 69, 0.14);
+    border: 1px solid rgba(255, 104, 69, 0.4);
+    border-radius: 9999px;
+    padding: 5px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #FFA48C;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ag-news-card {
+    background: var(--ag-surface);
+    border: 1px solid var(--ag-border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.ag-news-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(31, 52, 76, 0.08);
+    border-color: rgba(255, 104, 69, 0.3);
+}
+
+.ag-news-card-critical {
+    border-left: 5px solid #EF4444;
+}
+
+.ag-news-card-high {
+    border-left: 5px solid #F59E0B;
+}
+
+.ag-news-card-moderate {
+    border-left: 5px solid #10B981;
+}
+
+.ag-news-card-info {
+    border-left: 5px solid #38BDF8;
+}
+
+.ag-news-source-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F1F5F9;
+    color: #334155;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.ag-news-action-box {
+    background: #FFF7ED;
+    border: 1px solid #FED7AA;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 14px 0;
+}
+
+.ag-news-tech-box {
+    background: #111827;
+    border: 1px solid #1F2937;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-family: var(--font-mono);
+    color: #E2E8F0;
+    font-size: 0.8rem;
+}
+
+
+
+
+/* ==========================================================================
+   AIRGUARD 3D CARTOON PROJECT VISUALIZATION SHOWCASE
+   ========================================================================== */
+@keyframes ag-cinematic-breathe {
+    0% {
+        transform: scale(1.08) translate(0px, 0px);
+    }
+    25% {
+        transform: scale(1.12) translate(-16px, -10px);
+    }
+    50% {
+        transform: scale(1.09) translate(14px, -6px);
+    }
+    75% {
+        transform: scale(1.14) translate(8px, 8px);
+    }
+    100% {
+        transform: scale(1.08) translate(0px, 0px);
+    }
+}
+
+@keyframes ag-radar-expand {
+    0% { transform: scale(0.3); opacity: 0.95; }
+    70% { transform: scale(2.2); opacity: 0.15; }
+    100% { transform: scale(2.6); opacity: 0; }
+}
+
+@keyframes ag-shield-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
+    50% { transform: scale(1.08); opacity: 0.95; box-shadow: 0 0 45px rgba(59, 130, 246, 0.75); }
+}
+
+@keyframes ag-sunbeam-drift {
+    0% { transform: translateX(-120%) rotate(-15deg); opacity: 0; }
+    20% { opacity: 0.6; }
+    60% { opacity: 0.8; }
+    100% { transform: translateX(220%) rotate(-15deg); opacity: 0; }
+}
+
+@keyframes ag-sparkle-spin {
+    0% { transform: rotate(0deg) scale(0.9); opacity: 0.7; }
+    50% { transform: rotate(180deg) scale(1.15); opacity: 1; }
+    100% { transform: rotate(360deg) scale(0.9); opacity: 0.7; }
+}
+
+@keyframes ag-badge-levitate {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes ag-badge-levitate-alt {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+@keyframes ag-shine-sweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+.ag-3d-stage {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAF6F1 100%);
+    border: 1px solid rgba(235, 230, 223, 0.95);
+    border-radius: 24px;
+    padding: 24px 28px;
+    margin: 10px 0 28px 0;
+    box-shadow: 0 12px 36px rgba(31, 52, 76, 0.05), 0 2px 6px rgba(31, 52, 76, 0.02);
+    position: relative;
+    overflow: hidden;
+}
+
+.ag-3d-stage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: ag-shine-sweep 8s infinite ease-in-out;
+    pointer-events: none;
+}
+
+.ag-3d-stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.ag-3d-panoramic-box {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 18px 48px rgba(31, 52, 76, 0.08), 0 4px 14px rgba(31, 52, 76, 0.03);
+    border: 3px solid rgba(255, 255, 255, 0.95);
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 45%, #F0FDF4 100%);
+    min-height: 440px;
+    perspective: 1200px;
+}
+
+.ag-3d-panoramic-img {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 440px;
+    max-height: 520px;
+    object-fit: cover !important;
+    display: block;
+    animation: ag-cinematic-breathe 22s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.ag-3d-live-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ag-3d-sunbeam {
+    position: absolute;
+    top: -50%;
+    left: 0;
+    width: 60%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-sunbeam-drift 9s ease-in-out infinite;
+}
+
+.ag-3d-radar-pulse {
+    position: absolute;
+    top: 14%;
+    left: 12%;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 2px solid rgba(16, 185, 129, 0.8);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.08) 55%, transparent 75%);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-radar-expand 3.2s ease-out infinite;
+}
+
+.ag-3d-dome-shield {
+    position: absolute;
+    top: 22%;
+    right: 13%;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2px dashed rgba(59, 130, 246, 0.7);
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(147, 197, 253, 0.1) 60%, transparent 80%);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-shield-breathe 4s ease-in-out infinite;
+}
+
+.ag-3d-panoramic-box:hover .ag-3d-panoramic-img {
+    filter: brightness(1.03);
+}
+
+.ag-3d-overlay-badge {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 9999px;
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 24px rgba(31, 52, 76, 0.16);
+    animation: ag-badge-levitate 4s ease-in-out infinite;
+    z-index: 2;
+}
+
+.ag-3d-cast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+    gap: 18px;
+}
+
+.ag-3d-cast-card {
+    background: #FFFFFF;
+    border: 1px solid #EBE6DF;
+    border-radius: 18px;
+    padding: 18px 16px 20px 16px;
+    box-shadow: 0 4px 16px rgba(31, 52, 76, 0.04);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.ag-3d-cast-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 36px rgba(31, 52, 76, 0.10);
+    border-color: rgba(255, 104, 69, 0.35);
+}
+
+.ag-3d-cast-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #FFFFFF;
+    box-shadow: 0 8px 22px rgba(31, 52, 76, 0.12);
+    margin-bottom: 12px;
+}
+
+
+.ag-3d-speech-bubble {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin: 6px 0 10px 0;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: #334155;
+    line-height: 1.45;
+    position: relative;
+    font-style: italic;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ag-3d-speech-bubble::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #E2E8F0;
+}
+
+.ag-3d-speech-bubble::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #F8FAFC;
+}
+
+.ag-3d-voice-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #FFF7F5 0%, #FFEBE6 100%);
+    border: 1px solid rgba(255, 104, 69, 0.35);
+    border-radius: 9999px;
+    padding: 4px 12px;
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: #FF6845;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    margin-bottom: 8px;
+    user-select: none;
+}
+
+.ag-3d-voice-btn:hover {
+    transform: scale(1.04);
+    background: linear-gradient(135deg, #FF6845 0%, #FF8665 100%);
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(255, 104, 69, 0.35);
+}
+
+.ag-3d-voice-btn:active {
+    transform: scale(0.97);
+}
+
+.ag-3d-telemetry-badge {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 9999px;
+    padding: 7px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    z-index: 3;
+    animation: ag-badge-levitate-alt 4.5s ease-in-out infinite;
+}
+
+.ag-3d-sparkle-drift {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 215, 0, 0.4) 40%, transparent 70%);
+    animation: ag-particle-float 6s infinite ease-in-out;
+}
+
+@keyframes ag-particle-float {
+    0% { transform: translateY(0px) scale(0.8); opacity: 0.3; }
+    50% { transform: translateY(-25px) scale(1.2); opacity: 0.8; }
+    100% { transform: translateY(0px) scale(0.8); opacity: 0.3; }
+}
+
+/* Live 3D Breeze and Clean Air Streams */
+.ag-3d-breeze-stream {
+    position: absolute;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+    border-radius: 9999px;
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-breeze-flow 4.2s linear infinite;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes ag-breeze-flow {
+    0% { transform: translateX(-160px); opacity: 0; }
+    20% { opacity: 0.85; }
+    80% { opacity: 0.85; }
+    100% { transform: translateX(1200px); opacity: 0; }
+}
+
+/* Floating Clean Air Sparkle Orbs */
+.ag-sparkle-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFFFFF 0%, rgba(255, 215, 0, 0.85) 45%, rgba(16, 185, 129, 0.4) 75%, transparent 100%);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+    pointer-events: none;
+    z-index: 2;
+    animation: ag-float-orb 5s infinite ease-in-out;
+}
+
+@keyframes ag-float-orb {
+    0% { transform: translateY(0px) scale(0.6); opacity: 0; }
+    25% { opacity: 0.95; }
+    75% { opacity: 0.95; }
+    100% { transform: translateY(-160px) scale(1.25); opacity: 0; }
+}
