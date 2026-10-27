@@ -1,5 +1,5 @@
 """
-Explainability & Interpretability Module for AirGuard.
+Explainability & Interpretability Module for AirFusion.
 Provides global feature importance, SHAP-based tree explanations,
 and natural language diagnostic insights explaining forecast drivers.
 """
@@ -23,7 +23,7 @@ import shap
 
 from src.predict import load_model_bundle
 
-logger = logging.getLogger("airguard.explainability")
+logger = logging.getLogger("airfusion.explainability")
 
 
 def get_global_feature_importance(top_n: int = 15) -> pd.DataFrame:

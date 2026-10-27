@@ -1,5 +1,5 @@
 """
-Safety Rules & Personalized Decision Support Engine for AirGuard — My Safe Outdoor Plan.
+Safety Rules & Personalized Decision Support Engine for AirFusion — My Safe Outdoor Plan.
 Computes multi-factor outdoor risk scores, transparent medical-free rationale,
 activity recommendations, mask guidance, indoor precautions, and safe time windows.
 """
@@ -12,7 +12,7 @@ from datetime import datetime, time as dtime
 import pandas as pd
 import numpy as np
 
-logger = logging.getLogger("airguard.safety_rules")
+logger = logging.getLogger("airfusion.safety_rules")
 
 # ==============================================================================
 # SENSITIVITY, ACTIVITY & DURATION COEFFICIENTS

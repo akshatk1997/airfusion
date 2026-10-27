@@ -1,5 +1,5 @@
 """
-Activity Advisor UI Component for AirGuard — My Safe Outdoor Plan.
+Activity Advisor UI Component for AirFusion — My Safe Outdoor Plan.
 Renders optimal safe outdoor windows, avoid periods, alternative recommendations,
 and discrete hourly timeline status strips.
 """

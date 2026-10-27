@@ -1,5 +1,5 @@
 """
-End-to-end and integration tests for AirGuard UI, Design System sanitization,
+End-to-end and integration tests for AirFusion UI, Design System sanitization,
 and browser-rendered visual stability.
 """
 
@@ -40,7 +40,7 @@ def test_safe_markdown_strips_indentation():
 def is_server_running(url: str = "http://localhost:8501/_stcore/health") -> bool:
     """Check if the Streamlit server is currently accepting HTTP connections."""
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "AirGuard-Test"})
+        req = urllib.request.Request(url, headers={"User-Agent": "AirFusion-Test"})
         with urllib.request.urlopen(req, timeout=3) as resp:
             return resp.status in (200, 404)  # 200 healthcheck or standard app response
     except Exception:
@@ -123,7 +123,7 @@ def test_browser_rendered_home_page():
     try:
         driver.set_window_size(1440, 900)
         driver.get("http://localhost:8501/")
-        assert wait_for_text(driver, "AIRGUARD", timeout=15)
+        assert wait_for_text(driver, "AIRFUSION", timeout=15)
         assert wait_for_text(driver, "Real-Time Air Quality Intelligence", timeout=15)
         assert "ACTIVE LOCATION:" in driver.page_source
 
@@ -154,7 +154,7 @@ def test_browser_responsive_sidebar_collapsed():
         # Mobile viewport (390 x 844 iPhone 14/15 size)
         driver.set_window_size(390, 844)
         driver.get("http://localhost:8501/")
-        assert wait_for_text(driver, "AIRGUARD", timeout=15)
+        assert wait_for_text(driver, "AIRFUSION", timeout=15)
 
         # In auto mode on mobile, main app container is immediately visible and not hidden
         main_content = driver.find_elements("css selector", "[data-testid='stMain']")
@@ -182,7 +182,7 @@ def test_browser_safe_outdoor_plan_page():
     try:
         driver.set_window_size(1440, 900)
         driver.get("http://localhost:8501/My_Safe_Outdoor_Plan")
-        assert wait_for_text(driver, "AIRGUARD", timeout=20)
+        assert wait_for_text(driver, "AIRFUSION", timeout=20)
         assert wait_for_text(driver, "My Safe Outdoor Plan", timeout=20)
         # Supports either Simple Mode or Technical Mode
         assert wait_for_text(driver, "Best", timeout=20)
@@ -210,7 +210,7 @@ def test_browser_live_tracking_page():
     try:
         driver.set_window_size(1440, 900)
         driver.get("http://localhost:8501/Live_Tracking")
-        assert wait_for_text(driver, "AIRGUARD", timeout=20)
+        assert wait_for_text(driver, "AIRFUSION", timeout=20)
         # Matches either Simple Mode or Technical Mode
         assert wait_for_any_text(driver, ["Live Air Quality", "LIVE ALERT DEFENSE STATUS", "Real-Time Data Tracking"], timeout=25)
     finally:
@@ -236,7 +236,7 @@ def test_browser_trends_page():
     try:
         driver.set_window_size(1440, 900)
         driver.get("http://localhost:8501/Trends")
-        assert wait_for_text(driver, "AIRGUARD", timeout=20)
+        assert wait_for_text(driver, "AIRFUSION", timeout=20)
         # Matches either Simple Mode or Technical Mode
         assert (wait_for_text(driver, "Air Quality Trends", timeout=20) or
                 wait_for_text(driver, "SAFETY TIMELINE", timeout=20))
@@ -263,9 +263,9 @@ def test_browser_model_insights_page():
     try:
         driver.set_window_size(1440, 900)
         driver.get("http://localhost:8501/Model_Insights")
-        assert wait_for_text(driver, "AIRGUARD", timeout=20)
+        assert wait_for_text(driver, "AIRFUSION", timeout=20)
         # Matches either Simple Mode or Technical Mode
-        assert (wait_for_text(driver, "How AirGuard Forecasts Pollution", timeout=20) or
+        assert (wait_for_text(driver, "How AirFusion Forecasts Pollution", timeout=20) or
                 wait_for_text(driver, "Predictive Intelligence", timeout=20))
     finally:
         driver.quit()
@@ -290,7 +290,7 @@ def test_browser_about_safety_page():
     try:
         driver.set_window_size(1440, 900)
         driver.get("http://localhost:8501/About_Safety")
-        assert wait_for_text(driver, "AIRGUARD", timeout=20)
+        assert wait_for_text(driver, "AIRFUSION", timeout=20)
         # Matches either Simple Mode or Technical Mode disclaimer
         assert (wait_for_text(driver, "Safety Note:", timeout=20) or
                 wait_for_text(driver, "ENVIRONMENTAL SAFETY DISCLAIMER", timeout=20) or

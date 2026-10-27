@@ -395,7 +395,7 @@ def render_eco_quest_hub(
                             Predictive Intuition: Guess Today's Freshest Hour
                         </div>
                         <div style="font-family: var(--font-sans); font-size: 0.82rem; color: #5A6E85;">
-                            Can your weather instinct beat AirGuard's machine learning model for {city_name}?
+                            Can your weather instinct beat AirFusion's machine learning model for {city_name}?
                         </div>
                     </div>
                 </div>
@@ -422,7 +422,7 @@ def render_eco_quest_hub(
                         🎯 Your Guess: {user_guess} vs AI Model Forecast: {best_time}
                     </div>
                     <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #1F344C; line-height: 1.5;">
-                        AirGuard's machine learning forecast predicts that the purest air window in {city_name} is around <strong>{best_time}</strong> when atmospheric dispersion is highest. You earned the <strong>Clean Air Futurist</strong> badge!
+                        AirFusion's machine learning forecast predicts that the purest air window in {city_name} is around <strong>{best_time}</strong> when atmospheric dispersion is highest. You earned the <strong>Clean Air Futurist</strong> badge!
                     </div>
                 </div>
                 """,

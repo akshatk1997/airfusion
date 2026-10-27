@@ -1,5 +1,5 @@
 """
-Data Collection Module for AirGuard.
+Data Collection Module for AirFusion.
 Fetches real-time and historical air quality and meteorological data
 from Open-Meteo APIs (free, zero-config) with optional OpenWeather API fallback,
 performs geocoding, and persists records into the local SQLite database.
@@ -25,7 +25,7 @@ from src.config import (
 )
 from src.database import get_or_create_location, upsert_air_quality_dataframe
 
-logger = logging.getLogger("airguard.data_collection")
+logger = logging.getLogger("airfusion.data_collection")
 
 # High-Performance In-Memory Response Caches (Sub-millisecond reruns)
 _GEO_CACHE: Dict[str, Tuple[float, Optional[Dict[str, Any]]]] = {}

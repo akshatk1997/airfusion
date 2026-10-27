@@ -1,8 +1,8 @@
 """
-AirGuard Platform Introduction & Interactive Architecture Tour.
-AirGuard Platform Architecture & Autonomous Operating System Experience,
+AirFusion Platform Introduction & Interactive Architecture Tour.
+AirFusion Platform Architecture & Autonomous Operating System Experience,
 for autonomous ambient air intelligence, predictive machine learning, and outdoor safety.
-Includes interactive airguardOS decision simulation, animated 3D cartoon mascots, and real-life photography.
+Includes interactive airfusionOS decision simulation, animated 3D cartoon mascots, and real-life photography.
 """
 
 from __future__ import annotations
@@ -16,9 +16,9 @@ import streamlit as st
 
 PAGE_DIR = Path(__file__).resolve().parent
 APP_DIR = PAGE_DIR.parent
-AIRGUARD_ROOT = APP_DIR.parent
-if str(AIRGUARD_ROOT) not in sys.path:
-    sys.path.insert(0, str(AIRGUARD_ROOT))
+AIRFUSION_ROOT = APP_DIR.parent
+if str(AIRFUSION_ROOT) not in sys.path:
+    sys.path.insert(0, str(AIRFUSION_ROOT))
 
 from src.data_collection import geocode_city, fetch_current_air_quality
 from app.components.navbar import render_global_navbar, PRESET_CITIES
@@ -36,11 +36,11 @@ from app.components.design_system import (
 )
 from app.components.simple_cards import (
     get_mascot_base64,
-    render_airguard_executive_footer
+    render_airfusion_executive_footer
 )
 
 st.set_page_config(
-    page_title="Platform Intro — AirGuard Environmental Sentry",
+    page_title="Platform Intro — AirFusion Environmental Sentry",
     page_icon="🌟",
     layout="wide",
     initial_sidebar_state="auto"
@@ -51,7 +51,7 @@ active_city = render_global_navbar("Platform Intro")
 render_mode_banner()
 
 # ==============================================================================
-# 1. FLAGSHIP AIRGUARD HERO: THE AUTONOMOUS ENVIRONMENTAL OPERATING SYSTEM
+# 1. FLAGSHIP AIRFUSION HERO: THE AUTONOMOUS ENVIRONMENTAL OPERATING SYSTEM
 # ==============================================================================
 safe_markdown("""
 <section class="ag-hero" style="text-align: center; margin-bottom: var(--space-8);">
@@ -65,7 +65,7 @@ safe_markdown("""
         Making outdoor safety <span class="ag-coral-gradient">deterministic, predictive,</span> and personal.
     </h1>
     <p style="font-family: var(--font-sans); font-size: 1.12rem; color: #5A6E85; max-width: 780px; margin: 0 auto var(--space-6) auto; line-height: 1.65;">
-        Traditional weather apps only report static history from delayed airport stations. AirGuard continuously evaluates ambient ground telemetry, forecasts pollution spikes up to 72 hours ahead with machine learning, and calculates personalized physiological lung intake so you know the exact window to step outside safely.
+        Traditional weather apps only report static history from delayed airport stations. AirFusion continuously evaluates ambient ground telemetry, forecasts pollution spikes up to 72 hours ahead with machine learning, and calculates personalized physiological lung intake so you know the exact window to step outside safely.
     </p>
 </section>
 """)
@@ -91,11 +91,11 @@ st.markdown("<div style='height: 36px;'></div>", unsafe_allow_html=True)
 
 
 # ==============================================================================
-# 2. THE FLAGSHIP AIRGUARD ENGINE: VERIFY. DECIDE. PROTECT.
+# 2. THE FLAGSHIP AIRFUSION ENGINE: VERIFY. DECIDE. PROTECT.
 # ==============================================================================
 render_section_header(
     title="The Core Decision Cycle: Verify. Decide. Protect.",
-    subtitle="Built on AirGuardOS conditional architecture — translating real-world atmospheric chemistry into verified human safety clearance.",
+    subtitle="Built on AirFusionOS conditional architecture — translating real-world atmospheric chemistry into verified human safety clearance.",
     badge="DECISION INFRASTRUCTURE"
 )
 
@@ -162,7 +162,7 @@ safe_markdown("""
 
 
 # ==============================================================================
-# 3. INTERACTIVE LIVE SIMULATOR: RUN THE AIRGUARDOS ENGINE IN REAL TIME
+# 3. INTERACTIVE LIVE SIMULATOR: RUN THE AIRFUSIONOS ENGINE IN REAL TIME
 # ==============================================================================
 with st.container(border=True):
     safe_markdown("""
@@ -173,11 +173,11 @@ with st.container(border=True):
                 Test the Autonomous Decision Engine
             </h3>
             <p style="font-family: var(--font-sans); font-size: 0.86rem; color: #5A6E85; margin: 0;">
-                Select an outdoor activity profile and watch AirGuard verify real telemetry, calculate lung deposition, and issue a verified safety verdict.
+                Select an outdoor activity profile and watch AirFusion verify real telemetry, calculate lung deposition, and issue a verified safety verdict.
             </p>
         </div>
         <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #FF6845; font-weight: 700;">
-            ENGINE: airguardOS v2.4 (Active)
+            ENGINE: airfusionOS v2.4 (Active)
         </div>
     </div>
     """)
@@ -208,7 +208,7 @@ with st.container(border=True):
     with sim_col3:
         st.write("")
         st.write("")
-        run_sim = st.button("⚡ Run airguardOS Engine", key="btn_run_engine_sim", use_container_width=True, type="primary")
+        run_sim = st.button("⚡ Run airfusionOS Engine", key="btn_run_engine_sim", use_container_width=True, type="primary")
 
     if run_sim or st.session_state.get("show_live_sim_cert", False):
         st.session_state["show_live_sim_cert"] = True
@@ -277,7 +277,7 @@ with st.container(border=True):
                 <div>
                     <span class="ag-cert-badge">● CERTIFIED AUTONOMOUS VERDICT</span>
                     <h2 style="font-family: var(--font-heading); font-size: 1.55rem; font-weight: 800; color: #1F344C; margin: 8px 0 4px 0;">
-                        airguardOS Clearance: {activity_label}
+                        airfusionOS Clearance: {activity_label}
                     </h2>
                     <div class="ag-cert-token">CERTIFICATE TOKEN: {cert_id} &bull; ISSUED: {datetime.now().strftime('%b %d, %Y %H:%M')}</div>
                 </div>
@@ -405,7 +405,7 @@ with tab_cartoons:
 with tab_reallife:
     safe_markdown("""
     <p style="font-family: var(--font-sans); font-size: 0.92rem; color: #5A6E85; line-height: 1.6; margin-bottom: 24px;">
-        High-resolution real-world photography capturing the genuine dilemmas and healthy outdoor moments AirGuard was built to protect.
+        High-resolution real-world photography capturing the genuine dilemmas and healthy outdoor moments AirFusion was built to protect.
     </p>
     """)
 
@@ -413,7 +413,7 @@ with tab_reallife:
 
     with real_col1:
         st.image(
-            str(AIRGUARD_ROOT / "app" / "assets" / "images" / "real_morning_runner_park.jpg"),
+            str(AIRFUSION_ROOT / "app" / "assets" / "images" / "real_morning_runner_park.jpg"),
             caption="Golden Hour Park Run — Tree canopies naturally scrub up to 25% of micro-soot particles.",
             use_container_width=True
         )
@@ -421,13 +421,13 @@ with tab_reallife:
         <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 14px 18px; margin-bottom: 24px;">
             <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 0.92rem;">Healthy Athletic Lifestyle</strong>
             <p style="color: #5A6E85; font-size: 0.82rem; margin: 4px 0 0 0; line-height: 1.5;">
-                Deep cardio breathing increases minute ventilation up to 60 L/min. AirGuard identifies the golden hours when ambient air is cleanest so runners build endurance without pulmonary inflammation.
+                Deep cardio breathing increases minute ventilation up to 60 L/min. AirFusion identifies the golden hours when ambient air is cleanest so runners build endurance without pulmonary inflammation.
             </p>
         </div>
         """)
 
         st.image(
-            str(AIRGUARD_ROOT / "app" / "assets" / "images" / "real_city_skyline_telemetry.jpg"),
+            str(AIRFUSION_ROOT / "app" / "assets" / "images" / "real_city_skyline_telemetry.jpg"),
             caption="Metropolitan Skyline Sentry — Monitoring boundary layer thermodynamics across urban hubs.",
             use_container_width=True
         )
@@ -435,14 +435,14 @@ with tab_reallife:
         <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 14px 18px; margin-bottom: 24px;">
             <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 0.92rem;">Smart City Mesoscale Monitoring</strong>
             <p style="color: #5A6E85; font-size: 0.82rem; margin: 4px 0 0 0; line-height: 1.5;">
-                AirGuard models boundary layer (PBL) thermal inversions where cold ground air traps tailpipe soot under high-pressure domes, warning commuters ahead of visible smog.
+                AirFusion models boundary layer (PBL) thermal inversions where cold ground air traps tailpipe soot under high-pressure domes, warning commuters ahead of visible smog.
             </p>
         </div>
         """)
 
     with real_col2:
         st.image(
-            str(AIRGUARD_ROOT / "app" / "assets" / "images" / "real_family_outdoor_walk.jpg"),
+            str(AIRFUSION_ROOT / "app" / "assets" / "images" / "real_family_outdoor_walk.jpg"),
             caption="Family Park Recess — Pure fresh air for growing lungs and sunny weekend walks.",
             use_container_width=True
         )
@@ -450,21 +450,21 @@ with tab_reallife:
         <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 14px 18px; margin-bottom: 24px;">
             <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 0.92rem;">Family & Child Respiratory Protection</strong>
             <p style="color: #5A6E85; font-size: 0.82rem; margin: 4px 0 0 0; line-height: 1.5;">
-                Children inhale 2.2 times more air per kilogram of body weight than adults. AirGuard gives parents complete clarity on when park strolls and playground recess are 100% safe.
+                Children inhale 2.2 times more air per kilogram of body weight than adults. AirFusion gives parents complete clarity on when park strolls and playground recess are 100% safe.
             </p>
         </div>
         """)
 
         st.image(
-            str(AIRGUARD_ROOT / "app" / "assets" / "images" / "real_traffic_smog_contrast.jpg"),
-            caption="The Rush-Hour Smog Dilemma — Exhaust plumes and particulate spikes that AirGuard shields you from.",
+            str(AIRFUSION_ROOT / "app" / "assets" / "images" / "real_traffic_smog_contrast.jpg"),
+            caption="The Rush-Hour Smog Dilemma — Exhaust plumes and particulate spikes that AirFusion shields you from.",
             use_container_width=True
         )
         safe_markdown("""
         <div style="background: #FFFFFF; border: 1px solid #EBE6DF; border-radius: 14px; padding: 14px 18px; margin-bottom: 24px;">
             <strong style="color: #1F344C; font-family: var(--font-heading); font-size: 0.92rem;">Everyday Urban Commuter Protection</strong>
             <p style="color: #5A6E85; font-size: 0.82rem; margin: 4px 0 0 0; line-height: 1.5;">
-                Tailpipe exhaust and road grit peak during morning rush hours. AirGuard recommends keeping a 6-foot curb setback and wearing N95 masks when waiting at congested transit intersections.
+                Tailpipe exhaust and road grit peak during morning rush hours. AirFusion recommends keeping a 6-foot curb setback and wearing N95 masks when waiting at congested transit intersections.
             </p>
         </div>
         """)
@@ -473,10 +473,10 @@ st.markdown("<div style='height: 48px;'></div>", unsafe_allow_html=True)
 
 
 # ==============================================================================
-# 5. THE PARADIGM SHIFT: STATIC WEATHER APPS VS. AIRGUARD AUTONOMOUS SENTRY
+# 5. THE PARADIGM SHIFT: STATIC WEATHER APPS VS. AIRFUSION AUTONOMOUS SENTRY
 # ==============================================================================
 render_section_header(
-    title="The Paradigm Shift: Static Weather Apps vs. AirGuard",
+    title="The Paradigm Shift: Static Weather Apps vs. AirFusion",
     subtitle="Why traditional weather apps fail at personal air protection and how continuous atmospheric intelligence solves it.",
     badge="THE SHIFT"
 )
@@ -529,11 +529,11 @@ safe_markdown("""
         </ul>
     </div>
 
-    <!-- AirGuard Continuous Autonomous Sentry -->
+    <!-- AirFusion Continuous Autonomous Sentry -->
     <div class="ag-compare-card ag-compare-ongoing" style="background: linear-gradient(145deg, #1F344C 0%, #162638 100%); border: 1px solid rgba(255, 104, 69, 0.35); border-radius: 20px; padding: 32px 30px; box-shadow: 0 16px 36px rgba(31, 52, 76, 0.25);">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
             <span style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #FF8665;">
-                THE AIRGUARD WAY
+                THE AIRFUSION WAY
             </span>
             <span style="background: rgba(255, 104, 69, 0.2); color: #FFC3B3; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; padding: 3px 10px; border-radius: 9999px; border: 1px solid rgba(255, 104, 69, 0.4);">
                 AUTONOMOUS &amp; CONTINUOUS
@@ -804,6 +804,6 @@ st.markdown("<div style='height: 48px;'></div>", unsafe_allow_html=True)
 
 
 # ==============================================================================
-# 9. EXECUTIVE AIRGUARD FOOTER
+# 9. EXECUTIVE AIRFUSION FOOTER
 # ==============================================================================
-render_airguard_executive_footer()
+render_airfusion_executive_footer()

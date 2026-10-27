@@ -1,11 +1,11 @@
 version: "3.8"
 
 services:
-  airguard-web:
+  airfusion-web:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: airguard-web
+    container_name: airfusion-web
     restart: unless-stopped
     ports:
       - "8501:8501"
@@ -16,8 +16,8 @@ services:
       - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
       - PYTHONUNBUFFERED=1
     volumes:
-      - airguard-data:/app/data
-      - airguard-models:/app/models
+      - airfusion-data:/app/data
+      - airfusion-models:/app/models
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
       interval: 30s
@@ -26,17 +26,17 @@ services:
       start_period: 20s
 
   # Optional background ingestion worker running every hour
-  airguard-worker:
+  airfusion-worker:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: airguard-worker
+    container_name: airfusion-worker
     restart: unless-stopped
     environment:
       - PYTHONUNBUFFERED=1
     volumes:
-      - airguard-data:/app/data
-      - airguard-models:/app/models
+      - airfusion-data:/app/data
+      - airfusion-models:/app/models
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
@@ -47,10 +47,10 @@ services:
           sleep 3600
         done
     depends_on:
-      - airguard-web
+      - airfusion-web
 
 volumes:
-  airguard-data:
-    name: airguard-data
-  airguard-models:
-    name: airguard-models
+  airfusion-data:
+    name: airfusion-data
+  airfusion-models:
+    name: airfusion-models

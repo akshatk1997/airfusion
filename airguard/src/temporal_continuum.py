@@ -1,5 +1,5 @@
 """
-Temporal Atmospheric Continuum Module for AirGuard.
+Temporal Atmospheric Continuum Module for AirFusion.
 Provides unified, high-performance data pipeline spanning:
 1. Past Observed History (T_-48h to T_0)
 2. Current On-Time Real-Time Telemetry (T_0)
@@ -34,7 +34,7 @@ from src.data_collection import (
 from src.predict import generate_forecast, is_model_trained
 from src.database import get_or_create_location, upsert_air_quality_dataframe
 
-logger = logging.getLogger("airguard.temporal_continuum")
+logger = logging.getLogger("airfusion.temporal_continuum")
 
 _CONTINUUM_CACHE: Dict[Tuple[str, int, int], Tuple[float, Dict[str, Any]]] = {}
 

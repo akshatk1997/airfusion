@@ -1,5 +1,5 @@
 """
-Database Management Module for AirGuard.
+Database Management Module for AirFusion.
 Manages SQLite connection, schema migrations, and queries for locations,
 air quality measurements, forecasts, and user-configured alerts.
 """
@@ -15,7 +15,7 @@ import pandas as pd
 
 from src.config import DB_PATH
 
-logger = logging.getLogger("airguard.database")
+logger = logging.getLogger("airfusion.database")
 
 
 def get_db_connection(db_path: Optional[Path | str] = None) -> sqlite3.Connection:

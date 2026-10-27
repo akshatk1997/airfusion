@@ -1,5 +1,5 @@
 """
-Unit tests for the AirGuard Mode Switcher component and presentation mode state.
+Unit tests for the AirFusion Mode Switcher component and presentation mode state.
 """
 
 import sys

@@ -7,7 +7,7 @@ import pytest
 import sys
 from pathlib import Path
 
-# Add project root and airguard to sys.path
+# Add project root and airfusion to sys.path
 TEST_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = TEST_DIR.parent
 if str(PROJECT_ROOT) not in sys.path:

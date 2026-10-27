@@ -1,5 +1,5 @@
 """
-AirGuard Environmental Intelligence & Newsroom (Page 7).
+AirFusion Environmental Intelligence & Newsroom (Page 7).
 Delivers synchronized, verified atmospheric intelligence segmented by Area-Specific (Local)
 and International (Global) dispatches from tier-1 trusted regulatory bodies and research agencies.
 Updated on an automated 6-hour refresh cycle and prioritized by real-time situation telemetry.
@@ -37,7 +37,7 @@ from app.components.design_system import (
 )
 
 st.set_page_config(
-    page_title="Air Quality News & Alerts — AirGuard",
+    page_title="Air Quality News & Alerts — AirFusion",
     page_icon="📰",
     layout="wide",
     initial_sidebar_state="auto"
@@ -480,7 +480,7 @@ AIR_QUALITY_VIDEOS = [
         "key_takeaways": [
             "Index categories reflect empirical dose-response curves established by clinical pulmonary studies.",
             "Orange (101-150) alerts sensitive individuals to reduce prolonged outdoor exertion.",
-            "AirGuard's autonomous decision engine translates AQI into personalized departure windows."
+            "AirFusion's autonomous decision engine translates AQI into personalized departure windows."
         ],
         "simulation_type": "inversion"
     },
@@ -843,7 +843,7 @@ with tab_sources:
             <span class="ag-badge ag-badge-good" style="font-size: 0.70rem; padding: 2px 10px;">18 TIER-1 AGENCIES VERIFIED</span>
         </div>
         <div style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6578; margin-top: 4px;">
-            AirGuard exclusively aggregates intelligence from accredited governmental bodies, UN specialized agencies, space telemetry laboratories, and peer-reviewed atmospheric observatories. Zero sponsored content, zero clickbait.
+            AirFusion exclusively aggregates intelligence from accredited governmental bodies, UN specialized agencies, space telemetry laboratories, and peer-reviewed atmospheric observatories. Zero sponsored content, zero clickbait.
         </div>
     </div>
     """)
@@ -884,7 +884,7 @@ st.markdown("<div style='height: 24px;'></div>", unsafe_allow_html=True)
 st.markdown(
     """
     <div style="text-align: center; padding: 20px 0; border-top: 1px solid #EBE6DF; color: #8B95A5; font-family: var(--font-mono); font-size: 0.75rem;">
-        AirGuard Environmental Intelligence Wire • Automated 6-Hour Cycle • Zero Clickbait • 100% Verified Regulatory Telemetry
+        AirFusion Environmental Intelligence Wire • Automated 6-Hour Cycle • Zero Clickbait • 100% Verified Regulatory Telemetry
     </div>
     """,
     unsafe_allow_html=True

@@ -1,5 +1,5 @@
 """
-Interactive Plotly Visualizations for AirGuard.
+Interactive Plotly Visualizations for AirFusion.
 Features Modern Environmental Tech dark styling, JetBrains Mono tooltips,
 and zero layout shift.
 """

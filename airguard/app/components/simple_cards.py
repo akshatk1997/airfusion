@@ -1,6 +1,6 @@
 """
-AirGuard Simple Mode Presentation Components.
-Bespoke, human-crafted environmental decision-support cards and AirGuard design system.
+AirFusion Simple Mode Presentation Components.
+Bespoke, human-crafted environmental decision-support cards and AirFusion design system.
 Warm ivory canvas, pure white surfaces (#FFFFFF), deep navy headings (#1F344C),
 warm borders (#EBE6DF), and coral accents (#FF6845).
 """
@@ -113,7 +113,7 @@ def render_air_safety_card(
 ) -> None:
     """
     Renders the primary Air Safety Directive Card for Simple Mode.
-    AirGuard architecture: Pure White surface (#FFFFFF), subtle warm border (#EBE6DF),
+    AirFusion architecture: Pure White surface (#FFFFFF), subtle warm border (#EBE6DF),
     deep navy (#1F344C) typography, and coral/emerald accents.
     """
     theme = get_simple_status_style(status_level)
@@ -154,11 +154,11 @@ def render_air_safety_card(
     mascot_name = "mascot_clean_air.jpg" if is_safe else "mascot_caution_mask.jpg"
     mascot_b64 = get_mascot_base64(mascot_name)
     anim_class = "ag-cartoon-float ag-cartoon-glow-green" if is_safe else "ag-cartoon-bob ag-cartoon-glow-coral"
-    mascot_tooltip = "AirGuard Clean Air Sentry" if is_safe else "AirGuard Protective Alert Sentry"
+    mascot_tooltip = "AirFusion Clean Air Sentry" if is_safe else "AirFusion Protective Alert Sentry"
 
     mascot_html = f"""
     <div class="ag-cartoon-container {anim_class}" style="flex: 0 0 108px; text-align: center;" title="{mascot_tooltip}">
-        <img src="{mascot_b64}" alt="AirGuard Mascot" class="ag-cartoon-mascot-img" style="width: 108px; height: 108px;" />
+        <img src="{mascot_b64}" alt="AirFusion Mascot" class="ag-cartoon-mascot-img" style="width: 108px; height: 108px;" />
     </div>
     """ if mascot_b64 else ""
 
@@ -279,7 +279,7 @@ def render_air_safety_card(
 def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
     """
     Renders a friendly 24-hour safe/caution/avoid visual track for Simple Mode.
-    AirGuard styling: White surface (#FFFFFF), warm borders (#EBE6DF), clean typography.
+    AirFusion styling: White surface (#FFFFFF), warm borders (#EBE6DF), clean typography.
     """
     if not hourly_data:
         return
@@ -380,7 +380,7 @@ def render_simple_timeline(hourly_data: List[Dict[str, Any]]) -> None:
 def render_todays_tip(aqi: int, wind_speed: float, humidity: float) -> None:
     """
     Renders one short, practical non-technical insight for Simple Mode.
-    AirGuard styling: White surface (#FFFFFF), warm border (#EBE6DF), coral accent (#FF6845).
+    AirFusion styling: White surface (#FFFFFF), warm border (#EBE6DF), coral accent (#FF6845).
     Features friendly 3D cartoon mascot companion in Simple Mode.
     """
     if aqi <= 50:
@@ -459,7 +459,7 @@ def render_simple_alert_setup(current_threshold: float, on_save_callback=None) -
                 <span>🔔</span> Simple Safety Alerts
             </div>
             <p style="font-family: var(--font-sans); font-size: 0.85rem; color: #5A6E85; margin-bottom: 14px; line-height: 1.5;">
-                Set a personal alert level. AirGuard will notify you whenever pollution rises above your comfort line.
+                Set a personal alert level. AirFusion will notify you whenever pollution rises above your comfort line.
             </p>
             """,
             unsafe_allow_html=True
@@ -1003,7 +1003,7 @@ def render_simple_pollutant_cards(pm25: float, pm10: Optional[float] = None) -> 
 def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> None:
     """
     Renders 2 side-by-side cards for Mask guidance and Indoor air protection.
-    AirGuard styling: White surfaces (#FFFFFF), warm borders (#EBE6DF), coral and emerald accents.
+    AirFusion styling: White surfaces (#FFFFFF), warm borders (#EBE6DF), coral and emerald accents.
     Accompanied by animated 3D cartoon mascots in Simple Mode.
     """
     if isinstance(mask_advice, (list, tuple)):
@@ -1072,7 +1072,7 @@ def render_simple_indoor_mask_cards(mask_advice: Any, indoor_advice: Any) -> Non
 
 
 # ==============================================================================
-# SIGNATURE AIRGUARD ARCHITECTURAL COMPONENTS
+# SIGNATURE AIRFUSION ARCHITECTURAL COMPONENTS
 # ==============================================================================
 
 def compute_guardian_mood_state(
@@ -1357,12 +1357,12 @@ def render_simple_3d_cartoon_showcase(
     weather_data: Optional[dict] = None
 ) -> None:
     """
-    Renders an animated 3D Pixar-style cartoon showcase diorama of the AirGuard project.
+    Renders an animated 3D Pixar-style cartoon showcase diorama of the AirFusion project.
     Live active characters dynamically change their mood, voice lines, animations,
     lighting, speech bubbles, and badges based on the active region, air quality, and real-time weather.
     Includes an interactive mood previewer to experience the full guardian emotional spectrum.
     """
-    panoramic_b64 = get_mascot_base64("airguard_3d_cartoon_panoramic.jpg")
+    panoramic_b64 = get_mascot_base64("airfusion_3d_cartoon_panoramic.jpg")
     aero_b64 = get_mascot_base64("mascot_clean_air.jpg")
     runner_b64 = get_mascot_base64("mascot_outdoor_runner.jpg")
     mask_b64 = get_mascot_base64("mascot_caution_mask.jpg")
@@ -1377,7 +1377,7 @@ def render_simple_3d_cartoon_showcase(
         <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 104, 69, 0.10); border: 1px solid rgba(255, 104, 69, 0.3); border-radius: 9999px; padding: 4px 14px; margin-bottom: 6px;">
             <span style="display: inline-block; animation: ag-sparkle-spin 6s linear infinite; font-size: 0.85rem;">✨</span>
             <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF6845; text-transform: uppercase; letter-spacing: 0.08em;">
-                AIRGUARD 3D ANIMATED UNIVERSE • THE CLEAN AIR GUARDIANS
+                AIRFUSION 3D ANIMATED UNIVERSE • THE CLEAN AIR FUSIONIANS
             </span>
         </div>
         <h2 style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: #1F344C; margin: 0 0 4px 0; letter-spacing: -0.02em;">
@@ -1491,7 +1491,7 @@ def render_simple_3d_cartoon_showcase(
 
         <!-- Panoramic 3D Scene with Dynamic Atmospheric Lighting -->
         <div class="ag-3d-panoramic-box" id="ag3dPanoramicContainer" style="background: {mood['atmosphere_glow']};">
-            <img src="{panoramic_b64}" alt="AirGuard 3D Pixar Diorama" class="ag-3d-panoramic-img" />
+            <img src="{panoramic_b64}" alt="AirFusion 3D Pixar Diorama" class="ag-3d-panoramic-img" />
             
             <!-- Dynamic Atmosphere Lighting & Particle Overlays -->
             <div style="position: absolute; inset: 0; pointer-events: none; z-index: 2; background: {mood['atmosphere_glow']}; mix-blend-mode: color-burn; opacity: 0.65;"></div>
@@ -1649,9 +1649,9 @@ def render_simple_3d_cartoon_showcase(
     safe_markdown(html)
 
 
-def render_airguard_hero_section() -> None:
+def render_airfusion_hero_section() -> None:
     """
-    Renders the signature AirGuard Hero Section:
+    Renders the signature AirFusion Hero Section:
     Warm Ivory canvas, Montserrat 800 bold title with coral gradient keyword ('smart.'),
     subtext, orbital animation, and floating live decision badges.
     """
@@ -1668,23 +1668,23 @@ def render_airguard_hero_section() -> None:
             </span>
         </div>
 
-        <!-- Main AirGuard Headline -->
+        <!-- Main AirFusion Headline -->
         <h1 style="font-family: var(--font-heading); font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; color: #1F344C; letter-spacing: -0.03em; line-height: 1.15; margin: 0 0 18px 0; max-width: 900px;">
             Making outdoor safety <span class="ag-title-highlight">smart.</span>
         </h1>
 
         <!-- Subtitle -->
         <p style="font-family: var(--font-sans); font-size: 1.15rem; color: #5A6E85; line-height: 1.65; max-width: 780px; margin: 0 0 28px 0;">
-            AirGuard delivers real-time atmospheric authorizations, replacing static morning averages with continuous telemetry, individualized exposure models, and predictive outdoor window clearance.
+            AirFusion delivers real-time atmospheric authorizations, replacing static morning averages with continuous telemetry, individualized exposure models, and predictive outdoor window clearance.
         </p>
     </div>
     """
     safe_markdown(html)
 
 
-def render_airguard_comparison_section() -> None:
+def render_airfusion_comparison_section() -> None:
     """
-    Renders AirGuard's signature 'The Bottleneck' comparison section:
+    Renders AirFusion's signature 'The Bottleneck' comparison section:
     Side-by-side comparison of Traditional Static Check ('Once') vs. Active Real-Time Clearance ('Ongoing').
     """
     html = """
@@ -1761,7 +1761,7 @@ def render_airguard_comparison_section() -> None:
                 </div>
             </div>
 
-            <!-- Right Card: airguardOS Active Clearance (AirGuard Coral Gradient Card) -->
+            <!-- Right Card: airfusionOS Active Clearance (AirFusion Coral Gradient Card) -->
             <div style="
                 background: linear-gradient(145deg, #FF6845 0%, #FF8665 100%);
                 border-radius: 22px;
@@ -1781,7 +1781,7 @@ def render_airguard_comparison_section() -> None:
                 <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); padding-bottom: 16px;">
                     <div>
                         <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: #FFF0EB; text-transform: uppercase; letter-spacing: 0.08em;">
-                            AIRGUARD AUTONOMOUS ENGINE
+                            AIRFUSION AUTONOMOUS ENGINE
                         </div>
                         <div style="font-family: var(--font-heading); font-size: 2.4rem; font-weight: 800; color: #FFFFFF; line-height: 1.1; margin-top: 4px;">
                             Ongoing
@@ -1832,9 +1832,9 @@ def render_airguard_comparison_section() -> None:
     safe_markdown(html)
 
 
-def render_airguard_engine_section(active_city: str, pm25_val: float, aqi_val: int) -> None:
+def render_airfusion_engine_section(active_city: str, pm25_val: float, aqi_val: int) -> None:
     """
-    Renders AirGuard's signature Deep Navy Slate Engine Section:
+    Renders AirFusion's signature Deep Navy Slate Engine Section:
     Container in #1F344C with diamond dot lattice pattern, 3-step pipeline (01 Ingest, 02 Predict & Certify, 03 Authorize),
     and a pure white multi-source validation showcase card.
     """
@@ -1856,7 +1856,7 @@ def render_airguard_engine_section(active_city: str, pm25_val: float, aqi_val: i
             <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 104, 69, 0.15); border: 1px solid rgba(255, 104, 69, 0.4); border-radius: 9999px; padding: 4px 14px; margin-bottom: 14px;">
                 <span class="ag-pulse-dot" style="width: 6px; height: 6px;"></span>
                 <span style="font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; color: #FF8665; text-transform: uppercase; letter-spacing: 0.08em;">
-                    THE AIRGUARD ENGINE: airguardOS
+                    THE AIRFUSION ENGINE: airfusionOS
                 </span>
             </div>
             <h2 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em; margin: 0 0 10px 0;">
@@ -1923,7 +1923,7 @@ def render_airguard_engine_section(active_city: str, pm25_val: float, aqi_val: i
                         {ICONS['ag_star']}
                     </div>
                     <span style="font-family: var(--font-heading); font-size: 0.96rem; font-weight: 800; color: #1F344C;">
-                        airguardOS Multi-Source Validation Consensus
+                        airfusionOS Multi-Source Validation Consensus
                     </span>
                 </div>
                 <span style="font-family: var(--font-mono); font-size: 0.76rem; color: #059669; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); padding: 4px 12px; border-radius: 9999px; font-weight: 700;">
@@ -1961,7 +1961,7 @@ def render_airguard_engine_section(active_city: str, pm25_val: float, aqi_val: i
                     </span>
                 </div>
                 <span style="font-family: var(--font-mono); font-size: 0.76rem; color: #FF6845; font-weight: 700;">
-                    Latency: 42ms • airguardOS v2.4
+                    Latency: 42ms • airfusionOS v2.4
                 </span>
             </div>
         </div>
@@ -1970,9 +1970,9 @@ def render_airguard_engine_section(active_city: str, pm25_val: float, aqi_val: i
     safe_markdown(html)
 
 
-def render_airguard_impact_metrics() -> None:
+def render_airfusion_impact_metrics() -> None:
     """
-    Renders AirGuard's signature Platform Impact Metrics:
+    Renders AirFusion's signature Platform Impact Metrics:
     5 rounded white cards with soft warm borders and tabular metrics.
     """
     html = """
@@ -2048,9 +2048,9 @@ def render_airguard_impact_metrics() -> None:
     safe_markdown(html)
 
 
-def render_airguard_solutions_grid() -> None:
+def render_airfusion_solutions_grid() -> None:
     """
-    Renders AirGuard's Multi-Cohort Environmental Solutions Grid:
+    Renders AirFusion's Multi-Cohort Environmental Solutions Grid:
     Numbered solution cards across cohorts (1 • Sensitive Lungs, 2 • Children, 3 • Seniors, 4 • Athletes).
     """
     html = """
@@ -2063,7 +2063,7 @@ def render_airguard_solutions_grid() -> None:
                 Engineered for sensitive lungs, families, and active lifestyles
             </h2>
             <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; line-height: 1.6; margin: 0;">
-                Different respiratory biologies require customized exposure parameters. AirGuard adapts its risk weighting dynamically.
+                Different respiratory biologies require customized exposure parameters. AirFusion adapts its risk weighting dynamically.
             </p>
         </div>
 
@@ -2137,9 +2137,9 @@ def render_airguard_solutions_grid() -> None:
     safe_markdown(html)
 
 
-def render_airguard_executive_footer() -> None:
+def render_airfusion_executive_footer() -> None:
     """
-    Renders AirGuard's 5-column Executive Footer with verified regulatory benchmarks,
+    Renders AirFusion's 5-column Executive Footer with verified regulatory benchmarks,
     aperture logo, architecture references, and legal disclaimers.
     """
     html = f"""
@@ -2157,14 +2157,14 @@ def render_airguard_executive_footer() -> None:
                         {ICONS['ag_star']}
                     </div>
                     <span style="font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem; color: #1F344C; letter-spacing: -0.02em;">
-                        AIRGUARD
+                        AIRFUSION
                     </span>
                 </div>
                 <p style="font-size: 0.82rem; color: #64748B; line-height: 1.6; margin: 0 0 12px 0;">
                     Autonomous environmental intelligence and real-time outdoor safety authorizations.
                 </p>
                 <span style="font-family: var(--font-mono); font-size: 0.72rem; color: #FF6845; font-weight: 600;">
-                    airguardOS Engine v2.4
+                    airfusionOS Engine v2.4
                 </span>
             </div>
 
@@ -2202,7 +2202,7 @@ def render_airguard_executive_footer() -> None:
                     Architecture
                 </div>
                 <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.82rem; color: #5A6E85; line-height: 1.8;">
-                    <li>airguardOS Kernel</li>
+                    <li>airfusionOS Kernel</li>
                     <li>Open-Meteo Ingestion</li>
                     <li>XGBoost Multi-Horizon</li>
                     <li>SQLite WAL Persistence</li>
@@ -2227,7 +2227,7 @@ def render_airguard_executive_footer() -> None:
 
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-top: 1px solid #EBE6DF; padding: 18px 0; font-size: 0.76rem; color: #8896A6;">
             <div>
-                © 2026 AirGuard Environmental Intelligence. Autonomous environmental safety and predictive health telemetry.
+                © 2026 AirFusion Environmental Intelligence. Autonomous environmental safety and predictive health telemetry.
             </div>
             <div style="display: flex; gap: 16px;">
                 <span>Privacy Architecture</span>
@@ -2243,9 +2243,9 @@ def render_airguard_executive_footer() -> None:
 
 
 # Backward compatibility aliases
-render_ensur_hero_section = render_airguard_hero_section
-render_ensur_comparison_section = render_airguard_comparison_section
-render_ensur_engine_section = render_airguard_engine_section
-render_ensur_impact_metrics = render_airguard_impact_metrics
-render_ensur_solutions_grid = render_airguard_solutions_grid
-render_ensur_executive_footer = render_airguard_executive_footer
+render_ensur_hero_section = render_airfusion_hero_section
+render_ensur_comparison_section = render_airfusion_comparison_section
+render_ensur_engine_section = render_airfusion_engine_section
+render_ensur_impact_metrics = render_airfusion_impact_metrics
+render_ensur_solutions_grid = render_airfusion_solutions_grid
+render_ensur_executive_footer = render_airfusion_executive_footer

@@ -1,5 +1,5 @@
 """
-Data Preprocessing Module for AirGuard.
+Data Preprocessing Module for AirFusion.
 Handles missing value imputation (time-series forward fill & spline/linear interpolation),
 duplicate removal, timestamp standardization, unit validation, and physical bounds clipping.
 """
@@ -11,7 +11,7 @@ from typing import Optional, List, Tuple
 import numpy as np
 import pandas as pd
 
-logger = logging.getLogger("airguard.preprocessing")
+logger = logging.getLogger("airfusion.preprocessing")
 
 # Physical reasonable bounds for atmospheric variables
 PHYSICAL_BOUNDS = {

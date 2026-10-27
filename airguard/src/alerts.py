@@ -1,5 +1,5 @@
 """
-Alerts & Health Advisory Module for AirGuard.
+Alerts & Health Advisory Module for AirFusion.
 Evaluates user thresholds against real-time and forecasted readings,
 logs triggered incidents, and provides health guidance and preventive recommendations.
 """
@@ -22,7 +22,7 @@ import pandas as pd
 from src.config import AQI_CATEGORIES, HIGH_POLLUTION_PM25_THRESHOLD
 from src.database import fetch_alerts, log_alert_trigger
 
-logger = logging.getLogger("airguard.alerts")
+logger = logging.getLogger("airfusion.alerts")
 
 
 def get_health_advisory(aqi: int) -> Dict[str, Any]:

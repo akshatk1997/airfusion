@@ -1,5 +1,5 @@
 """
-Atmospheric Trends & Longitudinal Time-Series Analytics for AirGuard.
+Atmospheric Trends & Longitudinal Time-Series Analytics for AirFusion.
 Displays multi-scale historical and projected trends:
 - 24-Hour Historical & Forecast Trend with Safe/Unsafe Zones
 - Diurnal Pollution Pattern (Hourly Rhythms 00:00–23:00)
@@ -46,7 +46,7 @@ from app.components.charts import (
 )
 
 st.set_page_config(
-    page_title="Trends & Analytics — AirGuard",
+    page_title="Trends & Analytics — AirFusion",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="auto"

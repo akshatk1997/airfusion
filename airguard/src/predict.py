@@ -1,5 +1,5 @@
 """
-Prediction & Forecasting Module for AirGuard.
+Prediction & Forecasting Module for AirFusion.
 Loads trained ML models, generates 24-hour and 72-hour multi-step PM2.5 forecasts
 with uncertainty confidence bands, and saves forecast records to SQLite.
 """
@@ -45,7 +45,7 @@ from src.data_collection import (
 from src.preprocessing import clean_air_quality_dataframe
 from src.feature_engineering import build_feature_pipeline
 
-logger = logging.getLogger("airguard.predict")
+logger = logging.getLogger("airfusion.predict")
 
 
 def is_model_trained(model_path: Optional[Path | str] = None) -> bool:

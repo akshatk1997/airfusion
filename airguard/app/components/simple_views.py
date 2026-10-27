@@ -1,7 +1,7 @@
 """
-Simple Mode Presentation Views for AirGuard.
+Simple Mode Presentation Views for AirFusion.
 Orchestrates clear, non-technical, friendly user experiences.
-AirGuard Professional Design Language:
+AirFusion Professional Design Language:
 Warm Ivory canvas (#FAF6F1), Pure White surfaces (#FFFFFF),
 Deep Navy typography (#1F344C), warm borders (#EBE6DF), and coral accents (#FF6845).
 Reuses the exact same underlying telemetry, ML forecasting, and risk-engine logic.
@@ -34,12 +34,12 @@ from app.components.simple_cards import (
     render_simple_pollutant_cards,
     render_simple_indoor_mask_cards,
     render_simple_3d_cartoon_showcase,
-    render_airguard_hero_section,
-    render_airguard_comparison_section,
-    render_airguard_engine_section,
-    render_airguard_impact_metrics,
-    render_airguard_solutions_grid,
-    render_airguard_executive_footer
+    render_airfusion_hero_section,
+    render_airfusion_comparison_section,
+    render_airfusion_engine_section,
+    render_airfusion_impact_metrics,
+    render_airfusion_solutions_grid,
+    render_airfusion_executive_footer
 )
 from app.components.simple_chatbot import render_aero_chatbot
 from app.components.outdoor_kit import render_outdoor_departure_kit
@@ -55,8 +55,8 @@ from src.news_service import get_news_feed
 
 def render_simple_home(active_city: str) -> None:
     """
-    Renders the dedicated Simple Mode homepage for AirGuard.
-    AirGuard flagship environmental intelligence architecture.
+    Renders the dedicated Simple Mode homepage for AirFusion.
+    AirFusion flagship environmental intelligence architecture.
     """
     # Load user profile from SQLite
     user_prof = get_user_profile()
@@ -181,8 +181,8 @@ def render_simple_home(active_city: str) -> None:
         weather_data=curr
     )
 
-    # 1. Flagship AirGuard Hero Section
-    render_airguard_hero_section()
+    # 1. Flagship AirFusion Hero Section
+    render_airfusion_hero_section()
 
     # 2. Primary Decision Card (The Outdoor Directive)
     render_air_safety_card(
@@ -240,17 +240,17 @@ def render_simple_home(active_city: str) -> None:
         }
     )
 
-    # 5. AirGuard Signature Section: The Bottleneck Comparison (Once vs Ongoing)
-    render_airguard_comparison_section()
+    # 5. AirFusion Signature Section: The Bottleneck Comparison (Once vs Ongoing)
+    render_airfusion_comparison_section()
 
-    # 6. AirGuard Signature Section: The Autonomous Engine (Deep Navy airguardOS)
-    render_airguard_engine_section(active_city=city_display, pm25_val=pm25_val, aqi_val=aqi_val)
+    # 6. AirFusion Signature Section: The Autonomous Engine (Deep Navy airfusionOS)
+    render_airfusion_engine_section(active_city=city_display, pm25_val=pm25_val, aqi_val=aqi_val)
 
-    # 7. AirGuard Platform Impact Metrics
-    render_airguard_impact_metrics()
+    # 7. AirFusion Platform Impact Metrics
+    render_airfusion_impact_metrics()
 
-    # 8. AirGuard Solutions by Cohort Grid
-    render_airguard_solutions_grid()
+    # 8. AirFusion Solutions by Cohort Grid
+    render_airfusion_solutions_grid()
 
     # 8.1 Aero's Eco & Clean Air Adventure Quest Hub (Games, Puzzles, & Quizzes)
     render_eco_quest_hub(
@@ -398,13 +398,13 @@ def render_simple_home(active_city: str) -> None:
                 st.switch_page("pages/7_Air_Quality_News.py")
     except Exception as e:
         import logging
-        logging.getLogger("airguard.news").warning(f"Simple Mode news rendering skipped: {e}")
+        logging.getLogger("airfusion.news").warning(f"Simple Mode news rendering skipped: {e}")
 
     # 10. Required Safety Disclaimer
     render_simple_disclaimer()
 
-    # 11. AirGuard Executive 5-Column Footer
-    render_airguard_executive_footer()
+    # 11. AirFusion Executive 5-Column Footer
+    render_airfusion_executive_footer()
 
 
 # ==============================================================================
@@ -599,7 +599,7 @@ def render_simple_safe_plan(active_city: str) -> None:
 
     # Disclaimer & Footer
     render_simple_disclaimer()
-    render_airguard_executive_footer()
+    render_airfusion_executive_footer()
 
 
 # ==============================================================================
@@ -950,7 +950,7 @@ def render_simple_live_tracking(active_city: str) -> None:
 
     # 3. Disclaimer & Footer
     render_simple_disclaimer()
-    render_airguard_executive_footer()
+    render_airfusion_executive_footer()
 
 
 
@@ -1069,7 +1069,7 @@ def render_simple_trends(active_city: str) -> None:
     )
 
     render_simple_disclaimer()
-    render_airguard_executive_footer()
+    render_airfusion_executive_footer()
 
 
 # ==============================================================================
@@ -1078,9 +1078,9 @@ def render_simple_trends(active_city: str) -> None:
 def render_simple_model_insights() -> None:
     """
     Renders Simple Mode Model Insights.
-    Explains how AirGuard predicts air quality without overwhelming math or loss tables.
+    Explains how AirFusion predicts air quality without overwhelming math or loss tables.
     Preserves exact substrings asserted by test suite:
-    'How AirGuard Forecasts Pollution', 'We are fairly confident about this forecast.', 'Low wind traps smoke'.
+    'How AirFusion Forecasts Pollution', 'We are fairly confident about this forecast.', 'Low wind traps smoke'.
     """
     st.markdown(
         """
@@ -1092,7 +1092,7 @@ def render_simple_model_insights() -> None:
                 </span>
             </div>
             <h1 style="font-family: var(--font-heading); font-size: 2.3rem; font-weight: 800; color: #1F344C; margin: 0 0 8px 0; letter-spacing: -0.02em;">
-                How AirGuard Forecasts Pollution
+                How AirFusion Forecasts Pollution
             </h1>
             <p style="font-family: var(--font-sans); font-size: 1rem; color: #5A6E85; margin: 0;">
                 Learn how artificial intelligence and weather data predict outdoor air safety before you step outside.
@@ -1112,7 +1112,7 @@ def render_simple_model_insights() -> None:
             </span>
         </div>
         <p style="font-family: var(--font-sans); font-size: 0.92rem; color: #047857; margin: 0; line-height: 1.55;">
-            AirGuard continuously tests itself against actual ground measurements. Predictions are updated hourly using incoming satellite, station, and wind data.
+            AirFusion continuously tests itself against actual ground measurements. Predictions are updated hourly using incoming satellite, station, and wind data.
         </p>
     </div>
     """)
@@ -1158,7 +1158,7 @@ def render_simple_model_insights() -> None:
     with st.container(border=True):
         st.markdown("""
         <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #1F344C; margin-bottom: 14px;">
-            🛡️ How AirGuard Protects You in 3 Steps
+            🛡️ How AirFusion Protects You in 3 Steps
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; line-height: 1.55;">
             <div>
@@ -1177,7 +1177,7 @@ def render_simple_model_insights() -> None:
         """, unsafe_allow_html=True)
 
     render_simple_disclaimer()
-    render_airguard_executive_footer()
+    render_airfusion_executive_footer()
 
 
 # ==============================================================================
@@ -1302,7 +1302,7 @@ def render_simple_about_safety() -> None:
     )
 
     render_simple_disclaimer()
-    render_airguard_executive_footer()
+    render_airfusion_executive_footer()
 
 
 # ==============================================================================
@@ -1436,4 +1436,4 @@ def render_simple_city_comparison(active_city: str) -> None:
         """)
 
     render_simple_disclaimer()
-    render_airguard_executive_footer()
+    render_airfusion_executive_footer()

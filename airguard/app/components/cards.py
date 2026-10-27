@@ -1,5 +1,5 @@
 """
-Modern Environmental Tech UI Cards Component for AirGuard.
+Modern Environmental Tech UI Cards Component for AirFusion.
 Features WCAG AAA high-contrast badges, dynamic progress scale bars,
 and cinematic atmospheric lighting.
 """
@@ -217,7 +217,7 @@ def render_pollutant_metric_card(
     delta: Optional[str] = None
 ) -> None:
     """
-    Renders standardized pollutant telemetry card with crisp contrast and AirGuard professional depth.
+    Renders standardized pollutant telemetry card with crisp contrast and AirFusion professional depth.
     """
     val_str = f"{value:.1f}" if (value is not None and value >= 0) else "--"
     delta_html = f"<span style='color: #059669; font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; margin-left: 6px;'>{delta}</span>" if delta else ""
@@ -266,7 +266,7 @@ def render_weather_metric_card(
     icon: str = "🌤️"
 ) -> None:
     """
-    Renders meteorological telemetry card with clean AirGuard styling and clear contrast.
+    Renders meteorological telemetry card with clean AirFusion styling and clear contrast.
     """
     val_str = f"{value:.1f}" if value is not None else "--"
     html = f"""

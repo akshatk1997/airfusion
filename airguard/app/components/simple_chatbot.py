@@ -1,6 +1,6 @@
 """
 Child-Friendly & Non-Tech AI Chatbot Component: 'Aero — Your Clean Air Buddy ☁️'
-Exclusively for Simple Mode in AirGuard.
+Exclusively for Simple Mode in AirFusion.
 Features:
 - Friendly, encouraging, short, easy-to-understand answers (2-3 sentences max).
 - Storytelling analogies (dust monsters, sunshine smog, superhero air shield, tree scrubbers).

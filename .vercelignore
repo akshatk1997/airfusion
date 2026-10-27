@@ -2,7 +2,7 @@
 .github
 .pytest_cache
 requirements.txt
-airguard
+airfusion
 run.py
 notebooks
 tests

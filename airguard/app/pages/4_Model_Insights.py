@@ -1,5 +1,5 @@
 """
-Model Insights, Explainability & Architecture Diagnostics for AirGuard.
+Model Insights, Explainability & Architecture Diagnostics for AirFusion.
 Displays candidate benchmark tournament (Persistence Baseline, Ridge, Random Forest, XGBoost Champion),
 holdout metrics (MAE, RMSE, R², MAPE, High-Pollution Episode F1),
 global feature importances (XAI), and time-series leakage prevention principles.
@@ -36,7 +36,7 @@ from app.components.design_system import (
 )
 
 st.set_page_config(
-    page_title="Model Insights — AirGuard",
+    page_title="Model Insights — AirFusion",
     page_icon="🔍",
     layout="wide",
     initial_sidebar_state="auto"
@@ -266,7 +266,7 @@ with tab_methodology:
             <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; line-height: 1.7;">
                 <p>
                     Standard k-fold cross-validation or random train/test shuffling causes disastrous future-to-past data leakage in time-series forecasting.
-                    AirGuard enforces strict chronological partitioning across all candidate model evaluations:
+                    AirFusion enforces strict chronological partitioning across all candidate model evaluations:
                 </p>
                 <ul style="color: #5A6E85;">
                     <li><strong style="color: #1F344C;">Training Partition (First 70%):</strong> Historical baseline used exclusively to fit regressors and scalers.</li>

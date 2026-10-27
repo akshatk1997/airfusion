@@ -1,5 +1,5 @@
 /* ==========================================================================
-   AirGuard Design System — Professional Environmental Intelligence Visual Architecture
+   AirFusion Design System — Professional Environmental Intelligence Visual Architecture
    Brand Aesthetics: Warm Ivory Canvas, Deep Navy Slate Engine, Coral Gradient Accents
    Typography: Montserrat (Headings) & JetBrains Mono (Telemetry)
    ========================================================================== */
@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
 
 :root {
-    /* AirGuard Professional Palette */
+    /* AirFusion Professional Palette */
     --ensur-canvas: #FAF6F1;
     --ensur-surface: #FFFFFF;
     --ensur-surface-warm: #F4EFEB;
@@ -16,7 +16,7 @@
     --ensur-navy-surface: #162638;
     --ensur-navy-card: #253C56;
     
-    /* AirGuard Coral Accents */
+    /* AirFusion Coral Accents */
     --ensur-coral: #FF6845;
     --ensur-tangerine: #FF8665;
     --ensur-peach: #FFA48C;
@@ -283,7 +283,7 @@ div[data-testid="column"] {
 }
 
 /* ==========================================================================
-   STREAMLIT NATIVE CONTROLS OVERRIDE (AIRGUARD PROFESSIONAL STYLING)
+   STREAMLIT NATIVE CONTROLS OVERRIDE (AIRFUSION PROFESSIONAL STYLING)
    ========================================================================== */
 /* Selectboxes & Text Inputs */
 div[data-baseweb="select"] > div,
@@ -315,7 +315,7 @@ div[data-baseweb="input"] input {
     font-size: 0.88rem !important;
 }
 
-/* Streamlit Buttons (AirGuard Coral Gradient) */
+/* Streamlit Buttons (AirFusion Coral Gradient) */
 .stButton > button {
     background: linear-gradient(135deg, #FF6845 0%, #FF8665 100%) !important;
     border: none !important;
@@ -460,7 +460,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   AIRGUARD KEYFRAME ANIMATIONS
+   AIRFUSION KEYFRAME ANIMATIONS
    ========================================================================== */
 @keyframes ag-pulse-ring {
     0% { transform: scale(0.85); opacity: 1; }
@@ -504,7 +504,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   AIRGUARD FLOATING PILL (DECISION AUTHORIZATION BADGE)
+   AIRFUSION FLOATING PILL (DECISION AUTHORIZATION BADGE)
    ========================================================================== */
 .ag-top-pill, .ensur-top-pill {
     display: inline-flex;
@@ -530,7 +530,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   AIRGUARD EXECUTIVE NAVBAR & BRAND
+   AIRFUSION EXECUTIVE NAVBAR & BRAND
    ========================================================================== */
 .ag-navbar {
     display: flex;
@@ -621,7 +621,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   AIRGUARD HERO DIRECTIVE CARD
+   AIRFUSION HERO DIRECTIVE CARD
    ========================================================================== */
 .ag-hero-directive {
     background: #FFFFFF;
@@ -813,7 +813,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   24-HOUR HORIZON TIMELINE (AIRGUARD CONTINUUM STYLE)
+   24-HOUR HORIZON TIMELINE (AIRFUSION CONTINUUM STYLE)
    ========================================================================== */
 .ag-timeline-container {
     background: #FFFFFF;
@@ -964,7 +964,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   AIRGUARD ENGINE SECTION (DEEP NAVY WITH DIAMOND LATTICE)
+   AIRFUSION ENGINE SECTION (DEEP NAVY WITH DIAMOND LATTICE)
    ========================================================================== */
 .ag-engine-container, .ensur-engine-container {
     background-color: var(--ag-navy);
@@ -1187,7 +1187,7 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
 }
 
 /* ==========================================================================
-   AIRGUARD REAL-LIFE PHOTOGRAPHY & INTERACTIVE SIMULATOR STYLES
+   AIRFUSION REAL-LIFE PHOTOGRAPHY & INTERACTIVE SIMULATOR STYLES
    ========================================================================== */
 /* Universal Streamlit Image Styling & Alignment */
 div[data-testid="stImage"] {
@@ -1345,7 +1345,7 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
 }
 
 /* ==========================================================================
-   AirGuard Environmental Newsroom & 6-Hour Intelligence Feed Styles
+   AirFusion Environmental Newsroom & 6-Hour Intelligence Feed Styles
    ========================================================================== */
 
 .ag-news-sync-banner {
@@ -1451,7 +1451,7 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
 
 
 /* ==========================================================================
-   AIRGUARD 3D CARTOON PROJECT VISUALIZATION SHOWCASE
+   AIRFUSION 3D CARTOON PROJECT VISUALIZATION SHOWCASE
    ========================================================================== */
 @keyframes ag-cinematic-breathe {
     0% {

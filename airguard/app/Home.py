@@ -1,5 +1,5 @@
 """
-AirGuard — Real-Time Air Quality Intelligence & Forecasting Platform.
+AirFusion — Real-Time Air Quality Intelligence & Forecasting Platform.
 Executive Command Center & High-Level Overview.
 """
 
@@ -28,7 +28,7 @@ from app.components.mode_switcher import (
     TECHNICAL_MODE
 )
 from app.components.simple_views import render_simple_home
-from app.components.simple_cards import render_airguard_executive_footer
+from app.components.simple_cards import render_airfusion_executive_footer
 from app.components.cards import render_aqi_hero_card, render_technical_weather_station
 from app.components.design_system import (
     render_section_header,
@@ -41,7 +41,7 @@ from app.components.design_system import (
 )
 
 st.set_page_config(
-    page_title="AirGuard — Environmental Intelligence",
+    page_title="AirFusion — Environmental Intelligence",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="auto"
@@ -838,8 +838,8 @@ def render_technical_home(active_city: str) -> None:
     except Exception as e:
         pass
 
-    # AirGuard Executive Footer
-    render_airguard_executive_footer()
+    # AirFusion Executive Footer
+    render_airfusion_executive_footer()
 
 
 # ==============================================================================

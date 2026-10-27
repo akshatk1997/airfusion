@@ -1,5 +1,5 @@
 """
-Model Evaluation Module for AirGuard.
+Model Evaluation Module for AirFusion.
 Calculates time-series regression metrics (MAE, RMSE, R², MAPE) and
 classification metrics for high-pollution threshold event detection (Recall, Precision, F1).
 """
@@ -13,7 +13,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 from src.config import HIGH_POLLUTION_PM25_THRESHOLD
 
-logger = logging.getLogger("airguard.evaluation")
+logger = logging.getLogger("airfusion.evaluation")
 
 
 def calculate_regression_metrics(

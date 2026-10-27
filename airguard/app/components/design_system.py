@@ -1,5 +1,5 @@
 """
-AirGuard Reusable Design System Component Library.
+AirFusion Reusable Design System Component Library.
 Provides centralized atomic components: badges, section headers,
 metric tiles, callouts, hero banners, and accessible SVG icons.
 """

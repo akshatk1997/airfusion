@@ -1,5 +1,5 @@
 """
-Unit and Integration Tests for AirGuard Environmental News & Intelligence Service.
+Unit and Integration Tests for AirFusion Environmental News & Intelligence Service.
 Verifies automated 6-hour refresh cycles, SQLite persistence, local vs international
 categorization, situational telemetry injection, search filters, and trusted source provenance.
 """
@@ -27,7 +27,7 @@ from src.news_service import (
 @pytest.fixture
 def temp_db(tmp_path):
     """Provides a fresh temporary SQLite database connection for test isolation."""
-    db_file = tmp_path / "test_airguard_news.db"
+    db_file = tmp_path / "test_airfusion_news.db"
     conn = sqlite3.connect(str(db_file), check_same_thread=False)
     conn.row_factory = sqlite3.Row
     init_news_db(conn)

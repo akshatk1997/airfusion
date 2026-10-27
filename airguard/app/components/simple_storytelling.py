@@ -1,5 +1,5 @@
 """
-AirGuard Simple Mode Storytelling & Everyday Terminology Decoder Module.
+AirFusion Simple Mode Storytelling & Everyday Terminology Decoder Module.
 Translates complex atmospheric physics, pulmonary medicine, and environmental science
 into warm, engaging, illustrated stories and plain-English real-world analogies.
 """
@@ -34,7 +34,7 @@ Because they are microscopic, your nose hairs cannot catch them. When you take a
         "takeaways": [
             "You cannot judge air pollution by clear blue skies alone; the most dangerous particles are invisible.",
             "PM2.5 particles are so tiny that thirty of them fit across one strand of human hair.",
-            "Checking AirGuard before stepping outside tells you what your eyes cannot see."
+            "Checking AirFusion before stepping outside tells you what your eyes cannot see."
         ],
         "voice_script": "Chapter 1: The Invisible Kingdom. Did you know you take about twenty thousand breaths every day? Even when the sky looks clear, millions of invisible microscopic particles are floating around. The tiniest particles are called PM 2.5, and thirty of them can fit across a single strand of your hair! That is why our scout Aero uses smart sensors to check the air for your family!"
     },
@@ -43,12 +43,12 @@ Because they are microscopic, your nose hairs cannot catch them. When you take a
         "number": "CHAPTER 2",
         "title": "Meet the Four Guardians: Aero, Flash, Nova & Haven",
         "subtitle": "How four friendly teammates turn complicated scientific numbers into easy everyday choices.",
-        "mascot": "airguard_3d_cartoon_panoramic.jpg",
-        "hero_badge": "🛡️ THE AIRGUARD TEAM",
+        "mascot": "airfusion_3d_cartoon_panoramic.jpg",
+        "hero_badge": "🛡️ THE AIRFUSION TEAM",
         "badge_color": "#FF6845",
         "analogy": "Think of the guardians like a weather squad for your lungs: a scout, a runner, a shield, and a cozy fort!",
         "story": """
-When environmental scientists look at air quality, they see complicated chemical formulas like micrograms per cubic meter and parts per billion. That can sound like another language! That is why AirGuard created the **Four Clean Air Guardians** to translate the science into simple teamwork:
+When environmental scientists look at air quality, they see complicated chemical formulas like micrograms per cubic meter and parts per billion. That can sound like another language! That is why AirFusion created the **Four Clean Air Fusionians** to translate the science into simple teamwork:
 
 • **Aero the Cloud Scout**: Floating high in the sky, Aero sniffs the breeze 24/7. When the air is pure, Aero glows with green sparkles. When smoke drifts in, Aero sounds a gentle heads-up so you know what is coming.
 
@@ -103,7 +103,7 @@ That is why Flash often advises waiting until mid-morning before going on vigoro
         "story": """
 Living with clean air does not mean staying locked inside or being scared of the outdoors. It is simply about knowing the smart moments to enjoy the fresh breeze and the right moments to take quick, easy precautions:
 
-1. **The Morning Air Check**: Before tying your shoes or sending kids to school, open AirGuard on your phone for five seconds. Check the big smiley color badge: Green means go wild! Orange or Red means take your mask along!
+1. **The Morning Air Check**: Before tying your shoes or sending kids to school, open AirFusion on your phone for five seconds. Check the big smiley color badge: Green means go wild! Orange or Red means take your mask along!
 
 2. **The Window Rhythm**: In the afternoon when the sun is bright and breezes are blowing, open your windows on opposite sides of the house to let fresh oxygen sweep through. Close windows during rush-hour traffic when cars are honking outside.
 
@@ -112,12 +112,12 @@ Living with clean air does not mean staying locked inside or being scared of the
 4. **The Bedroom Sanctuary**: Keep plants like Snake Plants or Areca Palms in your bedroom, and run a quiet HEPA purifier while you sleep. Your lungs work hard all day; night is when they repair and recharge in pure, clean air!
         """,
         "takeaways": [
-            "Check AirGuard for 5 seconds every morning, just like checking the weather for rain.",
+            "Check AirFusion for 5 seconds every morning, just like checking the weather for rain.",
             "Open windows for cross-ventilation during sunny afternoon dispersion hours.",
             "Walk along tree-lined park paths instead of busy highway traffic corridors.",
             "Sleep in a clean bedroom sanctuary with good indoor air filtration."
         ],
-        "voice_script": "Chapter 4: Simple Habits for Clean Breathing. Keeping your family healthy is as easy as checking for rain! Check AirGuard every morning. Open windows when breezes are fresh. Walk through green tree lined parks. And sleep peacefully in a clean indoor sanctuary! Together, we protect every breath you take!"
+        "voice_script": "Chapter 4: Simple Habits for Clean Breathing. Keeping your family healthy is as easy as checking for rain! Check AirFusion every morning. Open windows when breezes are fresh. Walk through green tree lined parks. And sleep peacefully in a clean indoor sanctuary! Together, we protect every breath you take!"
     }
 ]
 
@@ -242,7 +242,7 @@ EVERYDAY_TERMS_CATALOG = [
         "analogy": "Imagine a bedroom with a magical ceiling that rises to 2,000 meters high at noon, and drops down to 200 meters at bedtime!",
         "what_it_is": "The thickness of the lowest layer of the atmosphere where human beings live and breathe. Daytime sunshine lifts the ceiling; nighttime cooling lowers it.",
         "why_it_matters": "When the ceiling is high (sunny afternoons), smoke has lots of room to disperse and dilute. When the ceiling is low (chilly nights), smoke is squished close to the ground.",
-        "action_rule": "AirGuard automatically tracks boundary layer height to predict when pollution will clear out each day."
+        "action_rule": "AirFusion automatically tracks boundary layer height to predict when pollution will clear out each day."
     },
     {
         "term": "Ventilation Coeff.",
@@ -255,7 +255,7 @@ EVERYDAY_TERMS_CATALOG = [
         "analogy": "Like opening a window and turning on a giant ceiling fan at the same time to blow stale air out of a kitchen.",
         "what_it_is": "A number calculated by multiplying how high the sky is by how fast the wind is blowing. It measures how effectively the atmosphere cleans itself.",
         "why_it_matters": "V_c > 6,000 m²/s means the atmosphere is rapidly flushing away city pollution; V_c < 2,000 m²/s means stagnant air and dangerous smog accumulation.",
-        "action_rule": "Look for the 'Breezy Ventilation' badge on AirGuard for the safest outdoor running windows."
+        "action_rule": "Look for the 'Breezy Ventilation' badge on AirFusion for the safest outdoor running windows."
     },
     {
         "term": "N95 / FFP2",
@@ -294,7 +294,7 @@ EVERYDAY_TERMS_CATALOG = [
         "analogy": "Like emergency fire drill alarms for entire cities. When smog reaches danger levels, strict rules immediately turn on!",
         "what_it_is": "A set of legally binding emergency measures in regions like Delhi-NCR activated by the Commission for Air Quality Management (CAQM).",
         "why_it_matters": "Stage 1 (Poor) triggers dust vacuuming; Stage 2 (Very Poor) halts diesel generator sets; Stage 3 (Severe) bans older diesel cars & construction; Stage 4 (Severe+) closes schools and halts diesel trucks.",
-        "action_rule": "Check AirGuard's News tab for live GRAP enforcement updates to avoid traffic fines and know school closures."
+        "action_rule": "Check AirFusion's News tab for live GRAP enforcement updates to avoid traffic fines and know school closures."
     },
     {
         "term": "CAAQMS",
@@ -305,9 +305,9 @@ EVERYDAY_TERMS_CATALOG = [
         "badge_color": "#7C3AED",
         "icon": "📡",
         "analogy": "High-tech rooftop guard posts equipped with laser spectrometers and automated sensors monitoring the air 24 hours a day.",
-        "what_it_is": "Government-operated monitoring stations (managed by CPCB, EPA, DEFRA) that continuously analyze ambient air and feed data to AirGuard.",
+        "what_it_is": "Government-operated monitoring stations (managed by CPCB, EPA, DEFRA) that continuously analyze ambient air and feed data to AirFusion.",
         "why_it_matters": "Provides gold-standard, calibrated, tamper-proof air quality data so your decisions are based on real scientific ground truth.",
-        "action_rule": "AirGuard automatically synchronizes with the nearest CAAQMS tower to your current GPS or chosen city location."
+        "action_rule": "AirFusion automatically synchronizes with the nearest CAAQMS tower to your current GPS or chosen city location."
     }
 ]
 
@@ -370,7 +370,7 @@ def render_simple_storytelling_section(
                 Understanding Your Air: A 4-Chapter Clean Air Adventure
             </h2>
             <p style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; margin: 0; line-height: 1.55;">
-                Explore how the invisible sky breathes over {city_name}, meet your four clean air guardians, and discover simple, stress-free habits to protect every breath your family takes.
+                Explore how the invisible sky breathes over {city_name}, meet your four clean air fusionians, and discover simple, stress-free habits to protect every breath your family takes.
             </p>
         </div>
         """

@@ -1,5 +1,5 @@
 """
-AirGuard Environmental Intelligence & News Service.
+AirFusion Environmental Intelligence & News Service.
 Manages automated 6-hour refresh cycles, SQLite persistence, area-specific (local)
 vs international news segmentation, tier-1 trusted source attribution,
 and dynamic situational telemetry bulletins based on real-time air quality readings.
@@ -18,7 +18,7 @@ from typing import Dict, Any, List, Optional
 from src.config import DB_PATH, PRESET_CITIES
 from src.database import get_db_connection
 
-logger = logging.getLogger("airguard.news_service")
+logger = logging.getLogger("airfusion.news_service")
 
 # 6-Hour Automated Refresh Cycle interval
 NEWS_SYNC_INTERVAL_HOURS: float = 6.0
@@ -770,7 +770,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
             "simple_summary": "Cities all around the world are investing billions in smart computers and super filters that automatically clean the air in offices, schools, and train stations whenever dust is detected!",
             "technical_analysis": "Integration of machine learning predictive dispatch with demand-controlled HVAC ventilation demonstrated an average 34% energy savings while maintaining indoor PM2.5 < 10 µg/m³ and CO2 < 800 ppm.",
             "action_items": json.dumps([
-                "Commercial facility managers adopting AirGuard-compatible automated ventilation protocols.",
+                "Commercial facility managers adopting AirFusion-compatible automated ventilation protocols.",
                 "Growth driven by semiconductor, pharmaceutical, and high-density educational facilities."
             ]),
             "read_time_mins": 3,
@@ -817,7 +817,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
             "simple_summary": "Top weather scientists set up a super-smart computer radar that predicts foggy smog three whole days ahead, helping families plan the safest outdoor hours in advance!",
             "technical_analysis": "WRF-Chem mesoscale atmospheric modeling couples planetary boundary layer height calculations with continuous continuous-emission telemetry to forecast surface aerosol trapping index.",
             "action_items": json.dumps([
-                "Check AirGuard's 72-hour forecast timeline before scheduling morning school athletic meets.",
+                "Check AirFusion's 72-hour forecast timeline before scheduling morning school athletic meets.",
                 "Review daily SAFAR bulletin alerts for regional stagnation advisories."
             ]),
             "read_time_mins": 3,
@@ -864,7 +864,7 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
             "technical_analysis": "HYSPLIT trajectory modeling demonstrates that surface particulate accumulation correlates inversely with turbulent Richardson number (Ri_b > 0.25 indicating laminar stagnation).",
             "action_items": json.dumps([
                 "Schedule vigorous cardiovascular workouts after 9:30 AM once daytime convective mixing breaks the nocturnal inversion.",
-                "AirGuard automatic window algorithm leverages boundary layer calculations to recommend optimal ventilation periods."
+                "AirFusion automatic window algorithm leverages boundary layer calculations to recommend optimal ventilation periods."
             ]),
             "read_time_mins": 4,
             "badge_label": "ATMOSPHERIC RESEARCH"
@@ -901,7 +901,7 @@ def refresh_news_feed(
     should_refresh = force or status["is_sync_due"]
 
     if should_refresh:
-        logger.info(f"Synchronizing AirGuard Environmental News Feed (Force={force}, City={active_city})...")
+        logger.info(f"Synchronizing AirFusion Environmental News Feed (Force={force}, City={active_city})...")
         corpus = _generate_curated_news_corpus(now_dt)
 
         # 1. Upsert standard corpus
@@ -999,7 +999,7 @@ def _inject_situational_bulletin(
         severity = "CRITICAL"
         badge_label = "⚡ LIVE SITUATIONAL EMERGENCY"
         title = f"Live Atmospheric Telemetry Advisory: High Particulate Trapping Over {city} (PM2.5: {safe_pm25:.1f} µg/m³, AQI: {safe_aqi})"
-        summary = f"AirGuard sensors and regional CAAQMS stations indicate an acute concentration of particulate matter across {city}. Current planetary boundary layer stagnation is limiting vertical mixing, requiring immediate personal respiratory protection for vulnerable residents."
+        summary = f"AirFusion sensors and regional CAAQMS stations indicate an acute concentration of particulate matter across {city}. Current planetary boundary layer stagnation is limiting vertical mixing, requiring immediate personal respiratory protection for vulnerable residents."
         simple_summary = f"Notice: The air over {city} is very dusty right now ({int(safe_pm25)} dust specks in the air). Put on your superhero N95 mask, keep windows closed, and enjoy playing inside today!"
         technical_analysis = f"Surface PM2.5 elevated to {safe_pm25:.1f} µg/m³ ({safe_pm25/15.0:.1f}x WHO 24h threshold). Stagnant boundary layer creates acute alveolar deposition risk. Minute ventilation intake during outdoor exertion will exceed safe physiological clearance limits."
         actions = [
@@ -1060,7 +1060,7 @@ def _inject_situational_bulletin(
         f"{city} Metropolitan Area",
         title,
         summary,
-        "AirGuard Autonomous Sensor Consensus",
+        "AirFusion Autonomous Sensor Consensus",
         "Real-Time Ground Telemetry & Open-Meteo Sensor Consensus",
         "https://open-meteo.com",
         now_dt.strftime("%Y-%m-%d %H:%M:%S"),

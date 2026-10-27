@@ -1,5 +1,5 @@
 """
-Safety Protocols, Health Cohorts & Architectural Blueprint for AirGuard.
+Safety Protocols, Health Cohorts & Architectural Blueprint for AirFusion.
 Features:
 - Clinical & Non-Medical Health Cohort Guidance (Asthma, Children, Seniors, Pregnancy, Runners)
 - N95/KN95 Mask Standards & Proper Seal Guide
@@ -33,7 +33,7 @@ from app.components.design_system import (
 )
 
 st.set_page_config(
-    page_title="About & Safety Protocols — AirGuard",
+    page_title="About & Safety Protocols — AirFusion",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="auto"
@@ -243,7 +243,7 @@ with tab_arch:
             </div>
             <div style="font-family: var(--font-sans); font-size: 0.88rem; color: #5A6E85; line-height: 1.7;">
                 <p>
-                    AirGuard is an autonomous, open environmental intelligence platform built with Python 3.10+, Streamlit, Scikit-learn, XGBoost, and SQLite.
+                    AirFusion is an autonomous, open environmental intelligence platform built with Python 3.10+, Streamlit, Scikit-learn, XGBoost, and SQLite.
                 </p>
                 <ul style="color: #5A6E85;">
                     <li><strong style="color: #1F344C;">Live Air Quality & Weather Ingestion:</strong> Ingests continuous boundary layer meteorology and atmospheric particulate concentrations via the free, open-access <strong>Open-Meteo Air Quality & Weather APIs</strong>.</li>

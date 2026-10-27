@@ -1,5 +1,5 @@
 """
-Risk Engine UI Component for AirGuard — My Safe Outdoor Plan.
+Risk Engine UI Component for AirFusion — My Safe Outdoor Plan.
 Renders risk gauge cards, transparent rationale breakdowns,
 and composite risk category indicators with Plus Jakarta Sans & JetBrains Mono typography.
 """

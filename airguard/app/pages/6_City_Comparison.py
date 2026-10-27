@@ -1,5 +1,5 @@
 """
-Multi-City Air Quality Comparison Page for AirGuard.
+Multi-City Air Quality Comparison Page for AirFusion.
 Allows users to benchmark 2 to 5 locations simultaneously, ranking
 the cleanest and most polluted locations across current telemetry,
 +24h ML forecasts, and historical baselines.
@@ -41,7 +41,7 @@ from app.components.charts import (
 )
 
 st.set_page_config(
-    page_title="City Comparison — AirGuard",
+    page_title="City Comparison — AirFusion",
     page_icon="🏙️",
     layout="wide",
     initial_sidebar_state="auto"
@@ -366,7 +366,7 @@ with exp_col2:
     st.download_button(
         label=f"📥 Export Benchmarking Dataset ({len(df_comp)} Cities)",
         data=csv_comp,
-        file_name="airguard_regional_city_comparison.csv",
+        file_name="airfusion_regional_city_comparison.csv",
         mime="text/csv",
         use_container_width=True
     )

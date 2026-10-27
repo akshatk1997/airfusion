@@ -1,5 +1,5 @@
 """
-Health Advisory and Clinical Safety Guidance Component for AirGuard.
+Health Advisory and Clinical Safety Guidance Component for AirFusion.
 Renders practical, medical/public health recommendations based on current or forecasted AQI.
 """
 

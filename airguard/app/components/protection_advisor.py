@@ -1,5 +1,5 @@
 """
-Protection Advisor UI Component for AirGuard — My Safe Outdoor Plan.
+Protection Advisor UI Component for AirFusion — My Safe Outdoor Plan.
 Renders practical, non-medical mask and indoor protection guidance,
 along with prominent safety disclaimers.
 """
@@ -84,7 +84,7 @@ def render_protection_protocol_card(
             color: #5A6E85;
             line-height: 1.45;
         ">
-            <strong style="color: #1F344C;">Disclaimer:</strong> AirGuard provides general environmental decision support based on outdoor sensor telemetry and numerical ML projections. It does not provide medical diagnosis, treatment, or individualized clinical advice. Users with respiratory or cardiac conditions should always adhere to their medical provider’s prescription plan.
+            <strong style="color: #1F344C;">Disclaimer:</strong> AirFusion provides general environmental decision support based on outdoor sensor telemetry and numerical ML projections. It does not provide medical diagnosis, treatment, or individualized clinical advice. Users with respiratory or cardiac conditions should always adhere to their medical provider’s prescription plan.
         </div>
     </div>
     """

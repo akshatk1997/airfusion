@@ -1,4 +1,4 @@
-# AirGuard Production Container
+# AirFusion Production Container
 # Multi-stage lightweight deployment container for Streamlit and Machine Learning Inference
 FROM python:3.11-slim
 
@@ -37,5 +37,5 @@ EXPOSE 8501
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
     CMD curl -f http://localhost:8501/_stcore/health || exit 1
 
-# Launch AirGuard multi-page Streamlit application
+# Launch AirFusion multi-page Streamlit application
 CMD ["streamlit", "run", "app/Home.py"]

@@ -1,5 +1,5 @@
 """
-Feature Engineering Module for AirGuard.
+Feature Engineering Module for AirFusion.
 Constructs time-series lag features, rolling statistics, cyclical diurnal/seasonal
 transforms, atmospheric stagnation indicators, and multi-horizon target variables.
 """
@@ -13,7 +13,7 @@ import pandas as pd
 
 from src.config import LAG_HOURS, ROLLING_WINDOWS, TARGET_VARIABLE
 
-logger = logging.getLogger("airguard.feature_engineering")
+logger = logging.getLogger("airfusion.feature_engineering")
 
 
 def create_time_features(df: pd.DataFrame, timestamp_col: str = "timestamp") -> pd.DataFrame:

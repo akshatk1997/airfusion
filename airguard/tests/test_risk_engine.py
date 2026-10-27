@@ -8,7 +8,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-# Add airguard root to sys.path
+# Add airfusion root to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.safety_rules import (

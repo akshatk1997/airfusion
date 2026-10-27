@@ -1,5 +1,5 @@
 """
-Global Navigation Bar & Synchronized Location Controller for AirGuard.
+Global Navigation Bar & Synchronized Location Controller for AirFusion.
 Provides consistent branding, system status pulse, persistent city state,
 custom city/state/country dynamic registration, and CSS stylesheet injection across all pages.
 """
@@ -98,7 +98,7 @@ def render_global_navbar(page_title: str = "") -> str:
         else f"""<span class="ag-badge ag-badge-neutral" style="font-size: 0.68rem; padding: 3px 10px; border-color: #38BDF8; color: #38BDF8;">⚙️ {current_mode.upper()}</span>"""
     )
 
-    # Top brand and status bar with AirGuard decision pill
+    # Top brand and status bar with AirFusion decision pill
     navbar_html = f"""
     <div style="text-align: center; margin-bottom: 8px;">
         <div class="ag-top-pill">
@@ -110,7 +110,7 @@ def render_global_navbar(page_title: str = "") -> str:
         <div class="ag-brand">
             <span style="display: flex; align-items: center;">{ICONS['ag_star']}</span>
             <div>
-                <div class="ag-brand-name">AIRGUARD</div>
+                <div class="ag-brand-name">AIRFUSION</div>
                 <div class="ag-brand-tagline">Real-Time Air Quality Intelligence &amp; Environmental Safety</div>
             </div>
         </div>

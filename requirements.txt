@@ -1,5 +1,5 @@
 # ==============================================================================
-# AirGuard — Autonomous Environmental Intelligence Platform
+# AirFusion — Autonomous Environmental Intelligence Platform
 # Root Deployment Requirements Specification
 # ==============================================================================
 

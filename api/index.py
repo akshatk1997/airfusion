@@ -1,5 +1,5 @@
 """
-Vercel Serverless Function Entry Point for AirGuard Environmental Intelligence.
+Vercel Serverless Function Entry Point for AirFusion Environmental Intelligence.
 Serves the web gateway and redirects to active deployment.
 """
 
@@ -19,11 +19,11 @@ class handler(BaseHTTPRequestHandler):
         else:
             html_content = """<!DOCTYPE html>
 <html>
-<head><title>AirGuard — Environmental Intelligence</title></head>
+<head><title>AirFusion — Environmental Intelligence</title></head>
 <body style="font-family: sans-serif; text-align: center; padding: 40px;">
-  <h1>AirGuard — Environmental Intelligence</h1>
+  <h1>AirFusion — Environmental Intelligence</h1>
   <p>Autonomous environmental intelligence and real-time air quality forecasting platform.</p>
-  <a href="https://github.com/akshatk1997/airguard">View on GitHub &rarr;</a>
+  <a href="https://github.com/akshatk1997/airfusion">View on GitHub &rarr;</a>
 </body>
 </html>"""
 

@@ -1,5 +1,5 @@
 """
-AirGuard Configuration Module.
+AirFusion Configuration Module.
 Provides centralized path management, environment variable loading,
 API endpoint definitions, AQI standards, and model hyperparameter constants.
 """
@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
-# Base Directory is the airguard root
+# Base Directory is the airfusion root
 SRC_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SRC_DIR.parent
 
@@ -24,7 +24,7 @@ RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 MODELS_DIR = PROJECT_ROOT / "models"
 
-env_db_path = os.getenv("DB_PATH", "data/airguard.db")
+env_db_path = os.getenv("DB_PATH", "data/airfusion.db")
 if os.path.isabs(env_db_path):
     DB_PATH = Path(env_db_path)
 else:

@@ -1,10 +1,10 @@
-# AirGuard — Autonomous Environmental Intelligence & Safe Outdoor Platform
+# AirFusion — Autonomous Environmental Intelligence & Safe Outdoor Platform
 
 <div align="center">
 
 [![Live Production](https://img.shields.io/badge/Production-airgd.vercel.app-FF6845?style=for-the-badge&logo=vercel&logoColor=white)](https://airgd.vercel.app)
-[![GitHub Repository](https://img.shields.io/badge/GitHub-akshatk1997%2Fairguard-1F344C?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akshatk1997/airguard)
-[![Tests Passing](https://img.shields.io/badge/Tests-60%2F60%20Passing-059669?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/akshatk1997/airguard)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-akshatk1997%2Fairfusion-1F344C?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akshatk1997/airfusion)
+[![Tests Passing](https://img.shields.io/badge/Tests-60%2F60%20Passing-059669?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/akshatk1997/airfusion)
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-38BDF8?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
 
@@ -54,7 +54,7 @@ Raw air quality index numbers (e.g. *"AQI 142"* or *"PM₂.₅ 58.4 µg/m³"*) p
 
 At the same time, environmental engineers, atmospheric researchers, and policy directors require rigorous mathematics, dispersion modeling, boundary layer thermodynamics, metrological sensor hygroscopy corrections, and statutory compliance frameworks.
 
-**AirGuard resolves this dichotomy through a synchronized Dual-Experience Engine.** The exact same underlying multi-pollutant telemetry feeds two parallel, specialized interfaces:
+**AirFusion resolves this dichotomy through a synchronized Dual-Experience Engine.** The exact same underlying multi-pollutant telemetry feeds two parallel, specialized interfaces:
 - **Simple Mode**: Translates complex physics into human-first analogies, 3D animated guardian sentries with live mood reactivity, child-friendly storybooks, and plain-language action directives.
 - **Technical Mode**: Unlocks an institutional-grade analytical workbench with 7 interactive mathematical instruments, SVG sounding profiles, Gaussian plume dispersion curves, and live developer API code generation.
 
@@ -121,7 +121,7 @@ Technical Mode integrates a full-scale institutional atmospheric laboratory dire
 
 ```
                            ┌────────────────────────────────────────────────────────┐
-                           │   AIRGUARD TECHNICAL INSTRUMENT & METROLOGY WORKBENCH   │
+                           │   AIRFUSION TECHNICAL INSTRUMENT & METROLOGY WORKBENCH   │
                            └────────────────────────────────────────────────────────┘
                                                         │
           ┌──────────────────┬──────────────────┬───────┴──────────┬──────────────────┬──────────────────┐
@@ -238,7 +238,7 @@ Technical Mode expands the [My Safe Outdoor Plan](https://airgd.vercel.app) modu
 
 ## 🌍 Global Custom Place Search & Environmental Dossier
 
-AirGuard is not restricted to preset cities. Users can analyze any place globally:
+AirFusion is not restricted to preset cities. Users can analyze any place globally:
 - **Debounced Geocoding Integration**: Integrated with the Open-Meteo Geocoding REST API (`https://geocoding-api.open-meteo.com/v1/search?name=...`) for instant auto-complete suggestions.
 - **Custom Place Environmental Dossier**: Selecting any city or custom coordinates launches an overlay dossier featuring:
   - Latitude, longitude, elevation above sea level, and airshed classification
@@ -249,7 +249,7 @@ AirGuard is not restricted to preset cities. Users can analyze any place globall
 
 ## 📰 Verified Multimedia News & Educational Video Center
 
-AirGuard provides verified environmental journalism and video intelligence:
+AirFusion provides verified environmental journalism and video intelligence:
 - **18 Trusted Regulatory Authorities**: Direct integration with official sources including **CPCB**, **SAFAR**, **US EPA AirNow**, **WHO Global Air**, **Copernicus Atmosphere Service (CAMS)**, **European Environment Agency (EEA)**, **NASA Earth Observatory**, **UK Met Office**, and **Japan Meteorological Agency (JMA)**.
 - **Interactive Video Player**: Verified high-definition educational video streams with real-time simulated telemetry overlays.
 
@@ -257,7 +257,7 @@ AirGuard provides verified environmental journalism and video intelligence:
 
 ## 🤖 Machine Learning Ensemble Architecture
 
-AirGuard deploys a gradient-boosted regression tournament on multi-month historical archives:
+AirFusion deploys a gradient-boosted regression tournament on multi-month historical archives:
 
 | Model Architecture | Objective Function | Loss Formulation | Cross-Validated $R^2$ Score | Holdout Test RMSE ($\mu\text{g/m}^3$) | Inference Latency |
 |---|---|---|:---:|:---:|:---:|
@@ -275,12 +275,12 @@ AirGuard deploys a gradient-boosted regression tournament on multi-month histori
 ## 🏗️ System Architecture & File Layout
 
 ```text
-airguard-project/
+airfusion-project/
 ├── public/
 │   └── index.html               # Dual-Mode SPA (7 Instruments, 3D Guardians, Storybook, Place Search)
 ├── api/
 │   └── index.py                 # Edge API Serverless Gateway
-├── airguard/
+├── airfusion/
 │   ├── app/
 │   │   ├── Home.py              # Streamlit Main Command Center
 │   │   ├── pages/               # Multi-Page Modules (Safe Plan, Live, Trends, Model, Safety, Compare)
@@ -307,21 +307,21 @@ The repository maintains an automated test suite verifying data pipelines, mathe
 
 ```bash
 # Execute the full pytest test suite
-py -3.14 -m pytest airguard/tests -v
+py -3.14 -m pytest airfusion/tests -v
 ```
 
 ### Verified Test Modules
 ```text
-airguard\tests\test_api.py .................................. [PASSED]
-airguard\tests\test_design_system.py ........................ [PASSED]
-airguard\tests\test_features.py ............................. [PASSED]
-airguard\tests\test_mode_switcher.py ........................ [PASSED]
-airguard\tests\test_news_service.py ......................... [PASSED]
-airguard\tests\test_preprocessing.py ........................ [PASSED]
-airguard\tests\test_risk_engine.py .......................... [PASSED]
-airguard\tests\test_simple_mode.py .......................... [PASSED]
-airguard\tests\test_storytelling.py ......................... [PASSED]
-airguard\tests\test_ui.py ................................... [PASSED]
+airfusion\tests\test_api.py .................................. [PASSED]
+airfusion\tests\test_design_system.py ........................ [PASSED]
+airfusion\tests\test_features.py ............................. [PASSED]
+airfusion\tests\test_mode_switcher.py ........................ [PASSED]
+airfusion\tests\test_news_service.py ......................... [PASSED]
+airfusion\tests\test_preprocessing.py ........................ [PASSED]
+airfusion\tests\test_risk_engine.py .......................... [PASSED]
+airfusion\tests\test_simple_mode.py .......................... [PASSED]
+airfusion\tests\test_storytelling.py ......................... [PASSED]
+airfusion\tests\test_ui.py ................................... [PASSED]
 
 ======================== 60 passed in 86.42s ========================
 ```
@@ -336,8 +336,8 @@ airguard\tests\test_ui.py ................................... [PASSED]
 
 ### 1. Clone & Setup Environment
 ```bash
-git clone https://github.com/akshatk1997/airguard.git
-cd airguard
+git clone https://github.com/akshatk1997/airfusion.git
+cd airfusion
 
 # Create and activate virtual environment
 python -m venv venv
@@ -354,7 +354,7 @@ pip install -r requirements.txt
 ### 2. Launch Local Servers
 ```bash
 # Option A: Run Streamlit Application
-python -m streamlit run airguard/app/Home.py
+python -m streamlit run airfusion/app/Home.py
 
 # Option B: Run Standalone Web App
 npx serve public

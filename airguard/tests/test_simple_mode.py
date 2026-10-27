@@ -113,7 +113,7 @@ def test_render_simple_views_execution():
         render_simple_model_insights()
         assert mock_st_md.called
         html = "".join([call[0][0] for call in mock_st_md.call_args_list if call[0]])
-        assert "How AirGuard Forecasts Pollution" in html
+        assert "How AirFusion Forecasts Pollution" in html
         assert "We are fairly confident about this forecast." in html
         assert "Low wind traps smoke" in html
 

@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 import pandas as pd
 
-# Add airguard root to sys.path
+# Add airfusion root to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.database import init_db, get_or_create_location, upsert_air_quality_dataframe, fetch_historical_records, fetch_all_locations, get_user_profile, save_user_profile
@@ -18,7 +18,7 @@ from src.geocoding import geocode_city as geocode_city_module
 
 @pytest.fixture
 def temp_db(tmp_path):
-    db_file = tmp_path / "test_airguard.db"
+    db_file = tmp_path / "test_airfusion.db"
     init_db(db_file)
     return db_file
 

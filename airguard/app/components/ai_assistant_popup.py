@@ -1,9 +1,9 @@
 """
-Universal AI Floating Popup Assistant for AirGuard.
+Universal AI Floating Popup Assistant for AirFusion.
 Permanently anchored to the bottom-right of the screen across ALL pages and sections.
 Dynamically shifts its persona, tone, telemetry, and answers according to the active mode:
 - Simple Mode: "Aero — Your Clean Air Buddy ☁️" (Child-friendly, storytelling, 2-3 short sentences, packing kit, home first-aid).
-- Technical Mode: "AirGuard Sentry AI — Environmental Systems Analyst ⚙️" (Scientific, quantitative, PBL thermodynamics, minute-ventilation dosage, XGBoost diagnostics).
+- Technical Mode: "AirFusion Sentry AI — Environmental Systems Analyst ⚙️" (Scientific, quantitative, PBL thermodynamics, minute-ventilation dosage, XGBoost diagnostics).
 """
 
 from __future__ import annotations
@@ -74,7 +74,7 @@ def generate_technical_response(
     if any(k in q for k in ["hi", "hello", "hey", "who are you", "status", "capabilities", "what can you do", "help"]):
         return {
             "answer": (
-                f"AirGuard Sentry AI Node [{city_name}] Operational. Core engine consensus online: "
+                f"AirFusion Sentry AI Node [{city_name}] Operational. Core engine consensus online: "
                 f"real-time ground CAAQMS ingestion, planetary boundary layer (PBL) thermodynamics, "
                 f"inhaled alveolar dosimetry (ICRP model), and 72-hour XGBoost ML forecasting with 90% Gaussian prediction intervals."
             ),
@@ -127,7 +127,7 @@ def generate_technical_response(
     if any(k in q for k in ["xgboost", "ml", "model", "lag", "neural", "uncertainty", "confidence", "predict", "feature", "rmse", "shap", "continuum"]):
         return {
             "answer": (
-                f"AirGuard Prognostic Architecture: The 72-hour forecast pipeline utilizes an XGBoost regressor "
+                f"AirFusion Prognostic Architecture: The 72-hour forecast pipeline utilizes an XGBoost regressor "
                 f"(n_estimators=100, max_depth=5, learning_rate=0.05, subsample=0.8). Inputs consist of "
                 f"autoregressive lag vectors (t-1h, t-3h, t-6h, t-24h), rolling window statistics (6h standard deviation, "
                 f"24h rolling mean), and cyclical trigonometric diurnal encodings (sin/cos of hour and day of week). "
@@ -188,7 +188,7 @@ def generate_technical_response(
                 f"Nitrogen Dioxide (NO₂) tracks primary diesel mobile source emissions, while SO₂ serves as an industrial "
                 f"coal/petroleum refining indicator."
             ),
-            "metric": "AirGuard Multi-Spectral Engine: 6 Criteria Pollutants Monitored Synchronously",
+            "metric": "AirFusion Multi-Spectral Engine: 6 Criteria Pollutants Monitored Synchronously",
             "protocol": "Advisory: Ozone peaks in early afternoon under solar insolation; NO₂ peaks during morning and evening vehicular rush hours."
         }
 
@@ -196,7 +196,7 @@ def generate_technical_response(
     if any(k in q for k in ["news", "directive", "cpcb", "who", "grap", "caqm", "copernicus", "epa", "regulation", "statutory", "naaqs"]):
         return {
             "answer": (
-                f"AirGuard Environmental Intelligence Wire (6-Hour Sync Cycle): Active regulatory directives for {city_name} "
+                f"AirFusion Environmental Intelligence Wire (6-Hour Sync Cycle): Active regulatory directives for {city_name} "
                 f"and regional hubs incorporate CAQM Graded Response Action Plan (GRAP Stage-III enforcement), "
                 f"WHO 2026 pediatric clean air guidelines (mandating 5 µg/m³ annual PM2.5 ceiling), and Copernicus Sentinel-5P "
                 f"transboundary aerosol telemetry. Detailed statutory citations and impact breakdowns are accessible in the dedicated Newsroom."
@@ -235,7 +235,7 @@ def generate_technical_response(
     vc = round(pbl_est * wind_ms, 1)
     return {
         "answer": (
-            f"AirGuard Systems Analyst Briefing for {city_name}: Real-time ground sensors indicate PM₂.₅ at {pm25:.1f} µg/m³ "
+            f"AirFusion Systems Analyst Briefing for {city_name}: Real-time ground sensors indicate PM₂.₅ at {pm25:.1f} µg/m³ "
             f"(AQI {aqi}), ambient temperature {temp:.1f}°C, relative humidity {humidity:.0f}%, and surface wind speed {wind:.1f} km/h ({wind_ms:.1f} m/s). "
             f"Estimated boundary layer height is {pbl_est:.0f} m with ventilation coefficient V_c = {vc:.1f} m²/s. "
             f"Our 72-hour XGBoost regressor projects stable horizons within 90% Gaussian uncertainty bounds."
@@ -252,7 +252,7 @@ def render_floating_ai_popup(active_city: str) -> None:
     Decoupled and non-shareable: Simple Mode and Technical Mode maintain
     strictly separate chat histories, independent working processes, and traits:
     - Simple Mode: Aero Clean Air Buddy ☁️ (Warm, child-safe, storytelling, non-technical)
-    - Technical Mode: AirGuard Sentry Systems Analyst ⚙️ (Rigorous, quantitative, thermodynamic)
+    - Technical Mode: AirFusion Sentry Systems Analyst ⚙️ (Rigorous, quantitative, thermodynamic)
     """
     view_mode = get_view_mode()
     simple_active = is_simple_mode()
@@ -303,7 +303,7 @@ def render_floating_ai_popup(active_city: str) -> None:
     else:
         popover_label = "⚙️"
         tooltip_label = "Sentry AI (Systems Analyst) ⚙️"
-        hero_title = "AirGuard Atmospheric Analyst 🔬"
+        hero_title = "AirFusion Atmospheric Analyst 🔬"
         hero_subtitle = "Boundary layer thermodynamics, minute ventilation dosimetry & XGBoost ML."
         hero_badge = "● TECHNICAL MODE • XGBoost v2.4"
         mascot_b64 = ""
@@ -442,7 +442,7 @@ def render_floating_ai_popup(active_city: str) -> None:
         """
         safe_markdown(header_html)
         safe_markdown(r'''
-    <!-- AirGuard Natural Human Voice & Microphone Speech Engine -->
+    <!-- AirFusion Natural Human Voice & Microphone Speech Engine -->
     <script>
     function speakHumanVoice(rawText, isFriendly) {
         if (!('speechSynthesis' in window)) {
@@ -618,7 +618,7 @@ def render_floating_ai_popup(active_city: str) -> None:
             welcome_text = (
                 f"Hi there! I'm Aero ☁️. Ask me if it's safe to play in {active_city}, what to pack in your bag, or why the air feels dusty!"
                 if simple_active else
-                f"AirGuard Sentry Analyst active on node [{active_city}]. Query boundary layer stability, minute ventilation dosage, or lag feature dynamics."
+                f"AirFusion Sentry Analyst active on node [{active_city}]. Query boundary layer stability, minute ventilation dosage, or lag feature dynamics."
             )
             safe_markdown(f"""
             <div style="background: #FFFFFF; border: 1px dashed #D0C9C0; border-radius: 12px; padding: 12px; text-align: center; color: #8896A6; font-size: 0.80rem; margin-bottom: 12px;">

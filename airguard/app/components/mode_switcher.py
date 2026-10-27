@@ -1,5 +1,5 @@
 """
-Global Mode Switcher Component for AirGuard.
+Global Mode Switcher Component for AirFusion.
 Manages user-controlled presentation modes ('Simple Mode' vs 'Technical Mode') in st.session_state.
 Provides persistent state across page navigation, responsive sidebar and top-nav switchers,
 and instant confirmation toast notifications.
@@ -141,7 +141,7 @@ def render_mode_banner() -> None:
         except Exception:
             pass
 
-    # Clean AirGuard professional status hint
+    # Clean AirFusion professional status hint
     if mode == TECHNICAL_MODE:
         banner_html = """
         <div style="

@@ -1,5 +1,5 @@
 """
-Live Atmospheric Tracking & Personal Threshold Alert Center for AirGuard.
+Live Atmospheric Tracking & Personal Threshold Alert Center for AirFusion.
 Features real-time multi-pollutant telemetry, meteorological dynamics,
 personal threshold breach tracking, and a unified temporal continuum
 spanning Past Observed History, On-Time Real-Time Telemetry, and Future Model Predictions.
@@ -50,7 +50,7 @@ from app.components.design_system import (
 )
 
 st.set_page_config(
-    page_title="Live Tracking & Alerts — AirGuard",
+    page_title="Live Tracking & Alerts — AirFusion",
     page_icon="📡",
     layout="wide",
     initial_sidebar_state="auto"
@@ -506,7 +506,7 @@ with st.expander("📥 Unified Temporal Continuum Data Export (CSV & Raw JSON)",
     st.download_button(
         label=f"📥 Download Continuum Dataset for {target_city} (CSV)",
         data=csv_bytes,
-        file_name=f"airguard_continuum_{target_city.lower().replace(' ', '_')}.csv",
+        file_name=f"airfusion_continuum_{target_city.lower().replace(' ', '_')}.csv",
         mime="text/csv",
         key="btn_download_continuum"
     )

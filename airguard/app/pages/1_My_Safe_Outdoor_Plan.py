@@ -1,5 +1,5 @@
 """
-AirGuard — My Safe Outdoor Plan.
+AirFusion — My Safe Outdoor Plan.
 Unified personalized decision-support dashboard converting live air telemetry,
 weather, and ML forecasts into clear, actionable outdoor safety decisions.
 """
@@ -40,7 +40,7 @@ from app.components.design_system import (
 )
 
 st.set_page_config(
-    page_title="My Safe Outdoor Plan — AirGuard",
+    page_title="My Safe Outdoor Plan — AirFusion",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="auto"
@@ -131,7 +131,7 @@ with st.expander("👤 Configure Your Health Profile & Outdoor Activity", expand
             max_value=120.0,
             value=float(user_prof.get("pm25_threshold", 35.0)),
             step=5.0,
-            help="AirGuard flags windows exceeding this value as unsafe."
+            help="AirFusion flags windows exceeding this value as unsafe."
         )
 
     # Auto-save changes to SQLite
