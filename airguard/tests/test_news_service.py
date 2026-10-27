@@ -167,3 +167,54 @@ def test_dual_mode_content_completeness(temp_db):
         assert len(art["technical_analysis"]) > 20
         assert art["source_credibility"] != ""
         assert art["source_url"].startswith("http")
+
+
+def test_expanded_regional_coverage_and_web_news_suite(temp_db):
+    """
+    Verifies the expanded regional coverage across Kolkata, Jaipur, Lucknow,
+    and checks the public/index.html web news wire structure (sorting, filtering, refresh).
+    """
+    from src.news_service import _generate_curated_news_corpus
+    from datetime import datetime
+    from pathlib import Path
+
+    corpus = _generate_curated_news_corpus(datetime.now())
+    city_scopes = set(c.get("city_scope") for c in corpus)
+    assert "Kolkata" in city_scopes
+    assert "Jaipur" in city_scopes
+    assert "Lucknow" in city_scopes
+    assert "Delhi" in city_scopes
+    assert "Mumbai" in city_scopes
+    assert "Bengaluru" in city_scopes
+    assert "Chandigarh" in city_scopes
+    assert "GLOBAL" in city_scopes
+
+    # Verify web single page index.html features
+    root_dir = Path(__file__).resolve().parent.parent.parent
+    index_html = root_dir / "public" / "index.html"
+    assert index_html.exists()
+
+    with open(index_html, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    # News database, refresh wire and categorization
+    assert "NEWS_DATABASE" in html
+    assert "news-live-wire-bar" in html
+    assert "refreshNewsWire" in html
+    assert "setNewsAreaFilter" in html
+    assert "setNewsTopicFilter" in html
+    assert "setNewsSortOrder" in html
+    assert "setNewsSearchQuery" in html
+    assert "getRelativeTimeStr" in html
+    assert "generateSituationalAlert" in html
+
+    # Expanded 8-video suite
+    assert "who_pulmonary" in html
+    assert "esa_sentinel" in html
+    assert "nasa_atmospheric" in html
+    assert "epa_clean_air" in html
+    assert "cpcb_ncap_mission" in html
+    assert "lancet_pediatric_lungs" in html
+    assert "unep_air_we_breathe" in html
+    assert "inversion_physics_dw" in html
+

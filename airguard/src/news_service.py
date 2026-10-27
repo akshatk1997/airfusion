@@ -550,7 +550,88 @@ def _generate_curated_news_corpus(now_dt: datetime) -> List[Dict[str, Any]]:
         },
 
         # =========================================================================
-        # 5. ALL-LOCAL / REGIONAL APPLICABLE (FALLBACK & GENERAL INDIAN HUBS)
+        # 5. LOCAL / AREA-SPECIFIC NEWS: KOLKATA & EASTERN GANGETIC BASIN
+        # =========================================================================
+        {
+            "id": "news_local_kol_riverfront_mist",
+            "image_asset": "news_clean_corridor_mobility.jpg",
+            "category": "local",
+            "city_scope": "Kolkata",
+            "region": "Kolkata Metropolitan & Hooghly Basin",
+            "title": "West Bengal PCB Deploys Riverfront Mist Cannons & Zero-Emission Vessel Protocols",
+            "summary": "To address winter thermal haze along the Hooghly river valley, the West Bengal Pollution Control Board has deployed synchronized anti-smog water mist units and certified 320 clean zig-zag brick kilns across the metropolitan periphery.",
+            "source_name": TRUSTED_SOURCES_REGISTRY["CPCB"]["name"],
+            "source_credibility": TRUSTED_SOURCES_REGISTRY["CPCB"]["credibility"],
+            "source_url": "https://cpcb.nic.in",
+            "published_at": ts(2.8),
+            "severity": "MODERATE",
+            "pollutants_involved": "PM2.5, Carbon Monoxide",
+            "simple_summary": "Clean mist cannons and eco-friendly river ferries along the river are keeping river breezes fresh for morning walks in the city.",
+            "technical_analysis": "Riverfront aerosol droplet impaction achieves a 14.8% localized scavenging coefficient for coarse and fine suspended particulate matter.",
+            "action_items": json.dumps([
+                "Riverside promenades and Maidan recommended for afternoon walks.",
+                "Avoid burning dry garden leaves; use municipal composting."
+            ]),
+            "read_time_mins": 3,
+            "badge_label": "RIVER BASIN INITIATIVE"
+        },
+
+        # =========================================================================
+        # 6. LOCAL / AREA-SPECIFIC NEWS: JAIPUR & WESTERN DESERT AIRSHED
+        # =========================================================================
+        {
+            "id": "news_local_jai_aravalli_barrier",
+            "image_asset": "real_city_skyline_telemetry.jpg",
+            "category": "local",
+            "city_scope": "Jaipur",
+            "region": "Jaipur Basin & Aravalli Green Wall",
+            "title": "Aravalli Green Wall Afforestation Shield Absorbs 22% of Inbound Mineral Dust Aerosols",
+            "summary": "Satellite remote sensing confirms that dense native tree belts planted along the Aravalli range west of Jaipur have successfully attenuated trans-boundary mineral dust transport from the Thar Desert during dry wind seasons.",
+            "source_name": TRUSTED_SOURCES_REGISTRY["IMD"]["name"],
+            "source_credibility": TRUSTED_SOURCES_REGISTRY["IMD"]["credibility"],
+            "source_url": "https://mausam.imd.gov.in",
+            "published_at": ts(4.1),
+            "severity": "INFO",
+            "pollutants_involved": "PM10, Mineral Aerosols",
+            "simple_summary": "A giant green belt of trees planted on the desert edge is stopping flying sand and dust before it reaches city homes!",
+            "technical_analysis": "Optical depth (AOD at 550nm) dropped from 0.72 to 0.56 along the vegetative barrier transect during south-westerly wind regimes.",
+            "action_items": json.dumps([
+                "Support rooftop and balcony greenery to complement urban green corridors.",
+                "Close street-facing windows during dry afternoon wind gusts."
+            ]),
+            "read_time_mins": 3,
+            "badge_label": "GREEN WALL PROJECT"
+        },
+
+        # =========================================================================
+        # 7. LOCAL / AREA-SPECIFIC NEWS: LUCKNOW & CENTRAL PLAINS
+        # =========================================================================
+        {
+            "id": "news_local_lko_gomti_ev_corridor",
+            "image_asset": "news_delhi_metro_electric.jpg",
+            "category": "local",
+            "city_scope": "Lucknow",
+            "region": "Lucknow Urban District & Gomti Riverway",
+            "title": "UPPCB Launches Gomti Electric Transit Corridor: Vehicular NO2 Drops 19% in Central District",
+            "summary": "Uttar Pradesh Pollution Control Board reports measurable ambient improvements following the full electrification of public transit routes connecting Hazratganj and the Gomti Riverfront.",
+            "source_name": TRUSTED_SOURCES_REGISTRY["CPCB"]["name"],
+            "source_credibility": TRUSTED_SOURCES_REGISTRY["CPCB"]["credibility"],
+            "source_url": "https://cpcb.nic.in",
+            "published_at": ts(3.9),
+            "severity": "MODERATE",
+            "pollutants_involved": "NO2, PM2.5",
+            "simple_summary": "Electric public buses running along the river road have significantly cut down traffic smoke in central markets.",
+            "technical_analysis": "Continuous chemi-luminescence NO2 analyzers recorded a drop from 68 ug/m3 to 55 ug/m3 during peak morning commuter hours.",
+            "action_items": json.dumps([
+                "Choose electric metro and e-bus routes for daily office commutes.",
+                "Utilize Gomti river parks for evening recreation."
+            ]),
+            "read_time_mins": 2,
+            "badge_label": "CLEAN COMMUTE"
+        },
+
+        # =========================================================================
+        # 8. ALL-LOCAL / REGIONAL APPLICABLE (FALLBACK & GENERAL INDIAN HUBS)
         # =========================================================================
         {
             "id": "news_local_national_ncap_audit",
