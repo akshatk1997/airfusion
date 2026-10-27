@@ -1,0 +1,47 @@
+name: Periodic Air Quality Ingestion & Test
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Fetch real-time telemetry and update database
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        run: |
+          python -c "
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('airfusion').resolve()))
+          from src.database import init_db
+          from src.data_collection import fetch_and_store_city_data
+          init_db()
+          for city in ['Chandigarh', 'Mohali', 'Kharar', 'Delhi', 'Mumbai']:
+              print(f'Fetching data for {city}...')
+              fetch_and_store_city_data(city, past_days=7, forecast_days=3)
+          print('Telemetry ingestion complete.')
+          "
+
+      - name: Execute test suite
+        run: |
+          pytest airfusion/tests/ -v
