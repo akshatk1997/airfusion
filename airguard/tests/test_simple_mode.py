@@ -277,4 +277,63 @@ def test_decoupled_chat_history_and_accuracy():
     assert "risk" in copd["metric"].lower() or "protocol" in copd
 
 
+def test_simple_mode_interactive_suite_integrity():
+    """
+    Verifies that the Simple Mode interactive suite is fully integrated in public/index.html:
+    1. Breathe Easy Mindful Calming Bubble (4-7-8)
+    2. Kids & Family Outdoor Adventure Wheel
+    3. Haven's Indoor Sanctuary & Plant Doctor Simulator
+    4. Aero's Clean Air Adventure Quest & Mini-Quiz
+    5. Clean Air Hero Badges & Daily Streak Tracker
+    6. 24-Hour Child-Friendly Illustrated Sky Strip
+    """
+    root_dir = Path(__file__).resolve().parent.parent.parent
+    index_html = root_dir / "public" / "index.html"
+    assert index_html.exists(), "public/index.html must exist"
+
+    with open(index_html, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    # 1. Breathe Easy Bubble
+    assert "breathe-calm-box" in html
+    assert "breathe-orb" in html
+    assert "toggleBreatheExercise" in html
+    assert "4-7-8" in html
+
+    # 2. Kids & Family Adventure Wheel
+    assert "kids-act-grid" in html
+    assert "selectKidsActivity" in html
+    assert "Swings &amp; Slide" in html
+    assert "Bicycle Riding" in html
+    assert "Soccer &amp; Games" in html
+
+    # 3. Haven's Indoor Sanctuary & Plant Doctor
+    assert "sanctuary-grid" in html
+    assert "computeSanctuaryMetrics" in html
+    assert "setPurifierPower" in html
+    assert "Snake Plant" in html
+    assert "Spider Plant" in html
+    assert "Peace Lily" in html
+    assert "Areca Palm" in html
+
+    # 4. Aero's Adventure Quest & Mini-Quiz
+    assert "QUIZ_QUESTIONS" in html
+    assert "answerQuizQuestion" in html
+    assert "nextQuizQuestion" in html
+    assert "restartQuiz" in html
+
+    # 5. Clean Air Hero Badges & Daily Streak
+    assert "claimDailyStreak" in html
+    assert "Fresh Lungs Scout" in html
+    assert "Clean Air Grand Champion" in html
+    assert "streakDays" in html
+
+    # 6. 24-Hour Illustrated Sky Strip
+    assert "sky-visual-stage" in html
+    assert "selectSkyHour" in html
+    assert "Midnight Slumber" in html
+    assert "Golden Sunshine Clean Breeze Window" in html
+
+
+
 
