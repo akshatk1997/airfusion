@@ -1,6 +1,8 @@
-# AirFusion — Autonomous Environmental Intelligence & Safe Outdoor Platform
-
 <div align="center">
+
+<img src="public/assets/images/airfusion_shield_logo.svg" alt="AirFusion Enterprise Shield Logo" width="88" height="88" />
+
+# AirFusion — Autonomous Environmental Intelligence & Safe Outdoor Platform
 
 [![Live Production](https://img.shields.io/badge/Production-airgd.vercel.app-FF6845?style=for-the-badge&logo=vercel&logoColor=white)](https://airgd.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-akshatk1997%2Fairfusion-1F344C?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akshatk1997/airfusion)

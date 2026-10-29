@@ -40,9 +40,10 @@ from app.components.design_system import (
     ICONS
 )
 
+_page_icon = str(APP_DIR / "assets" / "images" / "airfusion_shield_logo.svg") if (APP_DIR / "assets" / "images" / "airfusion_shield_logo.svg").exists() else "🛡️"
 st.set_page_config(
     page_title="AirFusion — Environmental Intelligence",
-    page_icon="🛡️",
+    page_icon=_page_icon,
     layout="wide",
     initial_sidebar_state="auto"
 )

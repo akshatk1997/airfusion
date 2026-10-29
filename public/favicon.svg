@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="none">
+  <defs>
+    <linearGradient id="favBg" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F1E2E"/>
+      <stop offset="100%" stop-color="#081018"/>
+    </linearGradient>
+    <linearGradient id="favBorder" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#FF6845"/>
+    </linearGradient>
+    <linearGradient id="favAir" x1="16" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="favFusion" x1="48" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFA07A"/>
+      <stop offset="100%" stop-color="#FF6845"/>
+    </linearGradient>
+  </defs>
+  <path d="M 32 5 C 44 5 53 9 53 22 C 53 41 40 54 32 59 C 24 54 11 41 11 22 C 11 9 20 5 32 5 Z" 
+        fill="url(#favBg)" 
+        stroke="url(#favBorder)" 
+        stroke-width="3" 
+        stroke-linejoin="round"/>
+  <!-- Left Air Wing -->
+  <path d="M 19 21.5 C 18.5 32.5 24 40.5 32 45.5 C 27.5 39.8 24.2 33 25.4 24.8 C 26.2 20.2 29 17.6 32 16.5 C 26 16.3 19.8 18.6 19 21.5 Z" 
+        fill="url(#favAir)"/>
+  <!-- Right Fusion Wing -->
+  <path d="M 45 21.5 C 45.5 32.5 40 40.5 32 45.5 C 36.5 39.8 39.8 33 38.6 24.8 C 37.8 20.2 35 17.6 32 16.5 C 38 16.3 44.2 18.6 45 21.5 Z" 
+        fill="url(#favFusion)"/>
+  <!-- Center Fusion Diamond -->
+  <path d="M 32 23 L 34.5 29.5 L 41 31.5 L 34.5 33.5 L 32 40 L 29.5 33.5 L 23 31.5 L 29.5 29.5 Z" 
+        fill="#FFFFFF"/>
+</svg>

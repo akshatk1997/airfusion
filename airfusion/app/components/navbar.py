@@ -108,7 +108,7 @@ def render_global_navbar(page_title: str = "") -> str:
     </div>
     <header class="ag-navbar" role="banner">
         <div class="ag-brand">
-            <span style="display: flex; align-items: center;">{ICONS['ag_star']}</span>
+            <span class="ag-brand-logo-wrap">{ICONS['ag_star']}</span>
             <div>
                 <div class="ag-brand-name">AIRFUSION</div>
                 <div class="ag-brand-tagline">Real-Time Air Quality Intelligence &amp; Environmental Safety</div>
