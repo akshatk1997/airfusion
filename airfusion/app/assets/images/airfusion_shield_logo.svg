@@ -1,112 +1,117 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%" fill="none">
   <defs>
-    <!-- Master Eco Hull: Deep Alpine Evergreen Obsidian to Twilight Oceanic Slate -->
-    <linearGradient id="afEcoHull" x1="10" y1="4" x2="54" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0E241E"/>
-      <stop offset="50%" stop-color="#0B1A22"/>
-      <stop offset="100%" stop-color="#061014"/>
+    <!-- Premium Dark Obsidian / Evergreen Tile Gradient -->
+    <linearGradient id="leafPlateBg" x1="10" y1="8" x2="90" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1A201E"/>
+      <stop offset="50%" stop-color="#131816"/>
+      <stop offset="100%" stop-color="#0C100F"/>
     </linearGradient>
 
-    <!-- Living Eco Rim: Fresh Mint to Clean Air Emerald to Sky Cyan to Solar Amber -->
-    <linearGradient id="afEcoRim" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#34D399"/>
-      <stop offset="35%" stop-color="#10B981"/>
-      <stop offset="70%" stop-color="#38BDF8"/>
-      <stop offset="100%" stop-color="#F59E0B"/>
+    <!-- Luxury Precision Bio-Rim -->
+    <linearGradient id="leafPlateRim" x1="4" y1="4" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.65"/>
+      <stop offset="35%" stop-color="#10B981" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#38BDF8" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.45"/>
     </linearGradient>
 
-    <!-- Botanical Leaf Wing (Left: Nature, Flora, Bio-Filtration & Oxygen) -->
-    <linearGradient id="afLeafGrad" x1="14" y1="14" x2="33" y2="48" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#A7F3D0"/>
-      <stop offset="25%" stop-color="#34D399"/>
-      <stop offset="70%" stop-color="#059669"/>
-      <stop offset="100%" stop-color="#064E3B"/>
+    <!-- Organic Stem Gradient -->
+    <linearGradient id="stemGrad" x1="24" y1="82" x2="52" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2D7A38"/>
+      <stop offset="30%" stop-color="#4CAE4F"/>
+      <stop offset="75%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#81C784"/>
     </linearGradient>
 
-    <!-- Tropospheric Sky Stream (Right: Pure Atmosphere & Wind Dynamics) -->
-    <linearGradient id="afAirGrad" x1="50" y1="14" x2="31" y2="48" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#E0F2FE"/>
-      <stop offset="25%" stop-color="#38BDF8"/>
-      <stop offset="70%" stop-color="#0284C7"/>
-      <stop offset="100%" stop-color="#075985"/>
+    <!-- Leaf 1 (Bottom Right) Gradient -->
+    <linearGradient id="leaf1Grad" x1="44" y1="65" x2="80" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#388E3C"/>
+      <stop offset="40%" stop-color="#4CAF50"/>
+      <stop offset="85%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#81C784"/>
     </linearGradient>
 
-    <!-- Solar Photosynthesis Core Bloom (Energy & Light Catalyst) -->
-    <radialGradient id="afSunCore" cx="32" cy="29.5" r="10" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="35%" stop-color="#FEF08A" stop-opacity="0.95"/>
-      <stop offset="70%" stop-color="#10B981" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#0284C7" stop-opacity="0"/>
-    </radialGradient>
+    <!-- Leaf 2 (Mid Right) Gradient -->
+    <linearGradient id="leaf2Grad" x1="48" y1="52" x2="79" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2E7D32"/>
+      <stop offset="35%" stop-color="#43A047"/>
+      <stop offset="75%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#A5D6A7"/>
+    </linearGradient>
+
+    <!-- Leaf 3 (Top Right) Gradient -->
+    <linearGradient id="leaf3Grad" x1="50" y1="41" x2="73" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#388E3C"/>
+      <stop offset="40%" stop-color="#4CAF50"/>
+      <stop offset="80%" stop-color="#7CB342"/>
+      <stop offset="100%" stop-color="#9CCC65"/>
+    </linearGradient>
+
+    <!-- Leaf 4 (Top Center) Gradient -->
+    <linearGradient id="leaf4Grad" x1="46" y1="45" x2="44" y2="23" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2E7D32"/>
+      <stop offset="30%" stop-color="#43A047"/>
+      <stop offset="70%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#81C784"/>
+    </linearGradient>
+
+    <!-- Leaf 5 (Left) Gradient -->
+    <linearGradient id="leaf5Grad" x1="38" y1="61" x2="19" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2E7D32"/>
+      <stop offset="35%" stop-color="#43A047"/>
+      <stop offset="75%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#81C784"/>
+    </linearGradient>
+
+    <!-- Gloss Highlight Filter -->
+    <filter id="glossBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="0.6"/>
+    </filter>
   </defs>
 
-  <!-- 1. Master Aerodynamic Eco-Crest Hull -->
-  <path d="M 32 4.5 C 44.5 4.5 54 8.5 54 22 C 54 41 41 53.5 32 59.5 C 23 53.5 10 41 10 22 C 10 8.5 19.5 4.5 32 4.5 Z" 
-        fill="url(#afEcoHull)" 
-        stroke="url(#afEcoRim)" 
-        stroke-width="2.6" 
-        stroke-linejoin="round"/>
+  <!-- 1. Luxury Squircle Tile Canvas (Matches User Dark Background #17181C) -->
+  <rect x="3.5" y="3.5" width="93" height="93" rx="26" fill="url(#leafPlateBg)" stroke="url(#leafPlateRim)" stroke-width="1.6"/>
 
-  <!-- 2. Precision Specular Inner Bevel -->
-  <path d="M 32 8 C 42 8 49.5 11.2 49.5 22 C 49.5 37.5 38.5 48.2 32 53.5 C 25.5 48.2 14.5 37.5 14.5 22 C 14.5 11.2 22 8 32 8 Z" 
-        fill="none" 
-        stroke="rgba(255, 255, 255, 0.16)" 
-        stroke-width="1.2"/>
+  <!-- Subtle Specular Inner Rim Glow -->
+  <rect x="5.5" y="5.5" width="89" height="89" rx="24" fill="none" stroke="rgba(255, 255, 255, 0.07)" stroke-width="1"/>
 
-  <!-- 3. Specular Crown Brow Highlight -->
-  <path d="M 23 6.8 C 27 6 37 6 41 6.8" 
-        stroke="#FFFFFF" 
-        stroke-opacity="0.92" 
-        stroke-width="1.6" 
-        stroke-linecap="round"/>
+  <!-- 2. Central Botanical Sprig (Faithful to User Reference Motif) -->
+  <g id="botanicalSprig">
+    <!-- Curved Central Stem -->
+    <path d="M 25 80 C 26 82 28.5 82.5 30 81 C 32 78.5 35 72 38.5 64.5 C 41.5 58 45 50.5 48.5 42.5 C 49.5 40 51 40 51.5 41.5 C 50.5 45 47 53 43.5 60.5 C 40 68 36 75.5 32 79.5 C 29.5 82 26 81.5 25 80 Z" 
+          fill="url(#stemGrad)"/>
 
-  <!-- 4. Left Nature Wing: Sculpted Organic Clean-Air Leaf Blade -->
-  <path d="M 18.5 20.5 C 18 31 23 39.5 31.5 45 C 27 39.2 24.2 32.8 25.6 25 C 26.5 20.2 29 17.6 32 16.5 C 25.8 16.2 19.5 18.2 18.5 20.5 Z" 
-        fill="url(#afLeafGrad)"/>
-  
-  <!-- Living Leaf Chlorophyll Vein Structure -->
-  <path d="M 20.5 23 C 21.5 31 25 36.5 30 41" 
-        stroke="rgba(255, 255, 255, 0.65)" 
-        stroke-width="1.0" 
-        stroke-linecap="round"/>
-  <path d="M 23.5 28 C 26 27.5 27.5 26 28.5 24.5" 
-        stroke="rgba(255, 255, 255, 0.45)" 
-        stroke-width="0.8" 
-        stroke-linecap="round"/>
-  <path d="M 25 33 C 27.5 32.5 29 31 30 29.5" 
-        stroke="rgba(255, 255, 255, 0.45)" 
-        stroke-width="0.8" 
-        stroke-linecap="round"/>
+    <!-- Stem Base Joint Node Accent -->
+    <ellipse cx="27" cy="80.5" rx="2.4" ry="1.4" transform="rotate(-30 27 80.5)" fill="#205E28"/>
 
-  <!-- 5. Right Tropospheric Sky Stream: Clean Atmospheric Air Flow -->
-  <path d="M 45.5 20.5 C 46 31 41 39.5 32.5 45 C 37 39.2 39.8 32.8 38.4 25 C 37.5 20.2 35 17.6 32 16.5 C 38.2 16.2 44.5 18.2 45.5 20.5 Z" 
-        fill="url(#afAirGrad)"/>
-  
-  <!-- Laminar Air Current Streamline -->
-  <path d="M 43.5 23.5 C 42.5 31 39 36.5 34 41" 
-        stroke="rgba(255, 255, 255, 0.55)" 
-        stroke-width="1.0" 
-        stroke-linecap="round"/>
+    <!-- Leaf 5: Broad Left Leaf (Pointing Up-Left ~110°) -->
+    <path d="M 38 60 C 33 58 26 55.5 22.5 48.5 C 19 41.5 19.5 34.5 20 32 C 21.5 34.5 25.5 37 30 38.5 C 35 40 38 46 38.5 53 C 38.7 56 38.5 58.5 38 60 Z" 
+          fill="url(#leaf5Grad)"/>
+    <path d="M 23 37 C 24.5 42 27 47 31 50" 
+          stroke="#B4F588" stroke-width="1.8" stroke-linecap="round" opacity="0.85" filter="url(#glossBlur)"/>
 
-  <!-- 6. Intersecting Bio-Atmosphere Convergence Leaf Lens -->
-  <path d="M 32 17.5 C 29.5 23 29.2 29 32 34.5 C 34.8 29 34.5 23 32 17.5 Z" 
-        fill="#FFFFFF" 
-        fill-opacity="0.36"/>
+    <!-- Leaf 4: Top Center Leaf (Pointing Upright ~78°) -->
+    <path d="M 45 44 C 42 41 39 36 39.5 30 C 40 25.5 42.5 24 44 23.5 C 45.5 24.5 48.5 28 50 33 C 51.5 38 49 42 47 43.5 Z" 
+          fill="url(#leaf4Grad)"/>
+    <path d="M 43.5 26.5 C 45.5 30 46.5 34.5 45.5 39" 
+          stroke="#B4F588" stroke-width="1.6" stroke-linecap="round" opacity="0.85" filter="url(#glossBlur)"/>
 
-  <!-- 7. Solar Photosynthesis Core Bloom -->
-  <circle cx="32" cy="29.5" r="9" fill="url(#afSunCore)"/>
+    <!-- Leaf 3: Top Right Leaf (Pointing Up-Right ~42°) -->
+    <path d="M 50.5 41 C 52 36 57 28 64 23.5 C 69 20.5 72 20.5 73 21 C 72 23.5 69 29.5 64 34.5 C 59.5 39 54.5 40.5 50.5 41 Z" 
+          fill="url(#leaf3Grad)"/>
+    <path d="M 60 25 C 65 23 68.5 22.5 71 22" 
+          stroke="#D4FC79" stroke-width="1.8" stroke-linecap="round" opacity="0.9" filter="url(#glossBlur)"/>
 
-  <!-- 8. Precision Metrology Diamond Dewdrop Star -->
-  <path d="M 32 21 L 34.2 27.5 L 40.5 29.5 L 34.2 31.5 L 32 38 L 29.8 31.5 L 23.5 29.5 L 29.8 27.5 Z" 
-        fill="#FFFFFF" 
-        stroke="#A7F3D0" 
-        stroke-width="0.4"/>
-  <path d="M 32 29.5 L 35.8 25.7 M 32 29.5 L 35.8 33.3 M 32 29.5 L 28.2 33.3 M 32 29.5 L 28.2 25.7" 
-        stroke="#FFFFFF" 
-        stroke-width="0.8" 
-        stroke-linecap="round" 
-        opacity="0.75"/>
+    <!-- Leaf 2: Middle Right Leaf (Pointing Right ~12°) -->
+    <path d="M 47 52.5 C 50 49.5 57 46 65 45.5 C 72 45 77 47 78.5 47.5 C 76.5 49.5 71.5 54 64 56 C 57 58 50.5 55.5 47 52.5 Z" 
+          fill="url(#leaf2Grad)"/>
+    <path d="M 56 48 C 64 47 71 47.5 76 48" 
+          stroke="#B4F588" stroke-width="1.8" stroke-linecap="round" opacity="0.85" filter="url(#glossBlur)"/>
 
-  <!-- Dewdrop Glint Center -->
-  <circle cx="32" cy="29.5" r="1.6" fill="#FFFFFF"/>
+    <!-- Leaf 1: Bottom Right Leaf (Pointing Down-Right ~-18°) -->
+    <path d="M 43 66 C 47 63 56 62 65 64 C 73 66 77.5 68.5 79.5 69 C 76.5 71.5 70 76 62 76.5 C 54 77 47 72 43 66 Z" 
+          fill="url(#leaf1Grad)"/>
+    <path d="M 52 64 C 61 64 70 66.5 76.5 69" 
+          stroke="#B4F588" stroke-width="1.9" stroke-linecap="round" opacity="0.85" filter="url(#glossBlur)"/>
+  </g>
 </svg>

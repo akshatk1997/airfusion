@@ -98,3 +98,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - **100% Decoupled Memory Guarantee**: Maintains independent state arrays (`simpleAiHistory` vs `techAiHistory`) that dynamically switch upon mode toggling without memory cross-contamination.
   - Mode-isolated history clearing via `clearCurrentAiHistory()`.
   - Comprehensive interactive test suite verifying strict memory decoupling and persona switching (`scratch/test_floating_ai_interactive.js`).
+
+
+## [Premium Botanical Aesthetic Logo from User Reference] - 2026-10-30
+### Added & Updated
+- **Faithful Botanical Sprig Emblem Engineering**: Digitized the 5-leaf botanical twig from the user's uploaded reference image (`media_1793379033595_ce8a9c8a.jpg`) into a high-precision, scalable vector SVG artwork.
+  - Features 5 organic Bezier-curved leaves (bottom-right pointing -18°, mid-right pointing 12°, top-right pointing 42°, top-center upright 78°, and left pointing 110°) emerging from a curved central stem with cut joint node.
+  - Styled with multi-stop botanical chlorophyll gradients (`#2D7A38` to `#81C784`, `#A5D6A7`, `#9CCC65`) and specular gloss crest highlights (`#B4F588`, `#D4FC79`).
+  - Housed on a luxury dark obsidian/evergreen squircle medallion (`#1A201E` to `#0C100F`, `rx="26"`) with precision bio-rim border (`#34D399` / `#10B981` / `#38BDF8`), preserving high contrast against the app's warm background while matching the dark aesthetic of the user's reference.
+- **Universal Logo Replacement**:
+  - Replaced all 6 primary SVG files: `public/assets/images/airfusion_shield_logo.svg`, `assets/images/airfusion_shield_logo.svg`, `public/assets/images/airfusion_logo.svg`, `assets/images/airfusion_logo.svg`, `airfusion/app/assets/images/airfusion_logo.svg`, and `airfusion/app/assets/images/airfusion_shield_logo.svg`.
+  - Replaced all 3 favicon files: `public/favicon.svg`, `favicon.svg`, and `airfusion/app/assets/images/favicon.svg`.
+  - Updated inline SVGs in `index.html` and `public/index.html` for the sidebar brand-icon, topbar mini-brandmark, and the `<link rel="icon">` base64 data URI.
+- **Verification**:
+  - Full golden vector tests (`tests/verify_js_golden.js`, 83/83 passed).
+  - CNN module tests (`tests/test_cnn_fusion_flag.js`, 8/8 passed).
+  - All page renders & interactive action handlers (`scratch/test_all_renders.js`, 18/18 renders, 26/26 handlers passed).
+  - Floating semi-round Dual-AI tests (`scratch/test_floating_ai_interactive.js`, 7/7 passed).
+  - Python test suite (`python -m pytest airfusion/tests ml/tests`, 64/64 passed, 8 skipped).
