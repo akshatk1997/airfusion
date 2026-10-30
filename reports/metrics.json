@@ -1,0 +1,136 @@
+{
+  "evaluation_protocol": "Chronological time-series split (70% train, 15% validation, 15% test)",
+  "training_target_origin": "Open-Meteo atmospheric reanalysis (ECMWF CAMS CPCB grid cell proxies)",
+  "physical_ground_truth_gap": "Target is ECMWF CAMS reanalysis model output, not direct physical CPCB sensor hardware. Validation against physical ground-station networks (CPCB / OpenAQ v3) exhibits localized micro-climate differences of 15-40 ug/m3. OpenAQ v3 API requires authenticated API key.",
+  "target_pollutant": "PM2.5 (ug/m3)",
+  "cities_included": [
+    "Chandigarh",
+    "Mohali",
+    "Kharar",
+    "Delhi"
+  ],
+  "total_historical_samples": 5017,
+  "features_count": 47,
+  "champion_architecture": "XGBoost Regressor",
+  "models_comparison": {
+    "XGBoost (Champion)": {
+      "val_mae": 17.298,
+      "val_rmse": 23.13,
+      "val_r2": 0.1929,
+      "test_mae": 20.467,
+      "test_rmse": 25.606,
+      "test_r2": 0.0615,
+      "measured_latency_ms": 0.403
+    },
+    "Random Forest": {
+      "val_mae": 17.837,
+      "val_rmse": 23.628,
+      "val_r2": 0.1578,
+      "test_mae": 20.58,
+      "test_rmse": 25.532,
+      "test_r2": 0.0669,
+      "measured_latency_ms": 1.25
+    },
+    "Ridge Regression": {
+      "val_mae": 17.923,
+      "val_rmse": 23.222,
+      "val_r2": 0.1865,
+      "test_mae": 22.046,
+      "test_rmse": 26.013,
+      "test_r2": 0.0315,
+      "measured_latency_ms": 0.031
+    },
+    "PyTorch LSTM": {
+      "val_mae": 18.796,
+      "val_rmse": 23.962,
+      "val_r2": 0.1339,
+      "test_mae": 22.131,
+      "test_rmse": 26.039,
+      "test_r2": 0.0296,
+      "measured_latency_ms": 2.14
+    },
+    "Persistence Baseline": {
+      "val_mae": 23.655,
+      "val_rmse": 34.623,
+      "val_r2": -0.8084,
+      "test_mae": 27.331,
+      "test_rmse": 37.693,
+      "test_r2": -1.0335,
+      "measured_latency_ms": 0.001
+    }
+  },
+  "multi_horizon_benchmarks": {
+    "1h": {
+      "persistence": {
+        "mae": 26.79,
+        "rmse": 39.914,
+        "r2": -0.7532
+      },
+      "seasonal_naive": {
+        "mae": 30.599,
+        "rmse": 42.442,
+        "r2": -0.9824
+      },
+      "xgboost": {
+        "mae": 18.38,
+        "rmse": 25.59,
+        "r2": 0.2794,
+        "latency_ms": 0.413
+      }
+    },
+    "6h": {
+      "persistence": {
+        "mae": 24.951,
+        "rmse": 37.433,
+        "r2": -0.5413
+      },
+      "seasonal_naive": {
+        "mae": 32.132,
+        "rmse": 43.436,
+        "r2": -1.0752
+      },
+      "xgboost": {
+        "mae": 19.723,
+        "rmse": 27.1,
+        "r2": 0.1922,
+        "latency_ms": 0.399
+      }
+    },
+    "24h": {
+      "persistence": {
+        "mae": 30.363,
+        "rmse": 42.009,
+        "r2": -0.9376
+      },
+      "seasonal_naive": {
+        "mae": 31.708,
+        "rmse": 42.837,
+        "r2": -1.0148
+      },
+      "xgboost": {
+        "mae": 21.869,
+        "rmse": 30.936,
+        "r2": -0.0508,
+        "latency_ms": 0.403
+      }
+    },
+    "72h": {
+      "persistence": {
+        "mae": 30.303,
+        "rmse": 41.425,
+        "r2": -0.8782
+      },
+      "seasonal_naive": {
+        "mae": 27.012,
+        "rmse": 39.319,
+        "r2": -0.692
+      },
+      "xgboost": {
+        "mae": 23.24,
+        "rmse": 31.402,
+        "r2": -0.0792,
+        "latency_ms": 0.407
+      }
+    }
+  }
+}

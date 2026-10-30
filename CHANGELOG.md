@@ -28,3 +28,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `airfusion/app/components/cards.py`, `simple_cards.py`, `simple_views.py`, `pages/0_Platform_Intro.py`: Removed "Pixar" brand references and unverified accessibility certificates.
 - `api/index.py`: Added explicit architectural docstrings affirming stateless read-only operation with zero database dependencies.
 - `README.md`, `airfusion/README.md`: Added serverless hygiene note documenting that SQLite logging is scoped strictly to local Streamlit execution.
+- `reports/metrics.json`: Canonical machine learning report containing multi-model benchmarks, multi-horizon evaluations (1h, 6h, 24h, 72h) against Persistence and Seasonal-Naive baselines, measured inference latency, and CAMS atmospheric reanalysis target disclosures.
+- `public/index.html`:
+  - Added explicit CPCB (India NAQI) vs US EPA (40 CFR Part 58) standard toggle in Sub-Index Resolver with official breakpoint tables and dynamic pollutant units (CO in mg/m³ for CPCB, ppm for EPA; NO2/SO2/O3 in ppb for EPA).
+  - Tied 3D Guardian mood reactivity directly to the CPCB NAQI scale (Good/Satisfactory ≤100, Moderate 101–200, Poor 201–300, Severe >300).
+  - Updated CAQM GRAP Matrix statutory authority citations to CAQM Direction No. 80 / Order F. No. 120017/GRAP/2021/CAQM (October 2024 active schedule) linked to `caqm.nic.in`.
+  - Fixed health model cigarette equivalence to the Berkeley Earth rule $(PM_{2.5} / 22) \times (t / 24h) \times (V_E / V_{\text{rest}})$, replacing flawed `totalInhaledMass / 22.0`.
+  - Corrected pulmonary deposition labels to distinguish alveolar (~20-30%, slow clearance) from tracheobronchial (~10%, 24-48h mucociliary clearance) based on ICRP Publication 66.
+  - Added "Not medical advice" notices to personal exposure cards.
+  - Corrected Satellite AOD data attribution to AERONET Sun-Photometer & MODIS (440nm, 870nm), clarified Sentinel-5P TROPOMI UVAI (354/388nm), and labeled AAI formula as illustrative absorption proxy.
+  - Updated Model Diagnostics UI to display verified multi-model and multi-horizon benchmarks from `reports/metrics.json`, replacing fabricated LightGBM/CatBoost metrics.
+- `airfusion/tests/test_ui.py`: Optimized `is_server_running` HTTP health check with result caching and a 0.5s timeout, reducing test suite startup from 48 seconds to instant.
+- `README.md`, `airfusion/README.md`: Reconciled 24h vs 72h lead horizons, added multi-horizon evaluation table, corrected Berkeley Earth formula, documented physical ground station truth gap and OpenAQ v3 API key requirement, and affirmed production client-side vs local Streamlit architecture.

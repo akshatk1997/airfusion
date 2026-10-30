@@ -95,7 +95,7 @@ Simple Mode features four specialized 3D animated guardians designed with charac
 |                            3D GUARDIAN REACTIVE MOOD ENGINE                       |
 +--------------------+--------------------+--------------------+--------------------+
 |  😊 CLEAN AIR      |  🙂 MODERATE BREEZE|  😷 SMOG CAUTION   |  🛑 SEVERE SMOG    |
-|  AQI ≤ 50          |  AQI 51 - 100      |  AQI 101 - 200     |  AQI > 200         |
+|  CPCB AQI ≤ 100    |  CPCB AQI 101-200  |  CPCB AQI 201-300  |  CPCB AQI > 300    |
 |  "Take deep, happy |  "Fresh air with a |  "Wear your soft   |  "Stay inside cozy |
 |  breaths outside!" |  light jacket!"    |  N95 shield!"      |  fortress today!"  |
 +--------------------+--------------------+--------------------+--------------------+
@@ -268,6 +268,19 @@ AirFusion benchmarks multi-step tabular and sequence models on multi-city chrono
 | **Ridge Regression** | L2 Regularized (alpha=10.0) | 22.05 | 26.01 | 0.0315 | 0.313 |
 | **PyTorch LSTM** | 2-Layer LSTM (hidden dim 48, dropout 0.2) | 22.13 | 26.04 | 0.0296 | 0.296 |
 | **Persistence Baseline** | y_{t+24} = y_t naive reference | 27.33 | 37.69 | -1.0335 | 0.159 |
+
+### Multi-Horizon Benchmark Matrix (1h, 6h, 24h, 72h)
+Evaluated across lead horizons on a chronological 70/15/15 time-series split (`reports/metrics.json`):
+
+| Horizon | Persistence Baseline (MAE / R²) | Seasonal-Naive Diurnal (MAE / R²) | XGBoost Champion (MAE / R²) | Measured Latency | Error Reduction vs Persistence |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| **1h** | 26.79 µg/m³ / -0.7532 | 30.60 µg/m³ / -0.9824 | **18.38 µg/m³ / 0.2794** | 0.41 ms | **+31.4%** |
+| **6h** | 24.95 µg/m³ / -0.5413 | 32.13 µg/m³ / -1.0752 | **19.72 µg/m³ / 0.1922** | 0.40 ms | **+21.0%** |
+| **24h** | 30.36 µg/m³ / -0.9376 | 31.71 µg/m³ / -1.0148 | **21.87 µg/m³ / -0.0508** | 0.40 ms | **+28.0%** |
+| **72h** | 30.30 µg/m³ / -0.8782 | 27.01 µg/m³ / -0.6920 | **23.24 µg/m³ / -0.0792** | 0.41 ms | **+23.3%** |
+
+- **Forecast Horizons Reconciled**: Open-Meteo delivers 72-hour numerical weather prediction and atmospheric composition feeds; the AirFusion local machine learning models evaluate 1h, 6h, 24h, and 72h lead horizons.
+- **Physical Ground Station Disclosure**: Training targets derive from Open-Meteo CAMS atmospheric reanalysis grid points. Physical ground monitoring stations (CPCB CAAQMS / OpenAQ v3) exhibit localized micro-climate differences of $\pm 15-40\,\mu	ext{g/m}^3$; OpenAQ v3 API now requires an authenticated user API key (`X-API-KEY`).
 
 - **True Target & Reanalysis Data**: Historical training data is ingested via Open-Meteo Air Quality API (which outputs Copernicus Atmosphere Monitoring Service / CAMS atmospheric model reanalysis across Chandigarh, Mohali, Kharar, and Delhi; 3,242 train, 695 test samples).
 - **Deployment Status**: Python ML models run in the local Streamlit application (`airfusion/app/Home.py`). The Vercel production deployment serves the client-side single-page application (`public/index.html`), querying real-time Open-Meteo APIs directly and computing mesoscale atmospheric physics in JavaScript.

@@ -37,18 +37,25 @@ def test_safe_markdown_strips_indentation():
         assert '<span class="badge">TEST</span>' in sanitized_html
 
 
+_SERVER_RUNNING_CACHE = None
+
 def is_server_running(url: str = "http://localhost:8501/_stcore/health") -> bool:
-    """Check if the Streamlit server is currently accepting HTTP connections."""
+    """Check if the Streamlit server is currently accepting HTTP connections (cached)."""
+    global _SERVER_RUNNING_CACHE
+    if _SERVER_RUNNING_CACHE is not None:
+        return _SERVER_RUNNING_CACHE
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "AirFusion-Test"})
-        with urllib.request.urlopen(req, timeout=3) as resp:
-            return resp.status in (200, 404)  # 200 healthcheck or standard app response
+        with urllib.request.urlopen(req, timeout=0.5) as resp:
+            _SERVER_RUNNING_CACHE = resp.status in (200, 404)
+            return _SERVER_RUNNING_CACHE
     except Exception:
-        # Fallback check on root
         try:
-            with urllib.request.urlopen("http://localhost:8501", timeout=3) as root_resp:
-                return root_resp.status == 200
+            with urllib.request.urlopen("http://localhost:8501", timeout=0.5) as root_resp:
+                _SERVER_RUNNING_CACHE = root_resp.status == 200
+                return _SERVER_RUNNING_CACHE
         except Exception:
+            _SERVER_RUNNING_CACHE = False
             return False
 
 
