@@ -79,3 +79,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Upgraded `renderHomeSimple`: added Executive Family Clean Air Command Center Hero Hub at the top of the Home page, providing an immediate real-time situation room with big numeric AQI, WHO health guideline comparison, dynamic weather snapshot, instant city switcher, and 4 tactile rapid command launcher cards (`My Safe Outdoor Plan`, `Live Sentry`, `24h Trends`, `Guardians Quest & Safety Lab`) ensuring full parity with sidebar navigation.
   - Integrated 3D Cartoon Guardians Sentry Showcase directly inside the Home Command Center, fixed hardcoded absolute image paths (`/assets/images/...` to relative `assets/images/...`) across panoramic dioramas, mascot avatars, and storybook chapters, added multi-tier error fallbacks and an embedded high-definition animated SVG diorama fallback, and added an interactive Clean Air Bubble Shield toggle button (`🛡️ Activate Clean Air Bubble`) with speech synthesis.
 - `vercel.json`: Added production caching rules (`Cache-Control: public, max-age=31536000, immutable` for `/assets/**`), HTTP security headers (`nosniff`, `SAMEORIGIN`, `strict-origin-when-cross-origin`), and explicit `/api/(.*)` serverless routing to `api/index.py` with 15s max execution duration.
+
+## [Brand & Repository Harmonization] - 2026-10-30
+### Fixed
+- `js/photo-aqi.js` & `public/js/photo-aqi.js`: Replaced hardcoded local file links containing legacy project path names with canonical web GitHub links (`https://github.com/akshatk1997/airfusion/blob/main/TRAINING.md`).
+- Verified across all 11,000+ lines in `index.html`, `public/index.html`, `api/index.py`, `ml/`, and documentation that zero references to `airguard` or `airgd` remain in tracked files.
+- Synchronized repository changes to both `fix/audit-and-cnn` and `main` branches on GitHub.

@@ -245,7 +245,7 @@
             <p style="font-size: 0.80rem; color: #78350F; line-height: 1.5; margin: 0;">
               The CNN vision model weights (<code>airfusion_cnn_v1.onnx</code>) have not yet been placed in <code>public/models/</code>. 
               The system is operating in <strong>Mode C</strong>: client-side image diagnostics are active, and final predictions are anchored securely to real-time Open-Meteo meteorological readings (${baseline} µg/m³ in ${city}). 
-              To train the model on free GPU, see <a href="file:///d:/Project/airguard%20project/TRAINING.md" style="color: #B45309; text-decoration: underline; font-weight: 700;">TRAINING.md</a> or run <code>ml/notebooks/Train_AirFusion_CNN.ipynb</code> in Google Colab.
+              To train the model on free GPU, see <a href="https://github.com/akshatk1997/airfusion/blob/main/TRAINING.md" target="_blank" rel="noopener noreferrer" style="color: #B45309; text-decoration: underline; font-weight: 700;">TRAINING.md</a> or run <code>ml/notebooks/Train_AirFusion_CNN.ipynb</code> in Google Colab.
             </p>
           </div>
         ` : ''}
@@ -357,7 +357,7 @@
               ⚠️ Checkpoint Pending: <code>public/models/airfusion_cnn_v1.onnx</code>
             </div>
             <p style="font-size: 0.78rem; color: #78350F; line-height: 1.5; margin: 0;">
-              Production environment is operating in <strong>Mode C</strong>. Client-side canvas preprocessing, ImageNet normalization, and OOD heuristics are live; final output defaults to Open-Meteo meteorological baseline ($${baseline}\,\mu\\text{g/m}^3$). Train weights via <code>ml/notebooks/Train_AirFusion_CNN.ipynb</code> or review <a href="file:///d:/Project/airguard%20project/TRAINING.md" style="color: #92400E; text-decoration: underline; font-weight: 700;">TRAINING.md</a>.
+              Production environment is operating in <strong>Mode C</strong>. Client-side canvas preprocessing, ImageNet normalization, and OOD heuristics are live; final output defaults to Open-Meteo meteorological baseline ($${baseline}\,\mu\\text{g/m}^3$). Train weights via <code>ml/notebooks/Train_AirFusion_CNN.ipynb</code> or review <a href="https://github.com/akshatk1997/airfusion/blob/main/TRAINING.md" target="_blank" rel="noopener noreferrer" style="color: #92400E; text-decoration: underline; font-weight: 700;">TRAINING.md</a>.
             </p>
           </div>
         ` : ''}
