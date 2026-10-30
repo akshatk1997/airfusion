@@ -6,7 +6,7 @@
 
 [![Live Production](https://img.shields.io/badge/Production-airgd.vercel.app-FF6845?style=for-the-badge&logo=vercel&logoColor=white)](https://airgd.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-akshatk1997%2Fairfusion-1F344C?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akshatk1997/airfusion)
-[![Tests Passing](https://img.shields.io/badge/Tests-60%2F60%20Passing-059669?style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/akshatk1997/airfusion)
+[![CI](https://github.com/akshatk1997/airfusion/actions/workflows/ci.yml/badge.svg)](https://github.com/akshatk1997/airfusion/actions/workflows/ci.yml)
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-38BDF8?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
 
