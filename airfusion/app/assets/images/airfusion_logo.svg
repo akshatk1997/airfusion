@@ -1,87 +1,100 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
   <defs>
-    <linearGradient id="afBgGrad" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0F1E2E"/>
-      <stop offset="45%" stop-color="#16273A"/>
-      <stop offset="100%" stop-color="#081018"/>
+    <!-- Master Aerospace Shield Baseplate Gradient: Slate Navy into Deep Obsidian -->
+    <linearGradient id="afShieldHull" x1="10" y1="4" x2="54" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1B2F44"/>
+      <stop offset="45%" stop-color="#102030"/>
+      <stop offset="100%" stop-color="#071018"/>
     </linearGradient>
 
-    <linearGradient id="afBorderGrad" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+    <!-- Outer Crest Border: Tropospheric Sky Cyan into Electric Sapphire and Radiant Solar Coral -->
+    <linearGradient id="afRimGrad" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="30%" stop-color="#818CF8"/>
-      <stop offset="70%" stop-color="#FF6845"/>
-      <stop offset="100%" stop-color="#FF9E7D"/>
+      <stop offset="28%" stop-color="#60A5FA"/>
+      <stop offset="68%" stop-color="#FF6845"/>
+      <stop offset="100%" stop-color="#FFA07A"/>
     </linearGradient>
 
-    <linearGradient id="afAirWing" x1="16" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#BAE6FD"/>
+    <!-- Left Wing (Tropospheric Air Wing): Pure Crisp Cyan into Oceanic Azure -->
+    <linearGradient id="afAirFlow" x1="15" y1="14" x2="33" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E0F2FE"/>
       <stop offset="25%" stop-color="#38BDF8"/>
       <stop offset="70%" stop-color="#0284C7"/>
       <stop offset="100%" stop-color="#0369A1"/>
     </linearGradient>
 
-    <linearGradient id="afFusionWing" x1="48" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FED7AA"/>
+    <!-- Right Wing (Kinetic Solar Fusion Blade): Sunrise Peach into Vibrant Signature Coral and Solar Crimson -->
+    <linearGradient id="afFusionFlow" x1="49" y1="14" x2="31" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFE4D6"/>
       <stop offset="25%" stop-color="#FF6845"/>
       <stop offset="70%" stop-color="#EA580C"/>
-      <stop offset="100%" stop-color="#BE123C"/>
+      <stop offset="100%" stop-color="#9A3412"/>
     </linearGradient>
 
-    <radialGradient id="afNexusCore" cx="32" cy="31.5" r="9" gradientUnits="userSpaceOnUse">
+    <!-- Center Fusion Nexus Radial Core Bloom -->
+    <radialGradient id="afCoreBloom" cx="32" cy="29.5" r="10" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="35%" stop-color="#E0F2FE" stop-opacity="0.95"/>
-      <stop offset="65%" stop-color="#38BDF8" stop-opacity="0.45"/>
+      <stop offset="35%" stop-color="#BAE6FD" stop-opacity="0.95"/>
+      <stop offset="70%" stop-color="#38BDF8" stop-opacity="0.35"/>
       <stop offset="100%" stop-color="#0284C7" stop-opacity="0"/>
     </radialGradient>
-
-    <linearGradient id="afBevel" x1="20" y1="7" x2="44" y2="7" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
-      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.15"/>
-    </linearGradient>
   </defs>
 
-  <!-- 1. Master Aerodynamic Defense Shield Baseplate -->
-  <path d="M 32 6.5 C 43.5 6.5 52 10.5 52 23 C 52 40 40 52.5 32 57.5 C 24 52.5 12 40 12 23 C 12 10.5 20.5 6.5 32 6.5 Z" 
-        fill="url(#afBgGrad)" 
-        stroke="url(#afBorderGrad)" 
-        stroke-width="2.5" 
+  <!-- 1. Master Aerodynamic Defense Shield Hull -->
+  <path d="M 32 4.5 C 44.5 4.5 54 8.5 54 22 C 54 41 41 53.5 32 59.5 C 23 53.5 10 41 10 22 C 10 8.5 19.5 4.5 32 4.5 Z" 
+        fill="url(#afShieldHull)" 
+        stroke="url(#afRimGrad)" 
+        stroke-width="2.6" 
         stroke-linejoin="round"/>
 
-  <!-- 2. Precision Inner Bevel Rim -->
-  <path d="M 32 10.5 C 41 10.5 48 13.8 48 23.5 C 48 37.8 38.5 48.5 32 53 C 25.5 48.5 16 37.8 16 23.5 C 16 13.8 23 10.5 32 10.5 Z" 
+  <!-- 2. Precision Specular Inner Bevel Rim -->
+  <path d="M 32 8 C 42 8 49.5 11.2 49.5 22 C 49.5 37.5 38.5 48.2 32 53.5 C 25.5 48.2 14.5 37.5 14.5 22 C 14.5 11.2 22 8 32 8 Z" 
         fill="none" 
-        stroke="rgba(255, 255, 255, 0.12)" 
+        stroke="rgba(255, 255, 255, 0.16)" 
         stroke-width="1.2"/>
 
-  <!-- 3. Top Polished Edge Specular Glint -->
-  <path d="M 22 8.5 C 27 7.5 37 7.5 42 8.5" 
-        stroke="url(#afBevel)" 
-        stroke-width="1.4" 
+  <!-- 3. Specular Crystal Crown Brow -->
+  <path d="M 23 6.8 C 27 6 37 6 41 6.8" 
+        stroke="#FFFFFF" 
+        stroke-opacity="0.92" 
+        stroke-width="1.6" 
         stroke-linecap="round"/>
 
-  <!-- 4. Left Aerodynamic Air Current (Atmospheric Troposphere Flow) -->
-  <path d="M 19 21.5 C 18.5 32.5 24 40.5 32 45.5 C 27.5 39.8 24.2 33 25.4 24.8 C 26.2 20.2 29 17.6 32 16.5 C 26 16.3 19.8 18.6 19 21.5 Z" 
-        fill="url(#afAirWing)"/>
+  <!-- 4. Left Tropospheric Air Wing / Vortex Ribbon -->
+  <path d="M 18.5 20.5 C 18 31 23 39.5 31.5 45 C 27 39.2 24.2 32.8 25.6 25 C 26.5 20.2 29 17.6 32 16.5 C 25.8 16.2 19.5 18.2 18.5 20.5 Z" 
+        fill="url(#afAirFlow)"/>
+  <path d="M 21 24 C 21 31 24 36 29 40" 
+        stroke="rgba(255, 255, 255, 0.45)" 
+        stroke-width="0.9" 
+        stroke-linecap="round"/>
 
-  <!-- 5. Right Aerodynamic Fusion Current (Kinetic Solar Fusion Flow) -->
-  <path d="M 45 21.5 C 45.5 32.5 40 40.5 32 45.5 C 36.5 39.8 39.8 33 38.6 24.8 C 37.8 20.2 35 17.6 32 16.5 C 38 16.3 44.2 18.6 45 21.5 Z" 
-        fill="url(#afFusionWing)"/>
+  <!-- 5. Right Kinetic Solar Fusion Blade / Ribbon -->
+  <path d="M 45.5 20.5 C 46 31 41 39.5 32.5 45 C 37 39.2 39.8 32.8 38.4 25 C 37.5 20.2 35 17.6 32 16.5 C 38.2 16.2 44.5 18.2 45.5 20.5 Z" 
+        fill="url(#afFusionFlow)"/>
+  <path d="M 43 24 C 43 31 40 36 35 40" 
+        stroke="rgba(255, 255, 255, 0.4)" 
+        stroke-width="0.9" 
+        stroke-linecap="round"/>
 
-  <!-- 6. Intersecting Laminar Core Air-Fusion Wave -->
-  <path d="M 32 18.5 C 29.5 23.8 29.2 29.8 32 34.5 C 34.8 29.8 34.5 23.8 32 18.5 Z" 
+  <!-- 6. Translucent Intersecting Atmospheric Air-Fusion Convergence Lens -->
+  <path d="M 32 17.5 C 29.5 23 29.2 29 32 34.5 C 34.8 29 34.5 23 32 17.5 Z" 
         fill="#FFFFFF" 
-        fill-opacity="0.32"/>
+        fill-opacity="0.36"/>
 
-  <!-- 7. Ambient Fusion Plasma Core Halo -->
-  <circle cx="32" cy="31.5" r="7.5" fill="url(#afNexusCore)"/>
+  <!-- 7. Radiant Core Fusion Bloom -->
+  <circle cx="32" cy="29.5" r="9" fill="url(#afCoreBloom)"/>
 
-  <!-- 8. Four-Point Precision Stellar Fusion Diamond (Core Metrology Nexus) -->
-  <path d="M 32 24.5 L 34.2 29.8 L 39.5 31.5 L 34.2 33.2 L 32 38.5 L 29.8 33.2 L 24.5 31.5 L 29.8 29.8 Z" 
+  <!-- 8. Eight-Point Precision Metrology Diamond Star -->
+  <path d="M 32 21 L 34.2 27.5 L 40.5 29.5 L 34.2 31.5 L 32 38 L 29.8 31.5 L 23.5 29.5 L 29.8 27.5 Z" 
         fill="#FFFFFF" 
-        stroke="#BAE6FD" 
+        stroke="#E0F2FE" 
         stroke-width="0.4"/>
+  <path d="M 32 29.5 L 35.8 25.7 M 32 29.5 L 35.8 33.3 M 32 29.5 L 28.2 33.3 M 32 29.5 L 28.2 25.7" 
+        stroke="#FFFFFF" 
+        stroke-width="0.8" 
+        stroke-linecap="round" 
+        opacity="0.65"/>
 
-  <!-- 9. Micro Diamond Highlight Point -->
-  <circle cx="32" cy="31.5" r="1.6" fill="#FFFFFF"/>
+  <!-- 9. Diamond Epicenter Flare -->
+  <circle cx="32" cy="29.5" r="1.6" fill="#FFFFFF"/>
 </svg>
