@@ -257,20 +257,22 @@ AirFusion provides verified environmental journalism and video intelligence:
 
 ---
 
-## 🤖 Machine Learning Ensemble Architecture
+## 🤖 Machine Learning Model Benchmark Architecture
 
-AirFusion deploys a gradient-boosted regression tournament on multi-month historical archives:
+AirFusion benchmarks multi-step tabular and sequence models on multi-city chronological time-series splits (70% train, 15% validation, 15% chronological holdout test) for 24-hour lead forecast:
 
-| Model Architecture | Objective Function | Loss Formulation | Cross-Validated $R^2$ Score | Holdout Test RMSE ($\mu\text{g/m}^3$) | Inference Latency |
-|---|---|---|:---:|:---:|:---:|
-| **LightGBM (Champion)** | Gradient Boosting | Huber Loss ($\delta = 1.35$) | **0.941** | **8.42** | **14.2 ms** |
-| **XGBoost Regressor** | Tree Booster | `reg:pseudohubererror` | 0.938 | 8.85 | 16.5 ms |
-| **CatBoost Regressor** | Symmetric Trees | RMSE / MAE | 0.932 | 9.12 | 19.1 ms |
-| **Random Forest** | Bagging Ensemble | MSE | 0.884 | 12.30 | 45.0 ms |
-| **Ridge Regression** | L2 Regularized | Least Squares | 0.745 | 18.50 | 2.1 ms |
+| Model Architecture | Implementation / Objective | Test MAE (µg/m³) | Test RMSE (µg/m³) | Test R² Score | High-Pollution F1 (≥ 55.5 µg/m³) |
+|---|---|:---:|:---:|:---:|:---:|
+| **XGBoost (Champion)** | Tree Booster (`airfusion/src/train_model.py`) | **20.47** | **25.61** | **0.0615** | **0.233** |
+| **Random Forest** | Bagging Ensemble (100 estimators, max depth 12) | 20.58 | 25.53 | 0.0669 | 0.266 |
+| **Ridge Regression** | L2 Regularized (alpha=10.0) | 22.05 | 26.01 | 0.0315 | 0.313 |
+| **PyTorch LSTM** | 2-Layer LSTM (hidden dim 48, dropout 0.2) | 22.13 | 26.04 | 0.0296 | 0.296 |
+| **Persistence Baseline** | y_{t+24} = y_t naive reference | 27.33 | 37.69 | -1.0335 | 0.159 |
 
-- **Feature Engineering Pipeline**: 1-hour, 2-hour, 3-hour, 6-hour, 12-hour, and 24-hour autoregressive lag features; 3h/6h/12h/24h rolling means and standard deviations; cyclical hour-of-day ($\sin / \cos$) encodings; and boundary layer ventilation indices.
-- **Data Leakage Prevention**: Strict chronological partitioning ($70\%$ train, $15\%$ validation, $15\%$ holdout test).
+- **True Target & Reanalysis Data**: Historical training data is ingested via Open-Meteo Air Quality API (which outputs Copernicus Atmosphere Monitoring Service / CAMS atmospheric model reanalysis across Chandigarh, Mohali, Kharar, and Delhi; 3,242 train, 695 test samples).
+- **Deployment Status**: Python ML models run in the local Streamlit application (`airfusion/app/Home.py`). The Vercel production deployment serves the client-side single-page application (`public/index.html`), querying real-time Open-Meteo APIs directly and computing mesoscale atmospheric physics in JavaScript.
+- **Feature Engineering Pipeline**: Autoregressive lag features (1h, 2h, 3h, 6h, 12h, 24h), rolling window statistics, cyclical diurnal encodings (sin/cos), and boundary layer ventilation indices.
+- **Data Leakage Prevention**: Strict chronological partitioning (70% train, 15% validation, 15% holdout test).
 
 ---
 

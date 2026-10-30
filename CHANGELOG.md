@@ -14,7 +14,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `CHANGELOG.md`: Detailed file-by-file record of modifications.
 - `LICENSE`: MIT License with copyright holder Akshat Kumar.
 - `.github/workflows/ci.yml`: Automated CI workflow executing pytest on push and pull request.
+- `api/requirements.txt`: Lightweight requirements specification for Vercel serverless function (standard library only).
 
 ### Changed
 - `airfusion/LICENSE`: Updated copyright holder to Akshat Kumar.
-- `README.md`, `airfusion/README.md`: Replaced static test badge with live GitHub Actions CI badge.
+- `README.md`, `airfusion/README.md`: Replaced static test badge with live GitHub Actions CI badge; replaced fictitious LightGBM/CatBoost benchmark tables with real verified offline metrics (XGBoost, RF, Ridge, PyTorch LSTM, Persistence).
+- `.vercelignore`: Added `ml/`, `reports/`, and `scratch/` to prevent training scripts and raw files from bundling into Vercel deployment.

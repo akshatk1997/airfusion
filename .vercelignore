@@ -6,6 +6,9 @@ airfusion
 run.py
 notebooks
 tests
+ml
+reports
+scratch
 *.db
 *.db-journal
 *.db-wal

@@ -1,0 +1,3 @@
+# AirFusion Vercel Serverless Function Dependencies
+# api/index.py uses only Python standard library (http.server, pathlib)
+# Keep deployment bundle ultra-lightweight (<1MB)
