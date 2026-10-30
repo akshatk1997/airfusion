@@ -2715,6 +2715,491 @@
       margin-top: 18px;
     }
 
+  
+    /* ==========================================================================
+       Semi-Round Dual-AI Floating Popup (Decoupled Simple & Technical Memory)
+       ========================================================================== */
+    .floating-ai-launcher {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10000;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px 10px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 10px 28px rgba(15, 30, 46, 0.22), 0 2px 6px rgba(0, 0, 0, 0.08);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .floating-ai-launcher:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 34px rgba(15, 30, 46, 0.28);
+    }
+
+    .floating-ai-launcher:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .floating-ai-launcher.mode-simple {
+      background: linear-gradient(135deg, #064E3B 0%, #047857 100%);
+      border: 1.5px solid #34D399;
+      color: #FFFFFF;
+    }
+
+    .floating-ai-launcher.mode-technical {
+      background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+      border: 1.5px solid #38BDF8;
+      color: #FFFFFF;
+    }
+
+    .floating-ai-launcher .launcher-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      background: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      flex-shrink: 0;
+    }
+
+    .floating-ai-launcher .launcher-ping {
+      position: relative;
+      display: flex;
+      width: 8px;
+      height: 8px;
+      margin-right: 2px;
+    }
+
+    .floating-ai-launcher .launcher-ping-circle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #34D399;
+      animation: launcherPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .floating-ai-launcher.mode-technical .launcher-ping-circle {
+      background-color: #38BDF8;
+    }
+
+    .floating-ai-launcher .launcher-dot {
+      position: relative;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #10B981;
+    }
+
+    .floating-ai-launcher.mode-technical .launcher-dot {
+      background-color: #0284C7;
+    }
+
+    @keyframes launcherPing {
+      75%, 100% {
+        transform: scale(2.2);
+        opacity: 0;
+      }
+    }
+
+    .floating-ai-launcher .launcher-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .floating-ai-launcher .launcher-title {
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .floating-ai-launcher .launcher-sub {
+      font-size: 0.65rem;
+      opacity: 0.88;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .floating-ai-window {
+      position: fixed;
+      bottom: 84px;
+      right: 24px;
+      width: 410px;
+      max-width: calc(100vw - 32px);
+      height: 580px;
+      max-height: calc(100vh - 110px);
+      z-index: 10001;
+      display: none;
+      flex-direction: column;
+      background: #FFFFFF;
+      border-radius: 26px;
+      border: 1.5px solid var(--border-warm);
+      box-shadow: 0 24px 60px rgba(15, 30, 46, 0.25), 0 4px 16px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      animation: aiWindowPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes aiWindowPop {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .ai-window-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      color: #FFFFFF;
+      flex-shrink: 0;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+    }
+
+    .ai-window-header.mode-simple {
+      background: linear-gradient(135deg, #064E3B 0%, #065F46 100%);
+    }
+
+    .ai-window-header.mode-technical {
+      background: linear-gradient(135deg, #0B192C 0%, #1E3A8A 100%);
+    }
+
+    .ai-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ai-header-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
+    }
+
+    .ai-header-titles h3 {
+      font-family: var(--font-heading);
+      font-size: 0.94rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0;
+      color: #FFFFFF;
+    }
+
+    .ai-header-titles .ai-status-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .ai-header-titles .ai-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34D399;
+    }
+
+    .ai-header-titles .ai-status-text {
+      font-size: 0.68rem;
+      color: #A7F3D0;
+      font-weight: 600;
+    }
+
+    .ai-window-header.mode-technical .ai-status-text {
+      color: #BAE6FD;
+    }
+
+    .ai-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ai-header-btn {
+      background: rgba(255, 255, 255, 0.14);
+      border: none;
+      color: #FFFFFF;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      transition: all 0.2s ease;
+    }
+
+    .ai-header-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .ai-motto-strip {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border-warm);
+      flex-shrink: 0;
+    }
+
+    .ai-motto-strip.mode-simple {
+      background: #F0FDF4;
+      border-bottom-color: #DCFCE7;
+    }
+
+    .ai-motto-strip.mode-technical {
+      background: #F0F9FF;
+      border-bottom-color: #E0F2FE;
+    }
+
+    .ai-motto-tag {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ai-motto-strip.mode-simple .ai-motto-tag {
+      color: #047857;
+    }
+
+    .ai-motto-strip.mode-technical .ai-motto-tag {
+      color: #0284C7;
+    }
+
+    .ai-motto-quote {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .ai-isolation-pill-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .ai-isolation-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #047857;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+    }
+
+    .ai-motto-strip.mode-technical .ai-isolation-badge {
+      background: rgba(2, 132, 199, 0.12);
+      color: #0284C7;
+    }
+
+    .ai-mode-swap-link {
+      color: var(--coral-brand);
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.70rem;
+    }
+
+    .ai-mode-swap-link:hover {
+      color: #E04B28;
+    }
+
+    .ai-chat-thread {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: #FFFFFF;
+    }
+
+    .ai-msg {
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.84rem;
+      line-height: 1.45;
+      animation: aiMsgIn 0.25s ease-out forwards;
+      word-break: break-word;
+    }
+
+    @keyframes aiMsgIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ai-msg.user {
+      align-self: flex-end;
+      background: #1F344C;
+      color: #FFFFFF;
+      border-bottom-right-radius: 4px;
+    }
+
+    .ai-msg.ai.mode-simple {
+      align-self: flex-start;
+      background: #F0FDF4;
+      color: #064E3B;
+      border: 1px solid #BBF7D0;
+      border-bottom-left-radius: 4px;
+    }
+
+    .ai-msg.ai.mode-technical {
+      align-self: flex-start;
+      background: #F8FAFC;
+      color: #0F172A;
+      border: 1px solid #E2E8F0;
+      border-bottom-left-radius: 4px;
+    }
+
+    .ai-msg-meta {
+      font-size: 0.65rem;
+      margin-top: 4px;
+      opacity: 0.75;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ai-msg.user .ai-msg-meta {
+      justify-content: flex-end;
+      color: #E2E8F0;
+    }
+
+    .ai-quick-prompts {
+      padding: 8px 14px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      background: #FAF6F1;
+      border-top: 1px solid var(--border-warm);
+      flex-shrink: 0;
+      scrollbar-width: thin;
+    }
+
+    .ai-prompt-chip {
+      background: #FFFFFF;
+      border: 1px solid var(--border-warm);
+      border-radius: 9999px;
+      padding: 4px 11px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-navy);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .ai-prompt-chip:hover {
+      background: var(--coral-brand);
+      color: #FFFFFF;
+      border-color: var(--coral-brand);
+      transform: translateY(-1px);
+    }
+
+    .ai-chat-input-row {
+      padding: 12px 14px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-warm);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .ai-chat-input-row input {
+      flex: 1;
+      background: #FAF6F1;
+      border: 1.5px solid var(--border-warm);
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      color: var(--text-navy);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .ai-chat-input-row input:focus {
+      border-color: #10B981;
+      background: #FFFFFF;
+    }
+
+    .ai-chat-input-row.mode-technical input:focus {
+      border-color: #0284C7;
+    }
+
+    .ai-send-btn {
+      background: #10B981;
+      border: none;
+      color: #FFFFFF;
+      border-radius: 12px;
+      padding: 10px 15px;
+      font-family: var(--font-heading);
+      font-size: 0.84rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .ai-chat-input-row.mode-technical .ai-send-btn {
+      background: #0284C7;
+    }
+
+    .ai-send-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
   </style>
   <script src="js/photo-aqi.js" defer></script>
 </head>
@@ -2728,50 +3213,62 @@
         <span class="brand-icon" title="AirFusion Eco-Friendly Clean Air & Nature Emblem">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
   <defs>
-    <linearGradient id="afEcoHull" x1="10" y1="4" x2="54" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0E241E"/>
-      <stop offset="50%" stop-color="#0B1A22"/>
-      <stop offset="100%" stop-color="#061014"/>
+    <linearGradient id="afEcoHull" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#05281E"/>
+      <stop offset="50%" stop-color="#093829"/>
+      <stop offset="100%" stop-color="#031A13"/>
     </linearGradient>
-    <linearGradient id="afEcoRim" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#34D399"/>
-      <stop offset="35%" stop-color="#10B981"/>
+    <linearGradient id="afEcoRim" x1="6" y1="3" x2="58" y2="61" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="32%" stop-color="#10B981"/>
       <stop offset="70%" stop-color="#38BDF8"/>
       <stop offset="100%" stop-color="#F59E0B"/>
     </linearGradient>
-    <linearGradient id="afLeafGrad" x1="14" y1="14" x2="33" y2="48" gradientUnits="userSpaceOnUse">
+    <linearGradient id="afLeafGrad" x1="12" y1="14" x2="32" y2="49" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#A7F3D0"/>
-      <stop offset="25%" stop-color="#34D399"/>
-      <stop offset="70%" stop-color="#059669"/>
+      <stop offset="28%" stop-color="#34D399"/>
+      <stop offset="68%" stop-color="#059669"/>
       <stop offset="100%" stop-color="#064E3B"/>
     </linearGradient>
-    <linearGradient id="afAirGrad" x1="50" y1="14" x2="31" y2="48" gradientUnits="userSpaceOnUse">
+    <linearGradient id="afAirGrad" x1="52" y1="14" x2="30" y2="49" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#E0F2FE"/>
-      <stop offset="25%" stop-color="#38BDF8"/>
+      <stop offset="28%" stop-color="#38BDF8"/>
       <stop offset="70%" stop-color="#0284C7"/>
-      <stop offset="100%" stop-color="#075985"/>
+      <stop offset="100%" stop-color="#0369A1"/>
     </linearGradient>
-    <radialGradient id="afSunCore" cx="32" cy="29.5" r="10" gradientUnits="userSpaceOnUse">
+    <radialGradient id="afSunCore" cx="32" cy="28.5" r="10.5" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#FFFFFF"/>
       <stop offset="35%" stop-color="#FEF08A" stop-opacity="0.95"/>
-      <stop offset="70%" stop-color="#10B981" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#0284C7" stop-opacity="0"/>
+      <stop offset="70%" stop-color="#34D399" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#059669" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="afDewGrad" x1="28" y1="20" x2="36" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#BAE6FD" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0.85"/>
+    </linearGradient>
+    <filter id="afGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
   </defs>
-  <path d="M 32 4.5 C 44.5 4.5 54 8.5 54 22 C 54 41 41 53.5 32 59.5 C 23 53.5 10 41 10 22 C 10 8.5 19.5 4.5 32 4.5 Z" fill="url(#afEcoHull)" stroke="url(#afEcoRim)" stroke-width="2.6" stroke-linejoin="round"/>
-  <path d="M 32 8 C 42 8 49.5 11.2 49.5 22 C 49.5 37.5 38.5 48.2 32 53.5 C 25.5 48.2 14.5 37.5 14.5 22 C 14.5 11.2 22 8 32 8 Z" fill="none" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1.2"/>
-  <path d="M 23 6.8 C 27 6 37 6 41 6.8" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="1.6" stroke-linecap="round"/>
-  <path d="M 18.5 20.5 C 18 31 23 39.5 31.5 45 C 27 39.2 24.2 32.8 25.6 25 C 26.5 20.2 29 17.6 32 16.5 C 25.8 16.2 19.5 18.2 18.5 20.5 Z" fill="url(#afLeafGrad)"/>
-  <path d="M 20.5 23 C 21.5 31 25 36.5 30 41" stroke="rgba(255, 255, 255, 0.65)" stroke-width="1.0" stroke-linecap="round"/>
-  <path d="M 23.5 28 C 26 27.5 27.5 26 28.5 24.5" stroke="rgba(255, 255, 255, 0.45)" stroke-width="0.8" stroke-linecap="round"/>
-  <path d="M 25 33 C 27.5 32.5 29 31 30 29.5" stroke="rgba(255, 255, 255, 0.45)" stroke-width="0.8" stroke-linecap="round"/>
-  <path d="M 45.5 20.5 C 46 31 41 39.5 32.5 45 C 37 39.2 39.8 32.8 38.4 25 C 37.5 20.2 35 17.6 32 16.5 C 38.2 16.2 44.5 18.2 45.5 20.5 Z" fill="url(#afAirGrad)"/>
-  <path d="M 43.5 23.5 C 42.5 31 39 36.5 34 41" stroke="rgba(255, 255, 255, 0.55)" stroke-width="1.0" stroke-linecap="round"/>
-  <path d="M 32 17.5 C 29.5 23 29.2 29 32 34.5 C 34.8 29 34.5 23 32 17.5 Z" fill="#FFFFFF" fill-opacity="0.36"/>
-  <circle cx="32" cy="29.5" r="9" fill="url(#afSunCore)"/>
-  <path d="M 32 21 L 34.2 27.5 L 40.5 29.5 L 34.2 31.5 L 32 38 L 29.8 31.5 L 23.5 29.5 L 29.8 27.5 Z" fill="#FFFFFF" stroke="#A7F3D0" stroke-width="0.4"/>
-  <path d="M 32 29.5 L 35.8 25.7 M 32 29.5 L 35.8 33.3 M 32 29.5 L 28.2 33.3 M 32 29.5 L 28.2 25.7" stroke="#FFFFFF" stroke-width="0.8" stroke-linecap="round" opacity="0.75"/>
-  <circle cx="32" cy="29.5" r="1.6" fill="#FFFFFF"/>
+  <path d="M 32 3.5 C 47.5 3.5 56.5 12 56.5 27 C 56.5 44 42.5 56.5 32 60.5 C 21.5 56.5 7.5 44 7.5 27 C 7.5 12 16.5 3.5 32 3.5 Z" fill="url(#afEcoHull)" stroke="url(#afEcoRim)" stroke-width="2.4" stroke-linejoin="round"/>
+  <path d="M 32 7 C 44 7 52 14 52 27 C 52 40.5 40.5 50.8 32 55 C 23.5 50.8 12 40.5 12 27 C 12 14 20 7 32 7 Z" fill="none" stroke="rgba(255, 255, 255, 0.14)" stroke-width="1.1"/>
+  <path d="M 23 5.8 C 27 5.1 37 5.1 41 5.8" stroke="#FFFFFF" stroke-opacity="0.92" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 17 21 C 15.5 31.5 21 40 31.5 46.5 C 26 40 23.5 32.5 25 24 C 26 19 28.5 16 32 14.5 C 25 14.5 18 17.5 17 21 Z" fill="url(#afLeafGrad)"/>
+  <path d="M 19.5 24 C 21 31.5 25 37 30 42" stroke="rgba(255, 255, 255, 0.7)" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M 23 29 C 25.5 28.5 27.5 27 28.8 25" stroke="rgba(255, 255, 255, 0.55)" stroke-width="0.85" stroke-linecap="round"/>
+  <path d="M 24.8 34 C 27.5 33 29.5 31 30.5 29.2" stroke="rgba(255, 255, 255, 0.55)" stroke-width="0.85" stroke-linecap="round"/>
+  <path d="M 47 21 C 48.5 31.5 43 40 32.5 46.5 C 38 40 40.5 32.5 39 24 C 38 19 35.5 16 32 14.5 C 39 14.5 46 17.5 47 21 Z" fill="url(#afAirGrad)"/>
+  <path d="M 44.5 24 C 43 31.5 39 37 34 42" stroke="rgba(255, 255, 255, 0.65)" stroke-width="1.1" stroke-linecap="round"/>
+  <path d="M 41 29 C 38.5 28.5 36.5 27 35.2 25" stroke="rgba(255, 255, 255, 0.5)" stroke-width="0.85" stroke-linecap="round"/>
+  <path d="M 32 14.5 C 28.5 21 28 28.5 32 35 C 36 28.5 35.5 21 32 14.5 Z" fill="url(#afDewGrad)" fill-opacity="0.88"/>
+  <circle cx="32" cy="28.5" r="9.5" fill="url(#afSunCore)"/>
+  <path d="M 32 19 L 34.2 26 L 41 28.5 L 34.2 31 L 32 38 L 29.8 31 L 23 28.5 L 29.8 26 Z" fill="#FFFFFF" filter="url(#afGlow)"/>
+  <circle cx="32" cy="28.5" r="1.6" fill="#FFFFFF"/>
+  <circle cx="21" cy="16" r="1.2" fill="#6EE7B7" opacity="0.85"/>
+  <circle cx="43" cy="16" r="1.2" fill="#7DD3FC" opacity="0.85"/>
+  <circle cx="32" cy="51" r="1.4" fill="#34D399" opacity="0.9"/>
 </svg>
         </span>
         <div class="brand-text">
@@ -3364,6 +3861,23 @@
       sidebarOpen: true,
       quizScore: 0,
       activePlaceReport: null, // Custom searched place report object
+      
+      // Floating Semi-Round Dual-AI Hub (Decoupled Simple & Technical Memory)
+      isFloatingAiOpen: false,
+      simpleAiHistory: [
+        { 
+          sender: 'ai', 
+          text: "👋 Hi! I'm **Aero**, your family clean air buddy. Ask me about the safest outdoor play window for kids, whether you need a mask today, or the best indoor air-cleaning plants!",
+          time: 'Just now'
+        }
+      ],
+      techAiHistory: [
+        { 
+          sender: 'ai', 
+          text: "🔬 Greetings. I am **AtmoMetrix AI**, specialized in quantitative atmospheric physics and sensor metrology. Query me regarding Gaussian plume dispersion, boundary layer inversions, CPCB/EPA breakpoints, or Köhler hygroscopic growth.",
+          time: 'Just now'
+        }
+      ],
       departureKit: {
         mask: true,
         water: true,
@@ -4126,6 +4640,9 @@
 
       renderPlaceReportDossier();
       renderCurrentPage();
+      if (typeof updateFloatingAiMode === 'function') {
+        updateFloatingAiMode(mode);
+      }
     }
 
     function toggleViewMode() {
@@ -11004,11 +11521,355 @@
       }
     });
 
+    
+    // =========================================================================
+    // FLOATING SEMI-ROUND DUAL-AI HUB (DECOUPLED SIMPLE & TECHNICAL MEMORY)
+    // =========================================================================
+    function toggleFloatingAiPopup() {
+      state.isFloatingAiOpen = !state.isFloatingAiOpen;
+      var win = document.getElementById('floatingAiWindow');
+      if (win) {
+        win.style.display = state.isFloatingAiOpen ? 'flex' : 'none';
+        if (state.isFloatingAiOpen) {
+          updateFloatingAiMode(state.viewMode);
+          renderFloatingAiMessages();
+          var inp = document.getElementById('floatingAiInput');
+          if (inp) setTimeout(function() { inp.focus(); }, 100);
+        }
+      }
+    }
+
+    function openFloatingAiPopup() {
+      state.isFloatingAiOpen = true;
+      var win = document.getElementById('floatingAiWindow');
+      if (win) {
+        win.style.display = 'flex';
+        updateFloatingAiMode(state.viewMode);
+        renderFloatingAiMessages();
+        var inp = document.getElementById('floatingAiInput');
+        if (inp) setTimeout(function() { inp.focus(); }, 100);
+      }
+    }
+
+    function closeFloatingAiPopup() {
+      state.isFloatingAiOpen = false;
+      var win = document.getElementById('floatingAiWindow');
+      if (win) win.style.display = 'none';
+    }
+
+    function updateFloatingAiMode(mode) {
+      var isSimple = mode === 'simple';
+      
+      // Update launcher
+      var launcher = document.getElementById('floatingAiLauncher');
+      if (launcher) {
+        launcher.className = 'floating-ai-launcher ' + (isSimple ? 'mode-simple' : 'mode-technical');
+      }
+      var avatar = document.getElementById('floatingAiAvatar');
+      if (avatar) avatar.textContent = isSimple ? '🌱' : '⚡';
+      var title = document.getElementById('floatingAiTitle');
+      if (title) title.textContent = isSimple ? 'Aero AI Companion' : 'AtmoMetrix AI';
+      var badge = document.getElementById('floatingAiBadge');
+      if (badge) badge.textContent = isSimple ? 'Simple Family Mode' : 'Technical Metrology';
+
+      // Update Window Header
+      var header = document.getElementById('floatingAiHeader');
+      if (header) {
+        header.className = 'ai-window-header ' + (isSimple ? 'mode-simple' : 'mode-technical');
+      }
+      var hAvatar = document.getElementById('floatingAiHeaderAvatar');
+      if (hAvatar) hAvatar.textContent = isSimple ? '🌱' : '⚡';
+      var hTitle = document.getElementById('floatingAiHeaderTitle');
+      if (hTitle) hTitle.textContent = isSimple ? 'Aero AI — Family Air Companion' : 'AtmoMetrix AI — Metrology & Kinetics';
+      var hStatus = document.getElementById('floatingAiHeaderStatus');
+      if (hStatus) hStatus.textContent = isSimple ? 'Online • Decoupled Family Memory' : 'Online • Decoupled Metrology Memory';
+
+      // Update Motto Strip
+      var mottoStrip = document.getElementById('floatingAiMottoStrip');
+      if (mottoStrip) {
+        mottoStrip.className = 'ai-motto-strip ' + (isSimple ? 'mode-simple' : 'mode-technical');
+      }
+      var mottoTag = document.getElementById('floatingAiMottoTag');
+      if (mottoTag) {
+        mottoTag.innerHTML = isSimple 
+          ? '<span>🌱 SIMPLE MODE MOTTO: HUMAN-FIRST • ZERO JARGON</span>' 
+          : '<span>⚡ TECHNICAL MODE MOTTO: QUANTITATIVE METROLOGY &amp; KINETICS</span>';
+      }
+      var mottoQuote = document.getElementById('floatingAiMottoQuote');
+      if (mottoQuote) {
+        mottoQuote.innerHTML = isSimple
+          ? '&quot;Guarding your family&#39;s health through clear, actionable outdoor answers and child-safe air windows. I operate with <strong>100% independent memory</strong> decoupled from Technical Mode.&quot;'
+          : '&quot;Providing empirical Gaussian dispersion equations, boundary layer thermodynamic flux, and statutory CAQM/EPA breakpoints. I operate with <strong>100% independent memory</strong> decoupled from Simple Mode.&quot;';
+      }
+      var isoBadge = document.getElementById('floatingAiIsolationBadge');
+      if (isoBadge) {
+        isoBadge.textContent = isSimple ? '🔒 Decoupled Simple Memory' : '🔒 Decoupled Engineering Memory';
+      }
+      var swapLink = document.getElementById('floatingAiSwapLink');
+      if (swapLink) {
+        swapLink.textContent = isSimple ? 'Switch to Technical AI 🔬' : 'Switch to Simple AI 🌱';
+      }
+
+      // Update Input Row
+      var inputRow = document.getElementById('floatingAiInputRow');
+      if (inputRow) {
+        inputRow.className = 'ai-chat-input-row ' + (isSimple ? 'mode-simple' : 'mode-technical');
+      }
+      var input = document.getElementById('floatingAiInput');
+      if (input) {
+        input.placeholder = isSimple 
+          ? 'Ask Aero anything about clean air for your family...' 
+          : 'Ask AtmoMetrix about plume math, breakpoints, or thermodynamics...';
+      }
+
+      // Render Prompts and Messages
+      renderFloatingAiQuickPrompts();
+      renderFloatingAiMessages();
+    }
+
+    function renderFloatingAiQuickPrompts() {
+      var container = document.getElementById('floatingAiPrompts');
+      if (!container) return;
+      var isSimple = state.viewMode === 'simple';
+      var prompts = isSimple 
+        ? [
+            { label: '🏃 Outdoor Play Window', query: 'When is the safest time for kids to play outside today?' },
+            { label: '😷 Do We Need Masks?', query: 'Do we need to wear an N95 mask today?' },
+            { label: '🪴 Best Indoor Plants', query: 'What indoor plants clean air best according to NASA?' },
+            { label: '🪟 Can I Open Windows?', query: 'Is it safe to open windows in our house today?' }
+          ]
+        : [
+            { label: '📐 Gaussian Plume Math', query: 'Show the Gaussian Plume steady-state concentration equation' },
+            { label: '🔬 Köhler Hygroscopy', query: 'Explain the Köhler aerosol hygroscopic growth correction' },
+            { label: '🏛️ CAQM GRAP Matrix', query: 'Detail the CAQM GRAP statutory stages and triggers' },
+            { label: '🛰️ AOD & Ångström', query: 'Explain Ångström turbidity exponent formulation' }
+          ];
+
+      var html = '';
+      for (var i = 0; i < prompts.length; i++) {
+        var p = prompts[i];
+        html += '<button class="ai-prompt-chip" onclick="sendFloatingAiQuickPrompt(' + JSON.stringify(p.query) + ')">' + p.label + '</button>';
+      }
+      container.innerHTML = html;
+    }
+
+    function renderFloatingAiMessages() {
+      var thread = document.getElementById('floatingAiThread');
+      if (!thread) return;
+      var isSimple = state.viewMode === 'simple';
+      var history = isSimple ? state.simpleAiHistory : state.techAiHistory;
+      
+      if (!history || history.length === 0) {
+        thread.innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.80rem; margin: auto;">No messages in this mode yet.</div>';
+        return;
+      }
+
+      var html = '';
+      for (var i = 0; i < history.length; i++) {
+        var m = history[i];
+        var isUser = m.sender === 'user';
+        var modeClass = isSimple ? 'mode-simple' : 'mode-technical';
+        html += '<div class="ai-msg ' + (isUser ? 'user' : 'ai ' + modeClass) + '">' +
+          '<div>' + (m.text || '').replace(/\n/g, '<br/>') + '</div>' +
+          '<div class="ai-msg-meta">' +
+            '<span>' + (isUser ? 'You' : (isSimple ? '🌱 Aero AI' : '⚡ AtmoMetrix AI')) + '</span> &bull; ' +
+            '<span>' + (m.time || 'Just now') + '</span>' +
+          '</div>' +
+        '</div>';
+      }
+      thread.innerHTML = html;
+      thread.scrollTop = thread.scrollHeight;
+    }
+
+    function sendFloatingAiChat() {
+      var input = document.getElementById('floatingAiInput');
+      if (!input) return;
+      var text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      var isSimple = state.viewMode === 'simple';
+      var now = new Date();
+      var timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      // Append user message strictly to current mode history
+      if (isSimple) {
+        if (!state.simpleAiHistory) state.simpleAiHistory = [];
+        state.simpleAiHistory.push({ sender: 'user', text: text, time: timeStr });
+      } else {
+        if (!state.techAiHistory) state.techAiHistory = [];
+        state.techAiHistory.push({ sender: 'user', text: text, time: timeStr });
+      }
+
+      renderFloatingAiMessages();
+
+      // Generate response
+      setTimeout(function() {
+        var responseText = generateFloatingAiResponse(text, state.viewMode);
+        var respTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        if (isSimple) {
+          state.simpleAiHistory.push({ sender: 'ai', text: responseText, time: respTime });
+        } else {
+          state.techAiHistory.push({ sender: 'ai', text: responseText, time: respTime });
+        }
+        renderFloatingAiMessages();
+      }, 250);
+    }
+
+    function sendFloatingAiQuickPrompt(promptText) {
+      var input = document.getElementById('floatingAiInput');
+      if (input) input.value = promptText;
+      sendFloatingAiChat();
+    }
+
+    function clearCurrentAiHistory() {
+      var isSimple = state.viewMode === 'simple';
+      if (isSimple) {
+        state.simpleAiHistory = [
+          { 
+            sender: 'ai', 
+            text: "👋 Hi! I'm **Aero**, your family clean air buddy. Ask me about the safest outdoor play window for kids, whether you need a mask today, or the best indoor air-cleaning plants!",
+            time: 'Just now'
+          }
+        ];
+      } else {
+        state.techAiHistory = [
+          { 
+            sender: 'ai', 
+            text: "🔬 Greetings. I am **AtmoMetrix AI**, specialized in quantitative atmospheric physics and sensor metrology. Query me regarding Gaussian plume dispersion, boundary layer inversions, CPCB/EPA breakpoints, or Köhler hygroscopic growth.",
+            time: 'Just now'
+          }
+        ];
+      }
+      renderFloatingAiMessages();
+    }
+
+    function generateFloatingAiResponse(userText, mode) {
+      var t = state.telemetry || { city: 'Active Location', aqi: 75, pm25: 22.0, temp: 22, wind: 8, humidity: 50, category: 'Good' };
+      var lower = userText.toLowerCase();
+
+      if (mode === 'simple') {
+        if (lower.indexOf('window') !== -1 || lower.indexOf('open') !== -1 || lower.indexOf('ventilate') !== -1 || lower.indexOf('breeze') !== -1) {
+          return t.pm25 <= 35 
+            ? "Fresh breeze update for " + t.city + "! Today's air is pleasantly clean (PM2.5: " + t.pm25 + " µg/m³). It is safe and beneficial to open windows and let natural air circulate through your home!"
+            : "Haven's Sanctuary Tip: Keep windows closed right now in " + t.city + " (PM2.5 is " + t.pm25 + " µg/m³). Outdoor particulate matter could settle inside. Run your HEPA air purifier on whisper mode instead!";
+        }
+        if (lower.indexOf('play') !== -1 || lower.indexOf('outdoor') !== -1 || lower.indexOf('kid') !== -1 || lower.indexOf('walk') !== -1 || lower.indexOf('run') !== -1 || lower.indexOf('jog') !== -1 || lower.indexOf('exercise') !== -1) {
+          return "Safe Outdoor Window for " + t.city + ":\\nRight now, AQI is " + t.aqi + " (" + t.category + "). For children and exercise, the safest hours today are during midday (11:30 AM – 2:30 PM) when warm solar heating breaks ground-level smoke layers and provides peak natural dispersion!";
+        }
+        if (lower.indexOf('mask') !== -1 || lower.indexOf('n95') !== -1 || lower.indexOf('kn95') !== -1 || lower.indexOf('wear') !== -1) {
+          return t.pm25 > 50
+            ? "Protective Advice for " + t.city + ": Fine soot particles are elevated today (" + t.pm25 + " µg/m³). Nova recommends wearing a well-fitting, certified N95 or FFP2 mask when walking near major traffic roads!"
+            : "Good news! Air quality in " + t.city + " is currently in the clean band (PM2.5: " + t.pm25 + " µg/m³). General mask wear is not required for healthy individuals outdoors. Enjoy the fresh air!";
+        }
+        if (lower.indexOf('plant') !== -1 || lower.indexOf('nasa') !== -1 || lower.indexOf('purif') !== -1) {
+          return "Haven's Botanical Doctor: Based on NASA's Clean Air Study, Snake Plants (Mother-in-Law's Tongue), Areca Palms, and Spider Plants are top bio-filters! Snake Plants absorb CO2 and release pure oxygen overnight, making them the ultimate bedroom plant companion.";
+        }
+        if (lower.indexOf('rain') !== -1 || lower.indexOf('rainy') !== -1 || lower.indexOf('storm') !== -1) {
+          return (t.rain_prob && t.rain_prob > 35)
+            ? "Rain chance is " + t.rain_prob + "% in " + t.city + ". Falling raindrops act as nature's sky scrubbers, capturing suspended soot and dust to leave the air crisp and fragrant!"
+            : "Dry conditions expected in " + t.city + " with low rain probability (" + (t.rain_prob || 0) + "%). Surface temperature is around " + Math.round(t.temp) + "°C.";
+        }
+        if (lower.indexOf('asthma') !== -1 || lower.indexOf('cough') !== -1 || lower.indexOf('allergy') !== -1 || lower.indexOf('eye') !== -1 || lower.indexOf('throat') !== -1) {
+          return "Nova's Wellness Tip: If anyone in your family has sensitive lungs, keep outdoor exposure brief during early morning hours, drink warm water, and keep indoor air purifiers running. (Remember: this is general environmental guidance, not medical advice—consult your doctor for medical concerns!)";
+        }
+        return "That is a great question! Right now in " + t.city + ", the air index is AQI " + t.aqi + " (" + t.category + ") with PM2.5 at " + t.pm25 + " µg/m³ and wind at " + t.wind + " km/h. Midday remains the cleanest time to be outdoors today!";
+      } else {
+        // Technical Mode
+        if (lower.indexOf('gaussian') !== -1 || lower.indexOf('plume') !== -1 || lower.indexOf('dispersion') !== -1 || lower.indexOf('equation') !== -1) {
+          return 'Gaussian Plume Steady-State Formulation:\n$$\\chi(x,y,z; H) = \\frac{Q}{2\\pi u \\sigma_y \\sigma_z} \\exp\\left(-\\frac{y^2}{2\\sigma_y^2}\\right) \\left[ \\exp\\left(-\\frac{(z-H)^2}{2\\sigma_z^2}\\right) + \\exp\\left(-\\frac{(z+H)^2}{2\\sigma_z^2}\\right) \\right]$$\nWhere:\n- $Q$: Mass emission rate (g/s)\n- $u$: Wind vector advection (' + t.wind + ' km/h in ' + t.city + ')\n- $\\sigma_y, \\sigma_z$: Downwind lateral and vertical dispersion coefficients parameterized via Pasquill-Gifford stability curves\n- $H$: Effective emission stack height including Briggs thermal buoyancy plume rise.';
+        }
+        if (lower.indexOf('breakpoint') !== -1 || lower.indexOf('cpcb') !== -1 || lower.indexOf('epa') !== -1 || lower.indexOf('formula') !== -1 || lower.indexOf('sub-index') !== -1) {
+          return 'Breakpoint Sub-Index Interpolation (CPCB 2014 & US EPA 40 CFR Part 58):\n$$I_p = \\frac{I_{hi} - I_{lo}}{BP_{hi} - BP_{lo}} (C_p - BP_{lo}) + I_{lo}$$\n- CPCB 24-hr PM2.5 Breakpoints: Good (0-30 µg/m³), Satisfactory (31-60), Moderate (61-90), Poor (91-120), Very Poor (121-250), Severe (>250).\n- At current PM2.5 = ' + t.pm25 + ' µg/m³ in ' + t.city + ', sub-index computes to AQI ' + t.aqi + ' (' + t.category + ').';
+        }
+        if (lower.indexOf('k\u00f6hler') !== -1 || lower.indexOf('kohler') !== -1 || lower.indexOf('hygroscop') !== -1 || lower.indexOf('opc') !== -1 || lower.indexOf('growth') !== -1) {
+          var rhGrowth = (1 / Math.pow(1 - (t.humidity/100), 0.28)).toFixed(2);
+          return 'Köhler Hygroscopic Swelling Correction:\n$$GF(RH) = \\left(1 - \\frac{RH}{100}\\right)^{-\\gamma}$$\nFor inorganic nitrate/sulfate aerosols, typical empirical exponent $\\gamma \\approx 0.25 - 0.32$.\nAt ' + t.humidity + '% ambient relative humidity in ' + t.city + ', hygroscopic factor $GF \\approx ' + rhGrowth + '$ is applied to calibrate optical particle counters (OPCs) against true gravimetric reference filters (Beta Attenuation Monitors).';
+        }
+        if (lower.indexOf('aod') !== -1 || lower.indexOf('\u00e5ngstr\u00f6m') !== -1 || lower.indexOf('angstrom') !== -1 || lower.indexOf('spectral') !== -1) {
+          return 'Ångström Turbidity Parameterization:\n$$\\alpha = -\\frac{\\ln(\\tau_{\\lambda_1} / \\tau_{\\lambda_2})}{\\ln(\\lambda_1 / \\lambda_2)}$$\n- $\\alpha > 1.5$: Dominated by sub-micron combustion aerosols (fine secondary PM2.5, urban exhaust).\n- $\\alpha < 0.6$: Dominated by super-micron coarse mineral dust or sea salt spray. Current ' + t.city + ' spectral optical depth ratio suggests mixed aerosol regimes.';
+        }
+        if (lower.indexOf('grap') !== -1 || lower.indexOf('caqm') !== -1 || lower.indexOf('stage') !== -1 || lower.indexOf('mitigation') !== -1) {
+          return 'CAQM Statutory Graded Response Action Plan (GRAP) Matrix:\n- Stage I (Poor, AQI 201-300): Mechanized sweeping, dust suppression.\n- Stage II (Very Poor, AQI 301-400): Diesel generator prohibitions, tariff restructuring.\n- Stage III (Severe, AQI 401-450): Strict ban on BS-III petrol and BS-IV diesel non-essential vehicles.\n- Stage IV (Severe+, AQI > 450): Complete entry ban on commercial heavy goods vehicles except essential supplies.\nCurrent ' + t.city + ' AQI: ' + t.aqi + ' triggers regulatory threshold evaluations.';
+        }
+        if (lower.indexOf('api') !== -1 || lower.indexOf('curl') !== -1 || lower.indexOf('rest') !== -1 || lower.indexOf('python') !== -1) {
+          return 'AirFusion REST API Telemetry Endpoint:\n`curl -X GET "https://airfusion.vercel.app/api/v1/telemetry?city=' + encodeURIComponent(t.city) + '"`\nPython Client:\n```python\nimport requests\nr = requests.get("https://airfusion.vercel.app/api/v1/telemetry", params={"city": "' + t.city + '"})\nprint(r.json())\n```';
+        }
+        return 'AtmoMetrix Atmospheric Metrology Briefing (' + t.city + '):\n- Criterion Pollutant: PM2.5 = ' + t.pm25 + ' µg/m³ | PM10 = ' + (t.pm10 || 210) + ' µg/m³ | AQI = ' + t.aqi + ' (' + t.category + ')\n- Thermodynamic Vector: Temperature ' + t.temp + '°C, RH ' + t.humidity + '%, Wind ' + t.wind + ' km/h\n- Boundary Layer Flux: Atmospheric mixing height parameterized via solar irradiance surface heat flux\n- Metrology Guarantee: Decoupled technical execution pipeline with zero Simple Mode state contamination.';
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       initResponsiveLayout();
       fetchLiveAirAndWeather('Delhi');
       renderCurrentPage();
     });
   </script>
+
+  <!-- =========================================================================
+       Floating Semi-Round Dual-AI Hub (Decoupled Simple & Technical Memory)
+       ========================================================================= -->
+  <div id="floatingAiLauncher" class="floating-ai-launcher mode-simple" onclick="toggleFloatingAiPopup()" title="Click to chat with AirFusion AI">
+    <div class="launcher-avatar" id="floatingAiAvatar">🌱</div>
+    <div class="launcher-ping">
+      <div class="launcher-ping-circle" id="floatingAiPing"></div>
+      <div class="launcher-dot" id="floatingAiDot"></div>
+    </div>
+    <div class="launcher-text">
+      <span class="launcher-title" id="floatingAiTitle">Aero AI Companion</span>
+      <span class="launcher-sub" id="floatingAiBadge">Simple Family Mode</span>
+    </div>
+  </div>
+
+  <div id="floatingAiWindow" class="floating-ai-window" role="dialog" aria-label="AirFusion AI Assistant">
+    <!-- Semi-Round Header -->
+    <div class="ai-window-header mode-simple" id="floatingAiHeader">
+      <div class="ai-header-info">
+        <div class="ai-header-avatar" id="floatingAiHeaderAvatar">🌱</div>
+        <div class="ai-header-titles">
+          <h3 id="floatingAiHeaderTitle">Aero AI — Family Air Companion</h3>
+          <div class="ai-status-row">
+            <span class="ai-status-dot"></span>
+            <span class="ai-status-text" id="floatingAiHeaderStatus">Online • Decoupled Family Memory</span>
+          </div>
+        </div>
+      </div>
+      <div class="ai-header-actions">
+        <button class="ai-header-btn" onclick="clearCurrentAiHistory()" title="Clear this mode's chat history">🗑️</button>
+        <button class="ai-header-btn" onclick="closeFloatingAiPopup()" title="Minimize AI assistant">✕</button>
+      </div>
+    </div>
+
+    <!-- Dual-Mode Motto Callout Card -->
+    <div class="ai-motto-strip mode-simple" id="floatingAiMottoStrip">
+      <div class="ai-motto-tag" id="floatingAiMottoTag">
+        <span>🌱 SIMPLE MODE MOTTO: HUMAN-FIRST • ZERO JARGON</span>
+      </div>
+      <p class="ai-motto-quote" id="floatingAiMottoQuote">
+        &quot;Guarding your family&#39;s health through clear, actionable outdoor answers and child-safe air windows. I operate with <strong>100% independent memory</strong> decoupled from Technical Mode.&quot;
+      </p>
+      <div class="ai-isolation-pill-row">
+        <span class="ai-isolation-badge" id="floatingAiIsolationBadge">🔒 Decoupled Simple Memory</span>
+        <span class="ai-mode-swap-link" id="floatingAiSwapLink" onclick="toggleViewMode()">Switch to Technical AI 🔬</span>
+      </div>
+    </div>
+
+    <!-- Message Thread -->
+    <div class="ai-chat-thread" id="floatingAiThread">
+    </div>
+
+    <!-- Quick Prompts Row -->
+    <div class="ai-quick-prompts" id="floatingAiPrompts">
+    </div>
+
+    <!-- Chat Input Row -->
+    <div class="ai-chat-input-row mode-simple" id="floatingAiInputRow">
+      <input type="text" id="floatingAiInput" placeholder="Ask Aero anything about clean air for your family..." onkeydown="if(event.key==='Enter') sendFloatingAiChat()" />
+      <button class="ai-send-btn" onclick="sendFloatingAiChat()" aria-label="Send message">
+        <span>Send</span> 💬
+      </button>
+    </div>
+  </div>
+
 </body>
 </html>

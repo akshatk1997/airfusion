@@ -85,3 +85,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `js/photo-aqi.js` & `public/js/photo-aqi.js`: Replaced hardcoded local file links containing legacy project path names with canonical web GitHub links (`https://github.com/akshatk1997/airfusion/blob/main/TRAINING.md`).
 - Verified across all 11,000+ lines in `index.html`, `public/index.html`, `api/index.py`, `ml/`, and documentation that zero references to `airguard` or `airgd` remain in tracked files.
 - Synchronized repository changes to both `fix/audit-and-cnn` and `main` branches on GitHub.
+
+## [Eco-Specific Logo & Floating Semi-Round Dual-AI Hub] - 2026-10-30
+### Added
+- **Eco-Specific Biophilic Logo**: Re-engineered the brand emblem across `assets/images/airfusion_shield_logo.svg`, `public/assets/images/airfusion_shield_logo.svg`, `favicon.svg`, `public/favicon.svg`, and inline header/sidebar SVGs. The new emblem features an organic biophilic bio-canopy pebble hull, sculpted botanical leaf wing with glowing chlorophyll veins, tropospheric laminar airflow ribbon, central bio-atmospheric dewdrop convergence lens, and radiant solar photosynthesis core.
+- **Floating Semi-Round Dual-AI Hub (`#floatingAiLauncher` & `#floatingAiWindow`)**:
+  - Persistent floating launcher in the bottom-right corner with pulse indicator and semi-round pill form factor.
+  - Semi-round modal with blurred backdrop, custom header, motto callout strip, decoupled conversation thread, quick prompt suggestions, and input bar.
+  - **Decoupled Mode Motos & Personas**:
+    - **Simple Mode**: *Aero AI Family Companion* — "Guarding your family's health through clear, actionable outdoor answers and child-safe air windows." Focused on kids' play windows, mask necessity, air-purifying plants, and home ventilation.
+    - **Technical Mode**: *AtmoMetrix AI* — "Providing empirical Gaussian dispersion equations, boundary layer thermodynamic flux, and statutory CAQM/EPA breakpoints." Focused on plume dispersion math, CPCB/EPA sub-indices, Köhler aerosol hygroscopy, and CAQM GRAP mitigation matrices.
+  - **100% Decoupled Memory Guarantee**: Maintains independent state arrays (`simpleAiHistory` vs `techAiHistory`) that dynamically switch upon mode toggling without memory cross-contamination.
+  - Mode-isolated history clearing via `clearCurrentAiHistory()`.
+  - Comprehensive interactive test suite verifying strict memory decoupling and persona switching (`scratch/test_floating_ai_interactive.js`).

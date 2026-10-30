@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="none">
+  <defs>
+    <linearGradient id="favEcoHull" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#05281E"/>
+      <stop offset="50%" stop-color="#093829"/>
+      <stop offset="100%" stop-color="#031A13"/>
+    </linearGradient>
+    <linearGradient id="favEcoRim" x1="6" y1="3" x2="58" y2="61" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="32%" stop-color="#10B981"/>
+      <stop offset="70%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="favLeaf" x1="12" y1="14" x2="32" y2="49" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A7F3D0"/>
+      <stop offset="40%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="favAir" x1="52" y1="14" x2="30" y2="49" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="40%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <!-- Living Bio-Canopy Pebble Crest -->
+  <path d="M 32 3.5 C 47.5 3.5 56.5 12 56.5 27 C 56.5 44 42.5 56.5 32 60.5 C 21.5 56.5 7.5 44 7.5 27 C 7.5 12 16.5 3.5 32 3.5 Z" 
+        fill="url(#favEcoHull)" 
+        stroke="url(#favEcoRim)" 
+        stroke-width="3" 
+        stroke-linejoin="round"/>
+  <!-- Left Botanical Leaf -->
+  <path d="M 17 21 C 15.5 31.5 21 40 31.5 46.5 C 26 40 23.5 32.5 25 24 C 26 19 28.5 16 32 14.5 C 25 14.5 18 17.5 17 21 Z" 
+        fill="url(#favLeaf)"/>
+  <!-- Right Atmosphere Stream -->
+  <path d="M 47 21 C 48.5 31.5 43 40 32.5 46.5 C 38 40 40.5 32.5 39 24 C 38 19 35.5 16 32 14.5 C 39 14.5 46 17.5 47 21 Z" 
+        fill="url(#favAir)"/>
+  <!-- Dewdrop Core Bloom -->
+  <circle cx="32" cy="28.5" r="5" fill="#10B981" fill-opacity="0.45"/>
+  <path d="M 32 19 L 34.5 26 L 41.5 28.5 L 34.5 31 L 32 38 L 29.5 31 L 22.5 28.5 L 29.5 26 Z" 
+        fill="#FFFFFF"/>
+</svg>
