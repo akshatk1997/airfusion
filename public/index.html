@@ -2618,6 +2618,103 @@
       margin-bottom: 22px;
       box-shadow: 0 4px 18px rgba(239, 68, 68, 0.12);
     }
+  
+    /* Guardian Live Speech Caption Bubble Toast */
+    .guardian-speech-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      max-width: 460px;
+      width: calc(100vw - 48px);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid #38BDF8;
+      border-radius: 16px;
+      padding: 16px 18px;
+      box-shadow: 0 14px 40px rgba(14, 165, 233, 0.22);
+      z-index: 999999;
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .guardian-speech-toast.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* AirFusion Global Notification Action Toast */
+    .action-toast-banner {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      max-width: 440px;
+      width: calc(100vw - 48px);
+      background: #0E1A29;
+      color: #38BDF8;
+      font-family: var(--font-heading);
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid #0284C7;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      z-index: 999999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(-120%);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .action-toast-banner.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Environmental Radar Styling */
+    .radar-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-warm);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(31,52,76,0.04);
+      margin-bottom: 22px;
+    }
+    .radar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .radar-svg {
+      max-width: 380px;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    .radar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .cadr-calc-card {
+      background: #FAF6F1;
+      border: 1px solid var(--border-warm);
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
   </style>
   <script src="js/photo-aqi.js" defer></script>
 </head>
@@ -2970,8 +3067,9 @@
 
   <!-- Guardian Human Voice Speech Synthesis Helper -->
   <script>
-    function speakVoice(text, pitch = 1.05, rate = 0.95) {
+    function speakVoice(text, pitch = 1.05, rate = 0.95, speaker = 'AirFusion Guardian') {
       try {
+        showGuardianSpeechToast(speaker, text);
         if (!('speechSynthesis' in window)) {
           console.info("Speech synthesis not supported in this environment.");
           return;
@@ -2992,6 +3090,84 @@
       } catch (e) {
         console.warn("Speech synthesis notice:", e);
       }
+    }
+
+    function showGuardianSpeechToast(speaker, text) {
+      let toastEl = document.getElementById('guardianSpeechToast');
+      if (!toastEl) {
+        toastEl = document.createElement('div');
+        toastEl.id = 'guardianSpeechToast';
+        toastEl.className = 'guardian-speech-toast';
+        document.body.appendChild(toastEl);
+      }
+      toastEl.innerHTML = `
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+          <div style="font-size: 1.8rem; line-height: 1;">🔊</div>
+          <div style="flex: 1;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <strong style="font-size: 0.82rem; color: #0284C7; text-transform: uppercase; letter-spacing: 0.05em;">${escapeHtml(speaker)}</strong>
+              <span style="font-size: 0.68rem; color: var(--text-muted); background: #FAF6F1; padding: 2px 6px; border-radius: 4px;">Live Audio Briefing</span>
+            </div>
+            <p style="font-size: 0.86rem; color: var(--text-navy); line-height: 1.45; margin: 0; font-weight: 600;">
+              "${escapeHtml(text)}"
+            </p>
+          </div>
+          <button onclick="dismissGuardianSpeechToast()" style="background: none; border: none; font-size: 1.2rem; color: var(--text-muted); cursor: pointer; padding: 0 4px; line-height: 1;" title="Dismiss">&times;</button>
+        </div>
+      `;
+      toastEl.classList.add('visible');
+      clearTimeout(window._speechToastTimer);
+      window._speechToastTimer = setTimeout(() => {
+        dismissGuardianSpeechToast();
+      }, 7500);
+    }
+
+    function dismissGuardianSpeechToast() {
+      const toastEl = document.getElementById('guardianSpeechToast');
+      if (toastEl) toastEl.classList.remove('visible');
+    }
+
+    function showAirFusionToast(msg) {
+      let toast = document.getElementById('airFusionActionToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'airFusionActionToast';
+        toast.className = 'action-toast-banner';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<span>⚡</span> <span>${escapeHtml(msg)}</span>`;
+      toast.classList.add('show');
+      clearTimeout(window._actionToastTimer);
+      window._actionToastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    function playGuardianVoice(name) {
+      const m = computeGuardianMood();
+      if (name === 'aero') {
+        speakVoice(m.aeroVoice, 1.15, 0.94, 'Aero the Sky Scout');
+      } else if (name === 'flash') {
+        speakVoice(m.flashVoice, 1.02, 0.98, 'Flash the Sunshine Runner');
+      } else if (name === 'nova') {
+        speakVoice(m.novaVoice, 1.08, 0.95, 'Nova the Airway Shield');
+      } else if (name === 'haven') {
+        speakVoice(m.havenVoice, 0.96, 0.93, 'Haven the Sanctuary Doctor');
+      }
+    }
+
+    function playStoryChapterVoice(idx) {
+      const chapter = STORY_CHAPTERS[idx] || STORY_CHAPTERS[0];
+      speakVoice(chapter.script, 1.04, 0.94, `Storybook: ${chapter.num}`);
+    }
+
+    function playCityAudioSummary(cityName) {
+      const cData = CITIES_DB[cityName] || { country: 'Global' };
+      const aqi = (cityName === state.telemetry.city) ? state.telemetry.aqi : (cData.baseAqi || 75);
+      const cat = aqi <= 50 ? 'Good' : (aqi <= 100 ? 'Moderate' : (aqi <= 150 ? 'Unhealthy for Sensitive Groups' : 'Unhealthy'));
+      const advice = aqi <= 100 ? 'Outdoor activities are safe today.' : 'Please take caution and limit heavy workouts outdoors.';
+      const summary = `Environmental report for ${cityName}, ${cData.country}. The air quality index is ${aqi}, categorized as ${cat}. ${advice}`;
+      speakVoice(summary, 1.02, 0.96, `${cityName} Sentry Report`);
     }
   </script>
 
@@ -3326,23 +3502,141 @@
 
     // Preset Cities Coordinate Map
     const CITIES_DB = {
-      'Delhi': { lat: 28.6139, lon: 77.2090, country: 'India', lore: 'Indo-Gangetic Basin Airshed', elevation: 216 },
-      'Mumbai': { lat: 19.0760, lon: 72.8777, country: 'India', lore: 'Arabian Sea Coastal Breezes', elevation: 14 },
-      'Bengaluru': { lat: 12.9716, lon: 77.5946, country: 'India', lore: 'Deccan Plateau Elevated Airshed', elevation: 920 },
-      'Kolkata': { lat: 22.5726, lon: 88.3639, country: 'India', lore: 'Lower Ganges Delta Corridor', elevation: 9 },
-      'Chennai': { lat: 13.0827, lon: 80.2707, country: 'India', lore: 'Coromandel Coastal Maritime Zone', elevation: 6 },
-      'Hyderabad': { lat: 17.3850, lon: 78.4867, country: 'India', lore: 'Telangana Continental Basin', elevation: 542 },
-      'Ahmedabad': { lat: 23.0225, lon: 72.5714, country: 'India', lore: 'Western Semi-Arid Dispersion Zone', elevation: 53 },
-      'Pune': { lat: 18.5204, lon: 73.8567, country: 'India', lore: 'Western Ghats Rainshadow Valley', elevation: 560 },
-      'Jaipur': { lat: 26.9124, lon: 75.7873, country: 'India', lore: 'Thar Desert Fringe Airshed', elevation: 431 },
-      'Lucknow': { lat: 26.8467, lon: 80.9462, country: 'India', lore: 'Central Gangetic Plain Corridor', elevation: 123 },
-      'London': { lat: 51.5074, lon: -0.1278, country: 'United Kingdom', lore: 'Thames Valley Marine Airshed', elevation: 25 },
-      'New York': { lat: 40.7128, lon: -74.0060, country: 'United States', lore: 'Atlantic Maritime Coastal Airshed', elevation: 10 },
-      'Tokyo': { lat: 35.6762, lon: 139.6503, country: 'Japan', lore: 'Kanto Plain Pacific Airshed', elevation: 40 },
-      'Paris': { lat: 48.8566, lon: 2.3522, country: 'France', lore: 'Seine River Basin Atmospheric Zone', elevation: 35 }
+      'Delhi': { lat: 28.6139, lon: 77.2090, country: 'India', lore: 'Indo-Gangetic Basin Airshed', elevation: 216, baseAqi: 142, basePm25: 58.4, basePm10: 112.0, baseNo2: 34.2, baseSo2: 12.8, baseO3: 68.5, baseCo: 850, baseTemp: 24.5, baseHumidity: 58, baseWind: 7.2, baseWeatherDesc: 'Hazy Sun', baseWeatherIcon: '🌤️', baseRainProb: 5, region: 'north' },
+      'Mumbai': { lat: 19.0760, lon: 72.8777, country: 'India', lore: 'Arabian Sea Coastal Breezes', elevation: 14, baseAqi: 98, basePm25: 38.2, basePm10: 74.0, baseNo2: 26.5, baseSo2: 11.2, baseO3: 45.0, baseCo: 610, baseTemp: 29.0, baseHumidity: 72, baseWind: 14.5, baseWeatherDesc: 'Coastal Breeze', baseWeatherIcon: '⛅', baseRainProb: 15, region: 'south_west' },
+      'Bengaluru': { lat: 12.9716, lon: 77.5946, country: 'India', lore: 'Deccan Plateau Elevated Airshed', elevation: 920, baseAqi: 52, basePm25: 19.8, basePm10: 42.0, baseNo2: 18.0, baseSo2: 8.5, baseO3: 38.0, baseCo: 420, baseTemp: 22.0, baseHumidity: 60, baseWind: 11.2, baseWeatherDesc: 'Pleasant Breeze', baseWeatherIcon: '🌤️', baseRainProb: 10, region: 'south_west' },
+      'Kolkata': { lat: 22.5726, lon: 88.3639, country: 'India', lore: 'Lower Ganges Delta Corridor', elevation: 9, baseAqi: 128, basePm25: 49.5, basePm10: 98.0, baseNo2: 31.0, baseSo2: 13.5, baseO3: 54.0, baseCo: 780, baseTemp: 27.5, baseHumidity: 68, baseWind: 8.0, baseWeatherDesc: 'Humid Haze', baseWeatherIcon: '🌫️', baseRainProb: 20, region: 'east_central' },
+      'Chennai': { lat: 13.0827, lon: 80.2707, country: 'India', lore: 'Coromandel Coastal Maritime Zone', elevation: 6, baseAqi: 68, basePm25: 25.8, basePm10: 52.0, baseNo2: 21.0, baseSo2: 9.0, baseO3: 41.0, baseCo: 490, baseTemp: 29.5, baseHumidity: 76, baseWind: 13.0, baseWeatherDesc: 'Maritime Airflow', baseWeatherIcon: '⛅', baseRainProb: 25, region: 'south_west' },
+      'Hyderabad': { lat: 17.3850, lon: 78.4867, country: 'India', lore: 'Telangana Continental Basin', elevation: 542, baseAqi: 78, basePm25: 31.2, basePm10: 62.0, baseNo2: 24.0, baseSo2: 10.5, baseO3: 46.0, baseCo: 540, baseTemp: 26.0, baseHumidity: 52, baseWind: 9.5, baseWeatherDesc: 'Partly Sunny', baseWeatherIcon: '🌤️', baseRainProb: 5, region: 'south_west' },
+      'Ahmedabad': { lat: 23.0225, lon: 72.5714, country: 'India', lore: 'Western Semi-Arid Dispersion Zone', elevation: 53, baseAqi: 88, basePm25: 35.6, basePm10: 71.0, baseNo2: 28.0, baseSo2: 11.8, baseO3: 49.0, baseCo: 590, baseTemp: 28.5, baseHumidity: 45, baseWind: 8.5, baseWeatherDesc: 'Dry & Clear', baseWeatherIcon: '☀️', baseRainProb: 0, region: 'north' },
+      'Pune': { lat: 18.5204, lon: 73.8567, country: 'India', lore: 'Western Ghats Rainshadow Valley', elevation: 560, baseAqi: 62, basePm25: 23.4, basePm10: 48.0, baseNo2: 19.5, baseSo2: 8.8, baseO3: 40.0, baseCo: 460, baseTemp: 23.0, baseHumidity: 54, baseWind: 10.0, baseWeatherDesc: 'Fresh Mountain Air', baseWeatherIcon: '🌤️', baseRainProb: 5, region: 'south_west' },
+      'Jaipur': { lat: 26.9124, lon: 75.7873, country: 'India', lore: 'Thar Desert Fringe Airshed', elevation: 431, baseAqi: 112, basePm25: 43.0, basePm10: 88.0, baseNo2: 29.0, baseSo2: 12.0, baseO3: 52.0, baseCo: 690, baseTemp: 25.0, baseHumidity: 42, baseWind: 7.8, baseWeatherDesc: 'Desert Sun & Dust', baseWeatherIcon: '🌤️', baseRainProb: 0, region: 'north' },
+      'Lucknow': { lat: 26.8467, lon: 80.9462, country: 'India', lore: 'Central Gangetic Plain Corridor', elevation: 123, baseAqi: 136, basePm25: 54.2, basePm10: 106.0, baseNo2: 33.0, baseSo2: 12.5, baseO3: 62.0, baseCo: 810, baseTemp: 24.0, baseHumidity: 62, baseWind: 6.8, baseWeatherDesc: 'Valley Mist', baseWeatherIcon: '🌫️', baseRainProb: 5, region: 'north' },
+      'London': { lat: 51.5074, lon: -0.1278, country: 'United Kingdom', lore: 'Thames Valley Marine Airshed', elevation: 25, baseAqi: 45, basePm25: 16.8, basePm10: 32.0, baseNo2: 22.0, baseSo2: 6.5, baseO3: 36.0, baseCo: 350, baseTemp: 14.0, baseHumidity: 70, baseWind: 16.0, baseWeatherDesc: 'Overcast & Cool', baseWeatherIcon: '☁️', baseRainProb: 40, region: 'global' },
+      'New York': { lat: 40.7128, lon: -74.0060, country: 'United States', lore: 'Atlantic Maritime Coastal Airshed', elevation: 10, baseAqi: 42, basePm25: 15.2, basePm10: 28.0, baseNo2: 20.0, baseSo2: 6.0, baseO3: 38.0, baseCo: 340, baseTemp: 16.5, baseHumidity: 64, baseWind: 15.0, baseWeatherDesc: 'Atlantic Breeze', baseWeatherIcon: '⛅', baseRainProb: 20, region: 'global' },
+      'Tokyo': { lat: 35.6762, lon: 139.6503, country: 'Japan', lore: 'Kanto Plain Pacific Airshed', elevation: 40, baseAqi: 28, basePm25: 10.4, basePm10: 21.0, baseNo2: 16.0, baseSo2: 5.2, baseO3: 32.0, baseCo: 280, baseTemp: 18.0, baseHumidity: 58, baseWind: 12.0, baseWeatherDesc: 'Crisp Pacific Sky', baseWeatherIcon: '☀️', baseRainProb: 10, region: 'global' },
+      'Paris': { lat: 48.8566, lon: 2.3522, country: 'France', lore: 'Seine River Basin Atmospheric Zone', elevation: 35, baseAqi: 38, basePm25: 14.0, basePm10: 26.0, baseNo2: 19.0, baseSo2: 5.8, baseO3: 35.0, baseCo: 310, baseTemp: 15.5, baseHumidity: 66, baseWind: 13.5, baseWeatherDesc: 'Gentle Breeze', baseWeatherIcon: '🌤️', baseRainProb: 15, region: 'global' }
     };
 
     // =========================================================================
+    
+    // =========================================================================
+    // ENVIRONMENTAL COMPARISON RADAR ENGINE & SVG GENERATOR
+    // =========================================================================
+    function getCityRadarScores(cKey) {
+      const d = CITIES_DB[cKey] || CITIES_DB['Delhi'] || { basePm25: 50, baseWind: 10, baseHumidity: 60, baseTemp: 25, baseNo2: 25, elevation: 100 };
+      const purity = Math.max(10, Math.min(100, Math.round(105 - (d.basePm25 * 1.3))));
+      const windDisp = Math.max(20, Math.min(100, Math.round((d.baseWind / 18) * 90 + 10)));
+      const inversionRelief = Math.max(25, Math.min(100, Math.round(100 - (d.baseHumidity * 0.7) + (d.baseTemp * 0.5))));
+      const gasBuffer = Math.max(15, Math.min(100, Math.round(105 - (d.baseNo2 * 1.8))));
+      const topoRelief = d.elevation > 500 ? 88 : (['Mumbai', 'Chennai', 'London', 'New York', 'Tokyo'].includes(cKey) ? 92 : 55);
+      return [purity, windDisp, inversionRelief, gasBuffer, topoRelief];
+    }
+
+    function generateEnvironmentalRadarSvg(cityA, cityB) {
+      const cx = 190, cy = 180, R = 115;
+      const axes = [
+        { label: "Purity", icon: "🍃" },
+        { label: "Wind Dispersion", icon: "🌬️" },
+        { label: "Inversion Relief", icon: "☀️" },
+        { label: "Gas Buffer", icon: "🛡️" },
+        { label: "Airshed Relief", icon: "🌊" }
+      ];
+      
+      const scoresA = getCityRadarScores(cityA);
+      const scoresB = getCityRadarScores(cityB);
+      
+      let ringsHtml = "";
+      [0.2, 0.4, 0.6, 0.8, 1.0].forEach(scale => {
+        const pts = axes.map((_, i) => {
+          const angle = -Math.PI / 2 + (i * 2 * Math.PI / 5);
+          const x = cx + R * scale * Math.cos(angle);
+          const y = cy + R * scale * Math.sin(angle);
+          return `${x.toFixed(1)},${y.toFixed(1)}`;
+        }).join(' ');
+        ringsHtml += `<polygon points="${pts}" fill="none" stroke="rgba(0,0,0,0.08)" stroke-dasharray="${scale === 1 ? 'none' : '3,3'}" />\n`;
+      });
+
+      let spokesHtml = "";
+      let labelsHtml = "";
+      axes.forEach((ax, i) => {
+        const angle = -Math.PI / 2 + (i * 2 * Math.PI / 5);
+        const xOuter = cx + R * Math.cos(angle);
+        const yOuter = cy + R * Math.sin(angle);
+        spokesHtml += `<line x1="${cx}" y1="${cy}" x2="${xOuter.toFixed(1)}" y2="${yOuter.toFixed(1)}" stroke="rgba(0,0,0,0.12)" />\n`;
+        
+        const labelR = R + 26;
+        const lx = cx + labelR * Math.cos(angle);
+        const ly = cy + labelR * Math.sin(angle);
+        labelsHtml += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="10" font-family="var(--font-heading)" font-weight="700" fill="var(--text-navy)">${ax.icon} ${ax.label}</text>\n`;
+      });
+
+      const ptsA = scoresA.map((s, i) => {
+        const angle = -Math.PI / 2 + (i * 2 * Math.PI / 5);
+        const r = (s / 100) * R;
+        return `${(cx + r * Math.cos(angle)).toFixed(1)},${(cy + r * Math.sin(angle)).toFixed(1)}`;
+      }).join(' ');
+
+      const ptsB = scoresB.map((s, i) => {
+        const angle = -Math.PI / 2 + (i * 2 * Math.PI / 5);
+        const r = (s / 100) * R;
+        return `${(cx + r * Math.cos(angle)).toFixed(1)},${(cy + r * Math.sin(angle)).toFixed(1)}`;
+      }).join(' ');
+
+      return `<svg viewBox="0 0 380 360" class="radar-svg">
+        ${ringsHtml}
+        ${spokesHtml}
+        ${labelsHtml}
+        <polygon points="${ptsA}" fill="rgba(255, 104, 69, 0.28)" stroke="#FF6845" stroke-width="2.5" />
+        <polygon points="${ptsB}" fill="rgba(2, 132, 199, 0.25)" stroke="#0284C7" stroke-width="2.5" />
+        ${scoresA.map((s, i) => {
+          const angle = -Math.PI / 2 + (i * 2 * Math.PI / 5);
+          const r = (s / 100) * R;
+          return `<circle cx="${(cx + r * Math.cos(angle)).toFixed(1)}" cy="${(cy + r * Math.sin(angle)).toFixed(1)}" r="4" fill="#FF6845" />`;
+        }).join('')}
+        ${scoresB.map((s, i) => {
+          const angle = -Math.PI / 2 + (i * 2 * Math.PI / 5);
+          const r = (s / 100) * R;
+          return `<circle cx="${(cx + r * Math.cos(angle)).toFixed(1)}" cy="${(cy + r * Math.sin(angle)).toFixed(1)}" r="4" fill="#0284C7" />`;
+        }).join('')}
+      </svg>`;
+    }
+
+    function setCompareRadarCityA(city) {
+      if (!state.compareState) state.compareState = {};
+      state.compareState.radarCityA = city;
+      renderCurrentPage();
+    }
+
+    function setCompareRadarCityB(city) {
+      if (!state.compareState) state.compareState = {};
+      state.compareState.radarCityB = city;
+      renderCurrentPage();
+    }
+
+    function setCompareRegionFilter(region) {
+      if (!state.compareState) state.compareState = {};
+      state.compareState.regionFilter = region;
+      renderCurrentPage();
+    }
+
+    function setCompareSortOrder(order) {
+      if (!state.compareState) state.compareState = {};
+      state.compareState.sortOrder = order;
+      renderCurrentPage();
+    }
+
+    function setCompareSearchQuery(q) {
+      if (!state.compareState) state.compareState = {};
+      state.compareState.searchQuery = q;
+      renderCurrentPage();
+    }
+
+    function setNewsVideoTopicFilter(topic) {
+      state.newsState.videoTopicFilter = topic;
+      renderCurrentPage();
+    }
+
     // 1. CUSTOM CITY & PLACE SEARCH + REPORT ANALYSIS ENGINE
     // =========================================================================
     let searchDebounceTimer = null;
@@ -3839,8 +4133,52 @@
     }
 
     function changeCity(city) {
+      if (!city || !CITIES_DB[city]) return;
       state.activeCity = city;
-      document.getElementById('topbarLocationLabel').textContent = `${city}, ${CITIES_DB[city]?.country || ''}`;
+      
+      const cData = CITIES_DB[city];
+      const topLabel = document.getElementById('topbarLocationLabel');
+      if (topLabel) topLabel.textContent = `${city}, ${cData.country}`;
+
+      const baseAqi = cData.baseAqi || 75;
+      const basePm25 = cData.basePm25 || parseFloat((baseAqi / 2.45).toFixed(1));
+      const basePm10 = cData.basePm10 || parseFloat((basePm25 * 1.85).toFixed(1));
+
+      let cat = 'Good';
+      let col = '#10B981';
+      if (baseAqi > 200) { cat = 'Hazardous'; col = '#DC2626'; }
+      else if (baseAqi > 150) { cat = 'Unhealthy'; col = '#EF4444'; }
+      else if (baseAqi > 100) { cat = 'Unhealthy for Sensitive Groups'; col = '#F97316'; }
+      else if (baseAqi > 50) { cat = 'Moderate'; col = '#F59E0B'; }
+
+      state.telemetry = {
+        ...state.telemetry,
+        city: city,
+        country: cData.country,
+        admin1: city,
+        lat: cData.lat,
+        lon: cData.lon,
+        elevation: cData.elevation || 150,
+        aqi: baseAqi,
+        category: cat,
+        color: col,
+        pm25: basePm25,
+        pm10: basePm10,
+        no2: cData.baseNo2 || 24.0,
+        so2: cData.baseSo2 || 10.0,
+        o3: cData.baseO3 || 42.0,
+        co: cData.baseCo || 580.0,
+        temp: cData.baseTemp || 24.0,
+        humidity: cData.baseHumidity || 55,
+        wind: cData.baseWind || 8.5,
+        weather_desc: cData.baseWeatherDesc || 'Fair',
+        weather_icon: cData.baseWeatherIcon || '🌤️',
+        rain_prob: cData.baseRainProb || 5,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' Today (Live Sentry)'
+      };
+
+      renderCurrentPage();
+      showAirFusionToast(`📍 Monitored sector switched to ${city}, ${cData.country}! Dashboard synchronized.`);
       fetchLiveAirAndWeather(city);
     }
 
@@ -6192,7 +6530,7 @@
               ` : ''}
 
               <!-- Floating Guardian Overlay Badges (Workable Click-to-Speak) -->
-              <div class="ag-3d-overlay-badge" style="top: 20px; left: 24px; cursor: pointer;" onclick="speakVoice('${m.aeroVoice.replace(/'/g, "\'")}', 1.15, 0.94)" title="Click to hear Aero speak!">
+              <div class="ag-3d-overlay-badge" style="top: 20px; left: 24px; cursor: pointer;" onclick="playGuardianVoice('aero')" title="Click to hear Aero speak!">
                 <span style="font-size: 1.25rem;">☁️</span>
                 <div>
                   <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: var(--text-navy);">Aero: Atmospheric Scout</div>
@@ -6200,7 +6538,7 @@
                 </div>
               </div>
 
-              <div class="ag-3d-overlay-badge" style="bottom: 70px; left: 50%; transform: translateX(-50%); cursor: pointer;" onclick="speakVoice('${m.flashVoice.replace(/'/g, "\'")}', 1.02, 0.98)" title="Click to hear Flash speak!">
+              <div class="ag-3d-overlay-badge" style="bottom: 70px; left: 50%; transform: translateX(-50%); cursor: pointer;" onclick="playGuardianVoice('flash')" title="Click to hear Flash speak!">
                 <span style="font-size: 1.25rem;">🏃‍♂️</span>
                 <div>
                   <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: var(--text-navy);">Flash: Safe Window</div>
@@ -6208,7 +6546,7 @@
                 </div>
               </div>
 
-              <div class="ag-3d-overlay-badge" style="top: 20px; right: 24px; cursor: pointer;" onclick="speakVoice('${m.havenVoice.replace(/'/g, "\'")}', 0.96, 0.93)" title="Click to hear Haven speak!">
+              <div class="ag-3d-overlay-badge" style="top: 20px; right: 24px; cursor: pointer;" onclick="playGuardianVoice('haven')" title="Click to hear Haven speak!">
                 <span style="font-size: 1.25rem;">🏡</span>
                 <div>
                   <div style="font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800; color: var(--text-navy);">Haven: Home Sanctuary</div>
@@ -6239,7 +6577,7 @@
                   Atmospheric Scout &bull; ${m.id.toUpperCase()}
                 </div>
                 <div class="ag-3d-speech-bubble">"${m.aeroQuote}"</div>
-                <button class="ag-3d-voice-btn" onclick="speakVoice('${m.aeroVoice.replace(/'/g, "\'")}', 1.15, 0.94)">
+                <button class="ag-3d-voice-btn" onclick="playGuardianVoice('aero')">
                   🔊 Meet Aero (Live Voice)
                 </button>
                 <p style="font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; margin: 0;">
@@ -6259,7 +6597,7 @@
                   Safe Window Navigator
                 </div>
                 <div class="ag-3d-speech-bubble">"${m.flashQuote}"</div>
-                <button class="ag-3d-voice-btn" onclick="speakVoice('${m.flashVoice.replace(/'/g, "\'")}', 1.02, 0.98)">
+                <button class="ag-3d-voice-btn" onclick="playGuardianVoice('flash')">
                   🔊 Meet Flash (Live Voice)
                 </button>
                 <p style="font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; margin: 0;">
@@ -6279,7 +6617,7 @@
                   Pulmonary Shield
                 </div>
                 <div class="ag-3d-speech-bubble">"${m.novaQuote}"</div>
-                <button class="ag-3d-voice-btn" onclick="speakVoice('${m.novaVoice.replace(/'/g, "\'")}', 1.08, 0.95)">
+                <button class="ag-3d-voice-btn" onclick="playGuardianVoice('nova')">
                   🔊 Meet Nova (Live Voice)
                 </button>
                 <p style="font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; margin: 0;">
@@ -6299,7 +6637,7 @@
                   Home Sanctuary
                 </div>
                 <div class="ag-3d-speech-bubble">"${m.havenQuote}"</div>
-                <button class="ag-3d-voice-btn" onclick="speakVoice('${m.havenVoice.replace(/'/g, "\'")}', 0.96, 0.93)">
+                <button class="ag-3d-voice-btn" onclick="playGuardianVoice('haven')">
                   🔊 Meet Haven (Live Voice)
                 </button>
                 <p style="font-size: 0.76rem; color: var(--text-muted); line-height: 1.45; margin: 0;">
@@ -6818,7 +7156,7 @@
                 ${sc.story}
               </p>
 
-              <button class="story-narrate-btn" onclick="speakVoice('${sc.script.replace(/'/g, "\\'")}', 1.04, 0.94)">
+              <button class="story-narrate-btn" onclick="playStoryChapterVoice(state.storyChapterIndex)">
                 🔊 Listen to Chapter Narration (Live Voice)
               </button>
             </div>
@@ -8656,74 +8994,36 @@
       `;
     }
 
-    function renderSafetyQuestSimple() {
+        function renderSafetyQuestSimple() {
       const t = state.telemetry;
+      const m = computeGuardianMood();
       const sf = state.simpleFeatures;
       const sanc = computeSanctuaryMetrics();
+      const sc = STORY_CHAPTERS[state.storyChapterIndex] || STORY_CHAPTERS[0];
       const currentQ = QUIZ_QUESTIONS[sf.quizIndex] || QUIZ_QUESTIONS[0];
 
       return `
-        <!-- CHAPTER 0: MEET THE FOUR GUARDIANS (INTEGRATED PLATFORM TOUR) -->
-        <section class="ag-card" style="background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%); border: 1px solid #BBF7D0;">
-          <div class="ag-badge ag-badge-emerald">🌟 PLATFORM TOUR &bull; MEET YOUR CLEAN AIR GUARDIANS</div>
-          <h2 class="ag-section-title">A Friendly Air Fusionian for Every Breath</h2>
-          <p class="ag-section-subtitle">Meet the specialized guardian teammates created to protect your lungs, guide your family, and keep your home fresh.</p>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 20px;">
-            <div class="decision-info-box" style="border-top: 4px solid #38BDF8;">
-              <div style="font-size: 2rem; margin-bottom: 6px;">☁️</div>
-              <h4 style="color: #0284C7;">Aero the Sky Scout</h4>
-              <p style="font-size: 0.84rem; line-height: 1.5; color: var(--text-secondary);">
-                Aero sniffs the sky 24 hours a day with rooftop laser beams, so you always know whether outside air is fresh or smoky before stepping out.
-              </p>
-            </div>
-            <div class="decision-info-box" style="border-top: 4px solid #F59E0B;">
-              <div style="font-size: 2rem; margin-bottom: 6px;">🏃‍♂️</div>
-              <h4 style="color: #D97706;">Flash the Sunshine Runner</h4>
-              <p style="font-size: 0.84rem; line-height: 1.5; color: var(--text-secondary);">
-                Flash maps tomorrow's winds and sunshine hours to find the cleanest window for kids' recess, bicycle rides, and morning park jogs.
-              </p>
-            </div>
-            <div class="decision-info-box" style="border-top: 4px solid #FF6845;">
-              <div style="font-size: 2rem; margin-bottom: 6px;">🛡️</div>
-              <h4 style="color: #EA580C;">Nova the Airway Shield</h4>
-              <p style="font-size: 0.84rem; line-height: 1.5; color: var(--text-secondary);">
-                Nova watches over children with asthma and grandparents with sensitive lungs, giving gentle advice on when to wear a soft protective mask.
-              </p>
-            </div>
-            <div class="decision-info-box" style="border-top: 4px solid #10B981;">
-              <div style="font-size: 2rem; margin-bottom: 6px;">🏡</div>
-              <h4 style="color: #059669;">Haven the Sanctuary Doctor</h4>
-              <p style="font-size: 0.84rem; line-height: 1.5; color: var(--text-secondary);">
-                Haven turns your home into a mountain cabin using HEPA filters and NASA plants, keeping indoor air 99.4% clean while your family sleeps.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- HERO & DAILY STREAK BANNER -->
-        <section class="ag-card" style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 30%, #ECFDF5 100%); border: 2px solid #F59E0B; position: relative; overflow: hidden;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <!-- CHAPTER 0: SECTION HEADER & HERO STRIP -->
+        <section class="ag-card" style="background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%); border-top: 6px solid #10B981; margin-bottom: 22px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
             <div>
-              <div class="ag-badge ag-badge-amber" style="font-size: 0.72rem; letter-spacing: 0.05em;">🌟 ECO &amp; HEALTH QUEST &bull; SIMPLE MODE</div>
-              <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: #78350F; margin: 4px 0 2px 0;">
-                Aero &amp; Haven's Safety &amp; Eco Quest Hub
-              </h2>
-              <p style="font-size: 0.88rem; color: #92400E; max-width: 600px;">
-                Earn Clean Air Hero Badges, protect your home sanctuary with NASA plants, and test your eco knowledge in Aero's Adventure Quiz!
+              <div class="ag-badge ag-badge-emerald">🌟 GUARDIANS TOUR &bull; ECO &amp; HEALTH QUEST HUB</div>
+              <h2 class="ag-section-title" style="margin-top: 2px;">Meet Your Clean Air Guardians &amp; Family Eco Lab</h2>
+              <p class="ag-section-subtitle">
+                Interactive platform tour, kid-friendly 3D storybook chapters, NASA clean-air indoor sanctuary simulator, and Aero's clean air quest quiz.
               </p>
             </div>
 
             <!-- DAILY STREAK WIDGET -->
-            <div style="background: #FFFFFF; border: 2px solid #F59E0B; border-radius: 20px; padding: 14px 22px; text-align: center; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2);">
-              <div style="font-size: 2.2rem; line-height: 1;">🔥</div>
-              <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: #B45309;">
+            <div style="background: #FFFFFF; border: 2px solid #F59E0B; border-radius: 18px; padding: 12px 20px; text-align: center; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.15);">
+              <div style="font-size: 2.0rem; line-height: 1;">🔥</div>
+              <div style="font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #B45309;">
                 ${sf.streakDays}-Day Streak!
               </div>
-              <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px;">Clean Air Fusionian</div>
+              <div style="font-size: 0.70rem; color: var(--text-muted); margin-bottom: 6px;">Clean Air Fusionian</div>
               <button 
                 class="ag-btn ${sf.streakClaimedToday ? 'ag-btn-secondary' : 'ag-btn-primary'}" 
-                style="padding: 6px 14px; font-size: 0.76rem;"
+                style="padding: 5px 12px; font-size: 0.74rem;"
                 onclick="claimDailyStreak()"
                 ${sf.streakClaimedToday ? 'disabled' : ''}
               >
@@ -8733,16 +9033,150 @@
           </div>
         </section>
 
-        <!-- 1. HAVEN'S INDOOR SANCTUARY & PLANT DOCTOR SIMULATOR -->
-        <section class="ag-card">
+        <!-- PART 1: FOUR GUARDIANS PLATFORM TOUR & 3D SENTRY -->
+        <section class="ag-card" style="border: 1px solid var(--border-warm); margin-bottom: 24px;">
+          <div class="ag-badge ag-badge-cyan">👥 MODULE 1 &bull; MEET THE FOUR GUARDIANS</div>
+          <h3 class="ag-section-title">The Four Air Fusionian Guardians: Who We Are &amp; How We Help</h3>
+          <p class="ag-section-subtitle">Tap 'Meet Voice' on each guardian to hear their real-time atmospheric briefing!</p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 18px;">
+            <!-- AERO CARD -->
+            <div class="decision-info-box" style="border-top: 4px solid #38BDF8; display: flex; flex-direction: column; justify-content: space-between; padding: 18px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span style="font-size: 2.2rem;">☁️</span>
+                  <div>
+                    <h4 style="color: #0284C7; margin: 0; font-size: 1.1rem;">Aero</h4>
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">Atmospheric Scout</span>
+                  </div>
+                </div>
+                <div class="ag-3d-speech-bubble" style="margin-bottom: 10px;">"${m.aeroQuote}"</div>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 12px;">
+                  Sniffs microscopic PM2.5 and criteria gases 24 hours a day with laser sensors so you never have to guess whether outdoor air is clean.
+                </p>
+              </div>
+              <button class="ag-3d-voice-btn" onclick="playGuardianVoice('aero')">
+                🔊 Meet Aero (Live Voice)
+              </button>
+            </div>
+
+            <!-- FLASH CARD -->
+            <div class="decision-info-box" style="border-top: 4px solid #F59E0B; display: flex; flex-direction: column; justify-content: space-between; padding: 18px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span style="font-size: 2.2rem;">🏃‍♂️</span>
+                  <div>
+                    <h4 style="color: #D97706; margin: 0; font-size: 1.1rem;">Flash</h4>
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">Sunshine Runner</span>
+                  </div>
+                </div>
+                <div class="ag-3d-speech-bubble" style="margin-bottom: 10px;">"${m.flashQuote}"</div>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 12px;">
+                  Calculates tomorrow's wind circulation and sunshine hours to find the golden hour for morning park jogs, kids' recess, and cycling.
+                </p>
+              </div>
+              <button class="ag-3d-voice-btn" onclick="playGuardianVoice('flash')">
+                🔊 Meet Flash (Live Voice)
+              </button>
+            </div>
+
+            <!-- NOVA CARD -->
+            <div class="decision-info-box" style="border-top: 4px solid #FF6845; display: flex; flex-direction: column; justify-content: space-between; padding: 18px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span style="font-size: 2.2rem;">🛡️</span>
+                  <div>
+                    <h4 style="color: #EA580C; margin: 0; font-size: 1.1rem;">Nova</h4>
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">Airway Shield</span>
+                  </div>
+                </div>
+                <div class="ag-3d-speech-bubble" style="margin-bottom: 10px;">"${m.novaQuote}"</div>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 12px;">
+                  Protects sensitive lungs, asthmatics, children, and grandparents with customized N95 mask guidance whenever soot or traffic smoke spikes.
+                </p>
+              </div>
+              <button class="ag-3d-voice-btn" onclick="playGuardianVoice('nova')">
+                🔊 Meet Nova (Live Voice)
+              </button>
+            </div>
+
+            <!-- HAVEN CARD -->
+            <div class="decision-info-box" style="border-top: 4px solid #10B981; display: flex; flex-direction: column; justify-content: space-between; padding: 18px;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                  <span style="font-size: 2.2rem;">🏡</span>
+                  <div>
+                    <h4 style="color: #059669; margin: 0; font-size: 1.1rem;">Haven</h4>
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700;">Sanctuary Doctor</span>
+                  </div>
+                </div>
+                <div class="ag-3d-speech-bubble" style="margin-bottom: 10px;">"${m.havenQuote}"</div>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 12px;">
+                  Transforms your bedroom and nursery into an airtight mountain cabin with HEPA purifiers and NASA greenery, keeping indoor air 99.4% clean.
+                </p>
+              </div>
+              <button class="ag-3d-voice-btn" onclick="playGuardianVoice('haven')">
+                🔊 Meet Haven (Live Voice)
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- PART 2: CLEAN AIR INTERACTIVE STORYBOOK -->
+        <section class="storybook-container" style="margin-bottom: 24px;">
+          <div class="ag-badge ag-badge-amber">📖 MODULE 2 &bull; CLEAN AIR FAMILY STORYBOOK</div>
+          <h3 class="ag-section-title">The Secret Life of Air: Illustrated Storybook for Families</h3>
+          <p class="ag-section-subtitle">Explore 3 delightful chapters explaining atmospheric science in simple everyday metaphors.</p>
+
+          <div class="storybook-tabs" style="margin-top: 14px; margin-bottom: 18px;">
+            ${STORY_CHAPTERS.map((ch, idx) => `
+              <button class="storybook-tab-btn ${state.storyChapterIndex === idx ? 'active' : ''}" onclick="selectStoryChapter(${idx})">
+                ${ch.num}: ${ch.title.split(':')[0]}
+              </button>
+            `).join('')}
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: center;">
+            <div>
+              <img src="${sc.img}" alt="${sc.title}" class="story-hero-image" onerror="this.onerror=null; this.src='assets/images/airfusion_3d_cartoon_panoramic.jpg';" />
+            </div>
+            <div>
+              <div class="ag-badge ag-badge-emerald" style="margin-bottom: 8px;">${sc.num}</div>
+              <h3 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; color: var(--text-navy); margin-bottom: 6px;">
+                ${sc.title}
+              </h3>
+              <div style="font-size: 0.86rem; color: var(--text-muted); font-weight: 600; margin-bottom: 12px;">
+                ${sc.subtitle}
+              </div>
+
+              <div class="story-analogy-box">
+                <span class="story-analogy-icon">💡</span>
+                <div>
+                  <strong>Kid-Friendly Picture:</strong> ${sc.analogy}
+                </div>
+              </div>
+
+              <p style="font-size: 0.88rem; line-height: 1.6; color: var(--text-navy); margin-bottom: 16px;">
+                ${sc.story}
+              </p>
+
+              <button class="story-narrate-btn" onclick="playStoryChapterVoice(state.storyChapterIndex)">
+                🔊 Listen to Chapter Narration (Live Voice)
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- PART 3: HAVEN'S INDOOR SANCTUARY & PLANT DOCTOR SIMULATOR -->
+        <section class="ag-card" style="margin-bottom: 24px;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
             <div>
-              <div class="ag-badge ag-badge-emerald">🌿 HAVEN'S PLANT DOCTOR &amp; INDOOR LAB</div>
+              <div class="ag-badge ag-badge-emerald">🌿 MODULE 3 &bull; HAVEN'S INDOOR LAB &amp; PLANT DOCTOR</div>
               <h3 style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; color: var(--text-navy); margin-top: 2px;">
                 Interactive Clean Air Sanctuary Simulator
               </h3>
               <p style="font-size: 0.86rem; color: var(--text-muted);">
-                See how turning on a HEPA filter and adding NASA air-filtering plants purifies your indoor room into a mountain haven.
+                See how turning on a HEPA purifier and adding NASA air-filtering plants isolates indoor air from outdoor city smog.
               </p>
             </div>
 
@@ -8885,16 +9319,16 @@
           </div>
         </section>
 
-        <!-- 2. AERO'S CLEAN AIR ADVENTURE QUEST & MINI-QUIZ -->
-        <section class="quest-quiz-box">
+        <!-- PART 4: AERO'S CLEAN AIR ADVENTURE QUEST & MINI-QUIZ -->
+        <section class="quest-quiz-box" style="margin-bottom: 24px;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px;">
             <div>
-              <div class="ag-badge ag-badge-blue">🎮 AERO'S CLEAN AIR ADVENTURE QUIZ</div>
+              <div class="ag-badge ag-badge-blue">🎮 MODULE 4 &bull; AERO'S ADVENTURE QUIZ</div>
               <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: var(--text-navy); margin-top: 2px;">
-                Eco Champion Challenge
+                Clean Air Scholar Challenge
               </h3>
               <p style="font-size: 0.86rem; color: var(--text-muted);">
-                Test your clean air smarts, learn life-saving habits, and earn your Clean Air Scholar badge!
+                Test your environmental smarts, master daily healthy habits, and earn your Clean Air Scholar trophy!
               </p>
             </div>
 
@@ -8903,7 +9337,7 @@
                 Score: ${sf.quizScore} pts
               </div>
               <button class="ag-btn ag-btn-secondary" style="padding: 6px 12px; font-size: 0.74rem;" onclick="restartQuiz()">
-                🔄 Restart
+                🔄 Restart Quiz
               </button>
             </div>
           </div>
@@ -8912,7 +9346,7 @@
           <div style="background: #FAF6F1; border-radius: 16px; padding: 20px; border: 1px solid var(--border-warm); margin-bottom: 18px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
               <span class="ag-badge ag-badge-coral">Question ${sf.quizIndex + 1} of ${QUIZ_QUESTIONS.length}</span>
-              <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">+20 Points</span>
+              <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">+20 Points per correct</span>
             </div>
             <h4 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800; color: var(--text-navy); line-height: 1.4; margin-bottom: 16px;">
               ${currentQ.question}
@@ -8953,16 +9387,16 @@
           </div>
         </section>
 
-        <!-- 3. CLEAN AIR HERO BADGE COLLECTION -->
+        <!-- PART 5: CLEAN AIR HERO BADGE COLLECTION -->
         <section class="ag-card">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
             <div>
-              <div class="ag-badge ag-badge-amber">🏅 HERO BADGE TROPHY CASE</div>
+              <div class="ag-badge ag-badge-amber">🏅 MODULE 5 &bull; HERO BADGE TROPHY CASE</div>
               <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: var(--text-navy); margin-top: 2px;">
-                Your Clean Air Fusionian Badges
+                Your Clean Air Fusionian Achievements
               </h3>
               <p style="font-size: 0.84rem; color: var(--text-muted);">
-                Collect all 5 badges by taking daily clean air actions and keeping your family safe.
+                Collect all 5 badges by checking forecasts, adding NASA plants, and acing the eco quiz.
               </p>
             </div>
           </div>
@@ -9010,7 +9444,7 @@
     function renderSafetyQuestTechnical() {
       return `
         <!-- PART 1: SYSTEM ARCHITECTURE & TELEMETRY INGESTION SPECIFICATION -->
-        <section class="ag-card">
+        <section class="ag-card" style="margin-bottom: 24px;">
           <div class="ag-badge ag-badge-coral">🔬 SYSTEM SPECIFICATION &bull; ARCHITECTURE DOSSIER</div>
           <h2 class="ag-section-title">AirFusion Autonomous Environmental Intelligence Architecture</h2>
           <p class="ag-section-subtitle">Multi-tier atmospheric data assimilation, spatial interpolation, and gradient-boosted ensemble pipeline.</p>
@@ -9031,7 +9465,7 @@
             <div class="decision-info-box">
               <h4>⚖️ Clinical Dosimetry Risk Engine</h4>
               <p style="font-size: 0.84rem; line-height: 1.6;">
-                Physiological exposure models computing total inhaled mass $M = \int V_E(t) \cdot C(t)\,dt$ with alveolar deposition curves calibrated against WHO 2021 excess risk benchmarks.
+                Physiological exposure models computing total inhaled mass M = ∫ V_E(t) · C(t) dt with alveolar deposition curves calibrated against WHO 2021 excess risk benchmarks.
               </p>
             </div>
             <div class="decision-info-box">
@@ -9044,7 +9478,7 @@
         </section>
 
         <!-- PART 2: PULMONARY TOXICOKINETICS & FILTRATION PHYSICS -->
-        <section class="ag-card">
+        <section class="ag-card" style="margin-bottom: 24px;">
           <div class="ag-badge ag-badge-coral">🛡️ TOXICOLOGY &amp; FILTRATION &bull; TECHNICAL MODE</div>
           <h2 class="ag-section-title">Pulmonary Toxicokinetics &amp; Mechanical Filtration Physics</h2>
           <p class="ag-section-subtitle">Alveolar deposition mechanics, oxidative stress pathways, and electrostatic media aerodynamics.</p>
@@ -9060,14 +9494,14 @@
             <div class="decision-info-box">
               <h4>HEPA H13/H14 Physics (EN 1822)</h4>
               <p style="font-size: 0.84rem; line-height: 1.6;">
-                Borosilicate micro-glass matrix captures 99.97% of particles down to Most Penetrating Particle Size (MPPS, $0.3\,\mu\text{m}$) via diffusion, interception, and inertial impaction.
+                Borosilicate micro-glass matrix captures 99.97% of particles down to Most Penetrating Particle Size (MPPS, 0.3 µm) via diffusion, interception, and inertial impaction.
               </p>
             </div>
 
             <div class="decision-info-box">
               <h4>Clean Air Delivery Rate (CADR) Equation</h4>
               <p style="font-size: 0.84rem; line-height: 1.6;">
-                $CADR = \eta_{filter} \times Q_{airflow}$ (in $m^3/hr$). Room clearance half-life follows first-order exponential decay: $C(t) = C_0 \cdot e^{-(ACH_{clean} + k_{dep})t}$.
+                CADR = η_filter × Q_airflow (in m³/hr). Room clearance half-life follows first-order exponential decay: C(t) = C₀ · e^{-(ACH_{clean} + k_{dep})t}.
               </p>
             </div>
 
@@ -9085,8 +9519,40 @@
     // =========================================================================
     // 12. SECTION 8: CITY COMPARISON (SIMPLE vs TECHNICAL)
     // =========================================================================
-        function renderCityCompareSimple() {
+            function renderCityCompareSimple() {
       const cities = Object.keys(CITIES_DB);
+      const cs = state.compareState || { radarCityA: 'Delhi', radarCityB: 'Mumbai', regionFilter: 'all', sortOrder: 'cleanest', searchQuery: '' };
+      const cityA = cs.radarCityA || state.activeCity || 'Delhi';
+      const cityB = cs.radarCityB || (cityA === 'Mumbai' ? 'Delhi' : 'Mumbai');
+      
+      const dataA = CITIES_DB[cityA] || CITIES_DB['Delhi'];
+      const dataB = CITIES_DB[cityB] || CITIES_DB['Mumbai'];
+
+      const aqiA = dataA.baseAqi || 100;
+      const aqiB = dataB.baseAqi || 100;
+      const diffPct = Math.round(Math.abs(aqiA - aqiB) / Math.max(1, Math.max(aqiA, aqiB)) * 100);
+      const cleanerCity = aqiA <= aqiB ? cityA : cityB;
+      const dirtierCity = aqiA <= aqiB ? cityB : cityA;
+
+      // Filter and Sort cities
+      let displayedCities = cities.filter(c => {
+        const d = CITIES_DB[c];
+        if (cs.regionFilter && cs.regionFilter !== 'all' && d.region !== cs.regionFilter) return false;
+        if (cs.searchQuery && cs.searchQuery.trim()) {
+          const q = cs.searchQuery.toLowerCase().trim();
+          if (!c.toLowerCase().includes(q) && !d.country.toLowerCase().includes(q) && !d.lore.toLowerCase().includes(q)) return false;
+        }
+        return true;
+      });
+
+      if (cs.sortOrder === 'cleanest') {
+        displayedCities.sort((a, b) => (CITIES_DB[a].baseAqi || 100) - (CITIES_DB[b].baseAqi || 100));
+      } else if (cs.sortOrder === 'polluted') {
+        displayedCities.sort((a, b) => (CITIES_DB[b].baseAqi || 100) - (CITIES_DB[a].baseAqi || 100));
+      } else if (cs.sortOrder === 'alpha') {
+        displayedCities.sort((a, b) => a.localeCompare(b));
+      }
+
       const globalBest = [
         { city: "Reykjavik", country: "Iceland", aqi: 12, tag: "Arctic Glacial Purity", medal: "💎" },
         { city: "Zurich", country: "Switzerland", aqi: 18, tag: "Alpine Breeze Sanctuary", medal: "🏔️" },
@@ -9097,41 +9563,170 @@
       ];
 
       return `
-        <!-- NATIONAL & REGIONAL METROPOLIS LEADERBOARD -->
-        <section class="ag-card">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+        <!-- MODULE 1: INTERACTIVE MULTI-AXIS ENVIRONMENTAL RADAR -->
+        <section class="radar-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px;">
             <div>
-              <div class="ag-badge ag-badge-coral">🏆 CLEAN AIR LEADERBOARD &bull; SIMPLE MODE</div>
-              <h2 class="ag-section-title">Which City Has the Freshest Breeze Today?</h2>
-              <p class="ag-section-subtitle">Live comparison of air quality across monitoring sectors. Tap 'Visit City' to bind your whole dashboard to that location!</p>
+              <div class="ag-badge ag-badge-coral">🌐 MULTI-AXIS RADAR &bull; SIMPLE MODE</div>
+              <h2 class="ag-section-title" style="margin-top: 2px;">City Environmental Comparison Radar</h2>
+              <p class="ag-section-subtitle">
+                Compare two cities head-to-head across 5 atmospheric dimensions: Air Purity, Wind Dispersion, Inversion Relief, Gas Shield, and Maritime/Elevation Relief.
+              </p>
             </div>
-            <span class="ag-badge ag-badge-emerald">${cities.length} CITIES CONNECTED</span>
+
+            <!-- STATION COMPARISON SELECTORS -->
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 0.76rem; font-weight: 800; color: #FF6845;">● City A:</span>
+                <select class="st-select" style="width: auto; min-width: 140px; padding: 4px 8px; font-size: 0.80rem;" onchange="setCompareRadarCityA(this.value)">
+                  ${cities.map(c => `<option value="${c}" ${c === cityA ? 'selected' : ''}>${c} (${CITIES_DB[c].country})</option>`).join('')}
+                </select>
+              </div>
+
+              <span style="font-weight: 800; color: var(--text-muted); font-size: 0.82rem;">vs</span>
+
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 0.76rem; font-weight: 800; color: #0284C7;">● City B:</span>
+                <select class="st-select" style="width: auto; min-width: 140px; padding: 4px 8px; font-size: 0.80rem;" onchange="setCompareRadarCityB(this.value)">
+                  ${cities.map(c => `<option value="${c}" ${c === cityB ? 'selected' : ''}>${c} (${CITIES_DB[c].country})</option>`).join('')}
+                </select>
+              </div>
+            </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 18px;">
-            ${cities.map((c, idx) => {
+          <!-- RADAR CHART CONTAINER -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: center;">
+            <div class="radar-container">
+              ${generateEnvironmentalRadarSvg(cityA, cityB)}
+              <div class="radar-legend">
+                <span style="color: #FF6845;">● ${cityA} (AQI ${aqiA})</span>
+                <span style="color: #0284C7;">● ${cityB} (AQI ${aqiB})</span>
+              </div>
+            </div>
+
+            <!-- HEAD-TO-HEAD COMPARISON INSIGHT -->
+            <div>
+              <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 16px; padding: 18px; margin-bottom: 14px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-size: 1.4rem;">🏆</span>
+                  <strong style="color: #065F46; font-size: 0.94rem;">
+                    ${cleanerCity} has ${diffPct}% cleaner air than ${dirtierCity} today!
+                  </strong>
+                </div>
+                <p style="font-size: 0.82rem; color: #166534; line-height: 1.5; margin: 0;">
+                  ${cleanerCity} benefits from stronger atmospheric ventilation (${(CITIES_DB[cleanerCity].baseWind || 10)} km/h wind) and lower particulate accumulation than ${dirtierCity}.
+                </p>
+              </div>
+
+              <!-- METRIC SCORECARD TABLE -->
+              <div style="background: #FAF6F1; border-radius: 14px; padding: 14px; border: 1px solid var(--border-warm);">
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.76rem; font-weight: 800; color: var(--text-navy); padding-bottom: 8px; border-bottom: 1px solid var(--border-warm);">
+                  <span>Metric</span>
+                  <span style="color: #FF6845;">${cityA}</span>
+                  <span style="color: #0284C7;">${cityB}</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.78rem; padding: 8px 0; border-bottom: 1px dashed var(--border-warm);">
+                  <span>Air Quality Index</span>
+                  <span style="font-weight: 800; color: ${aqiA <= 100 ? '#059669' : '#DC2626'};">AQI ${aqiA}</span>
+                  <span style="font-weight: 800; color: ${aqiB <= 100 ? '#059669' : '#DC2626'};">AQI ${aqiB}</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.78rem; padding: 8px 0; border-bottom: 1px dashed var(--border-warm);">
+                  <span>PM2.5 Concentration</span>
+                  <span>${dataA.basePm25} µg/m³</span>
+                  <span>${dataB.basePm25} µg/m³</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.78rem; padding: 8px 0; border-bottom: 1px dashed var(--border-warm);">
+                  <span>Wind Speed</span>
+                  <span>${dataA.baseWind} km/h</span>
+                  <span>${dataB.baseWind} km/h</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; font-size: 0.78rem; padding: 8px 0;">
+                  <span>Airshed Classification</span>
+                  <span style="font-size: 0.70rem; color: var(--text-muted);">${dataA.lore}</span>
+                  <span style="font-size: 0.70rem; color: var(--text-muted);">${dataB.lore}</span>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 14px;">
+                <button class="ag-btn ag-btn-secondary" style="flex: 1; font-size: 0.76rem; padding: 8px;" onclick="changeCity('${cityA}')">
+                  📍 Bind ${cityA} as Active
+                </button>
+                <button class="ag-btn ag-btn-secondary" style="flex: 1; font-size: 0.76rem; padding: 8px;" onclick="changeCity('${cityB}')">
+                  📍 Bind ${cityB} as Active
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MODULE 2: PAN-AIRSHED CITY DIRECTORY & LEADERBOARD -->
+        <section class="ag-card" style="margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 16px;">
+            <div>
+              <div class="ag-badge ag-badge-coral">🏆 CLEAN AIR DIRECTORY &bull; PAN-AIRSHED LEADERBOARD</div>
+              <h2 class="ag-section-title" style="margin-top: 2px;">Metropolitan Airshed Telemetry Ranking</h2>
+              <p class="ag-section-subtitle">Browse and filter all monitored cities. Tap 'Visit &amp; Bind' to sync your entire dashboard to that sector!</p>
+            </div>
+            <span class="ag-badge ag-badge-emerald">${displayedCities.length} SECTORS MATCHED</span>
+          </div>
+
+          <!-- CONTROLS: REGION PILLS + SEARCH + SORT -->
+          <div class="news-controls-panel" style="margin-bottom: 20px;">
+            <div>
+              <div class="news-filter-group-title"><span>📍 Filter by Airshed Region:</span></div>
+              <div class="news-pills-row">
+                <button class="news-pill-btn ${cs.regionFilter === 'all' ? 'active' : ''}" onclick="setCompareRegionFilter('all')">🌍 All Sectors (${cities.length})</button>
+                <button class="news-pill-btn ${cs.regionFilter === 'north' ? 'active' : ''}" onclick="setCompareRegionFilter('north')">📍 North India</button>
+                <button class="news-pill-btn ${cs.regionFilter === 'south_west' ? 'active' : ''}" onclick="setCompareRegionFilter('south_west')">📍 South &amp; West</button>
+                <button class="news-pill-btn ${cs.regionFilter === 'east_central' ? 'active' : ''}" onclick="setCompareRegionFilter('east_central')">📍 East Corridor</button>
+                <button class="news-pill-btn ${cs.regionFilter === 'global' ? 'active' : ''}" onclick="setCompareRegionFilter('global')">🌐 Global Benchmarks</button>
+              </div>
+            </div>
+
+            <div class="news-search-sort-bar">
+              <input 
+                type="text" 
+                class="news-search-input" 
+                placeholder="🔍 Search city name, country, or airshed..." 
+                value="${cs.searchQuery || ''}"
+                oninput="setCompareSearchQuery(this.value)"
+              />
+
+              <select class="news-sort-select" onchange="setCompareSortOrder(this.value)">
+                <option value="cleanest" ${cs.sortOrder === 'cleanest' ? 'selected' : ''}>🍃 Sort: Cleanest Air First</option>
+                <option value="polluted" ${cs.sortOrder === 'polluted' ? 'selected' : ''}>🔥 Sort: Highest AQI First</option>
+                <option value="alpha" ${cs.sortOrder === 'alpha' ? 'selected' : ''}>🔤 Sort: Alphabetical</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- CITY CARDS GRID -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+            ${displayedCities.map((c, idx) => {
               const info = CITIES_DB[c];
               const isActive = state.activeCity === c;
-              const simAqi = c === 'Delhi' ? 142 : (c === 'Mumbai' ? 98 : (c === 'Bengaluru' ? 52 : (c === 'Kolkata' ? 128 : (c === 'Chennai' ? 68 : (c === 'London' ? 45 : (c === 'Tokyo' ? 28 : (c === 'Paris' ? 42 : 75)))))));
-              const simPm = Math.round(simAqi / 2.6);
+              const aqi = info.baseAqi || 75;
+              const pm25 = info.basePm25 || Math.round(aqi / 2.5);
+
               let badgeCol = '#059669';
               let badgeBg = '#ECFDF5';
               let statusLabel = 'Fresh & Clean';
-              if (simAqi > 150) { badgeCol = '#DC2626'; badgeBg = '#FEF2F2'; statusLabel = 'High Caution'; }
-              else if (simAqi > 100) { badgeCol = '#EA580C'; badgeBg = '#FFF7ED'; statusLabel = 'Sensitive Alert'; }
-              else if (simAqi > 50) { badgeCol = '#D97706'; badgeBg = '#FFFBEB'; statusLabel = 'Moderate'; }
+              if (aqi > 200) { badgeCol = '#DC2626'; badgeBg = '#FEF2F2'; statusLabel = 'Hazardous'; }
+              else if (aqi > 150) { badgeCol = '#EF4444'; badgeBg = '#FEF2F2'; statusLabel = 'Unhealthy'; }
+              else if (aqi > 100) { badgeCol = '#EA580C'; badgeBg = '#FFF7ED'; statusLabel = 'Sensitive Alert'; }
+              else if (aqi > 50) { badgeCol = '#D97706'; badgeBg = '#FFFBEB'; statusLabel = 'Moderate'; }
 
               const medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : '📍'));
 
               return `
-                <div class="decision-info-box" style="border: 2px solid ${isActive ? 'var(--coral-brand)' : 'var(--border-warm)'}; background: ${isActive ? '#FFF8F6' : '#FFFFFF'}; display: flex; flex-direction: column; justify-content: space-between; padding: 18px;">
+                <div class="decision-info-box" style="border: 2px solid ${isActive ? 'var(--coral-brand)' : 'var(--border-warm)'}; background: ${isActive ? '#FFF8F6' : '#FFFFFF'}; display: flex; flex-direction: column; justify-content: space-between; padding: 18px; border-radius: 16px;">
                   <div>
                     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                       <div style="display: flex; align-items: center; gap: 8px;">
                         <span style="font-size: 1.3rem;">${medal}</span>
                         <div>
                           <strong style="font-size: 1.05rem; color: var(--text-navy);">${c}</strong>
-                          <div style="font-size: 0.72rem; color: var(--text-muted);">${info.country}</div>
+                          <div style="font-size: 0.72rem; color: var(--text-muted);">${info.country} &bull; ${info.elevation}m ASL</div>
                         </div>
                       </div>
                       <span class="ag-badge" style="background: ${badgeBg}; color: ${badgeCol}; font-weight: 800; font-size: 0.68rem;">
@@ -9141,37 +9736,53 @@
 
                     <div style="margin: 10px 0;">
                       <div style="display: flex; align-items: baseline; gap: 8px;">
-                        <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: ${badgeCol};">AQI ${simAqi}</span>
-                        <span style="font-size: 0.74rem; color: var(--text-muted);">PM₂.₅ ~${simPm} µg/m³</span>
+                        <span style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 800; color: ${badgeCol};">AQI ${aqi}</span>
+                        <span style="font-size: 0.74rem; color: var(--text-muted);">PM₂.₅: ${pm25} µg/m³</span>
                       </div>
                     </div>
 
                     <div style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 12px;">
                       🍃 <em>${info.lore}</em>
                     </div>
+
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">
+                      <span style="font-size: 0.70rem; background: #FAF6F1; padding: 2px 6px; border-radius: 4px; font-weight: 700;">${info.baseWeatherIcon || '🌤️'} ${info.baseTemp}°C</span>
+                      <span style="font-size: 0.70rem; background: #FAF6F1; padding: 2px 6px; border-radius: 4px; font-weight: 700; color: #0284C7;">💨 ${info.baseWind} km/h</span>
+                      <span style="font-size: 0.70rem; background: #FAF6F1; padding: 2px 6px; border-radius: 4px; font-weight: 700; color: #059669;">💧 ${info.baseHumidity}% RH</span>
+                    </div>
                   </div>
 
-                  <button 
-                    class="banner-btn" 
-                    style="width: 100%; text-align: center; justify-content: center; ${isActive ? 'background: var(--coral-brand); color: #FFF;' : ''}" 
-                    onclick="changeCity('${c}')"
-                  >
-                    ${isActive ? '✅ Currently Viewing' : `Visit ${c} &rarr;`}
-                  </button>
+                  <div style="display: flex; gap: 6px;">
+                    <button 
+                      class="banner-btn" 
+                      style="flex: 1; text-align: center; justify-content: center; ${isActive ? 'background: var(--coral-brand); color: #FFF;' : ''}" 
+                      onclick="changeCity('${c}')"
+                    >
+                      ${isActive ? '✅ Currently Viewing' : `Visit ${c} &rarr;`}
+                    </button>
+                    <button 
+                      class="ag-btn ag-btn-secondary" 
+                      style="padding: 6px 10px; font-size: 0.72rem;" 
+                      onclick="setCompareRadarCityB('${c}')"
+                      title="Compare against City A in radar"
+                    >
+                      Radar B
+                    </button>
+                  </div>
                 </div>
               `;
             }).join('')}
           </div>
         </section>
 
-        <!-- GLOBAL CLEAN AIR ROLE MODELS -->
+        <!-- MODULE 3: GLOBAL CLEAN AIR INSPIRATIONS -->
         <section class="ag-card" style="background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%); border: 1px solid #BAE6FD;">
           <div class="ag-badge ag-badge-cyan">🌍 GLOBAL BENCHMARK CITIES &bull; HOW AIR QUALITY SUCCEEDS</div>
           <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: var(--text-navy); margin-top: 4px;">
             The World's Cleanest Air Inspirations
           </h3>
           <p style="font-size: 0.86rem; color: var(--text-muted);">
-            Cities with zero-emission buses, protected coastal forests, and pedestrian zones show how clean skies make families healthier.
+            Cities with zero-emission transit, coastal marine zones, and pedestrian priority show how clean skies make families healthier.
           </p>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 18px;">
@@ -9192,10 +9803,72 @@
 
     function renderCityCompareTechnical() {
       const cities = Object.keys(CITIES_DB);
+      const cs = state.compareState || { radarCityA: 'Delhi', radarCityB: 'Mumbai' };
+      const cityA = cs.radarCityA || 'Delhi';
+      const cityB = cs.radarCityB || 'Mumbai';
+
       return `
-        <!-- PART 1: REGIONAL METROPOLITAN AIRSHED TELEMETRY -->
-        <section class="ag-card">
-          <div class="ag-badge ag-badge-coral">🌐 MULTI-BASIN RADAR &bull; TECHNICAL MODE</div>
+        <!-- MODULE 1: TECHNICAL MULTI-AXIS RADAR -->
+        <section class="radar-card" style="margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px;">
+            <div>
+              <div class="ag-badge ag-badge-coral">🌐 MULTI-BASIN RADAR &bull; TECHNICAL MODE</div>
+              <h2 class="ag-section-title" style="margin-top: 2px;">Multi-Metropolitan Airshed Telemetry Benchmark</h2>
+              <p class="ag-section-subtitle">Comparative boundary layer dynamics, ventilation coefficients (Vc), and aerosol speciation matrix.</p>
+            </div>
+
+            <!-- STATION COMPARISON SELECTORS -->
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 0.76rem; font-weight: 800; color: #FF6845;">● Basin A:</span>
+                <select class="st-select" style="width: auto; min-width: 140px; padding: 4px 8px; font-size: 0.80rem;" onchange="setCompareRadarCityA(this.value)">
+                  ${cities.map(c => `<option value="${c}" ${c === cityA ? 'selected' : ''}>${c} (${CITIES_DB[c].country})</option>`).join('')}
+                </select>
+              </div>
+
+              <span style="font-weight: 800; color: var(--text-muted); font-size: 0.82rem;">vs</span>
+
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 0.76rem; font-weight: 800; color: #0284C7;">● Basin B:</span>
+                <select class="st-select" style="width: auto; min-width: 140px; padding: 4px 8px; font-size: 0.80rem;" onchange="setCompareRadarCityB(this.value)">
+                  ${cities.map(c => `<option value="${c}" ${c === cityB ? 'selected' : ''}>${c} (${CITIES_DB[c].country})</option>`).join('')}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: center;">
+            <div class="radar-container">
+              ${generateEnvironmentalRadarSvg(cityA, cityB)}
+              <div class="radar-legend">
+                <span style="color: #FF6845;">● ${cityA} (Airshed A)</span>
+                <span style="color: #0284C7;">● ${cityB} (Airshed B)</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="decision-info-box" style="margin-bottom: 14px;">
+                <h4 style="color: var(--text-navy); margin-bottom: 6px;">Dispersion Climatology Analysis</h4>
+                <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+                  Comparison reveals significant planetary boundary height variations between inland basins and coastal air corridors. Coastal advection in maritime sectors maintains elevated ventilation coefficients (Vc &gt; 4,000 m²/s), effectively preventing persistent surface pollutant accumulation.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: 10px;">
+                <button class="ag-btn ag-btn-secondary" style="flex: 1; font-size: 0.76rem; padding: 8px;" onclick="changeCity('${cityA}')">
+                  📍 Bind ${cityA} CAAQMS Telemetry
+                </button>
+                <button class="ag-btn ag-btn-secondary" style="flex: 1; font-size: 0.76rem; padding: 8px;" onclick="changeCity('${cityB}')">
+                  📍 Bind ${cityB} CAAQMS Telemetry
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MODULE 2: REGIONAL METROPOLITAN AIRSHED TELEMETRY TABLE -->
+        <section class="ag-card" style="margin-bottom: 24px;">
+          <div class="ag-badge ag-badge-coral">📊 AIRSHED BENCHMARK MATRIX &bull; TECHNICAL MODE</div>
           <h2 class="ag-section-title">Multi-Metropolitan Airshed Telemetry Benchmark</h2>
           <p class="ag-section-subtitle">Cross-regional dispersion comparison, aerosol speciation, and national NAAQS compliance matrix.</p>
 
@@ -9208,7 +9881,7 @@
                   <th>Elevation</th>
                   <th>Airshed Classification</th>
                   <th>PM2.5 / PM10 Ratio</th>
-                  <th>Ventilation Coeff ($V_c$)</th>
+                  <th>Ventilation Coeff (Vc)</th>
                   <th>Live AQI</th>
                   <th>Operations</th>
                 </tr>
@@ -9216,10 +9889,10 @@
               <tbody>
                 ${cities.map(c => {
                   const info = CITIES_DB[c];
-                  const simAqi = c === 'Delhi' ? 142 : (c === 'Mumbai' ? 98 : (c === 'Bengaluru' ? 52 : (c === 'Kolkata' ? 128 : 65)));
-                  const ratio = c === 'Delhi' ? '0.68 (Combustion)' : (c === 'Mumbai' ? '0.52 (Marine Aerosol)' : '0.44 (Biogenic)');
-                  const vc = c === 'Delhi' ? '1,840 m²/s (Poor)' : (c === 'Mumbai' ? '5,120 m²/s (High)' : '3,650 m²/s (Moderate)');
-                  const badgeCol = simAqi > 100 ? '#DC2626' : (simAqi > 70 ? '#D97706' : '#059669');
+                  const aqi = info.baseAqi || 75;
+                  const ratio = aqi > 100 ? '0.68 (Combustion)' : (info.lore.includes('Coastal') ? '0.52 (Marine Aerosol)' : '0.44 (Biogenic)');
+                  const vc = aqi > 100 ? '1,840 m²/s (Poor)' : (info.baseWind > 12 ? '5,120 m²/s (High)' : '3,650 m²/s (Moderate)');
+                  const badgeCol = aqi > 150 ? '#DC2626' : (aqi > 100 ? '#EA580C' : (aqi > 50 ? '#D97706' : '#059669'));
                   return `
                     <tr>
                       <td><strong>${c}</strong></td>
@@ -9228,7 +9901,7 @@
                       <td>${info.lore}</td>
                       <td><code style="font-size: 0.78rem;">${ratio}</code></td>
                       <td><code style="font-size: 0.78rem;">${vc}</code></td>
-                      <td><span style="font-family: var(--font-mono); font-weight:800; color: ${badgeCol};">AQI ${simAqi}</span></td>
+                      <td><span style="font-family: var(--font-mono); font-weight:800; color: ${badgeCol};">AQI ${aqi}</span></td>
                       <td><button class="banner-btn" onclick="changeCity('${c}')">Bind Sentry</button></td>
                     </tr>
                   `;
@@ -9238,14 +9911,14 @@
           </div>
         </section>
 
-        <!-- PART 2: WHO 2021 GLOBAL EPIDEMIOLOGICAL COMPLIANCE BENCHMARK -->
+        <!-- MODULE 3: WHO 2021 GLOBAL EPIDEMIOLOGICAL COMPLIANCE BENCHMARK -->
         <section class="ag-card">
           <div class="ag-badge ag-badge-amber">📊 WHO 2021 AIR QUALITY GUIDELINE (AQG) MATRIX</div>
           <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: var(--text-navy); margin-top: 4px;">
             Epidemiological Excess Mortality Risk Thresholds
           </h3>
           <p style="font-size: 0.86rem; color: var(--text-muted);">
-            Comparing local airsheds against the World Health Organization 2021 Global Air Quality Guidelines ($PM_{2.5} \le 5\,\mu\text{g/m}^3$ annual, $15\,\mu\text{g/m}^3$ 24-hr mean).
+            Comparing local airsheds against the World Health Organization 2021 Global Air Quality Guidelines (PM2.5 &le; 5 µg/m³ annual, 15 µg/m³ 24-hr mean).
           </p>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 18px;">
@@ -9367,12 +10040,12 @@
                   <span>🏷️ Filter by Environmental Topic:</span>
                 </div>
                 <div class="news-pills-row">
-                  <button class="news-pill-btn ${ns.topicFilter === 'all' ? 'active' : ''}" onclick="setNewsTopicFilter('all')">All Topics</button>
+                  <button class="news-pill-btn ${(ns.videoTopicFilter || 'all') === 'all' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('all')">All Topics</button>
                   <button class="news-pill-btn ${ns.topicFilter === 'alert' ? 'active' : ''}" onclick="setNewsTopicFilter('alert')">🚨 Emergency Directives</button>
                   <button class="news-pill-btn ${ns.topicFilter === 'research' ? 'active' : ''}" onclick="setNewsTopicFilter('research')">🔬 Health Studies</button>
                   <button class="news-pill-btn ${ns.topicFilter === 'green' ? 'active' : ''}" onclick="setNewsTopicFilter('green')">🌱 Clean Green Tech</button>
-                  <button class="news-pill-btn ${ns.topicFilter === 'satellite' ? 'active' : ''}" onclick="setNewsTopicFilter('satellite')">🛰️ Satellite Spectrometry</button>
-                  <button class="news-pill-btn ${ns.topicFilter === 'policy' ? 'active' : ''}" onclick="setNewsTopicFilter('policy')">🏛️ Statutory Policy</button>
+                  <button class="news-pill-btn ${ns.videoTopicFilter === 'satellite' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('satellite')">🛰️ Satellite Spectrometry</button>
+                  <button class="news-pill-btn ${ns.videoTopicFilter === 'policy' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('policy')">🏛️ Statutory Policy</button>
                 </div>
               </div>
 
@@ -9458,11 +10131,11 @@
                 <span>🎥 Curated Video Topics (${videos.length} Verified Playable Broadcasts):</span>
               </div>
               <div class="news-pills-row" style="margin-bottom: 0;">
-                <button class="news-pill-btn ${ns.topicFilter === 'all' ? 'active' : ''}" onclick="setNewsTopicFilter('all')">All Videos (8)</button>
-                <button class="news-pill-btn ${ns.topicFilter === 'health' ? 'active' : ''}" onclick="setNewsTopicFilter('health')">🏥 Lung &amp; Heart Health (2)</button>
-                <button class="news-pill-btn ${ns.topicFilter === 'satellite' ? 'active' : ''}" onclick="setNewsTopicFilter('satellite')">🛰️ NASA &amp; ESA Space Telemetry (3)</button>
-                <button class="news-pill-btn ${ns.topicFilter === 'solutions' ? 'active' : ''}" onclick="setNewsTopicFilter('solutions')">🌍 Global Clean Air Solutions (2)</button>
-                <button class="news-pill-btn ${ns.topicFilter === 'policy' ? 'active' : ''}" onclick="setNewsTopicFilter('policy')">🏛️ US EPA Standards (1)</button>
+                <button class="news-pill-btn ${(ns.videoTopicFilter || 'all') === 'all' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('all')">All Videos (8)</button>
+                <button class="news-pill-btn ${ns.videoTopicFilter === 'health' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('health')">🏥 Lung &amp; Heart Health (2)</button>
+                <button class="news-pill-btn ${ns.videoTopicFilter === 'satellite' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('satellite')">🛰️ NASA &amp; ESA Space Telemetry (3)</button>
+                <button class="news-pill-btn ${ns.videoTopicFilter === 'solutions' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('solutions')">🌍 Global Clean Air Solutions (2)</button>
+                <button class="news-pill-btn ${ns.videoTopicFilter === 'policy' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('policy')">🏛️ US EPA Standards (1)</button>
               </div>
             </div>
 
@@ -9623,12 +10296,12 @@
                   <span>🏷️ Regulatory Scope &amp; Analytical Category:</span>
                 </div>
                 <div class="news-pills-row">
-                  <button class="news-pill-btn ${ns.topicFilter === 'all' ? 'active' : ''}" onclick="setNewsTopicFilter('all')">All Classifications</button>
+                  <button class="news-pill-btn ${(ns.videoTopicFilter || 'all') === 'all' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('all')">All Classifications</button>
                   <button class="news-pill-btn ${ns.topicFilter === 'alert' ? 'active' : ''}" onclick="setNewsTopicFilter('alert')">🚨 GRAP Directives</button>
                   <button class="news-pill-btn ${ns.topicFilter === 'research' ? 'active' : ''}" onclick="setNewsTopicFilter('research')">🔬 Toxicological Evidence</button>
                   <button class="news-pill-btn ${ns.topicFilter === 'green' ? 'active' : ''}" onclick="setNewsTopicFilter('green')">🌱 Emission Decoupling</button>
-                  <button class="news-pill-btn ${ns.topicFilter === 'satellite' ? 'active' : ''}" onclick="setNewsTopicFilter('satellite')">🛰️ Satellite Retrieval</button>
-                  <button class="news-pill-btn ${ns.topicFilter === 'policy' ? 'active' : ''}" onclick="setNewsTopicFilter('policy')">🏛️ Statutory Gazettes</button>
+                  <button class="news-pill-btn ${ns.videoTopicFilter === 'satellite' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('satellite')">🛰️ Satellite Retrieval</button>
+                  <button class="news-pill-btn ${ns.videoTopicFilter === 'policy' ? 'active' : ''}" onclick="setNewsVideoTopicFilter('policy')">🏛️ Statutory Gazettes</button>
                 </div>
               </div>
 
@@ -10202,11 +10875,12 @@
       const ns = state.newsState;
       let videos = [...AIR_VIDEOS];
 
-      if (ns.topicFilter !== 'all') {
-        videos = videos.filter(v => v.topic === ns.topicFilter || ns.topicFilter === 'all');
+      const vTopic = ns.videoTopicFilter || 'all';
+      if (vTopic !== 'all') {
+        videos = videos.filter(v => v.topic === vTopic);
       }
 
-      if (ns.searchQuery.trim()) {
+      if (ns.searchQuery && ns.searchQuery.trim()) {
         const q = ns.searchQuery.toLowerCase().trim();
         videos = videos.filter(v => 
           v.title.toLowerCase().includes(q) ||

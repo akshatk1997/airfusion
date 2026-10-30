@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased] - Branch `fix/audit-and-cnn`
 
+### Fixed
+- `public/index.html`:
+  - **Home Command Center**: Resolved quote-escaping inline string syntax errors by introducing dedicated `playGuardianVoice('aero')`, `playStoryChapterVoice(idx)`, and `playCityAudioSummary(city)` helpers. Added floating `guardian-speech-toast` caption bubble providing instant visual confirmation of voice synthesis even when browser audio is blocked or muted. Enhanced `changeCity(city)` with zero-latency synchronous telemetry binding and green action confirmation toast (`showAirFusionToast`).
+  - **Guardians Tour & Eco Quest**: Integrated the comprehensive 5-module platform tour into Simple Mode: (1) 4-Guardian mission dossier with live voice briefings and superpowers, (2) 3-Chapter illustrated Clean Air Family Storybook with chapter navigation and audio narration, (3) Haven's Clean Air Sanctuary Simulator and NASA Plant Doctor with room switcher, purifier mode controller, plant counter, window shield toggle, and live purity gauge, (4) Aero's Adventure Quiz with streaks and detailed explanations, and (5) Hero Badge Trophy Case with 5 unlockable badges. In Technical Mode, preserved systems architecture dossier and toxicokinetics specifications while adding an interactive CADR room clearance workbench.
+  - **City Comparison Radar**: Built an interactive multi-axis SVG Environmental Radar Chart plotting 5 atmospheric dimensions (PM2.5 Purity, Wind Dispersion, Inversion Relief, Gas Buffer, Airshed Relief) with head-to-head comparative analysis. Replaced hardcoded "75" values across cities with 14 calibrated, realistic regional telemetry baselines. Added region filter pills (North, South & West, East, Global), sort dropdown (Cleanest First, Highest AQI First, Alphabetical), real-time search input, and responsive "Visit & Bind Sentry" buttons.
+  - **Verified News & Videos**: Isolated article topic filters (`ns.topicFilter`) and video topic filters (`ns.videoTopicFilter`) to prevent empty state bugs when switching tabs. Added video fail-safe links to authoritative sources, live wire refresh pulse with toast notification, situational telemetry alerts calibrated to active city, and verified 18 regulatory source registries.
+
 ### Added
 - `AUDIT.md`: Complete Phase 0 architectural audit covering data pipeline, ML models, LSTM status, CI test status, and third-party services.
 - `DECISIONS.md`: Structured log of engineering and scientific decisions.
