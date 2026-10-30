@@ -1,100 +1,112 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
   <defs>
-    <!-- Master Aerospace Shield Baseplate Gradient: Slate Navy into Deep Obsidian -->
-    <linearGradient id="afShieldHull" x1="10" y1="4" x2="54" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1B2F44"/>
-      <stop offset="45%" stop-color="#102030"/>
-      <stop offset="100%" stop-color="#071018"/>
+    <!-- Master Eco Hull: Deep Alpine Evergreen Obsidian to Twilight Oceanic Slate -->
+    <linearGradient id="afEcoHull" x1="10" y1="4" x2="54" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0E241E"/>
+      <stop offset="50%" stop-color="#0B1A22"/>
+      <stop offset="100%" stop-color="#061014"/>
     </linearGradient>
 
-    <!-- Outer Crest Border: Tropospheric Sky Cyan into Electric Sapphire and Radiant Solar Coral -->
-    <linearGradient id="afRimGrad" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="28%" stop-color="#60A5FA"/>
-      <stop offset="68%" stop-color="#FF6845"/>
-      <stop offset="100%" stop-color="#FFA07A"/>
+    <!-- Living Eco Rim: Fresh Mint to Clean Air Emerald to Sky Cyan to Solar Amber -->
+    <linearGradient id="afEcoRim" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="35%" stop-color="#10B981"/>
+      <stop offset="70%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
     </linearGradient>
 
-    <!-- Left Wing (Tropospheric Air Wing): Pure Crisp Cyan into Oceanic Azure -->
-    <linearGradient id="afAirFlow" x1="15" y1="14" x2="33" y2="46" gradientUnits="userSpaceOnUse">
+    <!-- Botanical Leaf Wing (Left: Nature, Flora, Bio-Filtration & Oxygen) -->
+    <linearGradient id="afLeafGrad" x1="14" y1="14" x2="33" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A7F3D0"/>
+      <stop offset="25%" stop-color="#34D399"/>
+      <stop offset="70%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+
+    <!-- Tropospheric Sky Stream (Right: Pure Atmosphere & Wind Dynamics) -->
+    <linearGradient id="afAirGrad" x1="50" y1="14" x2="31" y2="48" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#E0F2FE"/>
       <stop offset="25%" stop-color="#38BDF8"/>
       <stop offset="70%" stop-color="#0284C7"/>
-      <stop offset="100%" stop-color="#0369A1"/>
+      <stop offset="100%" stop-color="#075985"/>
     </linearGradient>
 
-    <!-- Right Wing (Kinetic Solar Fusion Blade): Sunrise Peach into Vibrant Signature Coral and Solar Crimson -->
-    <linearGradient id="afFusionFlow" x1="49" y1="14" x2="31" y2="46" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFE4D6"/>
-      <stop offset="25%" stop-color="#FF6845"/>
-      <stop offset="70%" stop-color="#EA580C"/>
-      <stop offset="100%" stop-color="#9A3412"/>
-    </linearGradient>
-
-    <!-- Center Fusion Nexus Radial Core Bloom -->
-    <radialGradient id="afCoreBloom" cx="32" cy="29.5" r="10" gradientUnits="userSpaceOnUse">
+    <!-- Solar Photosynthesis Core Bloom (Energy & Light Catalyst) -->
+    <radialGradient id="afSunCore" cx="32" cy="29.5" r="10" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="35%" stop-color="#BAE6FD" stop-opacity="0.95"/>
-      <stop offset="70%" stop-color="#38BDF8" stop-opacity="0.35"/>
+      <stop offset="35%" stop-color="#FEF08A" stop-opacity="0.95"/>
+      <stop offset="70%" stop-color="#10B981" stop-opacity="0.35"/>
       <stop offset="100%" stop-color="#0284C7" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
-  <!-- 1. Master Aerodynamic Defense Shield Hull -->
+  <!-- 1. Master Aerodynamic Eco-Crest Hull -->
   <path d="M 32 4.5 C 44.5 4.5 54 8.5 54 22 C 54 41 41 53.5 32 59.5 C 23 53.5 10 41 10 22 C 10 8.5 19.5 4.5 32 4.5 Z" 
-        fill="url(#afShieldHull)" 
-        stroke="url(#afRimGrad)" 
+        fill="url(#afEcoHull)" 
+        stroke="url(#afEcoRim)" 
         stroke-width="2.6" 
         stroke-linejoin="round"/>
 
-  <!-- 2. Precision Specular Inner Bevel Rim -->
+  <!-- 2. Precision Specular Inner Bevel -->
   <path d="M 32 8 C 42 8 49.5 11.2 49.5 22 C 49.5 37.5 38.5 48.2 32 53.5 C 25.5 48.2 14.5 37.5 14.5 22 C 14.5 11.2 22 8 32 8 Z" 
         fill="none" 
         stroke="rgba(255, 255, 255, 0.16)" 
         stroke-width="1.2"/>
 
-  <!-- 3. Specular Crystal Crown Brow -->
+  <!-- 3. Specular Crown Brow Highlight -->
   <path d="M 23 6.8 C 27 6 37 6 41 6.8" 
         stroke="#FFFFFF" 
         stroke-opacity="0.92" 
         stroke-width="1.6" 
         stroke-linecap="round"/>
 
-  <!-- 4. Left Tropospheric Air Wing / Vortex Ribbon -->
+  <!-- 4. Left Nature Wing: Sculpted Organic Clean-Air Leaf Blade -->
   <path d="M 18.5 20.5 C 18 31 23 39.5 31.5 45 C 27 39.2 24.2 32.8 25.6 25 C 26.5 20.2 29 17.6 32 16.5 C 25.8 16.2 19.5 18.2 18.5 20.5 Z" 
-        fill="url(#afAirFlow)"/>
-  <path d="M 21 24 C 21 31 24 36 29 40" 
+        fill="url(#afLeafGrad)"/>
+  
+  <!-- Living Leaf Chlorophyll Vein Structure -->
+  <path d="M 20.5 23 C 21.5 31 25 36.5 30 41" 
+        stroke="rgba(255, 255, 255, 0.65)" 
+        stroke-width="1.0" 
+        stroke-linecap="round"/>
+  <path d="M 23.5 28 C 26 27.5 27.5 26 28.5 24.5" 
         stroke="rgba(255, 255, 255, 0.45)" 
-        stroke-width="0.9" 
+        stroke-width="0.8" 
+        stroke-linecap="round"/>
+  <path d="M 25 33 C 27.5 32.5 29 31 30 29.5" 
+        stroke="rgba(255, 255, 255, 0.45)" 
+        stroke-width="0.8" 
         stroke-linecap="round"/>
 
-  <!-- 5. Right Kinetic Solar Fusion Blade / Ribbon -->
+  <!-- 5. Right Tropospheric Sky Stream: Clean Atmospheric Air Flow -->
   <path d="M 45.5 20.5 C 46 31 41 39.5 32.5 45 C 37 39.2 39.8 32.8 38.4 25 C 37.5 20.2 35 17.6 32 16.5 C 38.2 16.2 44.5 18.2 45.5 20.5 Z" 
-        fill="url(#afFusionFlow)"/>
-  <path d="M 43 24 C 43 31 40 36 35 40" 
-        stroke="rgba(255, 255, 255, 0.4)" 
-        stroke-width="0.9" 
+        fill="url(#afAirGrad)"/>
+  
+  <!-- Laminar Air Current Streamline -->
+  <path d="M 43.5 23.5 C 42.5 31 39 36.5 34 41" 
+        stroke="rgba(255, 255, 255, 0.55)" 
+        stroke-width="1.0" 
         stroke-linecap="round"/>
 
-  <!-- 6. Translucent Intersecting Atmospheric Air-Fusion Convergence Lens -->
+  <!-- 6. Intersecting Bio-Atmosphere Convergence Leaf Lens -->
   <path d="M 32 17.5 C 29.5 23 29.2 29 32 34.5 C 34.8 29 34.5 23 32 17.5 Z" 
         fill="#FFFFFF" 
         fill-opacity="0.36"/>
 
-  <!-- 7. Radiant Core Fusion Bloom -->
-  <circle cx="32" cy="29.5" r="9" fill="url(#afCoreBloom)"/>
+  <!-- 7. Solar Photosynthesis Core Bloom -->
+  <circle cx="32" cy="29.5" r="9" fill="url(#afSunCore)"/>
 
-  <!-- 8. Eight-Point Precision Metrology Diamond Star -->
+  <!-- 8. Precision Metrology Diamond Dewdrop Star -->
   <path d="M 32 21 L 34.2 27.5 L 40.5 29.5 L 34.2 31.5 L 32 38 L 29.8 31.5 L 23.5 29.5 L 29.8 27.5 Z" 
         fill="#FFFFFF" 
-        stroke="#E0F2FE" 
+        stroke="#A7F3D0" 
         stroke-width="0.4"/>
   <path d="M 32 29.5 L 35.8 25.7 M 32 29.5 L 35.8 33.3 M 32 29.5 L 28.2 33.3 M 32 29.5 L 28.2 25.7" 
         stroke="#FFFFFF" 
         stroke-width="0.8" 
         stroke-linecap="round" 
-        opacity="0.65"/>
+        opacity="0.75"/>
 
-  <!-- 9. Diamond Epicenter Flare -->
+  <!-- Dewdrop Glint Center -->
   <circle cx="32" cy="29.5" r="1.6" fill="#FFFFFF"/>
 </svg>
