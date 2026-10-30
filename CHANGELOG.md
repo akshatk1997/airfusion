@@ -55,3 +55,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `public/index.html`: Integrated `window.ENABLE_CNN_FUSION = false` flag, external script inclusion, sidebar navigation hook, and page routing.
 - `tests/test_cnn_fusion_flag.js`: Node.js test suite (8 passed) validating flag gating, Mode C fallback, and Data & Credits citations.
 - `.github/workflows/ci.yml`: Integrated `ml/tests/` pytest and `test_cnn_fusion_flag.js` into CI workflow.
+
+### Simple Mode Polish, Interactivity & Integrity
+- `public/index.html`:
+  - Resolved Temporal Dead Zone `ReferenceError` on `WMO_WEATHER_CODES` by restructuring declaration order above `state`, unblocking all client-side JavaScript execution.
+  - Upgraded `speakVoice` speech synthesis helper to safely catch errors, handle missing voices, and eliminate blocking browser alert dialogs.
+  - Upgraded `renderHomeSimple`: added 6 Criteria Pollutants Dials (PM2.5, PM10, NO2, SO2, O3, CO) and 4 Weather Vitals cards (Temperature, Humidity, Wind & Dispersion, UV Index); persisted Aero AI Chatbot history across re-renders; added interactive checklist toggling to Departure Kit; added search query input and instant filtering to Everyday Air Decoder.
+  - Upgraded `renderLiveTrackingSimple`: replaced 2-card placeholder with full Live Sentry Hub featuring big animated Clean Air Dial, 6 Pollutant Family Cards with WHO guideline comparison bars and clickable deep-dive inspectors, real-time atmospheric vitals, and working CSV telemetry download.
+  - Upgraded `renderSafePlanSimple`: replaced static text with dynamic quantitative dosimetric inhalation and cigarette equivalence calculations tailored to age, airway sensitivity, and activity tier.
+  - Upgraded `renderTrendsSimple`: added interactive day selection to 7-Day Clean Air Outlook Calendar with dynamic Day Briefing panel.
+  - Upgraded `renderModelInsightsSimple`: replaced unverified 99.4% accuracy claim with empirical XGBoost benchmarks (20.47 µg/m³ Test MAE) and added interactive Clean Air Physics Simulator.
+  - Upgraded `renderCityCompareSimple`: expanded leaderboard to display all 14 monitoring cities with live/calibrated AQI, PM2.5, rank medals, and seamless "Visit City" switching.
