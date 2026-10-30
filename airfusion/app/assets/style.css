@@ -1825,3 +1825,108 @@ div[data-testid="stImage"] [data-testid="stCaptionContainer"] {
     75% { opacity: 0.95; }
     100% { transform: translateY(-160px) scale(1.25); opacity: 0; }
 }
+
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVE SYSTEM (ZERO REGRESSIONS FOR DESKTOP)
+   ========================================================================== */
+
+/* Tablet Landscape & iPad (<= 1024px) */
+@media (max-width: 1024px) {
+    .ag-container {
+        padding: 20px 20px 56px 20px;
+    }
+    .ag-hero-stats {
+        gap: 20px 28px;
+    }
+}
+
+/* Tablet Portrait & Mobile (<= 900px) */
+@media (max-width: 900px) {
+    .ag-navbar {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .ag-hero {
+        padding: 26px 20px;
+        border-radius: 20px;
+    }
+    .ag-hero h1 {
+        font-size: 1.6rem;
+    }
+    .ag-hero p {
+        font-size: 0.90rem;
+    }
+    .ag-hero-stats {
+        gap: 16px 24px;
+    }
+}
+
+/* Tablets & Phablets (<= 768px) */
+@media (max-width: 768px) {
+    .ag-decision-card {
+        padding: 20px 16px;
+        border-radius: 18px;
+    }
+    .ag-3d-cast-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    .ag-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        padding: 24px 16px;
+    }
+}
+
+/* Mobile Phones (<= 640px) */
+@media (max-width: 640px) {
+    .ag-navbar {
+        padding: 10px 12px;
+    }
+    .ag-brand-name {
+        font-size: 1.0rem;
+    }
+    .ag-hero {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+    .ag-hero h1 {
+        font-size: 1.35rem;
+    }
+    .ag-metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .ag-card {
+        padding: 14px 12px;
+        border-radius: 14px;
+    }
+    .table-responsive {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+    }
+}
+
+/* Small Mobile Phones (<= 480px) */
+@media (max-width: 480px) {
+    .ag-3d-cast-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .ag-brand-tagline {
+        display: none;
+    }
+}
+
+/* Touch Ergonomics */
+@media (pointer: coarse) {
+    .ag-btn {
+        min-height: 44px;
+        padding: 10px 18px;
+    }
+    .ag-tab-btn {
+        min-height: 40px;
+    }
+}
