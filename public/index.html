@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AirFusion — Autonomous Environmental Intelligence</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="alternate icon" type="image/svg+xml" href="assets/images/airfusion_shield_logo.svg">
-  <link rel="apple-touch-icon" href="assets/images/airfusion_shield_logo.svg">
-  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='fBg' x1='10' y1='6' x2='54' y2='58' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%230F1E2E'/%3E%3Cstop offset='100%25' stop-color='%23081018'/%3E%3C/linearGradient%3E%3ClinearGradient id='fBrd' x1='8' y1='6' x2='56' y2='58' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%2338BDF8'/%3E%3Cstop offset='100%25' stop-color='%23FF6845'/%3E%3C/linearGradient%3E%3ClinearGradient id='fAir' x1='16' y1='16' x2='32' y2='46' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%2338BDF8'/%3E%3Cstop offset='100%25' stop-color='%230284C7'/%3E%3C/linearGradient%3E%3ClinearGradient id='fFus' x1='48' y1='16' x2='32' y2='46' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%23FFA07A'/%3E%3Cstop offset='100%25' stop-color='%23FF6845'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M 32 5 C 44 5 53 9 53 22 C 53 41 40 54 32 59 C 24 54 11 41 11 22 C 11 9 20 5 32 5 Z' fill='url(%23fBg)' stroke='url(%23fBrd)' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M 19 21.5 C 18.5 32.5 24 40.5 32 45.5 C 27.5 39.8 24.2 33 25.4 24.8 C 26.2 20.2 29 17.6 32 16.5 C 26 16.3 19.8 18.6 19 21.5 Z' fill='url(%23fAir)'/%3E%3Cpath d='M 45 21.5 C 45.5 32.5 40 40.5 32 45.5 C 36.5 39.8 39.8 33 38.6 24.8 C 37.8 20.2 35 17.6 32 16.5 C 38 16.3 44.2 18.6 45 21.5 Z' fill='url(%23fFus)'/%3E%3Cpath d='M 32 23 L 34.5 29.5 L 41 31.5 L 34.5 33.5 L 32 40 L 29.5 33.5 L 23 31.5 L 29.5 29.5 Z' fill='%23FFFFFF'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/images/airfusion_shield_logo.svg">
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,10 +112,10 @@
       height: 44px;
       flex-shrink: 0;
       border-radius: 12px;
-      background: linear-gradient(135deg, rgba(15, 30, 46, 0.04), rgba(255, 104, 69, 0.08));
+      background: linear-gradient(135deg, #0F1E2E 0%, #16273A 100%);
       padding: 3px;
-      filter: drop-shadow(0 6px 14px rgba(255, 104, 69, 0.28)) drop-shadow(0 2px 6px rgba(14, 165, 233, 0.22));
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease, background 0.3s ease;
+      box-shadow: 0 4px 14px rgba(255, 104, 69, 0.32), 0 2px 6px rgba(14, 165, 233, 0.28);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
     }
 
     .brand-icon svg {
@@ -127,68 +126,7 @@
 
     .sidebar-brand:hover .brand-icon {
       transform: translateY(-2px) scale(1.08) rotate(-2deg);
-      filter: drop-shadow(0 8px 20px rgba(255, 104, 69, 0.42)) drop-shadow(0 3px 8px rgba(14, 165, 233, 0.32));
-      background: linear-gradient(135deg, rgba(15, 30, 46, 0.08), rgba(255, 104, 69, 0.14));
-    }
-
-    /* Topbar Collapsed / Mobile Brand Badge */
-    .topbar-brand-mark {
-      display: none;
-      align-items: center;
-      gap: 9px;
-      cursor: pointer;
-      padding: 4px 12px 4px 6px;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-warm);
-      border-radius: 999px;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      text-decoration: none;
-      box-shadow: 0 2px 8px rgba(15, 30, 46, 0.06);
-    }
-
-    .topbar-brand-mark:hover {
-      background: #FFFFFF;
-      border-color: var(--coral-brand);
-      box-shadow: 0 4px 16px rgba(255, 104, 69, 0.20);
-      transform: translateY(-1px);
-    }
-
-    .topbar-brand-mark .brand-mini-icon {
-      width: 26px;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      filter: drop-shadow(0 2px 5px rgba(255, 104, 69, 0.25));
-    }
-
-    .topbar-brand-mark .brand-mini-icon svg {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-
-    .topbar-brand-mark .topbar-brand-name {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 0.90rem;
-      color: var(--text-navy);
-      letter-spacing: -0.02em;
-    }
-
-    .topbar-brand-mark .topbar-brand-tag {
-      font-family: var(--font-mono);
-      font-size: 0.58rem;
-      font-weight: 700;
-      color: var(--coral-brand);
-      letter-spacing: 0.04em;
-    }
-
-    @media (max-width: 900px) {
-      .topbar-brand-mark {
-        display: inline-flex !important;
-      }
+      box-shadow: 0 8px 22px rgba(255, 104, 69, 0.45), 0 3px 10px rgba(14, 165, 233, 0.35);
     }
 
     .brand-text h1 {
@@ -2294,110 +2232,97 @@
 <body>
 
   <div id="app-root">
-    <!-- AirFusion Enterprise SaaS Shield Logo Master Vector Sprite -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-      <defs>
-        <linearGradient id="afBgGrad" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#0F1E2E"/>
-          <stop offset="45%" stop-color="#16273A"/>
-          <stop offset="100%" stop-color="#081018"/>
-        </linearGradient>
-
-        <linearGradient id="afBorderGrad" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#38BDF8"/>
-          <stop offset="30%" stop-color="#818CF8"/>
-          <stop offset="70%" stop-color="#FF6845"/>
-          <stop offset="100%" stop-color="#FF9E7D"/>
-        </linearGradient>
-
-        <linearGradient id="afAirWing" x1="16" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#BAE6FD"/>
-          <stop offset="25%" stop-color="#38BDF8"/>
-          <stop offset="70%" stop-color="#0284C7"/>
-          <stop offset="100%" stop-color="#0369A1"/>
-        </linearGradient>
-
-        <linearGradient id="afFusionWing" x1="48" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#FED7AA"/>
-          <stop offset="25%" stop-color="#FF6845"/>
-          <stop offset="70%" stop-color="#EA580C"/>
-          <stop offset="100%" stop-color="#BE123C"/>
-        </linearGradient>
-
-        <radialGradient id="afNexusCore" cx="32" cy="31.5" r="9" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#FFFFFF"/>
-          <stop offset="35%" stop-color="#E0F2FE" stop-opacity="0.95"/>
-          <stop offset="65%" stop-color="#38BDF8" stop-opacity="0.45"/>
-          <stop offset="100%" stop-color="#0284C7" stop-opacity="0"/>
-        </radialGradient>
-
-        <linearGradient id="afBevel" x1="20" y1="7" x2="44" y2="7" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
-          <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-          <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.15"/>
-        </linearGradient>
-
-        <filter id="afSaaSElevation" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="3.5" stdDeviation="4" flood-color="#FF6845" flood-opacity="0.28"/>
-          <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#0284C7" flood-opacity="0.32"/>
-        </filter>
-      </defs>
-
-      <symbol id="airfusion-shield-logo" viewBox="0 0 64 64">
-        <g filter="url(#afSaaSElevation)">
-          <!-- Master Aerodynamic Defense Shield Baseplate -->
-          <path d="M 32 6.5 C 43.5 6.5 52 10.5 52 23 C 52 40 40 52.5 32 57.5 C 24 52.5 12 40 12 23 C 12 10.5 20.5 6.5 32 6.5 Z" 
-                fill="url(#afBgGrad)" 
-                stroke="url(#afBorderGrad)" 
-                stroke-width="2.2" 
-                stroke-linejoin="round"/>
-
-          <!-- Precision Inner Bevel Rim -->
-          <path d="M 32 10.5 C 41 10.5 48 13.8 48 23.5 C 48 37.8 38.5 48.5 32 53 C 25.5 48.5 16 37.8 16 23.5 C 16 13.8 23 10.5 32 10.5 Z" 
-                fill="none" 
-                stroke="rgba(255, 255, 255, 0.08)" 
-                stroke-width="1.2"/>
-
-          <!-- Top Polished Edge Specular Glint -->
-          <path d="M 22 8.5 C 27 7.5 37 7.5 42 8.5" 
-                stroke="url(#afBevel)" 
-                stroke-width="1.4" 
-                stroke-linecap="round"/>
-
-          <!-- Left Aerodynamic Air Current (Atmospheric Troposphere Flow) -->
-          <path d="M 19 21.5 C 18.5 32.5 24 40.5 32 45.5 C 27.5 39.8 24.2 33 25.4 24.8 C 26.2 20.2 29 17.6 32 16.5 C 26 16.3 19.8 18.6 19 21.5 Z" 
-                fill="url(#afAirWing)"/>
-
-          <!-- Right Aerodynamic Fusion Current (Kinetic Solar Fusion Flow) -->
-          <path d="M 45 21.5 C 45.5 32.5 40 40.5 32 45.5 C 36.5 39.8 39.8 33 38.6 24.8 C 37.8 20.2 35 17.6 32 16.5 C 38 16.3 44.2 18.6 45 21.5 Z" 
-                fill="url(#afFusionWing)"/>
-
-          <!-- Intersecting Laminar Core Air-Fusion Wave -->
-          <path d="M 32 18.5 C 29.5 23.8 29.2 29.8 32 34.5 C 34.8 29.8 34.5 23.8 32 18.5 Z" 
-                fill="#FFFFFF" 
-                fill-opacity="0.32"/>
-
-          <!-- Ambient Fusion Plasma Core Halo -->
-          <circle cx="32" cy="31.5" r="7.5" fill="url(#afNexusCore)"/>
-
-          <!-- Four-Point Precision Stellar Fusion Diamond (Core Metrology Nexus) -->
-          <path d="M 32 24.5 L 34.2 29.8 L 39.5 31.5 L 34.2 33.2 L 32 38.5 L 29.8 33.2 L 24.5 31.5 L 29.8 29.8 Z" 
-                fill="#FFFFFF" 
-                stroke="#BAE6FD" 
-                stroke-width="0.4"/>
-
-          <!-- Micro Diamond Highlight Point -->
-          <circle cx="32" cy="31.5" r="1.6" fill="#FFFFFF"/>
-        </g>
-      </symbol>
-    </svg>
     <!-- Streamlit Collapsible Left Sidebar -->
     <aside class="st-sidebar" id="stSidebar">
       <a href="#" class="sidebar-brand" onclick="navigate('home'); return false;">
         <span class="brand-icon" title="AirFusion Enterprise Security Shield">
-          <svg viewBox="0 0 64 64" aria-label="AirFusion Shield Logo">
-            <use href="#airfusion-shield-logo"></use>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="afBgGrad" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F1E2E"/>
+      <stop offset="45%" stop-color="#16273A"/>
+      <stop offset="100%" stop-color="#081018"/>
+    </linearGradient>
+
+    <linearGradient id="afBorderGrad" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="30%" stop-color="#818CF8"/>
+      <stop offset="70%" stop-color="#FF6845"/>
+      <stop offset="100%" stop-color="#FF9E7D"/>
+    </linearGradient>
+
+    <linearGradient id="afAirWing" x1="16" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#BAE6FD"/>
+      <stop offset="25%" stop-color="#38BDF8"/>
+      <stop offset="70%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+
+    <linearGradient id="afFusionWing" x1="48" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="25%" stop-color="#FF6845"/>
+      <stop offset="70%" stop-color="#EA580C"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+
+    <radialGradient id="afNexusCore" cx="32" cy="31.5" r="9" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#E0F2FE" stop-opacity="0.95"/>
+      <stop offset="65%" stop-color="#38BDF8" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="afBevel" x1="20" y1="7" x2="44" y2="7" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 1. Master Aerodynamic Defense Shield Baseplate -->
+  <path d="M 32 6.5 C 43.5 6.5 52 10.5 52 23 C 52 40 40 52.5 32 57.5 C 24 52.5 12 40 12 23 C 12 10.5 20.5 6.5 32 6.5 Z" 
+        fill="url(#afBgGrad)" 
+        stroke="url(#afBorderGrad)" 
+        stroke-width="2.5" 
+        stroke-linejoin="round"/>
+
+  <!-- 2. Precision Inner Bevel Rim -->
+  <path d="M 32 10.5 C 41 10.5 48 13.8 48 23.5 C 48 37.8 38.5 48.5 32 53 C 25.5 48.5 16 37.8 16 23.5 C 16 13.8 23 10.5 32 10.5 Z" 
+        fill="none" 
+        stroke="rgba(255, 255, 255, 0.12)" 
+        stroke-width="1.2"/>
+
+  <!-- 3. Top Polished Edge Specular Glint -->
+  <path d="M 22 8.5 C 27 7.5 37 7.5 42 8.5" 
+        stroke="url(#afBevel)" 
+        stroke-width="1.4" 
+        stroke-linecap="round"/>
+
+  <!-- 4. Left Aerodynamic Air Current (Atmospheric Troposphere Flow) -->
+  <path d="M 19 21.5 C 18.5 32.5 24 40.5 32 45.5 C 27.5 39.8 24.2 33 25.4 24.8 C 26.2 20.2 29 17.6 32 16.5 C 26 16.3 19.8 18.6 19 21.5 Z" 
+        fill="url(#afAirWing)"/>
+
+  <!-- 5. Right Aerodynamic Fusion Current (Kinetic Solar Fusion Flow) -->
+  <path d="M 45 21.5 C 45.5 32.5 40 40.5 32 45.5 C 36.5 39.8 39.8 33 38.6 24.8 C 37.8 20.2 35 17.6 32 16.5 C 38 16.3 44.2 18.6 45 21.5 Z" 
+        fill="url(#afFusionWing)"/>
+
+  <!-- 6. Intersecting Laminar Core Air-Fusion Wave -->
+  <path d="M 32 18.5 C 29.5 23.8 29.2 29.8 32 34.5 C 34.8 29.8 34.5 23.8 32 18.5 Z" 
+        fill="#FFFFFF" 
+        fill-opacity="0.32"/>
+
+  <!-- 7. Ambient Fusion Plasma Core Halo -->
+  <circle cx="32" cy="31.5" r="7.5" fill="url(#afNexusCore)"/>
+
+  <!-- 8. Four-Point Precision Stellar Fusion Diamond (Core Metrology Nexus) -->
+  <path d="M 32 24.5 L 34.2 29.8 L 39.5 31.5 L 34.2 33.2 L 32 38.5 L 29.8 33.2 L 24.5 31.5 L 29.8 29.8 Z" 
+        fill="#FFFFFF" 
+        stroke="#BAE6FD" 
+        stroke-width="0.4"/>
+
+  <!-- 9. Micro Diamond Highlight Point -->
+  <circle cx="32" cy="31.5" r="1.6" fill="#FFFFFF"/>
+</svg>
         </span>
         <div class="brand-text">
           <h1>AirFusion</h1>
@@ -2571,8 +2496,25 @@
           <!-- Topbar Brand Chip (Active when sidebar collapsed or on mobile) -->
           <div class="topbar-brand-mark" id="topbarBrandMark" onclick="navigate('home')" title="AirFusion Home">
             <span class="brand-mini-icon">
-              <svg viewBox="0 0 64 64" aria-label="AirFusion Shield Logo">
-                <use href="#airfusion-shield-logo"></use>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22" fill="none">
+                <defs>
+                  <linearGradient id="tbBg" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#0F1E2E"/><stop offset="100%" stop-color="#081018"/>
+                  </linearGradient>
+                  <linearGradient id="tbBrd" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#FF6845"/>
+                  </linearGradient>
+                  <linearGradient id="tbAir" x1="16" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#0284C7"/>
+                  </linearGradient>
+                  <linearGradient id="tbFus" x1="48" y1="16" x2="32" y2="46" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#FFA07A"/><stop offset="100%" stop-color="#FF6845"/>
+                  </linearGradient>
+                </defs>
+                <path d="M 32 6.5 C 43.5 6.5 52 10.5 52 23 C 52 40 40 52.5 32 57.5 C 24 52.5 12 40 12 23 C 12 10.5 20.5 6.5 32 6.5 Z" fill="url(#tbBg)" stroke="url(#tbBrd)" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M 19 21.5 C 18.5 32.5 24 40.5 32 45.5 C 27.5 39.8 24.2 33 25.4 24.8 C 26.2 20.2 29 17.6 32 16.5 C 26 16.3 19.8 18.6 19 21.5 Z" fill="url(#tbAir)"/>
+                <path d="M 45 21.5 C 45.5 32.5 40 40.5 32 45.5 C 36.5 39.8 39.8 33 38.6 24.8 C 37.8 20.2 35 17.6 32 16.5 C 38 16.3 44.2 18.6 45 21.5 Z" fill="url(#tbFus)"/>
+                <path d="M 32 24 L 34 29.5 L 39.5 31.5 L 34 33 L 32 38.5 L 30 33 L 24.5 31.5 L 30 29.5 Z" fill="#FFFFFF"/>
               </svg>
             </span>
             <span class="topbar-brand-name">AirFusion</span>
@@ -2642,8 +2584,13 @@
         <!-- Global AirFusion Executive Footer -->
         <footer class="ag-footer">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <svg style="width: 22px; height: 22px; flex-shrink: 0;" viewBox="0 0 64 64" aria-hidden="true">
-              <use href="#airfusion-shield-logo"></use>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22" fill="none" style="flex-shrink: 0;">
+              <defs>
+                <linearGradient id="ftBg" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0F1E2E"/><stop offset="100%" stop-color="#081018"/></linearGradient>
+                <linearGradient id="ftBrd" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#FF6845"/></linearGradient>
+              </defs>
+              <path d="M 32 6.5 C 43.5 6.5 52 10.5 52 23 C 52 40 40 52.5 32 57.5 C 24 52.5 12 40 12 23 C 12 10.5 20.5 6.5 32 6.5 Z" fill="url(#ftBg)" stroke="url(#ftBrd)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M 32 24 L 34 29.5 L 39.5 31.5 L 34 33 L 32 38.5 L 30 33 L 24.5 31.5 L 30 29.5 Z" fill="#FFFFFF"/>
             </svg>
             <span>AirFusion Autonomous Environmental Intelligence &bull; WCAG AAA Certified &bull; Open-Meteo &amp; CAAQMS Network</span>
           </div>
