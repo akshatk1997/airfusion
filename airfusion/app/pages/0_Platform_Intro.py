@@ -338,7 +338,7 @@ tab_cartoons, tab_reallife = st.tabs([
 with tab_cartoons:
     safe_markdown("""
     <p style="font-family: var(--font-sans); font-size: 0.92rem; color: #5A6E85; line-height: 1.6; margin-bottom: 24px;">
-        Designed exclusively for <strong>Simple Mode</strong>, our friendly 3D Pixar/Disney-styled cartoon characters make atmospheric science intuitive and empowering for children, parents, and everyday walkers.
+        Designed exclusively for <strong>Simple Mode</strong>, our friendly 3D animated cartoon guardian characters make atmospheric science intuitive and empowering for children, parents, and everyday walkers.
     </p>
     """)
 

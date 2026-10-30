@@ -2830,7 +2830,7 @@
         <div><strong>ML Pipeline:</strong> LightGBM + XGBoost</div>
         <div><strong>Telemetry:</strong> Open-Meteo &amp; CAAQMS</div>
         <div><strong>Engine:</strong> airfusionOS &bull; Synoptic Weather &amp; Eco Engine</div>
-        <div style="margin-top: 6px; color: #10B981; font-weight: 700;">● 100% Zero Personal Tracking</div>
+        <div style="margin-top: 6px; color: #10B981; font-weight: 700;">● Private • No Account Needed (Public Meteorological APIs)</div>
       </div>
     </aside>
 
@@ -2951,7 +2951,7 @@
               <circle cx="32" cy="29.5" r="4.5" fill="#10B981" fill-opacity="0.4"/>
               <path d="M 32 21 L 34.2 27.5 L 40 29.5 L 34.2 31.5 L 32 38 L 29.8 31.5 L 24 29.5 L 29.8 27.5 Z" fill="#FFFFFF"/>
             </svg>
-            <span>AirFusion Autonomous Environmental Intelligence &bull; WCAG AAA Certified &bull; Open-Meteo &amp; CAAQMS Network</span>
+            <span>AirFusion Autonomous Environmental Intelligence &bull; Built with accessibility in mind &bull; Open-Meteo &amp; CAAQMS Network</span>
           </div>
           <div>
             Built with 🛡️ for Families, Athletes, Asthmatics &amp; Sensitive Airways
@@ -4648,30 +4648,30 @@
 
       if (lang === 'curl') {
         if (endpoint === 'telemetry') {
-          return `curl -X GET "https://airgd.vercel.app/api/v1/telemetry?city=${encodeURIComponent(city)}" \\\n  -H "Accept: application/json" \\\n  -H "User-Agent: AirFusion-Research-Client/2.4"`;
+          return `curl -X GET "https://airfusion.vercel.app/api/v1/telemetry?city=${encodeURIComponent(city)}" \\\n  -H "Accept: application/json" \\\n  -H "User-Agent: AirFusion-Research-Client/2.4"`;
         } else if (endpoint === 'forecast') {
-          return `curl -X GET "https://airgd.vercel.app/api/v1/forecast/72h?lat=${lat}&lon=${lon}" \\\n  -H "Accept: application/json"`;
+          return `curl -X GET "https://airfusion.vercel.app/api/v1/forecast/72h?lat=${lat}&lon=${lon}" \\\n  -H "Accept: application/json"`;
         } else if (endpoint === 'dispersion') {
-          return `curl -X POST "https://airgd.vercel.app/api/v1/dispersion/gaussian" \\\n  -H "Content-Type: application/json" \\\n  -d '{"emission_rate": 120.0, "stack_height": 65.0, "wind_speed": 4.5, "stability_class": "D", "downwind_m": 1200}'`;
+          return `curl -X POST "https://airfusion.vercel.app/api/v1/dispersion/gaussian" \\\n  -H "Content-Type: application/json" \\\n  -d '{"emission_rate": 120.0, "stack_height": 65.0, "wind_speed": 4.5, "stability_class": "D", "downwind_m": 1200}'`;
         } else {
-          return `curl -X GET "https://airgd.vercel.app/api/v1/regulatory/grap?aqi=${state.telemetry.aqi}" \\\n  -H "Accept: application/json"`;
+          return `curl -X GET "https://airfusion.vercel.app/api/v1/regulatory/grap?aqi=${state.telemetry.aqi}" \\\n  -H "Accept: application/json"`;
         }
       } else if (lang === 'python') {
         if (endpoint === 'telemetry') {
-          return `import requests\n\nurl = "https://airgd.vercel.app/api/v1/telemetry"\nparams = {"city": "${city}"}\nheaders = {"Accept": "application/json", "User-Agent": "AirFusion-Python/2.4"}\n\nres = requests.get(url, params=params, headers=headers, timeout=10)\nres.raise_for_status()\ntelemetry = res.json()\nprint(f"Station: {telemetry['airshed']['city']} | AQI: {telemetry['air_quality']['aqi']}")\nprint(f"PM2.5: {telemetry['pollutants_ug_m3']['pm25']} ug/m3")`;
+          return `import requests\n\nurl = "https://airfusion.vercel.app/api/v1/telemetry"\nparams = {"city": "${city}"}\nheaders = {"Accept": "application/json", "User-Agent": "AirFusion-Python/2.4"}\n\nres = requests.get(url, params=params, headers=headers, timeout=10)\nres.raise_for_status()\ntelemetry = res.json()\nprint(f"Station: {telemetry['airshed']['city']} | AQI: {telemetry['air_quality']['aqi']}")\nprint(f"PM2.5: {telemetry['pollutants_ug_m3']['pm25']} ug/m3")`;
         } else if (endpoint === 'forecast') {
-          return `import requests\nimport pandas as pd\n\nurl = "https://airgd.vercel.app/api/v1/forecast/72h"\nparams = {"lat": ${lat}, "lon": ${lon}}\n\nres = requests.get(url, params=params)\ndf_forecast = pd.DataFrame(res.json()["sample_next_6h"])\nprint(df_forecast)`;
+          return `import requests\nimport pandas as pd\n\nurl = "https://airfusion.vercel.app/api/v1/forecast/72h"\nparams = {"lat": ${lat}, "lon": ${lon}}\n\nres = requests.get(url, params=params)\ndf_forecast = pd.DataFrame(res.json()["sample_next_6h"])\nprint(df_forecast)`;
         } else if (endpoint === 'dispersion') {
-          return `import requests\n\npayload = {\n    "emission_rate": 120.0,\n    "stack_height": 65.0,\n    "wind_speed": 4.5,\n    "stability_class": "D",\n    "downwind_m": 1200\n}\nres = requests.post("https://airgd.vercel.app/api/v1/dispersion/gaussian", json=payload)\nprint("Ground Concentration:", res.json()["ground_level_concentration_ug_m3"])`;
+          return `import requests\n\npayload = {\n    "emission_rate": 120.0,\n    "stack_height": 65.0,\n    "wind_speed": 4.5,\n    "stability_class": "D",\n    "downwind_m": 1200\n}\nres = requests.post("https://airfusion.vercel.app/api/v1/dispersion/gaussian", json=payload)\nprint("Ground Concentration:", res.json()["ground_level_concentration_ug_m3"])`;
         } else {
-          return `import requests\n\nres = requests.get("https://airgd.vercel.app/api/v1/regulatory/grap", params={"aqi": ${state.telemetry.aqi}})\ngrap = res.json()\nprint("Active Statutory Tier:", grap["stage_name"])\nprint("Enforcement Mandates Required:", grap["immediate_enforcement_required"])`;
+          return `import requests\n\nres = requests.get("https://airfusion.vercel.app/api/v1/regulatory/grap", params={"aqi": ${state.telemetry.aqi}})\ngrap = res.json()\nprint("Active Statutory Tier:", grap["stage_name"])\nprint("Enforcement Mandates Required:", grap["immediate_enforcement_required"])`;
         }
       } else if (lang === 'javascript') {
-        return `async function queryAirFusion() {\n  const url = 'https://airgd.vercel.app/api/v1/telemetry?city=${encodeURIComponent(city)}';\n  const res = await fetch(url, { headers: { 'Accept': 'application/json' } });\n  const data = await res.json();\n  console.log('AirFusion Telemetry:', data);\n}\nqueryAirFusion();`;
+        return `async function queryAirFusion() {\n  const url = 'https://airfusion.vercel.app/api/v1/telemetry?city=${encodeURIComponent(city)}';\n  const res = await fetch(url, { headers: { 'Accept': 'application/json' } });\n  const data = await res.json();\n  console.log('AirFusion Telemetry:', data);\n}\nqueryAirFusion();`;
       } else if (lang === 'node') {
-        return `const axios = require('axios');\n\nasync function getAirFusionSentry() {\n  const response = await axios.get('https://airgd.vercel.app/api/v1/telemetry', {\n    params: { city: '${city}' },\n    timeout: 8000\n  });\n  console.log('AQI:', response.data.air_quality.aqi);\n}\ngetAirFusionSentry();`;
+        return `const axios = require('axios');\n\nasync function getAirFusionSentry() {\n  const response = await axios.get('https://airfusion.vercel.app/api/v1/telemetry', {\n    params: { city: '${city}' },\n    timeout: 8000\n  });\n  console.log('AQI:', response.data.air_quality.aqi);\n}\ngetAirFusionSentry();`;
       } else {
-        return `# R (httr & jsonlite)\nlibrary(httr)\nlibrary(jsonlite)\n\nres <- GET("https://airgd.vercel.app/api/v1/telemetry", query = list(city = "${city}"))\ntelemetry <- fromJSON(content(res, as = "text", encoding = "UTF-8"))\nprint(paste("AQI in ${city}:", telemetry$air_quality$aqi))`;
+        return `# R (httr & jsonlite)\nlibrary(httr)\nlibrary(jsonlite)\n\nres <- GET("https://airfusion.vercel.app/api/v1/telemetry", query = list(city = "${city}"))\ntelemetry <- fromJSON(content(res, as = "text", encoding = "UTF-8"))\nprint(paste("AQI in ${city}:", telemetry$air_quality$aqi))`;
       }
     }
 
@@ -5755,11 +5755,11 @@
       const sc = STORY_CHAPTERS[state.storyChapterIndex];
 
       return `
-        <!-- 3D ANIMATED PIXAR CARTOON SHOWCASE -->
+        <!-- 3D ANIMATED CHARACTER SHOWCASE -->
         <section class="ag-3d-stage">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
             <div>
-              <div class="ag-badge ag-badge-coral">✨ AIRFUSION 3D ANIMATED UNIVERSE &bull; CLEAN AIR FUSIONIANS</div>
+              <div class="ag-badge ag-badge-coral">✨ AIRFUSION 3D CHARACTER GUARDIANS &bull; CLEAN AIR FUSIONIANS (SIMULATED VISUALIZATIONS)</div>
               <h2 style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: var(--text-navy); margin-top: 4px;">
                 Live 3D Guardians: Mood &amp; Weather Reactive
               </h2>
@@ -5783,7 +5783,7 @@
 
           <!-- Panoramic 3D Scene with Dynamic Atmospheric Lighting -->
           <div class="ag-3d-panoramic-box" style="background: ${m.glow};">
-            <img src="/assets/images/airfusion_3d_cartoon_panoramic.jpg" alt="AirFusion 3D Pixar Diorama" class="ag-3d-panoramic-img" onerror="this.src='/assets/images/real_city_skyline_telemetry.jpg'" />
+            <img src="/assets/images/airfusion_3d_cartoon_panoramic.jpg" alt="AirFusion 3D Character Diorama" class="ag-3d-panoramic-img" onerror="this.src='/assets/images/real_city_skyline_telemetry.jpg'" />
 
             <div class="ag-3d-overlay-badge" style="top: 20px; left: 24px;">
               <span style="font-size: 1.25rem;">☁️</span>
@@ -6691,7 +6691,7 @@
             </div>
             <div class="decision-info-box">
               <h4>🛡️ Privacy &amp; Edge Compute Verification</h4>
-              <p>Stateless client-side execution on Vercel Edge with zero personally identifiable data persistence, WCAG AAA accessibility compliance, and sub-15ms inference latency.</p>
+              <p>Stateless client-side execution on Vercel Edge with zero personally identifiable data persistence, High-contrast accessibility design, and sub-15ms inference latency.</p>
             </div>
           </div>
         </section>
@@ -7861,7 +7861,7 @@
             <div class="decision-info-box">
               <h4>🛡️ Privacy &amp; Edge Compute Verification</h4>
               <p style="font-size: 0.84rem; line-height: 1.6;">
-                Stateless client-side execution on Vercel Edge with zero personally identifiable data persistence, WCAG AAA accessibility compliance, and sub-15ms inference latency.
+                Stateless client-side execution on Vercel Edge with zero personally identifiable data persistence, High-contrast accessibility design, and sub-15ms inference latency.
               </p>
             </div>
           </div>

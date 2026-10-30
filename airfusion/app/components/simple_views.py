@@ -169,7 +169,7 @@ def render_simple_home(active_city: str) -> None:
     except Exception:
         timestamp_display = raw_ts or "Live Ground Tracking"
 
-    # 0. Animated 3D Pixar Cartoon Project Showcase (bridges mode banner and hero section)
+    # 0. Animated 3D Character Project Showcase (bridges mode banner and hero section)
     render_simple_3d_cartoon_showcase(
         city_name=city_display,
         pm25_val=pm25_val,

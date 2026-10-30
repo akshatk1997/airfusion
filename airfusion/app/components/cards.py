@@ -1,6 +1,6 @@
 """
 Modern Environmental Tech UI Cards Component for AirFusion.
-Features WCAG AAA high-contrast badges, dynamic progress scale bars,
+Features high-contrast accessibility badges, dynamic progress scale bars,
 and cinematic atmospheric lighting.
 """
 
@@ -14,7 +14,7 @@ from app.components.design_system import safe_markdown
 def get_aqi_badge_style(aqi: int) -> Dict[str, str]:
     """
     Returns accessible high-contrast colors and cinematic lighting styles based on AQI value.
-    Complies with WCAG AAA contrast guidelines with atmospheric optical glow effects.
+    Complies with high-contrast accessibility guidelines with atmospheric optical glow effects.
     """
     if aqi <= 50:
         return {

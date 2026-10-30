@@ -4,7 +4,7 @@
 
 # AirFusion — Autonomous Environmental Intelligence & Safe Outdoor Platform
 
-[![Live Production](https://img.shields.io/badge/Production-airgd.vercel.app-FF6845?style=for-the-badge&logo=vercel&logoColor=white)](https://airgd.vercel.app)
+[![Live Production](https://img.shields.io/badge/Production-airfusion.vercel.app-10B981?style=for-the-badge&logo=vercel&logoColor=white)](https://airfusion.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-akshatk1997%2Fairfusion-1F344C?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akshatk1997/airfusion)
 [![CI](https://github.com/akshatk1997/airfusion/actions/workflows/ci.yml/badge.svg)](https://github.com/akshatk1997/airfusion/actions/workflows/ci.yml)
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-38BDF8?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
@@ -14,7 +14,7 @@
 
 A next-generation, dual-experience environmental intelligence platform combining **human-first simple storytelling** with a **7-tool quantitative atmospheric engineering & metrology workbench**.
 
-[🌐 Explore Live Production Deployment](https://airgd.vercel.app) &bull; [📑 Read Architectural Spec](#-dual-experience-architecture-simple-vs-technical) &bull; [🛠️ 7 Technical Instruments](#-the-7-tool-interactive-instrument-suite-technical-mode) &bull; [🧪 Run Test Suite](#-test-suite--quality-assurance-6060-passing)
+[🌐 Explore Live Production Deployment](https://airfusion.vercel.app) &bull; [📑 Read Architectural Spec](#-dual-experience-architecture-simple-vs-technical) &bull; [🛠️ 7 Technical Instruments](#-the-7-tool-interactive-instrument-suite-technical-mode) &bull; [🧪 Run Test Suite](#-test-suite--quality-assurance-6060-passing)
 
 </div>
 
@@ -58,7 +58,7 @@ At the same time, environmental engineers, atmospheric researchers, and policy d
 
 **AirFusion resolves this dichotomy through a synchronized Dual-Experience Engine.** The exact same underlying multi-pollutant telemetry feeds two parallel, specialized interfaces:
 - **Simple Mode**: Translates complex physics into human-first analogies, 3D animated guardian sentries with live mood reactivity, child-friendly storybooks, and plain-language action directives.
-- **Technical Mode**: Unlocks an institutional-grade analytical workbench with 7 interactive mathematical instruments, SVG sounding profiles, Gaussian plume dispersion curves, and live developer API code generation.
+- **Technical Mode**: Unlocks an advanced atmospheric engineering workbench with 7 interactive mathematical instruments, SVG sounding profiles, Gaussian plume dispersion curves, and live developer API code generation.
 
 ---
 
@@ -84,7 +84,7 @@ Users can toggle view modes instantly via the topbar or sidebar. Both modes shar
 ## 🌿 Simple Mode: Human-First Air Storytelling
 
 ### 1. 3D Animated Cartoon Guardians & Live Mood Reactivity
-Simple Mode features four specialized 3D animated guardians designed with Pixar-grade diorama aesthetics:
+Simple Mode features four specialized 3D animated guardians designed with character diorama aesthetics:
 - **☁️ Aero (The Sky Scout)**: Soars above rooftops with optical laser sensors to detect smoke and clean wind currents.
 - **🏡 Haven (The Cozy Home Protector)**: Shields bedrooms and living rooms, managing window ventilation and HEPA purification.
 - **🛡️ Nova (The Health Shield)**: Recommends soft N95 protective masks and hydration for sensitive lungs, grandparents, and toddlers.
@@ -225,7 +225,7 @@ Technical Mode integrates a full-scale institutional atmospheric laboratory dire
 
 ## 🫁 Clinical Dosimetric Respiratory Models
 
-Technical Mode expands the [My Safe Outdoor Plan](https://airgd.vercel.app) module into a clinical dosimetric workstation:
+Technical Mode expands the [My Safe Outdoor Plan](https://airfusion.vercel.app) module into a clinical dosimetric workstation:
 - **Minute Ventilation Formulation**:
   $$V_E = V_T \times f_R \times \left(\frac{\text{MET}}{1.0}\right) \quad (\text{L/min})$$
 - **Total Inhaled Particulate Mass**:

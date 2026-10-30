@@ -1357,7 +1357,7 @@ def render_simple_3d_cartoon_showcase(
     weather_data: Optional[dict] = None
 ) -> None:
     """
-    Renders an animated 3D Pixar-style cartoon showcase diorama of the AirFusion project.
+    Renders an animated 3D animated cartoon showcase diorama of the AirFusion project.
     Live active characters dynamically change their mood, voice lines, animations,
     lighting, speech bubbles, and badges based on the active region, air quality, and real-time weather.
     Includes an interactive mood previewer to experience the full guardian emotional spectrum.
@@ -1491,7 +1491,7 @@ def render_simple_3d_cartoon_showcase(
 
         <!-- Panoramic 3D Scene with Dynamic Atmospheric Lighting -->
         <div class="ag-3d-panoramic-box" id="ag3dPanoramicContainer" style="background: {mood['atmosphere_glow']};">
-            <img src="{panoramic_b64}" alt="AirFusion 3D Pixar Diorama" class="ag-3d-panoramic-img" />
+            <img src="{panoramic_b64}" alt="AirFusion 3D Character Diorama" class="ag-3d-panoramic-img" />
             
             <!-- Dynamic Atmosphere Lighting & Particle Overlays -->
             <div style="position: absolute; inset: 0; pointer-events: none; z-index: 2; background: {mood['atmosphere_glow']}; mix-blend-mode: color-burn; opacity: 0.65;"></div>
@@ -2206,7 +2206,7 @@ def render_airfusion_executive_footer() -> None:
                     <li>Open-Meteo Ingestion</li>
                     <li>XGBoost Multi-Horizon</li>
                     <li>SQLite WAL Persistence</li>
-                    <li>WCAG AAA Tokens</li>
+                    <li>Accessibility Tokens</li>
                 </ul>
             </div>
 
@@ -2234,7 +2234,7 @@ def render_airfusion_executive_footer() -> None:
                 <span>•</span>
                 <span>Open Data Attributions</span>
                 <span>•</span>
-                <span>WCAG AAA Accessible</span>
+                <span>Accessibility Focused</span>
             </div>
         </div>
     </footer>
