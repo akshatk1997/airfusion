@@ -2619,6 +2619,7 @@
       box-shadow: 0 4px 18px rgba(239, 68, 68, 0.12);
     }
   </style>
+  <script src="js/photo-aqi.js" defer></script>
 </head>
 <body>
 
@@ -2777,6 +2778,11 @@
         <li class="st-nav-item">
           <button id="nav-news" onclick="navigate('news')">
             <span class="nav-icon">📰</span> Verified News &amp; Videos
+          </button>
+        </li>
+        <li class="st-nav-item" id="nav-item-photo" style="display: none;">
+          <button id="nav-photo" onclick="navigate('photo')">
+            <span class="nav-icon">📸</span> Photo AQI Fusion
           </button>
         </li>
       </ul>
@@ -2986,6 +2992,9 @@
   <!-- Main Application Logic & View Engines -->
   <script>
     // State Management
+
+    // Phase 2 Feature Flag: CNN Photo AQI Fusion Module (Default: false)
+    window.ENABLE_CNN_FUSION = false;
     const state = {
       currentPage: 'home',
       viewMode: 'simple', // 'simple' | 'technical'
@@ -4532,6 +4541,13 @@
           break;
         case 'news':
           mount.innerHTML = isSimple ? renderNewsSimple() : renderNewsTechnical();
+          break;
+        case 'photo':
+          if (window.ENABLE_CNN_FUSION && typeof window.renderPhotoAqiSimple === 'function') {
+            mount.innerHTML = isSimple ? window.renderPhotoAqiSimple() : window.renderPhotoAqiTechnical();
+          } else {
+            mount.innerHTML = isSimple ? renderHomeSimple() : renderHomeTechnical();
+          }
           break;
         default:
           mount.innerHTML = isSimple ? renderHomeSimple() : renderHomeTechnical();

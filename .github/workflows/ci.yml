@@ -32,10 +32,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run pytest test suite
+      - name: Run pytest test suite (Physics & ML Pipeline)
         run: |
-          pytest airfusion/tests/ -v
+          pytest airfusion/tests/ ml/tests/ -v
 
       - name: Verify JavaScript atmospheric physics with Node.js against golden vectors
         run: |
           node tests/verify_js_golden.js
+
+      - name: Verify CNN Photo Module Feature Flag & Graceful Mode C Fallback
+        run: |
+          node tests/test_cnn_fusion_flag.js

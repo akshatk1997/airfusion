@@ -40,3 +40,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Updated Model Diagnostics UI to display verified multi-model and multi-horizon benchmarks from `reports/metrics.json`, replacing fabricated LightGBM/CatBoost metrics.
 - `airfusion/tests/test_ui.py`: Optimized `is_server_running` HTTP health check with result caching and a 0.5s timeout, reducing test suite startup from 48 seconds to instant.
 - `README.md`, `airfusion/README.md`: Reconciled 24h vs 72h lead horizons, added multi-horizon evaluation table, corrected Berkeley Earth formula, documented physical ground station truth gap and OpenAQ v3 API key requirement, and affirmed production client-side vs local Streamlit architecture.
+
+### Phase 2: CNN Photo AQI Fusion Module (Behind `ENABLE_CNN_FUSION`)
+- `DATA_SOURCES.md`: License analysis and documentation for PM25Vision (CC-BY-4.0), Air Pollution Image Dataset from India and Nepal (CC0-1.0), Dhaka Smartphone PM2.5 Dataset (CC-BY-4.0), and HVAQ Dataset.
+- `TRAINING.md`: End-to-end instructions for dataset acquisition, preprocessing, MobileNetV3 fine-tuning, and ONNX export.
+- `ml/README.md`: Architectural documentation for atmospheric vision modeling and residual fusion.
+- `ml/dataset.py`: PyTorch dataset loader with perceptual hashing (`dHash`) deduplication and zero-leakage station/time-aware partitioning.
+- `ml/model.py`: MobileNetV3-Small vision backbone with heteroscedastic uncertainty regression head and OOD gating.
+- `ml/train.py`: Offline training pipeline with early stopping and evaluation metric tracking.
+- `ml/export_onnx.py`: Quantization and export script targeting `public/models/airfusion_cnn_v1.onnx` (<10 MB).
+- `ml/notebooks/Train_AirFusion_CNN.ipynb`: Colab-ready notebook for GPU training and one-click ONNX export.
+- `ml/tests/test_cnn_pipeline.py`: Pytest suite (5 passed) covering transforms, hashing, station-day partitioning, model forward pass, and residual fusion limits.
+- `public/js/photo-aqi.js`: Client-side browser module loading `onnxruntime-web`, offscreen canvas 224x224 extraction, residual fusion, and Mode C fallback.
+- `public/index.html`: Integrated `window.ENABLE_CNN_FUSION = false` flag, external script inclusion, sidebar navigation hook, and page routing.
+- `tests/test_cnn_fusion_flag.js`: Node.js test suite (8 passed) validating flag gating, Mode C fallback, and Data & Credits citations.
+- `.github/workflows/ci.yml`: Integrated `ml/tests/` pytest and `test_cnn_fusion_flag.js` into CI workflow.
