@@ -1,6 +1,12 @@
 """
 Vercel Serverless Function Entry Point for AirFusion Environmental Intelligence.
 Serves the web gateway and redirects to active deployment.
+
+SERVERLESS HYGIENE GUARANTEES:
+1. Purely stateless execution — zero reliance on local disk or SQLite databases.
+2. Read-only operation: passes public/index.html to response stream.
+3. Telemetry database logging operates exclusively in the local Streamlit application
+   (airfusion/src/database.py & airfusion/app/Home.py).
 """
 
 from http.server import BaseHTTPRequestHandler

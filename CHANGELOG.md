@@ -22,3 +22,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `.vercelignore`: Added `ml/`, `reports/`, and `scratch/` to prevent training scripts and raw files from bundling into Vercel deployment.
 - `public/index.html`: Standardized API code samples to `https://airfusion.vercel.app`; replaced "WCAG AAA Certified" with "Built with accessibility in mind"; replaced "100% Zero Personal Tracking" with truthful privacy statement; labeled telemetry overlays and 3D guardians as simulated educational visuals.
 - `airfusion/app/components/cards.py`, `simple_cards.py`, `simple_views.py`, `pages/0_Platform_Intro.py`: Removed "Pixar" brand references and unverified accessibility certificates.
+- `api/index.py`: Added explicit architectural docstrings affirming stateless read-only operation with zero database dependencies.
+- `README.md`, `airfusion/README.md`: Added serverless hygiene note documenting that SQLite logging is scoped strictly to local Streamlit execution.

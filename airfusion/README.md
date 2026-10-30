@@ -278,6 +278,10 @@ AirFusion benchmarks multi-step tabular and sequence models on multi-city chrono
 
 ## 🏗️ System Architecture & File Layout
 
+> **Serverless Hygiene & Telemetry Persistence Note**:
+> The Vercel production deployment (`api/index.py`) operates as a purely stateless, read-only gateway with zero disk writes and zero SQLite database dependencies. Persistent telemetry database logging and automated polling run exclusively in the local Streamlit environment (`airfusion/app/Home.py`) using SQLite (`airfusion/data/airfusion.db`).
+
+
 ```text
 airfusion-project/
 ├── public/
