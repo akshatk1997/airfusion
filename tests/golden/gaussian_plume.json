@@ -1,0 +1,68 @@
+[
+  {
+    "emission_rate_gs": 50.0,
+    "stack_height_m": 35.0,
+    "wind_speed_ms": 4.0,
+    "stability_class": "A",
+    "downwind_dist_m": 500.0,
+    "crosswind_dist_m": 0.0,
+    "sigma_y_m": 107.349,
+    "sigma_z_m": 100.0,
+    "expected_concentration_ug_m3": 348.6274
+  },
+  {
+    "emission_rate_gs": 120.0,
+    "stack_height_m": 65.0,
+    "wind_speed_ms": 4.5,
+    "stability_class": "D",
+    "downwind_dist_m": 1200.0,
+    "crosswind_dist_m": 0.0,
+    "sigma_y_m": 90.7115,
+    "sigma_z_m": 43.0282,
+    "expected_concentration_ug_m3": 694.8138
+  },
+  {
+    "emission_rate_gs": 120.0,
+    "stack_height_m": 65.0,
+    "wind_speed_ms": 4.5,
+    "stability_class": "D",
+    "downwind_dist_m": 1200.0,
+    "crosswind_dist_m": 50.0,
+    "sigma_y_m": 90.7115,
+    "sigma_z_m": 43.0282,
+    "expected_concentration_ug_m3": 596.8908
+  },
+  {
+    "emission_rate_gs": 80.0,
+    "stack_height_m": 50.0,
+    "wind_speed_ms": 3.0,
+    "stability_class": "C",
+    "downwind_dist_m": 800.0,
+    "crosswind_dist_m": 0.0,
+    "sigma_y_m": 84.678,
+    "sigma_z_m": 59.4225,
+    "expected_concentration_ug_m3": 1184.0094
+  },
+  {
+    "emission_rate_gs": 200.0,
+    "stack_height_m": 100.0,
+    "wind_speed_ms": 6.0,
+    "stability_class": "B",
+    "downwind_dist_m": 2500.0,
+    "crosswind_dist_m": 100.0,
+    "sigma_y_m": 357.7709,
+    "sigma_z_m": 300.0,
+    "expected_concentration_ug_m3": 89.9312
+  },
+  {
+    "emission_rate_gs": 30.0,
+    "stack_height_m": 20.0,
+    "wind_speed_ms": 2.0,
+    "stability_class": "F",
+    "downwind_dist_m": 400.0,
+    "crosswind_dist_m": 0.0,
+    "sigma_y_m": 15.6893,
+    "sigma_z_m": 5.7143,
+    "expected_concentration_ug_m3": 116.4991
+  }
+]

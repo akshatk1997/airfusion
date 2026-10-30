@@ -1,0 +1,142 @@
+[
+  {
+    "pollutant": "pm25",
+    "concentration": 8.5,
+    "standard": "EPA",
+    "expected_aqi": 35,
+    "expected_category": "Good"
+  },
+  {
+    "pollutant": "pm25",
+    "concentration": 42.0,
+    "standard": "EPA",
+    "expected_aqi": 117,
+    "expected_category": "Unhealthy for Sensitive Groups"
+  },
+  {
+    "pollutant": "pm25",
+    "concentration": 95.0,
+    "standard": "EPA",
+    "expected_aqi": 171,
+    "expected_category": "Unhealthy"
+  },
+  {
+    "pollutant": "pm25",
+    "concentration": 215.0,
+    "standard": "EPA",
+    "expected_aqi": 265,
+    "expected_category": "Very Unhealthy"
+  },
+  {
+    "pollutant": "pm10",
+    "concentration": 45.0,
+    "standard": "EPA",
+    "expected_aqi": 42,
+    "expected_category": "Good"
+  },
+  {
+    "pollutant": "pm10",
+    "concentration": 185.0,
+    "standard": "EPA",
+    "expected_aqi": 116,
+    "expected_category": "Unhealthy for Sensitive Groups"
+  },
+  {
+    "pollutant": "no2",
+    "concentration": 34.0,
+    "standard": "EPA",
+    "expected_aqi": 32,
+    "expected_category": "Good"
+  },
+  {
+    "pollutant": "so2",
+    "concentration": 45.0,
+    "standard": "EPA",
+    "expected_aqi": 62,
+    "expected_category": "Moderate"
+  },
+  {
+    "pollutant": "co",
+    "concentration": 6.5,
+    "standard": "EPA",
+    "expected_aqi": 71,
+    "expected_category": "Moderate"
+  },
+  {
+    "pollutant": "o3",
+    "concentration": 68.0,
+    "standard": "EPA",
+    "expected_aqi": 93,
+    "expected_category": "Moderate"
+  },
+  {
+    "pollutant": "pm25",
+    "concentration": 25.0,
+    "standard": "CPCB",
+    "expected_aqi": 42,
+    "expected_category": "Good"
+  },
+  {
+    "pollutant": "pm25",
+    "concentration": 55.0,
+    "standard": "CPCB",
+    "expected_aqi": 92,
+    "expected_category": "Satisfactory"
+  },
+  {
+    "pollutant": "pm25",
+    "concentration": 115.0,
+    "standard": "CPCB",
+    "expected_aqi": 283,
+    "expected_category": "Poor"
+  },
+  {
+    "pollutant": "pm25",
+    "concentration": 320.0,
+    "standard": "CPCB",
+    "expected_aqi": 428,
+    "expected_category": "Severe"
+  },
+  {
+    "pollutant": "pm10",
+    "concentration": 45.0,
+    "standard": "CPCB",
+    "expected_aqi": 45,
+    "expected_category": "Good"
+  },
+  {
+    "pollutant": "pm10",
+    "concentration": 180.0,
+    "standard": "CPCB",
+    "expected_aqi": 153,
+    "expected_category": "Moderate"
+  },
+  {
+    "pollutant": "no2",
+    "concentration": 65.0,
+    "standard": "CPCB",
+    "expected_aqi": 81,
+    "expected_category": "Satisfactory"
+  },
+  {
+    "pollutant": "so2",
+    "concentration": 42.0,
+    "standard": "CPCB",
+    "expected_aqi": 52,
+    "expected_category": "Satisfactory"
+  },
+  {
+    "pollutant": "co",
+    "concentration": 4.5,
+    "standard": "CPCB",
+    "expected_aqi": 131,
+    "expected_category": "Moderate"
+  },
+  {
+    "pollutant": "o3",
+    "concentration": 75.0,
+    "standard": "CPCB",
+    "expected_aqi": 75,
+    "expected_category": "Satisfactory"
+  }
+]

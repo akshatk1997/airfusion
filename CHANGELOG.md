@@ -15,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `LICENSE`: MIT License with copyright holder Akshat Kumar.
 - `.github/workflows/ci.yml`: Automated CI workflow executing pytest on push and pull request.
 - `api/requirements.txt`: Lightweight requirements specification for Vercel serverless function (standard library only).
+- `tests/golden/*.json`: Canonical shared test vectors for Gaussian plume, Köhler equation, Ångström exponent, ventilation coefficient, and EPA/CPCB AQI sub-indices.
+- `airfusion/src/physics_models.py`: Python metrological model implementations matching client-side equations.
+- `airfusion/tests/test_golden_vectors.py`: Pytest suite verifying Python physics models against golden test vectors.
+- `tests/verify_js_golden.js`: Node.js test runner validating JavaScript physics against golden test vectors.
 
 ### Changed
 - `airfusion/LICENSE`: Updated copyright holder to Akshat Kumar.

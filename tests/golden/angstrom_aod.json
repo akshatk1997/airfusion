@@ -1,0 +1,32 @@
+[
+  {
+    "tau_440": 0.85,
+    "tau_870": 0.35,
+    "expected_alpha": 1.3015,
+    "expected_tau_550": 0.6358
+  },
+  {
+    "tau_440": 1.4,
+    "tau_870": 0.95,
+    "expected_alpha": 0.5688,
+    "expected_tau_550": 1.2331
+  },
+  {
+    "tau_440": 0.45,
+    "tau_870": 0.12,
+    "expected_alpha": 1.9388,
+    "expected_tau_550": 0.292
+  },
+  {
+    "tau_440": 2.1,
+    "tau_870": 1.65,
+    "expected_alpha": 0.3537,
+    "expected_tau_550": 1.9406
+  },
+  {
+    "tau_440": 0.2,
+    "tau_870": 0.08,
+    "expected_alpha": 1.344,
+    "expected_tau_550": 0.1482
+  }
+]

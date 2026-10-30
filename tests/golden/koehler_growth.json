@@ -1,0 +1,52 @@
+[
+  {
+    "raw_pm25": 45.0,
+    "zero_offset": 0.0,
+    "span_coeff": 1.0,
+    "relative_humidity": 50.0,
+    "a_coeff": 0.25,
+    "b_coeff": 0.9,
+    "expected_f_rh": 1.25,
+    "expected_corrected_pm25": 36.0
+  },
+  {
+    "raw_pm25": 85.0,
+    "zero_offset": 2.0,
+    "span_coeff": 1.05,
+    "relative_humidity": 80.0,
+    "a_coeff": 0.28,
+    "b_coeff": 0.95,
+    "expected_f_rh": 2.045,
+    "expected_corrected_pm25": 38.6542
+  },
+  {
+    "raw_pm25": 120.0,
+    "zero_offset": 0.0,
+    "span_coeff": 1.0,
+    "relative_humidity": 92.0,
+    "a_coeff": 0.25,
+    "b_coeff": 0.9,
+    "expected_f_rh": 3.252,
+    "expected_corrected_pm25": 36.9004
+  },
+  {
+    "raw_pm25": 25.0,
+    "zero_offset": 1.5,
+    "span_coeff": 0.98,
+    "relative_humidity": 30.0,
+    "a_coeff": 0.22,
+    "b_coeff": 0.88,
+    "expected_f_rh": 1.1044,
+    "expected_corrected_pm25": 21.7132
+  },
+  {
+    "raw_pm25": 150.0,
+    "zero_offset": 5.0,
+    "span_coeff": 1.1,
+    "relative_humidity": 98.0,
+    "a_coeff": 0.3,
+    "b_coeff": 1.0,
+    "expected_f_rh": 15.7,
+    "expected_corrected_pm25": 8.3961
+  }
+]

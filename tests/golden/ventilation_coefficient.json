@@ -1,0 +1,27 @@
+[
+  {
+    "pbl_height_m": 1250.0,
+    "wind_speed_kmh": 12.5,
+    "expected_ventilation_index_m2_s": 4340.0
+  },
+  {
+    "pbl_height_m": 450.0,
+    "wind_speed_kmh": 4.0,
+    "expected_ventilation_index_m2_s": 500.0
+  },
+  {
+    "pbl_height_m": 800.0,
+    "wind_speed_kmh": 7.2,
+    "expected_ventilation_index_m2_s": 1600.0
+  },
+  {
+    "pbl_height_m": 2200.0,
+    "wind_speed_kmh": 24.0,
+    "expected_ventilation_index_m2_s": 14667.0
+  },
+  {
+    "pbl_height_m": 320.0,
+    "wind_speed_kmh": 2.5,
+    "expected_ventilation_index_m2_s": 222.0
+  }
+]
