@@ -116,3 +116,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - All page renders & interactive action handlers (`scratch/test_all_renders.js`, 18/18 renders, 26/26 handlers passed).
   - Floating semi-round Dual-AI tests (`scratch/test_floating_ai_interactive.js`, 7/7 passed).
   - Python test suite (`python -m pytest airfusion/tests ml/tests`, 64/64 passed, 8 skipped).
+
+
+## [Comprehensive Dual-Mode Landing Page & Welcome Experience] - 2026-11-26
+### Added & Updated
+- **Dedicated Dual-Mode Landing Page Engine (`renderLandingSimple` & `renderLandingTechnical`)**:
+  - **Simple Mode Experience**:
+    - **Atmospheric Family Sanctuary Hero**: Master botanical branding badge, headline "Breathe Freely. Plan Confidently. Protect Every Breath", live atmospheric compass HUD with active city selector, dynamic AQI category badge, and 1-click audio story summary.
+    - **Philosophy & Value Proposition Cards**: 4 core cards contrasting raw lagging scores with AirFusion's human-first guidance (Zero Guesswork, Clean Sunshine Windows, Personalized Inhaled Dose, Peaceful Indoor Fortress).
+    - **Interactive "Clean Air Window Finder" Mini-Widget**: Instant calculation of safe hours and gear for Toddler & Playground Play 🛴, Morning Cardio 🏃, City Cycling & Commute 🚴, and Senior Evening Walks 🚶.
+    - **Guardian Sentinels Character Showcase**: Interactive character cards for Aero, Flash, Nova, and Haven with voice playback buttons (`playGuardianVoice`).
+    - **8 Intelligence Modules Showcase Grid**: Direct interactive launch cards for Home Command Center, Safe Outdoor Plan, Live Tracking & Sentry, Trends & Analytics, Model Diagnostics, Guardians Tour & Quest, City Comparison Radar, and Verified News.
+    - **CTA Finale**: Eco-sanctuary action banner inviting families to enter the command center, explore city comparison, or chat with Aero AI.
+  - **Technical Mode Experience**:
+    - **Atmospheric Command Hero**: CAAQMS sentry array badge, headline "Autonomous Atmospheric Intelligence & Mesoscale Physics", live boundary layer microphysics HUD (PBLH, Dew point, ventilation coefficient $V_c = H_{mix} \cdot U_{10}$, inversion regime status), and audio briefing.
+    - **4 Mathematical Architecture Pillars**: Detailed technical cards for Data Assimilation, Gradient-Boosted ML (XGBoost Test MAE 20.47 µg/m³), Gaussian Plume Dispersion Kinetics, and Clinical Inhalation Dosimetry (ICRP 66).
+    - **Stateless Edge Runtime Showcase**: Real-time telemetry inspector, Vercel Serverless latency verification, and regulatory scale documentation.
+    - **Technical Sentry Subsystems Directory**: Direct links to all mathematical modeling engines.
+- **Routing & Navigation Integration**:
+  - Added `✨ Welcome & Landing` (`#nav-landing`) as the top-most item in the sidebar navigation menu.
+  - Connected sidebar brand link and collapsed topbar brand mark to navigate smoothly to `landing`.
+  - Configured initial state to launch into `currentPage: 'landing'` while preserving seamless 1-click access to the full live Home Command Center.
+  - Aliased `renderIntroSimple` and `renderIntroTechnical` to the landing page engine for full backward compatibility.
+- **Testing & Verification**:
+  - Added `scratch/test_landing_interactive.js` verifying initial state, simple/technical renders, activity switching, and navigation transitions.
+  - Node golden vector tests (83/83 passed).
+  - CNN module flag tests (8/8 passed).
+  - Full view & action handler suite (18/18 renders, 26/26 handlers passed).
+  - Floating semi-round Dual-AI tests (7/7 passed).
+  - Python test suite (`pytest airfusion/tests ml/tests`, 64/64 passed, 8 skipped).
