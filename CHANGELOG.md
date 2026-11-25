@@ -145,3 +145,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Full view & action handler suite (18/18 renders, 26/26 handlers passed).
   - Floating semi-round Dual-AI tests (7/7 passed).
   - Python test suite (`pytest airfusion/tests ml/tests`, 64/64 passed, 8 skipped).
+
+
+## [Standalone Product Landing Page & Dedicated 'Go Live' Separation] - 2026-11-26
+### Added & Updated
+- **Physical Decoupling of Product Landing Page & Main Work Workspace**:
+  - Implemented standalone `#standaloneLandingPage` container completely detached from the internal `#app-root` dashboard layout.
+  - On initial visit, internal sidebars, place search bars, and complex working tools are hidden, providing a clean, distraction-free product landing experience.
+  - Dedicated sticky top navigation bar with botanical brand mark, anchor links (`What It Is`, `Work Modules`, `Activity Finder`, `Eco Guardians`, `Science & Trust`), dynamic Simple/Technical view mode toggle, and a glowing `🚀 Go Live` call-to-action button.
+- **Dual-Workspace Controller & Transition Mechanics (`goLive` & `exitToLanding`)**:
+  - `goLive(targetPage)`: Transitions from the standalone landing page into the live working tool (`#app-root`), mounts the requested module (defaulting to Home Command Center), highlights the corresponding sidebar navigation item, and scrolls to top.
+  - `exitToLanding()`: Smoothly hides the working dashboard and restores the standalone product landing page.
+  - Main work page topbar now features a persistent `🌿 Product Overview` button, and the sidebar features a `🌿 Exit to Product Landing` action for instant round-trip navigation.
+- **Verification**:
+  - Transition mechanics suite (`scratch/test_standalone_transition.js` passed 100%).
+  - Full view & action handler suite (18/18 renders, 26/26 handlers passed).
+  - Floating semi-round Dual-AI tests (7/7 passed).
+  - Python test suite (64/64 passed, 8 skipped).

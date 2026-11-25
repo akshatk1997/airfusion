@@ -3443,12 +3443,258 @@
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
     }
 
+
+    /* ========================================================================= */
+    /* STANDALONE PRODUCT LANDING PAGE STYLES                                    */
+    /* ========================================================================= */
+    #standaloneLandingPage {
+      min-height: 100vh;
+      background: var(--bg-sand);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      position: relative;
+      z-index: 10;
+    }
+
+    .landing-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 246, 241, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-warm);
+      padding: 12px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.25s ease;
+    }
+
+    .landing-hero-tech-theme .landing-nav {
+      background: rgba(18, 24, 22, 0.94);
+      border-bottom: 1px solid rgba(52, 211, 153, 0.25);
+    }
+
+    .landing-nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .landing-nav-brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-navy);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .landing-hero-tech-theme .landing-nav-brand-title {
+      color: #FFFFFF;
+    }
+
+    .landing-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    @media (max-width: 980px) {
+      .landing-nav-links {
+        display: none;
+      }
+      .landing-nav {
+        padding: 12px 18px;
+      }
+    }
+
+    .landing-nav-link {
+      font-size: 0.90rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .landing-nav-link:hover {
+      color: #059669;
+    }
+
+    .landing-hero-tech-theme .landing-nav-link {
+      color: #94A3B8;
+    }
+
+    .landing-hero-tech-theme .landing-nav-link:hover {
+      color: #34D399;
+    }
+
+    .landing-go-live-btn {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #FFFFFF !important;
+      font-weight: 800;
+      font-size: 0.92rem;
+      padding: 9px 20px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      letter-spacing: 0.02em;
+    }
+
+    .landing-go-live-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    }
+
+    .landing-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 24px 60px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    /* Exit to Landing button inside the work page */
+    .exit-to-landing-btn {
+      background: rgba(5, 150, 105, 0.08);
+      border: 1px solid rgba(5, 150, 105, 0.25);
+      color: #059669;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      margin-left: 10px;
+    }
+
+    .exit-to-landing-btn:hover {
+      background: #059669;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+    }
+
   </style>
   <script src="js/photo-aqi.js" defer></script>
 </head>
 <body>
 
-  <div id="app-root">
+    <!-- ========================================================================= -->
+  <!-- 1. STANDALONE PRODUCT LANDING PAGE (SEPARATE FULL-PAGE PRODUCT WORKSPACE) -->
+  <!-- ========================================================================= -->
+  <div id="standaloneLandingPage" style="display: block;">
+    <!-- Sticky Product Navbar -->
+    <nav class="landing-nav">
+      <div class="landing-nav-brand" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <span style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="32" height="32" fill="none">
+  <defs>
+    <linearGradient id="favLeafPlateBg" x1="10" y1="8" x2="90" y2="92" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1A201E"/>
+      <stop offset="50%" stop-color="#131816"/>
+      <stop offset="100%" stop-color="#0C100F"/>
+    </linearGradient>
+    <linearGradient id="favLeafPlateRim" x1="4" y1="4" x2="96" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#10B981" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="favLeafGrad" x1="20" y1="80" x2="75" y2="25" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2E7D32"/>
+      <stop offset="40%" stop-color="#43A047"/>
+      <stop offset="80%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#A5D6A7"/>
+    </linearGradient>
+  </defs>
+  <rect x="3.5" y="3.5" width="93" height="93" rx="26" fill="url(#favLeafPlateBg)" stroke="url(#favLeafPlateRim)" stroke-width="2.5"/>
+  <path d="M 25 80 C 26 82 28.5 82.5 30 81 C 32 78.5 35 72 38.5 64.5 C 41.5 58 45 50.5 48.5 42.5 C 49.5 40 51 40 51.5 41.5 C 50.5 45 47 53 43.5 60.5 C 40 68 36 75.5 32 79.5 C 29.5 82 26 81.5 25 80 Z" fill="#4CAF50"/>
+  <path d="M 38 60 C 33 58 26 55.5 22.5 48.5 C 19 41.5 19.5 34.5 20 32 C 21.5 34.5 25.5 37 30 38.5 C 35 40 38 46 38.5 53 C 38.7 56 38.5 58.5 38 60 Z" fill="url(#favLeafGrad)"/>
+  <path d="M 23 37 C 24.5 42 27 47 31 50" stroke="#B4F588" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 45 44 C 42 41 39 36 39.5 30 C 40 25.5 42.5 24 44 23.5 C 45.5 24.5 48.5 28 50 33 C 51.5 38 49 42 47 43.5 Z" fill="url(#favLeafGrad)"/>
+  <path d="M 43.5 26.5 C 45.5 30 46.5 34.5 45.5 39" stroke="#B4F588" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 50.5 41 C 52 36 57 28 64 23.5 C 69 20.5 72 20.5 73 21 C 72 23.5 69 29.5 64 34.5 C 59.5 39 54.5 40.5 50.5 41 Z" fill="url(#favLeafGrad)"/>
+  <path d="M 60 25 C 65 23 68.5 22.5 71 22" stroke="#D4FC79" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 47 52.5 C 50 49.5 57 46 65 45.5 C 72 45 77 47 78.5 47.5 C 76.5 49.5 71.5 54 64 56 C 57 58 50.5 55.5 47 52.5 Z" fill="url(#favLeafGrad)"/>
+  <path d="M 56 48 C 64 47 71 47.5 76 48" stroke="#B4F588" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 43 66 C 47 63 56 62 65 64 C 73 66 77.5 68.5 79.5 69 C 76.5 71.5 70 76 62 76.5 C 54 77 47 72 43 66 Z" fill="url(#favLeafGrad)"/>
+  <path d="M 52 64 C 61 64 70 66.5 76.5 69" stroke="#B4F588" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
+        </span>
+        <div>
+          <div class="landing-nav-brand-title">AirFusion</div>
+          <div style="font-size: 0.62rem; font-weight: 700; color: #059669; letter-spacing: 0.06em; text-transform: uppercase;">
+            Environmental Intelligence
+          </div>
+        </div>
+        <span class="ag-badge" style="background: rgba(5,150,105,0.1); color: #059669; font-size: 0.65rem; margin-left: 6px;">
+          v2.4 Live Sentry
+        </span>
+      </div>
+
+      <div class="landing-nav-links">
+        <a class="landing-nav-link" href="#whatIsSection">What It Is</a>
+        <a class="landing-nav-link" href="#modulesSection">Work Modules</a>
+        <a class="landing-nav-link" href="#activityFinderSection">Activity Finder</a>
+        <a class="landing-nav-link" href="#guardiansSection">Eco Guardians</a>
+        <a class="landing-nav-link" href="#scienceSection">Science &amp; Trust</a>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <!-- Dual Mode Switcher on Landing Page -->
+        <div class="mode-radio-box" style="margin: 0;">
+          <button class="mode-radio-btn active" id="landingModeSimple" onclick="setViewMode('simple')" style="padding: 4px 10px; font-size: 0.76rem;">
+            🌱 Simple
+          </button>
+          <button class="mode-radio-btn" id="landingModeTech" onclick="setViewMode('technical')" style="padding: 4px 10px; font-size: 0.76rem;">
+            🔬 Technical
+          </button>
+        </div>
+
+        <!-- Go Live Primary Action -->
+        <button class="landing-go-live-btn" onclick="goLive('home')" title="Launch Full Live Dashboard &amp; Command Center">
+          <span>🚀 Go Live</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Dynamic Landing Content Container (Rendered by renderLandingPage()) -->
+    <div id="standaloneLandingContent"></div>
+
+    <!-- Product Landing Footer -->
+    <footer style="background: rgba(250, 246, 241, 0.98); border-top: 1px solid var(--border-warm); padding: 40px 24px 30px 24px; text-align: center; font-size: 0.86rem; color: var(--text-secondary);">
+      <div style="max-width: 1040px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-family: var(--font-heading); font-weight: 800; color: var(--text-navy); font-size: 1.15rem;">AirFusion</span>
+          <span>&bull; Autonomous Environmental Intelligence</span>
+        </div>
+        <div style="display: flex; gap: 18px; font-weight: 600;">
+          <a href="#" onclick="goLive('home'); return false;" style="color: #059669; text-decoration: none;">🚀 Go Live (Launch Main Work Page)</a>
+          <a href="https://github.com/akshatk1997/airfusion" target="_blank" rel="noopener" style="color: var(--text-secondary); text-decoration: none;">GitHub Repository</a>
+          <a href="#" onclick="goLive('news'); return false;" style="color: var(--text-secondary); text-decoration: none;">CAQM Regulatory News</a>
+        </div>
+      </div>
+      <div style="margin-top: 20px; font-size: 0.76rem; color: var(--text-muted);">
+        MIT License &bull; Copyright (c) 2026 Akshat Kumar &bull; 100% Client-Side Edge Privacy &bull; Zero Personal Tracking Cookies
+      </div>
+    </footer>
+  </div>
+
+  <div id="app-root" style="display: none;">
     <!-- Streamlit Collapsible Left Sidebar -->
     <aside class="st-sidebar" id="stSidebar">
       <div class="sidebar-header-row">
@@ -3636,16 +3882,15 @@
       </div>
       <ul class="st-nav-menu">
         <li class="st-nav-item">
-          <button class="active" id="nav-landing" onclick="navigate('landing')">
-            <span class="nav-icon">✨</span> Welcome &amp; Landing
+          <button id="nav-landing-exit" onclick="exitToLanding()" style="color: #059669; font-weight: 700; background: rgba(5,150,105,0.06); border: 1px dashed rgba(5,150,105,0.3);">
+            <span class="nav-icon">🌿</span> Exit to Product Landing
           </button>
         </li>
         <li class="st-nav-item">
-          <button  id="nav-home" onclick="navigate('home')">
+          <button class="active" id="nav-home" onclick="navigate('home')">
             <span class="nav-icon">🏠</span> Home Command Center
           </button>
-        </li>
-        <li class="st-nav-item">
+        </li><li class="st-nav-item">
           <button id="nav-safe_plan" onclick="navigate('safe_plan')">
             <span class="nav-icon">🛡️</span> My Safe Outdoor Plan
           </button>
@@ -4437,6 +4682,7 @@
     function setCompareRadarCityA(city) {
       if (!state.compareState) state.compareState = {};
       state.compareState.radarCityA = city;
+      if (!state.isLiveWorkPage && typeof renderLandingPage === 'function') renderLandingPage();
       renderCurrentPage();
     }
 
@@ -4921,16 +5167,11 @@
     // 3. NAVIGATION & VIEW MODES CONTROLLER
     // =========================================================================
     function navigate(pageId) {
-      if (pageId === 'intro') {
-        pageId = 'landing';
+      if (pageId === 'landing' || pageId === 'intro') {
+        exitToLanding();
+        return;
       }
-      state.currentPage = pageId;
-      document.querySelectorAll('.st-nav-item button').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = document.getElementById(`nav-${pageId}`);
-      if (activeBtn) activeBtn.classList.add('active');
-      closeSidebarMobile();
-      renderCurrentPage();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      goLive(pageId);
     }
 
     function setViewMode(mode) {
@@ -8429,6 +8670,58 @@
 // State extension for landing page
     if (!state.landingActivity) {
       state.landingActivity = 'playground';
+
+    // =========================================================================
+    // STANDALONE LANDING PAGE & MAIN WORK PAGE DUAL-WORKSPACE CONTROLLER
+    // =========================================================================
+    state.isLiveWorkPage = false;
+
+    function goLive(targetPage = 'home') {
+      const landing = document.getElementById('standaloneLandingPage');
+      const app = document.getElementById('app-root');
+      if (landing) landing.style.display = 'none';
+      if (app) app.style.display = 'flex';
+      state.isLiveWorkPage = true;
+      state.currentPage = targetPage;
+      
+      // Highlight sidebar active item
+      document.querySelectorAll('.st-nav-item button').forEach(b => b.classList.remove('active'));
+      const activeNav = document.getElementById('nav-' + targetPage);
+      if (activeNav) activeNav.classList.add('active');
+
+      renderCurrentPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function exitToLanding() {
+      const landing = document.getElementById('standaloneLandingPage');
+      const app = document.getElementById('app-root');
+      if (landing) landing.style.display = 'block';
+      if (app) app.style.display = 'none';
+      state.isLiveWorkPage = false;
+      renderLandingPage();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderLandingPage() {
+      const container = document.getElementById('standaloneLandingContent');
+      if (!container) return;
+      const isSimple = state.viewMode === 'simple';
+      container.innerHTML = isSimple ? renderLandingSimple() : renderLandingTechnical();
+
+      // Sync mode buttons on landing nav
+      const btnSimple = document.getElementById('landingModeSimple');
+      const btnTech = document.getElementById('landingModeTech');
+      if (btnSimple) btnSimple.classList.toggle('active', isSimple);
+      if (btnTech) btnTech.classList.toggle('active', !isSimple);
+
+      // Sync theme class on landing root
+      const landingRoot = document.getElementById('standaloneLandingPage');
+      if (landingRoot) {
+        landingRoot.classList.toggle('landing-hero-tech-theme', !isSimple);
+      }
+    }
+
     }
 
     function selectLandingActivity(act) {
