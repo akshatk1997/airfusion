@@ -157,7 +157,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - `goLive(targetPage)`: Transitions from the standalone landing page into the live working tool (`#app-root`), mounts the requested module (defaulting to Home Command Center), highlights the corresponding sidebar navigation item, and scrolls to top.
   - `exitToLanding()`: Smoothly hides the working dashboard and restores the standalone product landing page.
   - Main work page topbar now features a persistent `🌿 Product Overview` button, and the sidebar features a `🌿 Exit to Product Landing` action for instant round-trip navigation.
-- **Verification**:
+- **Verification & Selenium End-to-End Validation**:
+  - Closed block scope and explicitly bound `window.goLive`, `window.exitToLanding`, `window.renderLandingPage`, and `window.selectLandingActivity` to ensure error-free global hoisting across all browsers.
+  - Pre-rendered static landing HTML directly into `#standaloneLandingContent` in both `index.html` and `public/index.html`, eliminating FOUC and guaranteeing instant presentation.
+  - Linked `setViewMode(mode)` to re-render `#standaloneLandingContent` dynamically, enabling real-time toggling between Simple and Technical showcase modes on the landing page.
+  - Verified in headless Chrome via Selenium (`scratch/verify_browser_flow.py`): initial landing display (100% visible, app-root hidden), Go Live click (landing hidden, app-root flex display), Product Overview exit click (landing restored, app-root hidden), and Simple/Technical mode switching.
   - Transition mechanics suite (`scratch/test_standalone_transition.js` passed 100%).
   - Full view & action handler suite (18/18 renders, 26/26 handlers passed).
   - Floating semi-round Dual-AI tests (7/7 passed).
