@@ -4240,6 +4240,67 @@
       50% { transform: scale(1.05); filter: drop-shadow(0 6px 16px rgba(16, 185, 129, 0.45)); }
     }
 
+    @keyframes saasMascotFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg) translateZ(0); }
+      50% { transform: translateY(-8px) rotate(1deg) translateZ(0); }
+    }
+
+    .saas-mascot-diorama-wrap {
+      max-width: 960px;
+      margin: 40px auto 0;
+      position: relative;
+      border-radius: 22px;
+      padding: 6px;
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.35), rgba(56, 189, 248, 0.25), rgba(16, 185, 129, 0.15));
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 40px rgba(16, 185, 129, 0.12);
+      animation: saasMascotFloat 6s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .saas-mascot-diorama-inner {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #0B1110;
+    }
+
+    .saas-mascot-diorama-img {
+      width: 100%;
+      height: 290px;
+      object-fit: cover;
+      object-position: center 42%;
+      display: block;
+      opacity: 0.92;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .saas-mascot-diorama-wrap:hover .saas-mascot-diorama-img {
+      transform: scale(1.03);
+    }
+
+    .saas-mascot-diorama-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 12, 11, 0.15) 0%, rgba(8, 12, 11, 0.45) 55%, rgba(8, 12, 11, 0.92) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px 24px;
+      text-align: left;
+    }
+
+    .saas-mascot-portrait {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 2px solid rgba(52, 211, 153, 0.45);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+      animation: saasMascotFloat 4.5s ease-in-out infinite;
+      will-change: transform;
+      flex-shrink: 0;
+    }
+
     /* FAQ */
     .saas-faq-item {
       background: rgba(13, 20, 18, 0.6);
@@ -4395,7 +4456,29 @@
             <span class="saas-proof-badge">🧪 6 Criteria Pollutants Analyzed</span>
             <span class="saas-proof-badge">⚡ 100% Stateless Edge Compute</span>
             <span class="saas-proof-badge">🛡️ Zero Personal Tracking</span>
-            <span class="saas-proof-badge">🤖 Dual Decoupled Eco-AI</span>
+          </div>
+
+          <!-- 3D Atmospheric Sanctuary Diorama Showcase -->
+          <div class="saas-mascot-diorama-wrap">
+            <div class="saas-mascot-diorama-inner">
+              <img src="assets/images/airfusion_3d_cartoon_panoramic.jpg" alt="AirFusion Eco-Guardians 3D Sanctuary" class="saas-mascot-diorama-img" />
+              <div class="saas-mascot-diorama-overlay">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 14px;">
+                  <div>
+                    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #34D399; text-transform: uppercase; margin-bottom: 4px;">
+                      ● INTERACTIVE 3D SANCTUARY &amp; MESOSCALE TELEMETRY
+                    </div>
+                    <div style="font-size: 16px; font-weight: 700; color: #F8FAFC;">
+                      Meet Aero, Haven, Zephyr &amp; Terra — Turning Complex Atmospheric Physics Into Clear Action
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); color: #34D399; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; backdrop-filter: blur(8px);">🍃 Aero: Wind Sentry</span>
+                    <span style="background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.4); color: #38BDF8; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; backdrop-filter: blur(8px);">⚡ Zephyr: Inversion Watch</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -4568,8 +4651,8 @@
 
               <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 10px; padding: 12px; margin-bottom: 14px;">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                  <span style="font-size: 12px; font-weight: 700; color: #34D399; display: flex; align-items: center; gap: 6px;">
-                    <span class="saas-guardian-avatar" style="display: inline-block; font-size: 16px;">🍃</span> Aero's Audio Briefing
+                  <span style="font-size: 12px; font-weight: 700; color: #34D399; display: flex; align-items: center; gap: 8px;">
+                    <img src="assets/images/mascot_caution_mask.jpg" alt="Aero Mascot" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid #34D399;" /> Aero's Audio Briefing
                   </span>
                   <button onclick="playGuardianVoice('aero')" style="background: #10B981; border: none; color: #fff; border-radius: 6px; padding: 3px 8px; font-size: 10.5px; font-weight: 600; cursor: pointer;">
                     🔊 Listen
@@ -4700,9 +4783,9 @@
 
             <div class="saas-guide-card">
               <div class="saas-guide-step-num">4</div>
-              <h3 class="saas-guide-title">Consult Dual-AI Companions</h3>
+              <h3 class="saas-guide-title">Track Live Alerts &amp; Export Data</h3>
               <p class="saas-guide-desc">
-                Tap the floating semi-round AI launcher in the bottom right corner. Aero AI gives child-safe tips in Standard Mode; AtmoMetrix AI provides atmospheric formulas in Technical Mode.
+                Monitor statutory CAQM GRAP warnings, compare 14 global cities on a 5-axis radar chart, and export raw criteria pollutant logs in CSV format.
               </p>
             </div>
           </div>
@@ -4949,9 +5032,9 @@
           <!-- 4 Guardians Grid -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 44px;">
             <!-- Aero -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px;">🍃</span>
+                <img src="assets/images/mascot_clean_air.jpg" alt="Aero Guardian" class="saas-mascot-portrait" style="border-color: rgba(52, 211, 153, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Aero</h4>
                   <div style="font-size: 11.5px; color: #34D399; font-weight: 600;">Tropospheric Wind Sentry</div>
@@ -4966,9 +5049,9 @@
             </div>
 
             <!-- Haven -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px; animation-delay: 1.1s;">🏠</span>
+                <img src="assets/images/mascot_indoor_sanctuary.jpg" alt="Haven Guardian" class="saas-mascot-portrait" style="animation-delay: 1.1s; border-color: rgba(52, 211, 153, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Haven</h4>
                   <div style="font-size: 11.5px; color: #34D399; font-weight: 600;">Indoor Sanctuary Engineer</div>
@@ -4983,9 +5066,9 @@
             </div>
 
             <!-- Zephyr -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px; animation-delay: 2.2s;">⚡</span>
+                <img src="assets/images/mascot_caution_mask.jpg" alt="Zephyr Guardian" class="saas-mascot-portrait" style="animation-delay: 2.2s; border-color: rgba(56, 189, 248, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Zephyr</h4>
                   <div style="font-size: 11.5px; color: #38BDF8; font-weight: 600;">Inversion &amp; Pressure Analyst</div>
@@ -5000,9 +5083,9 @@
             </div>
 
             <!-- Terra -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px; animation-delay: 3.3s;">🌱</span>
+                <img src="assets/images/mascot_outdoor_runner.jpg" alt="Terra Guardian" class="saas-mascot-portrait" style="animation-delay: 3.3s; border-color: rgba(245, 158, 11, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Terra</h4>
                   <div style="font-size: 11.5px; color: #F59E0B; font-weight: 600;">Aerosol &amp; Soil Guardian</div>
@@ -5030,39 +5113,6 @@
             </div>
 
             <pre style="background: #060908; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px; font-family: var(--font-mono); font-size: 12.5px; color: #34D399; overflow-x: auto; line-height: 1.6; margin: 0;">curl -s "https://airfusion.vercel.app/api/telemetry?city=Delhi&mode=dual"   -H "Accept: application/json" | jq .</pre>
-          </div>
-        </section>
-
-        <!-- Floating Semi-Round Dual-AI Hub Spotlight -->
-        <section id="ai-companion" style="max-width: 1200px; margin: 0 auto 72px; padding: 0 24px;">
-          <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.10) 100%), #0D1614; border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 20px; padding: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; align-items: center;">
-            <div>
-              <span class="saas-section-pill">FLOATING SEMI-ROUND DUAL-AI COMPANION</span>
-              <h2 style="font-size: 28px; font-weight: 800; color: #F8FAFC; margin: 8px 0 14px; line-height: 1.25;">
-                Two Specialized AI Minds. Zero Memory Cross-Contamination.
-              </h2>
-              <p style="font-size: 14.5px; color: #94A3B8; line-height: 1.6; margin-bottom: 20px;">
-                Look at the bottom-right corner of the website: our semi-round floating AI launcher automatically morphs depending on your active mode:
-              </p>
-              <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #CBD5E1;">
-                <li><strong style="color: #34D399;">🍃 Aero AI (Standard Mode):</strong> Family-friendly answers, playground safety, home tips, bedtime air quality stories, zero jargon.</li>
-                <li><strong style="color: #38BDF8;">🔬 AtmoMetrix AI (Technical Mode):</strong> Gaussian plume kinetics, boundary layer thermodynamics, EPA 40 CFR Part 58 statutory citations.</li>
-                <li><strong style="color: #F59E0B;">🔒 100% Isolated Memory:</strong> They maintain separate conversation histories and never mix modes.</li>
-              </ul>
-            </div>
-
-            <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 22px; text-align: center;">
-              <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #10B981, #06B6D4); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);">
-                🤖
-              </div>
-              <h4 style="font-size: 16px; font-weight: 700; color: #F8FAFC; margin: 0 0 6px;">Persistent Floating Assistant</h4>
-              <p style="font-size: 12.5px; color: #94A3B8; margin-bottom: 16px;">
-                Available on every page of AirFusion. Tap the bottom-right button anytime to ask atmospheric questions or get instant household guidance.
-              </p>
-              <button class="saas-btn-primary" onclick="if (typeof toggleFloatingAiPopup === 'function') toggleFloatingAiPopup();" style="font-size: 12.5px; padding: 8px 16px;">
-                <span>💬 Test Floating AI Assistant Now</span>
-              </button>
-            </div>
           </div>
         </section>
 
@@ -10222,8 +10272,10 @@
       }
       const landing = document.getElementById('standaloneLandingPage');
       const app = document.getElementById('app-root');
+      const aiLauncher = document.getElementById('floatingAiLauncher');
       if (landing) landing.style.display = 'none';
       if (app) app.style.display = 'flex';
+      if (aiLauncher) aiLauncher.style.display = 'flex';
       state.isLiveWorkPage = true;
       state.currentPage = targetPage;
       
@@ -10239,8 +10291,12 @@
     function exitToLanding() {
       const landing = document.getElementById('standaloneLandingPage');
       const app = document.getElementById('app-root');
+      const aiLauncher = document.getElementById('floatingAiLauncher');
+      const aiWindow = document.getElementById('floatingAiWindow');
       if (landing) landing.style.display = 'block';
       if (app) app.style.display = 'none';
+      if (aiLauncher) aiLauncher.style.display = 'none';
+      if (aiWindow) aiWindow.classList.remove('open');
       state.isLiveWorkPage = false;
       renderLandingPage();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -10444,8 +10500,8 @@ function setLandingConsoleMode(mode) {
 
             <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 10px; padding: 12px; margin-bottom: 14px;">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                <span style="font-size: 12px; font-weight: 700; color: #34D399; display: flex; align-items: center; gap: 6px;">
-                  <span class="saas-guardian-avatar" style="display: inline-block; font-size: 16px;">🍃</span> Aero's Audio Briefing
+                <span style="font-size: 12px; font-weight: 700; color: #34D399; display: flex; align-items: center; gap: 8px;">
+                  <img src="assets/images/${aqiVal > 100 ? 'mascot_caution_mask.jpg' : 'mascot_clean_air.jpg'}" alt="Aero Mascot" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid #34D399;" /> Aero's Audio Briefing
                 </span>
                 <button onclick="playGuardianVoice('aero')" style="background: #10B981; border: none; color: #fff; border-radius: 6px; padding: 3px 8px; font-size: 10.5px; font-weight: 600; cursor: pointer;">
                   🔊 Listen
@@ -10572,7 +10628,29 @@ function renderUnifiedLandingContent() {
             <span class="saas-proof-badge">🧪 6 Criteria Pollutants Analyzed</span>
             <span class="saas-proof-badge">⚡ 100% Stateless Edge Compute</span>
             <span class="saas-proof-badge">🛡️ Zero Personal Tracking</span>
-            <span class="saas-proof-badge">🤖 Dual Decoupled Eco-AI</span>
+          </div>
+
+          <!-- 3D Atmospheric Sanctuary Diorama Showcase -->
+          <div class="saas-mascot-diorama-wrap">
+            <div class="saas-mascot-diorama-inner">
+              <img src="assets/images/airfusion_3d_cartoon_panoramic.jpg" alt="AirFusion Eco-Guardians 3D Sanctuary" class="saas-mascot-diorama-img" />
+              <div class="saas-mascot-diorama-overlay">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 14px;">
+                  <div>
+                    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #34D399; text-transform: uppercase; margin-bottom: 4px;">
+                      ● INTERACTIVE 3D SANCTUARY &amp; MESOSCALE TELEMETRY
+                    </div>
+                    <div style="font-size: 16px; font-weight: 700; color: #F8FAFC;">
+                      Meet Aero, Haven, Zephyr &amp; Terra — Turning Complex Atmospheric Physics Into Clear Action
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(52, 211, 153, 0.4); color: #34D399; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; backdrop-filter: blur(8px);">🍃 Aero: Wind Sentry</span>
+                    <span style="background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.4); color: #38BDF8; padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; backdrop-filter: blur(8px);">⚡ Zephyr: Inversion Watch</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -10767,9 +10845,9 @@ function renderUnifiedLandingContent() {
 
             <div class="saas-guide-card">
               <div class="saas-guide-step-num">4</div>
-              <h3 class="saas-guide-title">Consult Dual-AI Companions</h3>
+              <h3 class="saas-guide-title">Track Live Alerts &amp; Export Data</h3>
               <p class="saas-guide-desc">
-                Tap the floating semi-round AI launcher in the bottom right corner. Aero AI gives child-safe tips in Standard Mode; AtmoMetrix AI provides atmospheric formulas in Technical Mode.
+                Monitor statutory CAQM GRAP warnings, compare 14 global cities on a 5-axis radar chart, and export raw criteria pollutant logs in CSV format.
               </p>
             </div>
           </div>
@@ -10961,9 +11039,9 @@ function renderUnifiedLandingContent() {
           <!-- 4 Guardians Grid -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 44px;">
             <!-- Aero -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px;">🍃</span>
+                <img src="assets/images/mascot_clean_air.jpg" alt="Aero Guardian" class="saas-mascot-portrait" style="border-color: rgba(52, 211, 153, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Aero</h4>
                   <div style="font-size: 11.5px; color: #34D399; font-weight: 600;">Tropospheric Wind Sentry</div>
@@ -10978,9 +11056,9 @@ function renderUnifiedLandingContent() {
             </div>
 
             <!-- Haven -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(52, 211, 153, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px; animation-delay: 1.1s;">🏠</span>
+                <img src="assets/images/mascot_indoor_sanctuary.jpg" alt="Haven Guardian" class="saas-mascot-portrait" style="animation-delay: 1.1s; border-color: rgba(52, 211, 153, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Haven</h4>
                   <div style="font-size: 11.5px; color: #34D399; font-weight: 600;">Indoor Sanctuary Engineer</div>
@@ -10995,9 +11073,9 @@ function renderUnifiedLandingContent() {
             </div>
 
             <!-- Zephyr -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px; animation-delay: 2.2s;">⚡</span>
+                <img src="assets/images/mascot_caution_mask.jpg" alt="Zephyr Guardian" class="saas-mascot-portrait" style="animation-delay: 2.2s; border-color: rgba(56, 189, 248, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Zephyr</h4>
                   <div style="font-size: 11.5px; color: #38BDF8; font-weight: 600;">Inversion &amp; Pressure Analyst</div>
@@ -11012,9 +11090,9 @@ function renderUnifiedLandingContent() {
             </div>
 
             <!-- Terra -->
-            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 16px; padding: 22px;">
+            <div style="background: rgba(13, 20, 18, 0.65); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 22px;">
               <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
-                <span class="saas-guardian-avatar" style="font-size: 34px; animation-delay: 3.3s;">🌱</span>
+                <img src="assets/images/mascot_outdoor_runner.jpg" alt="Terra Guardian" class="saas-mascot-portrait" style="animation-delay: 3.3s; border-color: rgba(245, 158, 11, 0.55);" />
                 <div>
                   <h4 style="font-size: 17px; font-weight: 700; color: #F8FAFC; margin: 0;">Terra</h4>
                   <div style="font-size: 11.5px; color: #F59E0B; font-weight: 600;">Aerosol &amp; Soil Guardian</div>
@@ -11042,39 +11120,6 @@ function renderUnifiedLandingContent() {
             </div>
 
             <pre style="background: #060908; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px; font-family: var(--font-mono); font-size: 12.5px; color: #34D399; overflow-x: auto; line-height: 1.6; margin: 0;">curl -s "https://airfusion.vercel.app/api/telemetry?city=Delhi&mode=dual"   -H "Accept: application/json" | jq .</pre>
-          </div>
-        </section>
-
-        <!-- Floating Semi-Round Dual-AI Hub Spotlight -->
-        <section id="ai-companion" style="max-width: 1200px; margin: 0 auto 72px; padding: 0 24px;">
-          <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.10) 100%), #0D1614; border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 20px; padding: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; align-items: center;">
-            <div>
-              <span class="saas-section-pill">FLOATING SEMI-ROUND DUAL-AI COMPANION</span>
-              <h2 style="font-size: 28px; font-weight: 800; color: #F8FAFC; margin: 8px 0 14px; line-height: 1.25;">
-                Two Specialized AI Minds. Zero Memory Cross-Contamination.
-              </h2>
-              <p style="font-size: 14.5px; color: #94A3B8; line-height: 1.6; margin-bottom: 20px;">
-                Look at the bottom-right corner of the website: our semi-round floating AI launcher automatically morphs depending on your active mode:
-              </p>
-              <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #CBD5E1;">
-                <li><strong style="color: #34D399;">🍃 Aero AI (Standard Mode):</strong> Family-friendly answers, playground safety, home tips, bedtime air quality stories, zero jargon.</li>
-                <li><strong style="color: #38BDF8;">🔬 AtmoMetrix AI (Technical Mode):</strong> Gaussian plume kinetics, boundary layer thermodynamics, EPA 40 CFR Part 58 statutory citations.</li>
-                <li><strong style="color: #F59E0B;">🔒 100% Isolated Memory:</strong> They maintain separate conversation histories and never mix modes.</li>
-              </ul>
-            </div>
-
-            <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 22px; text-align: center;">
-              <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #10B981, #06B6D4); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);">
-                🤖
-              </div>
-              <h4 style="font-size: 16px; font-weight: 700; color: #F8FAFC; margin: 0 0 6px;">Persistent Floating Assistant</h4>
-              <p style="font-size: 12.5px; color: #94A3B8; margin-bottom: 16px;">
-                Available on every page of AirFusion. Tap the bottom-right button anytime to ask atmospheric questions or get instant household guidance.
-              </p>
-              <button class="saas-btn-primary" onclick="if (typeof toggleFloatingAiPopup === 'function') toggleFloatingAiPopup();" style="font-size: 12.5px; padding: 8px 16px;">
-                <span>💬 Test Floating AI Assistant Now</span>
-              </button>
-            </div>
           </div>
         </section>
 
@@ -14949,7 +14994,7 @@ function renderUnifiedLandingContent() {
   <!-- =========================================================================
        Floating Semi-Round Dual-AI Hub (Decoupled Simple & Technical Memory)
        ========================================================================= -->
-  <div id="floatingAiLauncher" class="floating-ai-launcher mode-simple" onclick="toggleFloatingAiPopup()" title="Click to chat with AirFusion AI">
+  <div id="floatingAiLauncher" class="floating-ai-launcher mode-simple" style="display: none;" onclick="toggleFloatingAiPopup()" title="Click to chat with AirFusion AI">
     <div class="launcher-avatar" id="floatingAiAvatar">🌱</div>
     <div class="launcher-ping">
       <div class="launcher-ping-circle" id="floatingAiPing"></div>
