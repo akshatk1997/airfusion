@@ -205,3 +205,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - 7/7 floating dual-AI popup isolation tests passed.
   - 64/64 pytest tests passed (8 skipped).
   - Dual-mirror integrity: `index.html` and `public/index.html` remain 100% byte-for-byte identical.
+
+## [Creative Atmospheric Animations, Radial Gauges & Performance Optimization] - 2026-11-26
+### Added & Enhanced
+- **Tropospheric Ambient Aurora (`.saas-aurora-bg`)**:
+  - Built an ambient 16-second drifting atmospheric radial glow behind the hero (`@keyframes saasAuroraDrift`), tinting emerald in Simple Mode and cyan/mint in Technical Mode to simulate real-time planetary tropospheric air currents.
+- **Organic Breathing Eco-Guardian Avatars (`.saas-guardian-avatar`)**:
+  - Engineered breathing scale and shadow pulse keyframe animations (`@keyframes saasAvatarBreathe`) with staggered rhythm offsets across Aero (0s), Haven (1.1s), Zephyr (2.2s), and Terra (3.3s) for an organic, lifelike sanctuary sentry experience.
+- **Dynamic Animated SVG Radial AQI Gauge (`.saas-gauge-visual`)**:
+  - Added a circular SVG gauge in the SaaS Console Sandbox dynamically computing stroke dash offset ($213.6 \times (1 - \text{AQI}/300)$) with real-time severity arc colors (Green $\le 50$, Light Green $\le 100$, Amber $\le 150$, Coral $\le 200$, Crimson $> 200$).
+- **Interactive Activity Exposure Visualizer**:
+  - Integrated dynamic dosage exposure meter in the Clean Air Activity Finder calculating the percentage of daily allowable particulate burden based on active city PM2.5 concentrations.
+- **Ambient CTA Breathing Pulse (`.saas-btn-primary`)**:
+  - Added a subtle 4-second emerald ambient pulse glow (`@keyframes saasCtaAmbient`) to primary conversion action buttons.
+- **Bento Grid Light Shimmer & GPU Lift**:
+  - Implemented light shimmer sweep on card hover (`.saas-bento-card::before`) with GPU-accelerated 6px lift (`translateY(-6px)`).
+- **Interactive 1-Click API Snippet Copy**:
+  - Added `copyApiSnippet(btn)` helper providing instantaneous "✓ Copied!" visual feedback and fallback notification.
+- **Animated FAQ Chevron Indicator**:
+  - Added CSS rotation transition on `.saas-faq-chevron` when `<details open>` is triggered.
+- **CSS Compositing & Rendering Optimization**:
+  - Added `contain: layout style;` and `transform: translateZ(0)` on animated cards and avatars to prevent layout reflows and guarantee 60fps rendering performance.
