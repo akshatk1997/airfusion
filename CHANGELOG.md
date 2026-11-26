@@ -226,3 +226,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   - Added CSS rotation transition on `.saas-faq-chevron` when `<details open>` is triggered.
 - **CSS Compositing & Rendering Optimization**:
   - Added `contain: layout style;` and `transform: translateZ(0)` on animated cards and avatars to prevent layout reflows and guarantee 60fps rendering performance.
+
+## [Unified Dual-Mode SaaS Landing Page & Synchronized Live Sandbox] - 2026-11-26
+### Added & Enhanced
+- **Unified Dual-Mode Hero & Platform Showcase**:
+  - Combined both Standard (Family & Health) and Technical (Science & Microphysics) modes into a unified, high-converting SaaS landing page with headline: *"Atmospheric Science Meets Everyday Living: Family Health Protection Combined With Mesoscale Precision."*
+- **Synchronized Live Dual Console (`#console`)**:
+  - Engineered a side-by-side dual-pane console displaying both Standard Family Sentry (dynamic SVG radial AQI gauge, actionable window/HEPA directives, Aero voice briefing) and Technical Mesoscale Telemetry (6 criteria pollutants matrix, boundary layer thermodynamics, CPCB/EPA statutory breakpoints) simultaneously with real-time multi-city dropdown synchronization.
+  - Added layout view pills: `⚡ Dual Combined` (default split view), `🌿 Standard View`, and `🔬 Technical View`.
+- **Dashboard Architecture & Navigation Anatomy Guide (`#dashboard-guide`)**:
+  - Added an intuitive 4-step walkthrough explaining how to select an airshed, toggle between modes with 1 click, navigate the 8 specialized workspaces, and consult the dual-AI companions.
+- **Dual-Mode 8 Core Work Modules Bento Grid (`#modules`)**:
+  - Updated all 8 module cards with side-by-side badges explaining what each tool delivers in Standard Mode vs Technical Mode with direct 1-click workspace launchers.
+- **Combined Clean Air Activity Engine (`#activity-engine`)**:
+  - Connected segmented controls for toddlers, runners, cyclists, and seniors to dynamic minute-ventilation ($V_E$) and Berkeley Earth particulate exposure dosimetry.
+- **Relative Favicon Path Resolution**:
+  - Replaced leading-slash `/favicon.svg` with relative `favicon.svg` to guarantee error-free resource loading across both HTTP servers and local `file://` environments.
+- **Automated Verification**:
+  - 12/12 headless Chrome Selenium tests passed with 0 console errors.
+  - 83/83 golden vector physics assertions passed.
+  - 8/8 CNN module tests passed.
+  - 18/18 page renders and 26/26 action handlers passed.
+  - 7/7 floating dual-AI popup isolation tests passed.
+  - 64/64 pytest tests passed (8 skipped).
+  - Dual-mirror integrity: `index.html` and `public/index.html` remain 100% byte-for-byte identical (770,365 bytes).
